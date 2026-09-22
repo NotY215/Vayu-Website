@@ -66,8 +66,6 @@
       </div>
       <div class="nav-drawer-actions">
         <a class="btn ghost" href="https://github.com/NotY215/Vayu" target="_blank" rel="noopener">⌘ Source</a>
-        <a class="btn primary soon" role="button" aria-disabled="true" tabindex="0"
-           data-tip="Vayu is still in development — downloads aren’t available yet.">↓ Download</a>
         <button class="btn ghost hard-refresh-btn" type="button" data-hard-refresh>
           <span class="hard-refresh-icon">⟳</span>
           <span class="hard-refresh-text">Hard refresh</span>
