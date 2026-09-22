@@ -2637,3 +2637,27 @@ body[data-page="flappybird"] .game-pause-fab {
     padding-bottom: 20px;
   }
 }
+/* Patreon + left-side hamburger navigation */
+.nav-patreon {
+  min-width: 92px;
+  padding: 10px 16px;
+  border: 1px solid rgba(255, 130, 175, 0.28);
+  background: linear-gradient(135deg, rgba(255, 95, 145, 0.16), rgba(141, 108, 255, 0.12));
+  color: #fff;
+  font-weight: 750;
+  box-shadow: 0 8px 28px rgba(255, 95, 145, 0.08);
+}
+.nav-patreon:hover {
+  border-color: rgba(255, 130, 175, 0.55);
+  box-shadow: 0 12px 35px rgba(255, 95, 145, 0.16);
+}
+.nav-inner > .nav-hamburger {
+  flex: 0 0 auto;
+}
+@media (max-width: 640px) {
+  .nav-patreon {
+    min-width: auto;
+    padding: 9px 13px;
+    font-size: 0.84rem;
+  }
+}
