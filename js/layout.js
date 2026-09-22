@@ -1,7 +1,7 @@
 /* ============================================================
-   Vayu Layout — nav (hamburger-only), footer, modals, drawer.
-   - Hamburger is the ONLY navigation on every screen size.
-   - Drawer holds all section links + Documentation.
+   Vayu Layout — top navigation, left hamburger drawer, footer, modals.
+   - Top nav: About, Features, GitHub, Developer.
+   - Left hamburger drawer: remaining site sections + actions.
    - On Flappybird.html: no chrome at all.
    - Roadmap statuses: completed | working | soon | vacation
    - Page transitions run on every section.
@@ -27,17 +27,23 @@
   const NAV_HTML = `
     <nav>
       <div class="container nav-inner">
+        <button class="nav-hamburger" type="button" aria-label="Open menu" aria-expanded="false" data-hamburger>
+          <span></span><span></span><span></span>
+        </button>
         <a class="brand" href="/" data-nav="home">
           <img src="/Vayu_logo.png" alt="Vayu logo" width="39" height="39">
           VAYU
         </a>
+        <div class="navlinks">
+          <a href="/about" data-nav="about">About</a>
+          <a href="/features" data-nav="features">Features</a>
+          <a href="/github" data-nav="github">GitHub</a>
+          <a href="/developer" data-nav="developer">Developer</a>
+        </div>
         <div class="nav-actions">
           <a class="btn primary nav-download soon" role="button" aria-disabled="true" tabindex="0"
              data-tip="Vayu is still in development — downloads aren’t available yet.">↓ Download</a>
           <a class="btn primary nav-patreon" href="https://www.patreon.com/cw/Ficzo" target="_blank" rel="noopener">Patreon</a>
-          <button class="nav-hamburger" type="button" aria-label="Open menu" aria-expanded="false" data-hamburger>
-            <span></span><span></span><span></span>
-          </button>
         </div>
       </div>
     </nav>
@@ -51,7 +57,7 @@
         <button class="nav-drawer-close" type="button" aria-label="Close menu" data-drawer-close>✕</button>
       </div>
       <div class="nav-drawer-list">
-        ${NAV_LINKS.map(l =>
+        ${NAV_LINKS.filter(l => !['about','features','github','developer'].includes(l.nav)).map(l =>
           '<a class="nav-drawer-link" href="' + l.href + '" data-nav="' + l.nav + '">' +
             '<span>' + l.label + '</span>' +
             '<span class="nav-drawer-link-arrow">›</span>' +
@@ -467,7 +473,7 @@
     if(isBareGamePage(currentPage())) return;
     let page = currentPage();
     if(page === 'flappybird') page = 'games';
-    document.querySelectorAll('.nav-drawer-link[data-nav]').forEach(a => {
+    document.querySelectorAll('.nav-drawer-link[data-nav], .navlinks a[data-nav]').forEach(a => {
       if(a.dataset.nav === page){
         a.classList.add('active');
         a.setAttribute('aria-current', 'page');
