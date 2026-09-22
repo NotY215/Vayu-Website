@@ -2661,3 +2661,49 @@ body[data-page="flappybird"] .game-pause-fab {
     font-size: 0.84rem;
   }
 }
+
+
+/* NAVIGATION — RIGHT HAMBURGER + DOWNLOAD */
+.nav-inner { display:flex; align-items:center; }
+.nav-inner > .brand { margin-right:auto; }
+.nav-actions { display:flex; align-items:center; gap:10px; }
+.nav-actions .nav-hamburger { order:3; }
+
+.nav-download {
+  position:relative;
+  overflow:hidden;
+  border:1px solid rgba(85,217,255,.32);
+  background:linear-gradient(135deg,rgba(85,217,255,.14),rgba(141,108,255,.14));
+  box-shadow:0 8px 26px rgba(85,217,255,.08);
+  animation:navDownloadFloat 2.4s ease-in-out infinite;
+}
+.nav-download::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  transform:translateX(-120%);
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.24),transparent);
+  animation:navDownloadShine 2.8s ease-in-out infinite;
+}
+.nav-download:hover {
+  border-color:rgba(85,217,255,.62);
+  box-shadow:0 12px 34px rgba(85,217,255,.16);
+}
+.nav-download.soon { cursor:default; }
+
+@keyframes navDownloadFloat {
+  0%,100% { transform:translateY(0); }
+  50% { transform:translateY(-2px); }
+}
+@keyframes navDownloadShine {
+  0%,35% { transform:translateX(-120%); }
+  65%,100% { transform:translateX(120%); }
+}
+
+@media (max-width:640px) {
+  .nav-actions { gap:7px; }
+  .nav-download,.nav-patreon { min-width:auto; padding:9px 12px; font-size:.82rem; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .nav-download,.nav-download::before { animation:none; }
+}
