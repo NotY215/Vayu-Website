@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07111f">
+<meta name="description" content="Play Vayu games — Ping Pong and Flappy Bird. Standalone pages with pause, restart and persistent scores.">
+<title>Games — Vayu</title>
+<link rel="icon" type="image/png" href="/Vayu_Fav.png">
+<link rel="apple-touch-icon" type="image/png" href="/Vayu_Fav.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/css/main.css">
+</head>
+<body data-vayu-defer data-page="games">
+<canvas id="particles"></canvas>
+<div class="noise"></div>
+<div data-orbs style="position:fixed;inset:0;pointer-events:none;z-index:-1;overflow:hidden;"></div>
+
+<div id="slot-nav"></div>
+
+<main id="top">
+  <section class="page-hero">
+    <div class="container">
+      <span class="kicker">Games</span>
+      <h1>Play in the browser. Works offline.</h1>
+      <p class="lead">Two quick games built into Vayu. Pick a game, read the controls, hit Play. High scores are stored as 64-bit integers in your browser — no server, no account.</p>
+      <div class="page-phase"><span class="dot"></span><span data-phase-badge>PHASE 1 · IN DEVELOPMENT</span></div>
+    </div>
+  </section>
+
+  <section class="pt-20">
+    <div class="container">
+      <div id="vayu-games"></div>
+
+      <div class="callout reveal mt-32">
+        <div class="eyebrow">
+          <span class="dev-dot"></span>
+          <span data-phase-badge>PHASE 1 · IN DEVELOPMENT</span>
+        </div>
+        <h2>Build your own OG games in Vayu.</h2>
+        <p class="muted">
+          When the compiler is complete, you’ll write games like these in a few lines of Vayu.
+          <code>canvas</code>, <code>draw_rect</code>, <code>on_tick</code>, <code>on_touch</code> will be part of the standard library.
+          Native output, tiny binaries, cross-platform.
+        </p>
+        <pre class="games-preview-code">import nova.game as g
+
+w = g.window(800, 500, "Pong")
+ball = g.circle(x=400, y=250, r=8)
+paddle = g.rect(x=20, y=200, w=12, h=90)
+
+g.on_touch(dy -> paddle.y = clamp(dy, 0, w.h - paddle.h))
+g.on_tick(dt ->
+    ball.move(dt)
+    if ball.hits(paddle): ball.bounce()
+)
+w.run()</pre>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="slot-footer"></div>
+<div id="slot-modal-examples"></div>
+<div id="slot-modal-github"></div>
+
+<div id="vayu-loading" aria-hidden="true">
+  <div class="vayu-loader">
+    <div class="vayu-loader-ring"></div>
+    <div class="vayu-loader-text">Loading Vayu…</div>
+  </div>
+</div>
+
+<script src="/js/layout.js"></script>
+</body>
+</html>

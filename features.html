@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07111f">
+<meta name="description" content="Vayu language features — functions, collections, types, OOP, exceptions and modules.">
+<title>Features — Vayu</title>
+<link rel="icon" type="image/png" href="/Vayu_Fav.png">
+<link rel="apple-touch-icon" type="image/png" href="/Vayu_Fav.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/css/main.css">
+</head>
+<body data-vayu-defer data-page="features">
+<canvas id="particles"></canvas>
+<div class="noise"></div>
+<div data-orbs style="position:fixed;inset:0;pointer-events:none;z-index:-1;overflow:hidden;"></div>
+
+<div id="slot-nav"></div>
+
+<main id="top">
+  <section class="page-hero">
+    <div class="container">
+      <span class="kicker">Capabilities</span>
+      <h1>One language. Many directions.</h1>
+      <p class="lead">The current language already covers a substantial core, while later phases expand Vayu into a complete development ecosystem.</p>
+      <div class="page-phase"><span class="dot"></span><span data-phase-badge>PHASE 1 · IN DEVELOPMENT</span></div>
+    </div>
+  </section>
+
+  <section class="pt-20">
+    <div class="container">
+      <div class="grid features">
+        <article class="card reveal"><div class="icon">λ</div><h3>Functions & lambdas</h3><p>Typed functions, return types, recursion, function values, lambdas, closures and higher-order operations.</p></article>
+        <article class="card reveal"><div class="icon">◇</div><h3>Collections</h3><p>Lists, maps, nested collections, indexing, negative indexing, iteration and collection operations such as map, filter and reduce.</p></article>
+        <article class="card reveal"><div class="icon">◎</div><h3>Static type system</h3><p>Type inference, explicit annotations, primitive types, generic list types and compiler type checking.</p></article>
+        <article class="card reveal"><div class="icon">▣</div><h3>Structs & classes</h3><p>Structs, classes, fields, constructors, instance methods, inheritance, overriding, self and super().</p></article>
+        <article class="card reveal"><div class="icon">!</div><h3>Exceptions</h3><p>try, except, finally and raise with exception variables, multiple handlers, nesting and re-raising.</p></article>
+        <article class="card reveal"><div class="icon">↗</div><h3>Modules</h3><p>Module imports, aliases, from-import syntax, member aliases, constants and module members.</p></article>
+        <article class="card reveal"><div class="icon">⚙</div><h3>Compiler pipeline</h3><p>Source parsing, AST construction, semantic/type analysis, emitted intermediate representation, optimization and native compilation.</p></article>
+        <article class="card reveal"><div class="icon">✦</div><h3>Future ecosystem</h3><p>Self-hosting, package management, standard libraries, Python/C++ interop, GUI and AI/ML are planned across later phases.</p></article>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="slot-footer"></div>
+<div id="slot-modal-examples"></div>
+<div id="slot-modal-github"></div>
+
+<div id="vayu-loading" aria-hidden="true">
+  <div class="vayu-loader">
+    <div class="vayu-loader-ring"></div>
+    <div class="vayu-loader-text">Loading Vayu…</div>
+  </div>
+</div>
+
+<script src="/js/layout.js"></script>
+</body>
+</html>

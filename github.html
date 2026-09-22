@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07111f">
+<meta name="description" content="Browse the entire Vayu repository in a Windows-style file explorer.">
+<title>GitHub — Vayu</title>
+<link rel="icon" type="image/png" href="/Vayu_Fav.png">
+<link rel="apple-touch-icon" type="image/png" href="/Vayu_Fav.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://api.github.com">
+<link rel="preconnect" href="https://raw.githubusercontent.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/css/main.css">
+</head>
+<body data-vayu-defer data-page="github">
+<canvas id="particles"></canvas>
+<div class="noise"></div>
+<div data-orbs style="position:fixed;inset:0;pointer-events:none;z-index:-1;overflow:hidden;"></div>
+
+<div id="slot-nav"></div>
+
+<main id="top">
+  <section class="page-hero">
+    <div class="container">
+      <span class="kicker">GitHub</span>
+      <h1>The whole repository, right here.</h1>
+      <p class="lead">Browse every file in the Vayu repository in a proper file explorer — source, examples, docs, benchmarks. Click a file to preview it. Download it with one button.</p>
+      <div class="page-phase"><span class="dot"></span><span data-phase-badge>PHASE 1 · IN DEVELOPMENT</span></div>
+    </div>
+  </section>
+
+  <section class="pt-20">
+    <div class="container">
+
+      <div class="grid">
+        <article class="card reveal"><div class="icon">◈</div><h3>Source tree</h3><p>Explore the compiler source — lexer, parser, AST, type checker, IR and native code generation.</p></article>
+        <article class="card reveal"><div class="icon">◇</div><h3>Examples</h3><p>Real .vyu programs covering functions, structs, classes, collections, closures, modules and I/O.</p></article>
+        <article class="card reveal"><div class="icon">⚡</div><h3>Benchmarks</h3><p>Benchmark sources for fib(30), the 50M loop and 5M OOP workloads used in the speed comparison.</p></article>
+      </div>
+
+      <div id="vayu-explorer"></div>
+
+      <div class="card reveal mt-32">
+        <div class="flex-row-between">
+          <div>
+            <h3 class="mb-6">Repository info</h3>
+            <p class="muted">Vayu is open-source under the Apache License 2.0 — you're free to use, modify and distribute it under the terms of that license.</p>
+          </div>
+          <div class="flex-row">
+            <a class="btn ghost ripple-btn" href="https://github.com/NotY215/Vayu" target="_blank" rel="noopener">Open on GitHub ↗</a>
+            <a class="btn ghost ripple-btn" href="https://github.com/NotY215/Vayu/blob/master/LICENSE" target="_blank" rel="noopener">View LICENSE</a>
+          </div>
+        </div>
+
+        <div class="gh-stats">
+          <div class="gh-stat"><b>.vyu</b><span>Language source files</span></div>
+          <div class="gh-stat"><b>vayuc</b><span>Native compiler</span></div>
+          <div class="gh-stat"><b>Phase <span data-phase-number>1</span></b><span data-phase-name>—</span></div>
+          <div class="gh-stat"><b>Apache 2.0</b><span>Open source license</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<div id="slot-footer"></div>
+<div id="slot-modal-examples"></div>
+<div id="slot-modal-github"></div>
+
+<div id="vayu-loading" aria-hidden="true">
+  <div class="vayu-loader">
+    <div class="vayu-loader-ring"></div>
+    <div class="vayu-loader-text">Loading Vayu…</div>
+  </div>
+</div>
+
+<script src="/js/layout.js"></script>
+</body>
+</html>

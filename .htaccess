@@ -1,0 +1,23 @@
+<IfModule mod_mime.c>
+    AddType image/png .png
+    AddType image/jpeg .jpg .jpeg
+    AddType image/svg+xml .svg
+    AddType text/css .css
+    AddType application/javascript .js
+</IfModule>
+
+<IfModule mod_headers.c>
+    <FilesMatch "\.(png|jpg|jpeg|gif|webp|svg)$">
+        Header unset Content-Disposition
+    </FilesMatch>
+</IfModule>
+
+RewriteEngine On
+
+# Don't rewrite real files or folders
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^VCB$ /VCB.html [NC,L]
+# /about → /about.html
+RewriteRule ^([^\.]+)$ $1.html [NC,L]
+RewriteRule ^docs$ /docs.html [NC,L]

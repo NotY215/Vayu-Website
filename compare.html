@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07111f">
+<meta name="description" content="How Vayu compares to Python, C++, Java and C# — readability, execution model, typing and more.">
+<title>Compare — Vayu</title>
+<link rel="icon" type="image/png" href="/Vayu_Fav.png">
+<link rel="apple-touch-icon" type="image/png" href="/Vayu_Fav.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/css/main.css">
+</head>
+<body data-vayu-defer data-page="compare">
+<canvas id="particles"></canvas>
+<div class="noise"></div>
+<div data-orbs style="position:fixed;inset:0;pointer-events:none;z-index:-1;overflow:hidden;"></div>
+
+<div id="slot-nav"></div>
+
+<main id="top">
+  <section class="page-hero">
+    <div class="container">
+      <span class="kicker">Design position</span>
+      <h1>How Vayu compares.</h1>
+      <p class="lead">Vayu is being designed around a combination of readability, static typing and native execution.</p>
+      <div class="page-phase"><span class="dot"></span><span data-phase-badge>PHASE 1 · IN DEVELOPMENT</span></div>
+    </div>
+  </section>
+
+  <section class="pt-20">
+    <div class="container">
+      <div class="compare reveal">
+        <table>
+          <thead><tr><th>Area</th><th>Python</th><th>C++</th><th>Java / C#</th><th>Vayu</th></tr></thead>
+          <tbody>
+            <tr><td>Readable syntax</td><td>Excellent</td><td>Complex</td><td>Moderate</td><td class="vayu">Python-inspired</td></tr>
+            <tr><td>Execution model</td><td>Interpreted / VM</td><td>Native</td><td>JIT / VM</td><td class="vayu">Native compiler</td></tr>
+            <tr><td>Type system</td><td>Dynamic + hints</td><td>Static</td><td>Static</td><td class="vayu">Static + inference</td></tr>
+            <tr><td>Object-oriented</td><td>Yes</td><td>Yes</td><td>Yes</td><td class="vayu">Classes + inheritance</td></tr>
+            <tr><td>Functional features</td><td>Yes</td><td>Yes</td><td>Yes</td><td class="vayu">Lambdas + closures</td></tr>
+            <tr><td>Low-level direction</td><td>Limited</td><td>Excellent</td><td>Moderate</td><td class="vayu">Core goal</td></tr>
+            <tr><td>AI / ML direction</td><td>Huge ecosystem</td><td>Libraries</td><td>Libraries</td><td class="vayu">Future native ecosystem</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="slot-footer"></div>
+<div id="slot-modal-examples"></div>
+<div id="slot-modal-github"></div>
+
+<div id="vayu-loading" aria-hidden="true">
+  <div class="vayu-loader">
+    <div class="vayu-loader-ring"></div>
+    <div class="vayu-loader-text">Loading Vayu…</div>
+  </div>
+</div>
+
+<script src="/js/layout.js"></script>
+</body>
+</html>

@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07111f">
+<meta name="description" content="Vayu syntax — a full reference for the language surface: types, operators, control flow, generics, ownership, FFI and Python interop.">
+<title>Syntax — Vayu</title>
+<link rel="icon" type="image/png" href="/Vayu_Fav.png">
+<link rel="apple-touch-icon" type="image/png" href="/Vayu_Fav.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/css/main.css">
+</head>
+<body data-vayu-defer data-page="syntax">
+<canvas id="particles"></canvas>
+<div class="noise"></div>
+<div data-orbs style="position:fixed;inset:0;pointer-events:none;z-index:-1;overflow:hidden;"></div>
+
+<div id="slot-nav"></div>
+
+<main id="top">
+  <section class="page-hero">
+    <div class="container">
+      <span class="kicker">Language</span>
+      <h1>Custom Vayu syntax. Not pseudocode.</h1>
+      <p class="lead">Vayu source files use <strong>.vyu</strong>. The syntax is indentation-based and custom to the language: Python-style blocks, static typing, generics, ownership, C FFI, a CPython bridge, and a full standard library. Everything below is taken from the live compiler.</p>
+      <div class="flex-row mt-24">
+        <button class="btn primary ripple-btn" id="openExamples" type="button">▤ Examples</button>
+        <a class="btn ghost ripple-btn" href="/docs">📖 Full documentation</a>
+      </div>
+      <div class="page-phase"><span class="dot"></span><span data-phase-badge>PHASE 18 · IN DEVELOPMENT</span></div>
+    </div>
+  </section>
+
+  <section class="pt-20">
+    <div class="container">
+
+      <!-- ============================================================
+           LEXICAL BASICS
+           ============================================================ -->
+      <div class="section-head reveal">
+        <span class="kicker">Lexical</span>
+        <h2>Blocks, comments, literals.</h2>
+      </div>
+
+      <div class="two">
+        <div class="code reveal">
+          <div class="codebar">basics.vyu<span>indentation · comments · literals</span></div>
+<pre><span class="com"># Python-style indentation — no braces</span>
+<span class="kw">if</span> x > <span class="num">0</span>:
+    print(<span class="str">"positive"</span>)
+    print(<span class="str">"still inside"</span>)
+
+print(<span class="str">"outside"</span>)
+
+<span class="com"># Numbers — multiple bases</span>
+a = <span class="num">10</span>          <span class="com"># decimal</span>
+b = <span class="num">0b1010</span>      <span class="com"># binary</span>
+c = <span class="num">0o755</span>       <span class="com"># octal</span>
+d = <span class="num">0xFF</span>        <span class="com"># hexadecimal</span>
+
+<span class="com"># Floats</span>
+f1 = <span class="num">3.14</span>
+f2 = <span class="num">1.25e3</span>
+f3 = <span class="num">2.5E-2</span>
+
+<span class="com"># Booleans and None</span>
+b1 = <span class="kw">true</span>       <span class="com"># also True</span>
+b2 = <span class="kw">false</span>      <span class="com"># also False</span>
+n  = <span class="kw">none</span>       <span class="com"># also None</span>
+
+<span class="com"># Strings and chars</span>
+s1 = <span class="str">"double quoted"</span>
+s2 = <span class="str">'single quoted'</span>
+ch = <span class="str">'a'</span>          <span class="com"># single-quoted char literal</span>
+
+<span class="com"># Escapes</span>
+esc = <span class="str">"line\nbreak\ttab\\backslash\""</span></pre>
+        </div>
+        <div class="reveal">
+          <h3>What the lexer sees</h3>
+          <p class="muted">Blocks are driven by <code>INDENT</code> / <code>DEDENT</code> tokens. Comments are <code>#</code> only. Single-quoted single characters become char literals, everything else becomes a string.</p>
+          <div class="pill-list mt-20">
+            <span class="pill"># line comments</span>
+            <span class="pill">indent / dedent</span>
+            <span class="pill">0b / 0o / 0x</span>
+            <span class="pill">1.25e3</span>
+            <span class="pill">true / false / none</span>
+            <span class="pill">True / False / None</span>
+            <span class="pill">"strings"</span>
+            <span class="pill">'strings'</span>
+            <span class="pill">'c' char</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           TYPES
+           ============================================================ -->
+      <div class="section-head reveal mt-32">
+        <span class="kicker">Types</span>
+        <h2>Static typing with inference.</h2>
+        <p>Vayu runs a type checker over explicit annotations, and infers types for locals that don't declare one.</p>
+      </div>
+
+      <div class="two">
+        <div class="code reveal">
+          <div class="codebar">types.vyu<span>primitives · generics · ownership</span></div>
+<pre><span class="com"># Inferred</span>
+x    = <span class="num">5</span>
+y    = <span class="num">3.14</span>
+name = <span class="str">"Vayu"</span>
+flag = <span class="kw">true</span>
+
+<span class="com"># Explicit</span>
+a: <span class="type">int</span>   = <span class="num">10</span>
+b: <span class="type">float</span> = <span class="num">2.5</span>
+c: <span class="type">str</span>   = <span class="str">"Vayu"</span>
+d: <span class="type">bool</span>  = <span class="kw">true</span>
+
+<span class="com"># Collections</span>
+nums:  <span class="type">list&lt;int&gt;</span>      = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>]
+ages:  <span class="type">map&lt;str,int&gt;</span>   = {<span class="str">"alice"</span>: <span class="num">30</span>}
+point: <span class="type">tuple&lt;int,int&gt;</span> = (<span class="num">3</span>, <span class="num">4</span>)
+tags:  <span class="type">set&lt;str&gt;</span>       = <span class="fnname">set</span>([<span class="str">"a"</span>, <span class="str">"b"</span>])
+
+<span class="com"># Pointers and ownership</span>
+raw: <span class="type">ptr&lt;int&gt;</span>       = <span class="fnname">malloc</span>(<span class="fnname">sizeof</span>(<span class="type">int</span>))
+u:   <span class="type">unique&lt;Node&gt;</span>    = <span class="type">Node</span>(<span class="num">1</span>)
+sh:  <span class="type">shared&lt;Node&gt;</span>    = u
+wk:  <span class="type">weak&lt;Node&gt;</span>      = sh.<span class="fnname">weak</span>()</pre>
+        </div>
+        <div class="reveal">
+          <h3>The type system knows</h3>
+          <div class="pill-list">
+            <span class="pill">int</span><span class="pill">float</span><span class="pill">bool</span>
+            <span class="pill">str</span><span class="pill">char</span><span class="pill">bytes</span>
+            <span class="pill">None</span><span class="pill">any</span>
+            <span class="pill">list&lt;T&gt;</span>
+            <span class="pill">map&lt;K,V&gt;</span>
+            <span class="pill">tuple&lt;T…&gt;</span>
+            <span class="pill">set&lt;T&gt;</span>
+            <span class="pill">ptr&lt;T&gt;</span>
+            <span class="pill">ref&lt;T&gt;</span>
+            <span class="pill">unique&lt;T&gt;</span>
+            <span class="pill">shared&lt;T&gt;</span>
+            <span class="pill">weak&lt;T&gt;</span>
+            <span class="pill">struct</span>
+            <span class="pill">class</span>
+            <span class="pill">enum</span>
+            <span class="pill">function</span>
+          </div>
+          <p class="muted mt-20"><code>int</code> promotes to <code>float</code>. Generic unification and type-parameter substitution are handled by the checker. Assigning <code>"hello"</code> to an <code>int</code> is a compile-time error.</p>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           OPERATORS
+           ============================================================ -->
+      <div class="section-head reveal mt-32">
+        <span class="kicker">Operators</span>
+        <h2>Every operator the parser accepts.</h2>
+      </div>
+
+      <div class="grid features">
+        <article class="card reveal">
+          <div class="icon">+</div>
+          <h3>Arithmetic</h3>
+          <p><code>+</code> <code>-</code> <code>*</code> <code>/</code> <code>//</code> <code>%</code> <code>**</code></p>
+          <p class="muted mt-20"><code>**</code> is right-associative: <code>2 ** 3 ** 2 == 512</code>.</p>
+        </article>
+        <article class="card reveal">
+          <div class="icon">=</div>
+          <h3>Comparison</h3>
+          <p><code>==</code> <code>!=</code> <code>&lt;</code> <code>&lt;=</code> <code>&gt;</code> <code>&gt;=</code></p>
+        </article>
+        <article class="card reveal">
+          <div class="icon">∧</div>
+          <h3>Logical</h3>
+          <p><code>and</code> <code>or</code> <code>not</code></p>
+        </article>
+        <article class="card reveal">
+          <div class="icon">⊕</div>
+          <h3>Bitwise</h3>
+          <p><code>&amp;</code> <code>|</code> <code>^</code> <code>~</code> <code>&lt;&lt;</code> <code>&gt;&gt;</code></p>
+        </article>
+        <article class="card reveal">
+          <div class="icon">∈</div>
+          <h3>Membership / identity</h3>
+          <p><code>in</code> <code>is</code></p>
+          <p class="muted mt-20">The AST has separate <code>In</code> and <code>Is</code> nodes.</p>
+        </article>
+        <article class="card reveal">
+          <div class="icon">+≠</div>
+          <h3>Compound assign</h3>
+          <p><code>+=</code> <code>-=</code> <code>*=</code> <code>/=</code> <code>%=</code> <code>**=</code> <code>//=</code> <code>&amp;=</code> <code>|=</code> <code>^=</code> <code>&lt;&lt;=</code> <code>&gt;&gt;=</code></p>
+        </article>
+      </div>
+
+      <!-- ============================================================
+           CONTROL FLOW
+           ============================================================ -->
+      <div class="section-head reveal mt-32">
+        <span class="kicker">Control flow</span>
+        <h2>if / elif / else · while · for · match</h2>
+      </div>
+
+      <div class="two">
+        <div class="code reveal">
+          <div class="codebar">control.vyu<span>conditionals · loops</span></div>
+<pre><span class="kw">if</span> x &lt; <span class="num">0</span>:
+    print(<span class="str">"negative"</span>)
+<span class="kw">elif</span> x == <span class="num">0</span>:
+    print(<span class="str">"zero"</span>)
+<span class="kw">else</span>:
+    print(<span class="str">"big"</span>)
+
+<span class="kw">while</span> i &gt; <span class="num">0</span>:
+    print(i)
+    i = i - <span class="num">1</span>
+
+<span class="kw">for</span> color <span class="kw">in</span> [<span class="str">"red"</span>, <span class="str">"green"</span>, <span class="str">"blue"</span>]:
+    print(color)
+
+<span class="kw">for</span> n <span class="kw">in</span> <span class="fnname">range</span>(<span class="num">1</span>, <span class="num">11</span>):
+    <span class="kw">if</span> n == <span class="num">5</span>: <span class="kw">continue</span>
+    <span class="kw">if</span> n == <span class="num">8</span>: <span class="kw">break</span>
+    print(n)</pre>
+        </div>
+        <div class="code reveal">
+          <div class="codebar">match.vyu<span>match / case · binders · guards · tuples</span></div>
+<pre><span class="kw">match</span> n:
+    <span class="kw">case</span> <span class="num">0</span>:        <span class="kw">return</span> <span class="str">"zero"</span>
+    <span class="kw">case</span> <span class="num">1</span>:        <span class="kw">return</span> <span class="str">"one"</span>
+    <span class="kw">case</span> x <span class="kw">if</span> x &lt; <span class="num">0</span>: <span class="kw">return</span> <span class="str">"negative"</span>
+    <span class="kw">case</span> _:        <span class="kw">return</span> <span class="str">"many"</span>
+
+<span class="kw">match</span> (<span class="num">10</span>, <span class="num">20</span>):
+    <span class="kw">case</span> (x, y):
+        print(x + y)</pre>
+        </div>
+      </div>
+
+      <div class="card reveal mt-20">
+        <p class="muted"><strong>Loop control:</strong> <code>break</code>, <code>continue</code> and <code>pass</code> are hard keywords. <code>range()</code> accepts 1, 2 or 3 arguments: <code>range(5)</code>, <code>range(2, 8)</code>, <code>range(0, 10, 2)</code>.</p>
+      </div>
+
+      <!-- ============================================================
+           FUNCTIONS / LAMBDAS / GENERICS
+           ============================================================ -->
+      <div class="section-head reveal mt-32">
+        <span class="kicker">Functions</span>
+        <h2>Typed functions, lambdas, closures, generics.</h2>
+      </div>
+
+      <div class="two">
+        <div class="code reveal">
+          <div class="codebar">functions.vyu<span>typed def · recursion · closures</span></div>
+<pre><span class="kw">def</span> <span class="fnname">add</span>(a: <span class="type">int</span>, b: <span class="type">int</span>) -&gt; <span class="type">int</span>:
+    <span class="kw">return</span> a + b
+
+<span class="kw">def</span> <span class="fnname">fib</span>(n: <span class="type">int</span>) -&gt; <span class="type">int</span>:
+    <span class="kw">if</span> n &lt; <span class="num">2</span>:
+        <span class="kw">return</span> n
+    <span class="kw">return</span> <span class="fnname">fib</span>(n - <span class="num">1</span>) + <span class="fnname">fib</span>(n - <span class="num">2</span>)
+
+<span class="com"># Lambdas and closures capture the enclosing scope</span>
+double = <span class="kw">lambda</span> x: x * <span class="num">2</span>
+<span class="fnname">make_adder</span> = <span class="kw">lambda</span> n: (<span class="kw">lambda</span> x: x + n)
+add5 = <span class="fnname">make_adder</span>(<span class="num">5</span>)
+print(add5(<span class="num">10</span>))
+
+<span class="com"># Higher-order built-ins</span>
+result = <span class="fnname">reduce</span>(<span class="kw">lambda</span> a, b: a + b,
+                <span class="fnname">map</span>(<span class="kw">lambda</span> x: x * x,
+                    <span class="fnname">filter</span>(<span class="kw">lambda</span> x: x % <span class="num">2</span> == <span class="num">1</span>,
+                           <span class="fnname">range</span>(<span class="num">10</span>))))</pre>
+        </div>
+        <div class="code reveal">
+          <div class="codebar">generics.vyu<span>type params · constraints</span></div>
+<pre><span class="com"># Generic function</span>
+<span class="kw">def</span> <span class="fnname">identity</span>&lt;T&gt;(x: T) -&gt; T:
+    <span class="kw">return</span> x
+
+<span class="kw">def</span> <span class="fnname">first</span>&lt;T&gt;(xs: <span class="type">list&lt;T&gt;</span>) -&gt; T:
+    <span class="kw">return</span> xs[<span class="num">0</span>]
+
+<span class="com"># Generic class with constraint</span>
+<span class="kw">class</span> <span class="type">Box</span>&lt;T&gt;:
+    value: T
+    <span class="kw">def</span> <span class="fnname">__init__</span>(self, value: T) -&gt; <span class="type">None</span>:
+        self.value = value
+
+<span class="kw">class</span> <span class="type">Named</span>:
+    name: <span class="type">str</span>
+
+<span class="kw">def</span> <span class="fnname">name_of</span>&lt;T: Named&gt;(x: T) -&gt; <span class="type">str</span>:
+    <span class="kw">return</span> x.name</pre>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           STRUCTS & CLASSES
+           ============================================================ -->
+      <div class="section-head reveal mt-32">
+        <span class="kicker">Objects</span>
+        <h2>Structs, classes, inheritance, visibility.</h2>
+      </div>
+
+      <div class="two">
+        <div class="code reveal">
+          <div class="codebar">oop.vyu<span>struct · class · super()</span></div>
+<pre><span class="kw">struct</span> <span class="type">Point</span>:
+    x: <span class="type">int</span>
+    y: <span class="type">int</span>
+
+p = <span class="type">Point</span>(<span class="num">10</span>, <span class="num">20</span>)          <span class="com"># positional</span>
+q = <span class="type">Point</span>(x=<span class="num">3</span>, y=<span class="num">4</span>)        <span class="com"># keyword</span>
+p.x = <span class="num">100</span>                  <span class="com"># mutate field</span>
+
+<span class="kw">class</span> <span class="type">Player</span>:
+    name: <span class="type">str</span>
+    health: <span class="type">int</span>
+    <span class="kw">def</span> <span class="fnname">__init__</span>(self, name: <span class="type">str</span>) -&gt; <span class="type">None</span>:
+        self.name = name
+        self.health = <span class="num">100</span>
+    <span class="kw">def</span> <span class="fnname">damage</span>(self, amount: <span class="type">int</span>) -&gt; <span class="type">None</span>:
+        self.health = self.health - amount
+
+<span class="kw">class</span> <span class="type">Warrior</span>(<span class="type">Player</span>):
+    rage: <span class="type">int</span>
+    <span class="kw">def</span> <span class="fnname">__init__</span>(self, name: <span class="type">str</span>) -&gt; <span class="type">None</span>:
+        super().__init__(name)
+        self.rage = <span class="num">0</span></pre>
+        </div>
+        <div class="code reveal">
+          <div class="codebar">visibility.vyu<span>public · protected · private · static</span></div>
+<pre><span class="kw">class</span> <span class="type">Wallet</span>:
+    <span class="kw">public</span>    owner: <span class="type">str</span>
+    <span class="kw">protected</span> balance: <span class="type">int</span>
+    <span class="kw">private</span>   pin: <span class="type">int</span>
+
+    <span class="kw">static</span> count: <span class="type">int</span> = <span class="num">0</span>
+
+    <span class="kw">def</span> <span class="fnname">__init__</span>(self, owner: <span class="type">str</span>) -&gt; <span class="type">None</span>:
+        self.owner = owner
+        self.balance = <span class="num">0</span>
+        self.pin = <span class="num">0</span>
+        <span class="type">Wallet</span>.count = <span class="type">Wallet</span>.count + <span class="num">1</span>
+
+<span class="kw">const</span> MAX: <span class="type">int</span> = <span class="num">100</span>
+
+<span class="kw">enum</span> <span class="type">Status</span>:
+    Pending
+    Active = <span class="num">10</span>
+    Closed = <span class="num">20</span></pre>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           COLLECTIONS
+           ============================================================ -->
+      <div class="section-head reveal mt-32">
+        <span class="kicker">Collections</span>
+        <h2>Lists, maps, sets, tuples, slicing.</h2>
+      </div>
+
+      <div class="two">
+        <div class="code reveal">
+          <div class="codebar">collections.vyu<span>list · map · set · tuple</span></div>
+<pre><span class="com"># List — mutable, ordered</span>
+nums = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>]
+nums[<span class="num">0</span>] = <span class="num">100</span>
+nums.append(<span class="num">6</span>)
+nums.pop()
+nums.insert(<span class="num">0</span>, <span class="num">50</span>)
+nums.extend([<span class="num">7</span>, <span class="num">8</span>])
+nums.sort()
+print(nums[-<span class="num">1</span>])       <span class="com"># negative index</span>
+print(<span class="num">3</span> <span class="kw">in</span> nums)
+
+<span class="com"># Map — key/value</span>
+ages = {<span class="str">"alice"</span>: <span class="num">30</span>, <span class="str">"bob"</span>: <span class="num">25</span>}
+ages[<span class="str">"carol"</span>] = <span class="num">40</span>
+ages.put(<span class="str">"dave"</span>, <span class="num">22</span>)
+ages.remove(<span class="str">"bob"</span>)
+print(ages.keys())
+print(<span class="str">"alice"</span> <span class="kw">in</span> ages)
+
+<span class="com"># Set — unique values</span>
+s = <span class="fnname">set</span>([<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>])
+s.add(<span class="num">4</span>)
+s.remove(<span class="num">1</span>)
+s.union(<span class="fnname">set</span>([<span class="num">5</span>, <span class="num">6</span>]))
+
+<span class="com"># Tuple — immutable, concatenable</span>
+t = (<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>)
+a, b, c = t                       <span class="com"># unpacking</span>
+t2 = t + (<span class="num">4</span>, <span class="num">5</span>)                   <span class="com"># concatenation</span>
+one = (<span class="num">42</span>,)                       <span class="com"># single-element</span></pre>
+        </div>
+        <div class="code reveal">
+          <div class="codebar">slicing.vyu<span>lists · tuples · strings</span></div>
+<pre><span class="com"># Slicing works on lists, tuples and strings</span>
+l = [<span class="num">10</span>, <span class="num">20</span>, <span class="num">30</span>, <span class="num">40</span>, <span class="num">50</span>]
+print(l[<span class="num">1</span>:<span class="num">3</span>])    <span class="com"># [20, 30]</span>
+print(l[<span class="num">2</span>:])     <span class="com"># [30, 40, 50]</span>
+print(l[:<span class="num">3</span>])     <span class="com"># [10, 20, 30]</span>
+print(l[:])      <span class="com"># copy</span>
+
+t = (<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>)
+print(t[<span class="num">1</span>:<span class="num">3</span>])    <span class="com"># (2, 3)</span>
+
+s = <span class="str">"hello world"</span>
+print(s[<span class="num">0</span>:<span class="num">5</span>])   <span class="com"># "hello"</span>
+
+<span class="com"># Membership + identity</span>
+print(<span class="num">3</span> <span class="kw">in</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>])
+print(a <span class="kw">is</span> b)</pre>
+        </div>
+      </div>
+
+      <div class="card reveal mt-20">
+        <h3>Methods</h3>
+        <div class="pill-list mt-20">
+          <span class="pill">list: append · pop · insert · extend · count · reverse · sort · copy · first · last</span>
+          <span class="pill">map: set · get_or · pop · pop_or · update · copy · has_key · items · keys · remove</span>
+          <span class="pill">set: add · remove · union · intersection · difference</span>
+          <span class="pill">string: strip · lower · upper · split · join · replace · find · contains · starts_with · ends_with · is_digit · is_alpha · is_space · char_at · capitalize · title · swapcase · center · ljust · rjust · zfill · count · rfind · partition · rpartition · splitlines · rsplit · is_lower · is_upper · is_alnum · is_ascii</span>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           EXCEPTIONS
+           ============================================================ -->
+      <div class="section-head reveal mt-32">
+        <span class="kicker">Errors</span>
+        <h2>Exceptions with full try / except / finally.</h2>
+      </div>
+
+      <div class="two">
+        <div class="code reveal">
+          <div class="codebar">errors.vyu<span>try · except · finally · raise</span></div>
+<pre><span class="kw">try</span>:
+    x = <span class="num">10</span> / <span class="num">0</span>
+<span class="kw">except</span> <span class="type">ZeroDivisionError</span> <span class="kw">as</span> e:
+    print(e.message)
+<span class="kw">except</span> (<span class="type">TypeError</span>, <span class="type">ValueError</span>) <span class="kw">as</span> e:
+    print(e.message)
+<span class="kw">except</span>:
+    print(<span class="str">"bare except"</span>)
+<span class="kw">finally</span>:
+    print(<span class="str">"done"</span>)
+
+<span class="kw">raise</span> <span class="type">ValueError</span>(<span class="str">"bad value"</span>)</pre>
+        </div>
+        <div class="reveal">
+          <h3>Built-in exception types</h3>
+          <div class="pill-list">
+            <span class="pill">Exception</span>
+            <span class="pill">RuntimeError</span>
+            <span class="pill">TypeError</span>
+            <span class="pill">ValueError</span>
+            <span class="pill">ZeroDivisionError</span>
+            <span class="pill">IndexError</span>
+            <span class="pill">KeyError</span>
+            <span class="pill">NameError</span>
+            <span class="pill">AttributeError</span>
+          </div>
+          <p class="muted mt-20">Multiple handlers, nested try blocks, re-raising, and raising a bare string are all supported.</p>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           WITH / DEFER / GENERATORS
+           ============================================================ -->
+      <div class="section-head reveal mt-32">
+        <span class="kicker">Scope helpers</span>
+        <h2>with · defer · yield</h2>
+      </div>
+
+      <div class="two">
+        <div class="code reveal">
+          <div class="codebar">scope.vyu<span>with · defer · yield</span></div>
+<pre><span class="com"># with — auto cleanup via __enter__ / __exit__</span>
+<span class="kw">with</span> <span class="type">Resource</span>(<span class="str">"first"</span>) <span class="kw">as</span> v:
+    print(<span class="str">"inside, v = "</span> + <span class="fnname">str</span>(v))
+
+<span class="com"># defer — LIFO execution at scope exit</span>
+<span class="kw">def</span> <span class="fnname">process</span>(a: <span class="type">int</span>, b: <span class="type">int</span>) -&gt; <span class="type">None</span>:
+    <span class="kw">defer</span> print(<span class="str">"defer-second"</span>)
+    <span class="kw">defer</span> print(<span class="str">"defer-first"</span>)
+    print(<span class="str">"processing "</span> + <span class="fnname">str</span>(a + b))
+
+<span class="com"># generators</span>
+<span class="kw">def</span> <span class="fnname">countdown</span>(n: <span class="type">int</span>):
+    <span class="kw">while</span> n &gt; <span class="num">0</span>:
+        <span class="kw">yield</span> n
+        n = n - <span class="num">1</span>
+
+g = <span class="fnname">countdown</span>(<span class="num">3</span>)
+print(<span class="fnname">next</span>(g))
+<span class="kw">for</span> x <span class="kw">in</span> <span class="fnname">countdown</span>(<span class="num">5</span>):
+    print(x)</pre>
+        </div>
+        <div class="reveal">
+          <h3>How they behave</h3>
+          <p class="muted"><strong>with</strong> relies on the type having <code>__enter__</code> and <code>__exit__</code>. The parser handles both <code>with resource:</code> and <code>with resource as name:</code>.</p>
+          <p class="muted mt-20"><strong>defer</strong> is a soft keyword. Deferred expressions are desugared into nested <code>try/finally</code> blocks so they run in LIFO order. Must appear at the top of a block.</p>
+          <p class="muted mt-20"><strong>yield</strong> turns a def into a generator. The VM maintains generator state across calls. Cleanup in <code>finally</code> runs when the generator is torn down.</p>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           MEMORY & POINTERS
+           ============================================================ -->
+      <div class="section-head reveal mt-32">
+        <span class="kicker">Memory</span>
+        <h2>Ownership, pointers, unsafe.</h2>
+      </div>
+
+      <div class="two">
+        <div class="code reveal">
+          <div class="codebar">memory.vyu<span>ownership · pointers · malloc</span></div>
+<pre><span class="com"># Address-of and dereference</span>
+x = <span class="num">42</span>
+p = &amp;x
+print(*p)          <span class="com"># 42</span>
+*p = <span class="num">7</span>             <span class="com"># write through pointer</span>
+
+<span class="com"># Typed pointer</span>
+<span class="kw">def</span> <span class="fnname">double_ptr</span>(p: <span class="type">ptr&lt;int&gt;</span>) -&gt; <span class="type">int</span>:
+    <span class="kw">return</span> *p * <span class="num">2</span>
+
+<span class="com"># Ownership — unique is move-only</span>
+a: <span class="type">unique&lt;Resource&gt;</span> = <span class="type">Resource</span>(<span class="str">"first"</span>)
+b: <span class="type">unique&lt;Resource&gt;</span> = a          <span class="com"># moves a into b</span>
+
+<span class="com"># shared / weak</span>
+sh: <span class="type">shared&lt;Node&gt;</span> = <span class="fnname">make_node</span>()
+wk: <span class="type">weak&lt;Node&gt;</span>   = sh.<span class="fnname">weak</span>()
+got: <span class="type">shared&lt;Node&gt;</span> = wk.<span class="fnname">upgrade</span>()
+
+<span class="com"># Raw allocation</span>
+raw: <span class="type">ptr&lt;int&gt;</span> = <span class="fnname">malloc</span>(<span class="fnname">sizeof</span>(<span class="type">int</span>))
+<span class="fnname">free</span>(raw)
+
+<span class="com"># unsafe block for low-level ops</span>
+<span class="kw">unsafe</span>:
+    raw = <span class="fnname">malloc</span>(<span class="num">8</span>)
+    *raw = <span class="num">99</span>
+    <span class="fnname">free</span>(raw)</pre>
+        </div>
+        <div class="reveal">
+          <h3>Ownership types</h3>
+          <div class="pill-list">
+            <span class="pill">unique&lt;T&gt;</span>
+            <span class="pill">shared&lt;T&gt;</span>
+            <span class="pill">weak&lt;T&gt;</span>
+            <span class="pill">ptr&lt;T&gt;</span>
+            <span class="pill">ref&lt;T&gt;</span>
+          </div>
+          <p class="muted mt-20"><code>unique&lt;T&gt;</code> is move-only — the type checker tracks <code>moved_</code> scope and refuses use-after-move. <code>weak&lt;T&gt;</code> is non-owning; <code>.upgrade()</code> desugars to a shared reference. <code>ref&lt;T&gt;</code> resolves to the underlying <code>T</code> at type-check time.</p>
+          <p class="muted mt-20">Pointer arithmetic, indexing through pointers (<code>p[i]</code>), assignment (<code>p[i] = v</code>), and <code>&amp;arr[i]</code> / <code>&amp;obj.field</code> / <code>&amp;m[k]</code> for live lvalue references are supported across the tree-walker, VM and native backends.</p>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           MODULES / NAMESPACES
+           ============================================================ -->
+      <div class="section-head reveal mt-32">
+        <span class="kicker">Modules</span>
+        <h2>import · from-import · namespace</h2>
+      </div>
+
+      <div class="two">
+        <div class="code reveal">
+          <div class="codebar">modules.vyu<span>imports · aliases · namespace</span></div>
+<pre><span class="kw">import</span> math_helpers
+<span class="kw">import</span> math_helpers <span class="kw">as</span> mh
+<span class="kw">from</span> math_helpers <span class="kw">import</span> square, cube <span class="kw">as</span> cb
+
+print(math_helpers.square(<span class="num">5</span>))
+print(mh.square(<span class="num">6</span>))
+print(square(<span class="num">7</span>))
+print(cb(<span class="num">3</span>))</pre>
+        </div>
+        <div class="code reveal">
+          <div class="codebar">namespace.vyu<span>namespace blocks</span></div>
+<pre><span class="kw">namespace</span> <span class="type">Math</span>:
+    <span class="kw">const</span> PI = <span class="num">3</span>
+    <span class="kw">def</span> <span class="fnname">square</span>(x: <span class="type">int</span>) -&gt; <span class="type">int</span>:
+        <span class="kw">return</span> x * x
+
+print(<span class="type">Math</span>.PI)
+print(<span class="type">Math</span>.square(<span class="num">7</span>))</pre>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           FFI / PY BRIDGE
+           ============================================================ -->
+      <div class="section-head reveal mt-32">
+        <span class="kicker">Interop</span>
+        <h2>C FFI and the CPython bridge.</h2>
+      </div>
+
+      <div class="two">
+        <div class="code reveal">
+          <div class="codebar">ffi.vyu<span>extern "C"</span></div>
+<pre><span class="kw">extern</span> <span class="str">"C"</span>:
+    <span class="kw">def</span> <span class="fnname">strlen</span>(s: <span class="type">str</span>) -&gt; <span class="type">int</span>
+    <span class="kw">def</span> <span class="fnname">llabs</span>(x: <span class="type">int</span>) -&gt; <span class="type">int</span>
+
+print(<span class="fnname">strlen</span>(<span class="str">"hello"</span>))</pre>
+        </div>
+        <div class="code reveal">
+          <div class="codebar">py.vyu<span>CPython bridge</span></div>
+<pre><span class="kw">import</span> py
+
+py.init()
+print(py.version())
+
+m = py.import(<span class="str">"math"</span>)
+print(py.getattr(m, <span class="str">"pi"</span>))
+print(py.call(py.getattr(m, <span class="str">"sqrt"</span>), [<span class="num">16</span>]))
+
+py.setattr(obj, <span class="str">"name"</span>, py.str(<span class="str">"Alice"</span>))
+py.decref(m)</pre>
+        </div>
+      </div>
+
+      <div class="card reveal mt-20">
+        <p class="muted"><strong>FFI</strong> is native-backend only. <code>extern "C"</code> blocks parse and type-check on all backends, but calling an external function from the tree-walker or VM raises <code>"extern C functions can only be called from the native backend"</code>. Native supports <code>str ↔ char*</code> bridging, function pointers, C callbacks, and struct-by-value (small single-field).</p>
+        <p class="muted mt-20"><strong>py module</strong> is native-backend only. <code>py.init()</code> on the tree-walker/VM raises <code>"py.init() requires the native backend"</code>.</p>
+      </div>
+
+      <!-- ============================================================
+           BUILT-INS
+           ============================================================ -->
+      <div class="section-head reveal mt-32">
+        <span class="kicker">Built-ins</span>
+        <h2>Global functions and modules.</h2>
+      </div>
+
+      <div class="grid features">
+        <article class="card reveal">
+          <div class="icon">⚙</div>
+          <h3>Output &amp; IO</h3>
+          <div class="pill-list mt-20">
+            <span class="pill">print</span><span class="pill">print_raw</span>
+            <span class="pill">input</span><span class="pill">read_line</span>
+            <span class="pill">read_all</span><span class="pill">read_int</span>
+            <span class="pill">read_file</span><span class="pill">write_file</span>
+            <span class="pill">file_exists</span><span class="pill">args</span>
+            <span class="pill">run_command</span><span class="pill">exit</span>
+          </div>
+        </article>
+        <article class="card reveal">
+          <div class="icon">◈</div>
+          <h3>Conversion &amp; types</h3>
+          <div class="pill-list mt-20">
+            <span class="pill">int</span><span class="pill">float</span>
+            <span class="pill">str</span><span class="pill">bool</span>
+            <span class="pill">list</span><span class="pill">tuple</span>
+            <span class="pill">set</span><span class="pill">len</span>
+            <span class="pill">type</span><span class="pill">ord</span><span class="pill">chr</span>
+          </div>
+        </article>
+        <article class="card reveal">
+          <div class="icon">λ</div>
+          <h3>Functional</h3>
+          <div class="pill-list mt-20">
+            <span class="pill">map</span><span class="pill">filter</span>
+            <span class="pill">reduce</span><span class="pill">sorted</span>
+            <span class="pill">any</span><span class="pill">all</span>
+            <span class="pill">sum</span><span class="pill">enumerate</span>
+            <span class="pill">zip</span><span class="pill">reversed</span>
+          </div>
+        </article>
+        <article class="card reveal">
+          <div class="icon">⊕</div>
+          <h3>Numeric helpers</h3>
+          <div class="pill-list mt-20">
+            <span class="pill">abs</span><span class="pill">round</span>
+            <span class="pill">pow</span><span class="pill">divmod</span>
+            <span class="pill">sign</span><span class="pill">gcd</span>
+            <span class="pill">lcm</span><span class="pill">clamp</span>
+            <span class="pill">comb</span><span class="pill">perm</span>
+            <span class="pill">isqrt</span><span class="pill">factorial</span>
+          </div>
+        </article>
+        <article class="card reveal">
+          <div class="icon">◉</div>
+          <h3>Reflection</h3>
+          <div class="pill-list mt-20">
+            <span class="pill">hash</span><span class="pill">id</span>
+            <span class="pill">callable</span><span class="pill">repr</span>
+            <span class="pill">isinstance</span><span class="pill">issubclass</span>
+            <span class="pill">hasattr</span><span class="pill">getattr</span>
+            <span class="pill">setattr</span><span class="pill">delattr</span>
+            <span class="pill">dir</span>
+          </div>
+        </article>
+        <article class="card reveal">
+          <div class="icon">▣</div>
+          <h3>Runtime modules</h3>
+          <div class="pill-list mt-20">
+            <span class="pill">math</span><span class="pill">fs</span>
+            <span class="pill">time</span><span class="pill">json</span>
+            <span class="pill">regex</span><span class="pill">thread</span>
+            <span class="pill">net</span><span class="pill">crypto</span>
+            <span class="pill">random</span><span class="pill">os</span>
+            <span class="pill">py</span>
+          </div>
+        </article>
+      </div>
+
+      <!-- ============================================================
+           GRAMMAR SUMMARY
+           ============================================================ -->
+      <div class="section-head reveal mt-32">
+        <span class="kicker">Grammar</span>
+        <h2>The shape of a Vayu program.</h2>
+      </div>
+
+      <div class="code reveal">
+        <div class="codebar">grammar.ebnf<span>informal · from parser</span></div>
+<pre>program   ::= { statement } EOF
+
+statement ::= def | struct | class | if | while | for
+            | return | try | raise | import | from_import
+            | const | enum | with | extern | unsafe
+            | yield | match | pass | break | continue
+            | annotated_assign | unpack_assign | expr_or_assign
+
+block     ::= ":" NEWLINE INDENT { statement } DEDENT
+
+def       ::= "def" IDENT [ "&lt;" type_params "&gt;" ] "(" [ params ] ")"
+              [ "-&gt;" type ] block
+
+class     ::= "class" IDENT [ "(" IDENT ")" ] ":" NEWLINE INDENT
+              { visibility? ( field | "static"? def ) } DEDENT
+
+match     ::= "match" expression ":" NEWLINE INDENT { case } DEDENT
+case      ::= "case" pattern [ "if" expression ] ":" block
+
+try       ::= "try" block { "except" [ type [ "as" IDENT ] ] ":" block }
+              [ "finally" block ]
+
+with      ::= "with" expression [ "as" IDENT ] block
+extern    ::= "extern" STRING ":" NEWLINE INDENT { fn_decl } DEDENT
+unsafe    ::= "unsafe" block</pre>
+      </div>
+
+      <!-- ============================================================
+           EXECUTION MODES
+           ============================================================ -->
+      <div class="section-head reveal mt-32">
+        <span class="kicker">Backends</span>
+        <h2>Three execution paths. One source.</h2>
+      </div>
+
+      <div class="grid">
+        <article class="card reveal">
+          <div class="icon">🖥️</div>
+          <h3>Tree-walking interpreter</h3>
+          <p>Fastest to start, slowest to run. Used for scripting and testing the compiler front-end.</p>
+          <p class="muted mt-20"><code>vayuc --run file.vyu</code></p>
+        </article>
+        <article class="card reveal">
+          <div class="icon">📦</div>
+          <h3>Bytecode VM</h3>
+          <p>Compiles to bytecode, runs on a stack VM with a peephole optimizer. Balanced speed.</p>
+          <p class="muted mt-20"><code>vayuc --vm file.vyu</code></p>
+        </article>
+        <article class="card reveal">
+          <div class="icon">⚡</div>
+          <h3>Native compiler</h3>
+          <p>Emits native code through QBE + GCC. Required for C FFI and the CPython bridge.</p>
+          <p class="muted mt-20"><code>vayuc --native file.vyu</code></p>
+        </article>
+      </div>
+
+      <div class="card reveal mt-20">
+        <h3>Other compiler flags</h3>
+        <div class="pill-list mt-20">
+          <span class="pill">--check</span>
+          <span class="pill">--dump-tokens</span>
+          <span class="pill">--dump-ast</span>
+          <span class="pill">--dump-bytecode</span>
+          <span class="pill">--dump-ir</span>
+          <span class="pill">--no-check</span>
+          <span class="pill">--no-opt</span>
+          <span class="pill">--bench</span>
+          <span class="pill">--emit-runtime</span>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SOFT KEYWORDS
+           ============================================================ -->
+      <div class="card reveal mt-32">
+        <h3>Soft keywords</h3>
+        <p class="muted mt-20">
+          These words are <strong>not reserved by the lexer</strong> — they remain identifiers and are
+          reinterpreted contextually by the parser. That means you can still use them as variable names.
+        </p>
+        <div class="pill-list mt-20">
+          <span class="pill">match</span>
+          <span class="pill">case</span>
+          <span class="pill">defer</span>
+          <span class="pill">namespace</span>
+          <span class="pill">static</span>
+          <span class="pill">public</span>
+          <span class="pill">private</span>
+          <span class="pill">protected</span>
+        </div>
+        <p class="muted mt-20"><code>self</code> is likewise not a keyword — it's a naming convention enforced by the class parser.</p>
+      </div>
+
+      <!-- ============================================================
+           NEXT STEPS
+           ============================================================ -->
+      <div class="callout reveal mt-32">
+        <div class="eyebrow"><span class="dot"></span> GO DEEPER</div>
+        <h2>Full documentation on one page.</h2>
+        <p class="muted">The docs page collects the whole language surface, standard library reference, and every backend-specific limitation in one place.</p>
+        <br>
+        <a class="btn primary ripple-btn" href="/docs">📖 Open documentation</a>
+        <button class="btn ghost ripple-btn" id="openExamples2" type="button">▤ Examples</button>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<div id="slot-footer"></div>
+<div id="slot-modal-examples"></div>
+<div id="slot-modal-github"></div>
+
+<div id="vayu-loading" aria-hidden="true">
+  <div class="vayu-loader">
+    <div class="vayu-loader-ring"></div>
+    <div class="vayu-loader-text">Loading Vayu…</div>
+  </div>
+</div>
+
+<script src="/js/layout.js"></script>
+<script>
+document.getElementById('openExamples2')?.addEventListener('click', () => {
+  const b = document.getElementById('openExamples');
+  if(b) b.click();
+});
+</script>
+</body>
+</html>

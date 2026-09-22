@@ -1,0 +1,246 @@
+{
+  "_readme": {
+    "title": "Vayu Roadmap",
+    "howto": "To update the site: change ONLY the 'status' field of a phase or subphase. Nothing else.",
+    "phase_status": {
+      "completed": "✓ Done. Green check on the timeline.",
+      "working":   "● Currently being built. Red pulsing dot.",
+      "soon":      "— Planned, not started yet. Grey dash.",
+      "vacation":  "☕ Developer on vacation. Paused."
+    },
+    "subphase_status": {
+      "completed": "✓ Done. Green dot.",
+      "working":   "● In progress. Red pulsing dot.",
+      "soon":      "— Planned. Grey dash.",
+      "deferred":  "⏸ Pushed to a later phase. Hollow dot."
+    }
+  },
+  "repo": "NotY215/Vayu",
+  "site": "https://vayu.gt.tc",
+  "updated": "2026-09-21",
+  "currentPhase": 18,
+  "phases": [
+    { "id": 1, "name": "Language foundation",                  "status": "completed" },
+    { "id": 2, "name": "Control flow & functions",             "status": "completed" },
+    { "id": 3, "name": "Types & collections",                  "status": "completed" },
+    { "id": 4, "name": "Functional & object-oriented",         "status": "completed" },
+    { "id": 5, "name": "Runtime, exceptions & modules",        "status": "completed" },
+    { "id": 6, "name": "Compiler optimization · Peephole IL",  "status": "completed" },
+
+    {
+      "id": 7,
+      "name": "Self-hosting",
+      "status": "completed",
+      "subphases": [
+        { "id": "7A",   "name": "Runtime support for self-hosting",                         "status": "completed" },
+        { "id": "7B",   "name": "Lexer in Vayu — vlex.vyu",                                  "status": "completed" },
+        { "id": "7C",   "name": "Lexer edge-case reconciliation",                            "status": "completed" },
+        { "id": "7D-1", "name": "Expression parser in Vayu — vparse.vyu",                    "status": "completed" },
+        { "id": "7D-2", "name": "Statements, blocks, control flow",                          "status": "completed" },
+        { "id": "7D-3", "name": "AST arena extensions",                                      "status": "completed" },
+        { "id": "7E-1", "name": "QBE codegen — statements, control flow, functions",         "status": "completed" },
+        { "id": "7E-2", "name": "Classes, structs, methods, inheritance, super()",           "status": "completed" },
+        { "id": "7E-3", "name": "Lists, maps, indexing, builtins, string methods",           "status": "completed" },
+        { "id": "7E-4", "name": "Typed collections, method return inference",                "status": "completed" },
+        { "id": "7F",   "name": "Bootstrap fixpoint",                                        "status": "completed" },
+        { "id": "7G",   "name": "Unified vayu.vyu driver",                                   "status": "completed" },
+        { "id": "7H",   "name": "topFnDecls_ — propagate free-function return types",        "status": "completed" }
+      ]
+    },
+
+    {
+      "id": 8,
+      "name": "Escape analysis",
+      "status": "completed",
+      "subphases": [
+        { "id": "8",   "name": "Stack-allocate non-escaping instances",                       "status": "completed" },
+        { "id": "8.1", "name": "Interprocedural escape — argument flow through user functions","status": "deferred"  },
+        { "id": "8.2", "name": "Field-level escape — partial escape of struct fields",         "status": "deferred"  },
+        { "id": "8.3", "name": "Loop-aware escape — hoist allocations out of loops",           "status": "deferred"  }
+      ]
+    },
+
+    {
+      "id": 9,
+      "name": "Package manager",
+      "status": "completed",
+      "subphases": [
+        { "id": "9",   "name": "nva v1 — new, init, build, run, clean",                       "status": "completed" },
+        { "id": "9.1", "name": "nva add, nva remove, nva list, nova.lock",                    "status": "completed" },
+        { "id": "9.2", "name": "HTTP registry client, nva publish, semver resolution",         "status": "deferred"  },
+        { "id": "9.3", "name": "Git dependencies",                                            "status": "deferred"  }
+      ]
+    },
+
+    {
+      "id": 10,
+      "name": "Standard library",
+      "status": "completed",
+      "subphases": [
+        { "id": "10.1",  "name": "fs — file system",                                          "status": "completed" },
+        { "id": "10.2",  "name": "time — clocks, sleep, formatting",                          "status": "completed" },
+        { "id": "10.3",  "name": "json — parse, stringify, key access",                        "status": "completed" },
+        { "id": "10.4",  "name": "regex — match, search, find_all, replace, fields",           "status": "completed" },
+        { "id": "10.5",  "name": "thread — spawn/join, mutexes",                              "status": "completed" },
+        { "id": "10.6",  "name": "net — TCP client + server",                                 "status": "completed" },
+        { "id": "10.7",  "name": "crypto — sha256, md5, hmac, base64, random_bytes",           "status": "completed" },
+        { "id": "10.8",  "name": "random",                                                    "status": "completed" },
+        { "id": "10.9",  "name": "os — getenv, setenv, platform, hostname, chdir",             "status": "completed" },
+        { "id": "10.10", "name": "math extras — asin, acos, atan2, sinh, degrees, hypot, …",   "status": "completed" }
+      ]
+    },
+
+    {
+      "id": 11,
+      "name": "Language surface",
+      "status": "completed",
+      "subphases": [
+        { "id": "11.0",   "name": "Base: def, if/elif/else, while, for, class/struct, import, try/except/finally, raise", "status": "completed" },
+        { "id": "11.1b",  "name": "const as hard keyword",                                                             "status": "completed" },
+        { "id": "11.1c",  "name": "Static class members",                                                              "status": "completed" },
+        { "id": "11.1d",  "name": "Enum item access → integer constant",                                                "status": "completed" },
+        { "id": "11.1e",  "name": "match / case",                                                                       "status": "completed" },
+        { "id": "11.1f",  "name": "with / as",                                                                          "status": "completed" },
+        { "id": "11.1g",  "name": "defer",                                                                              "status": "completed" },
+        { "id": "11.1h",  "name": "namespace",                                                                          "status": "completed" },
+        { "id": "11.1i",  "name": "Compound assigns + 0b/0o/0x",                                                       "status": "completed" },
+        { "id": "11.1j",  "name": "Visibility modifiers",                                                               "status": "completed" },
+        { "id": "11.1k1-4", "name": "Generators — tree, VM, iteration, native (thread-backed)",                          "status": "completed" },
+        { "id": "11.2",   "name": "Type parameters on def/class, constraints <T: Base>",                                "status": "completed" },
+        { "id": "11.2b",  "name": "Type params on classes",                                                             "status": "completed" },
+        { "id": "11.2c",  "name": "Substitution and unify in the type checker",                                         "status": "completed" },
+        { "id": "11.3",   "name": "Type parameter parsing in self-hosted compilers",                                     "status": "completed" }
+      ]
+    },
+
+    {
+      "id": 12,
+      "name": "Ownership",
+      "status": "completed",
+      "subphases": [
+        { "id": "12.0", "name": "unique<T> — move-only, moved_ scope tracking",                      "status": "completed" },
+        { "id": "12.1", "name": "shared<T> copyable, weak<T> non-owning, .upgrade() desugar",        "status": "completed" }
+      ]
+    },
+
+    {
+      "id": 13,
+      "name": "Inspection, helpers, refinements",
+      "status": "completed",
+      "subphases": [
+        { "id": "13.0",  "name": "Inspection — hash, id, callable, isinstance, issubclass, getattr, hasattr, dir, repr", "status": "completed" },
+        { "id": "13.1",  "name": "Pure helpers — enumerate, zip, reversed, round, pow, divmod, sign, gcd, lcm, clamp",  "status": "completed" },
+        { "id": "13.2",  "name": "Compile-time reflection",                                                              "status": "completed" },
+        { "id": "13.3",  "name": "setattr, delattr",                                                                     "status": "completed" },
+        { "id": "13.4",  "name": "getattr, hasattr, dir (native)",                                                       "status": "completed" },
+        { "id": "13.5",  "name": "String refinements — capitalize, title, swapcase, center, ljust, rjust, zfill, count, rfind, partition, rpartition, splitlines, rsplit, is_lower/upper/alnum/ascii", "status": "completed" },
+        { "id": "13.6",  "name": "List refinements — extend, count, reverse, sort, copy, first, last",                   "status": "completed" },
+        { "id": "13.6b", "name": "Native list.sort → merge sort (O(n log n))",                                           "status": "completed" },
+        { "id": "13.7",  "name": "Map refinements — set, get_or, pop, pop_or, update, copy, has_key, items",             "status": "completed" }
+      ]
+    },
+
+    {
+      "id": 14,
+      "name": "Containers",
+      "status": "completed",
+      "subphases": [
+        { "id": "14.0",  "name": "Real tuple type — TupleLitExpr, TupleValue",                    "status": "completed" },
+        { "id": "14.0b", "name": "Tuple unpacking — a, b, c = t, for (k, v) in pairs:",            "status": "completed" },
+        { "id": "14.1",  "name": "Real set type — SetLitExpr, SetValue",                          "status": "completed" },
+        { "id": "14.1b", "name": "Native set ops — union, intersection, difference",               "status": "completed" },
+        { "id": "14.2",  "name": "Extended math — comb, perm, isqrt, factorial, cbrt, expm1, log1p, copysign, fabs, tgamma, lgamma, erf, erfc, tau, inf, nan", "status": "completed" },
+        { "id": "14.3",  "name": "zip + enumerate return real tuples",                             "status": "completed" },
+        { "id": "14.4",  "name": "Tuple slicing + tuple concatenation",                            "status": "completed" }
+      ]
+    },
+
+    {
+      "id": 15,
+      "name": "C FFI",
+      "status": "completed",
+      "subphases": [
+        { "id": "15.0",  "name": "extern \"C\": block parsing, type checker",                      "status": "completed" },
+        { "id": "15.1",  "name": "C FFI codegen — QBE call, str ↔ char* bridge, VAYU_FFI_LIBS",    "status": "completed" },
+        { "id": "15.2",  "name": "unsafe: block, ptr<T> / ref<T>",                                 "status": "completed" },
+        { "id": "15.2b", "name": "&x / *p / *p = v on all three backends",                        "status": "completed" },
+        { "id": "15.2c", "name": "True aliasing for &x — heap cell shared across all backends",   "status": "completed" },
+        { "id": "15.2d", "name": "&arr[i], &obj.field, &m[k] — live lvalue references",            "status": "completed" },
+        { "id": "15.2e", "name": "Native pointer arithmetic — p + n, p[i], p[i] = v",              "status": "completed" },
+        { "id": "15.2f", "name": "Tree/VM pointer arithmetic via backing-array model",             "status": "completed" },
+        { "id": "15.4",  "name": "C callbacks — &topFn as function pointer",                       "status": "completed" },
+        { "id": "15.5",  "name": "FFI structs by value (≤8-byte single-field classes)",             "status": "completed" },
+        { "id": "15.6",  "name": "Built-in malloc / free",                                          "status": "completed" }
+      ]
+    },
+
+    {
+      "id": 16,
+      "name": "CPython bridge",
+      "status": "completed",
+      "subphases": [
+        { "id": "16.0",   "name": "CPython dynamic-load shim, import py, py.init / py.version / py.run", "status": "completed" },
+        { "id": "16.0.1", "name": "DLL discovery — python313.dll direct, LoadLibraryEx altered search path", "status": "completed" },
+        { "id": "16.1",   "name": "Value bridging — py.int/str/bool, py.from_int/str/bool",             "status": "completed" },
+        { "id": "16.2",   "name": "Calling Python — py.import, py.getattr, py.call, py.decref",         "status": "completed" },
+        { "id": "16.3",   "name": "Bidirectional — py.eval, py.exec_file, Vayu callbacks",              "status": "completed" },
+        { "id": "16.4",   "name": "Attributes — py.setattr, py.repr, py.type_name",                     "status": "completed" },
+        { "id": "16.5",   "name": "Close-out — py.call_kw, py.list, py.dict, py.last_error",            "status": "completed" }
+      ]
+    },
+
+    {
+      "id": 17,
+      "name": "Self-host parity",
+      "status": "completed",
+      "subphases": [
+        { "id": "17.1",   "name": "Compound assign on names",                                            "status": "completed" },
+        { "id": "17.2",   "name": "Bitwise + compound bitwise",                                          "status": "completed" },
+        { "id": "17.3",   "name": "try/except/finally/raise (tree+vm)",                                  "status": "completed" },
+        { "id": "17.4",   "name": "0b/0o/0x prefixes + ord()",                                           "status": "completed" },
+        { "id": "17.5",   "name": "const + enum + EnumName.ITEM",                                        "status": "completed" },
+        { "id": "17.6",   "name": "Tuple literals, tuple unpack, set literals",                          "status": "completed" },
+        { "id": "17.7",   "name": "extern \"C\", unsafe:, &x, *p, &arr[i], &obj.field",                  "status": "completed" },
+        { "id": "17.8",   "name": "py module",                                                          "status": "completed" },
+        { "id": "17.9",   "name": "Native try/except via setjmp/longjmp",                               "status": "completed" },
+        { "id": "17.10a", "name": "lambda, visibility modifiers, static members, type params on def/class", "status": "completed" },
+        { "id": "17.10b", "name": "match/case, with/as, defer, namespace",                              "status": "completed" },
+        { "id": "17.10c", "name": "yield / generator codegen",                                          "status": "completed" }
+      ]
+    },
+
+    {
+      "id": 18,
+      "name": "Tooling",
+      "status": "working",
+      "subphases": [
+        { "id": "18.1", "name": "LSP server — parse/tokenize/typeinfo/definition/hover/diagnostics over stdio", "status": "soon" },
+        { "id": "18.2", "name": "Formatter — vfmt with idempotent rules (indent, spacing, blank-line policy)",  "status": "soon" },
+        { "id": "18.3", "name": "Linter — unused names, unreachable code, shadowing, dead stores",              "status": "soon" },
+        { "id": "18.4", "name": "VS Code extension — bundle 18.1–18.3, syntax highlighting, run/debug",         "status": "soon" }
+      ]
+    },
+
+    {
+      "id": 19,
+      "name": "GUI",
+      "status": "soon",
+      "subphases": [
+        { "id": "19.1", "name": "Window + event loop — Win32 backend, cross-platform shim",                     "status": "soon" },
+        { "id": "19.2", "name": "Widget layer — label, button, input, layout containers",                        "status": "soon" },
+        { "id": "19.3", "name": "Native rendering — 2D canvas primitive, fonts, hit testing",                    "status": "soon" }
+      ]
+    },
+
+    { "id": 20, "name": "Game / graphics",  "status": "soon" },
+    { "id": 21, "name": "AI / ML",           "status": "soon" },
+    { "id": 22, "name": "Package registry",  "status": "soon" },
+
+    {
+      "id": 23,
+      "name": "Single-binary native toolchain",
+      "status": "soon",
+      "description": "Retire QBE + GCC backend chain; VCB emits native machine code directly. Windows-first, then ELF/Mach-O."
+    }
+  ]
+}
