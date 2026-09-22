@@ -2707,3 +2707,140 @@ body[data-page="flappybird"] .game-pause-fab {
 @media (prefers-reduced-motion:reduce) {
   .nav-download,.nav-download::before { animation:none; }
 }
+
+
+/* ============================================================
+   VAYU NAVIGATION — LEFT HAMBURGER + TOP NAV
+   ============================================================ */
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 18px;
+}
+.nav-inner > .nav-hamburger {
+  display: flex !important;
+  flex: 0 0 auto;
+  order: 1;
+}
+.nav-inner > .brand {
+  margin-right: 0 !important;
+  flex: 0 0 auto;
+  order: 2;
+}
+.navlinks {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  color: #a9bdcc;
+  font-size: 0.9rem;
+  flex: 1 1 auto;
+  order: 3;
+}
+.navlinks a {
+  transition: 0.25s;
+  position: relative;
+  white-space: nowrap;
+}
+.navlinks a:hover { color: #fff; }
+.navlinks a.active { color: #55d9ff; }
+.navlinks a.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #42d8ff, #8d6cff);
+  box-shadow: 0 0 10px rgba(85,217,255,.7);
+}
+.nav-inner .nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 0 0 auto;
+  order: 4;
+}
+
+/* The drawer opens from the LEFT because the hamburger is on the left. */
+.nav-drawer {
+  left: 0;
+  right: auto;
+  border-left: 0;
+  border-right: 1px solid rgba(116,207,255,0.22);
+  box-shadow: 30px 0 80px rgba(0,0,0,0.55);
+  transform: translateX(-100%);
+}
+.nav-drawer.open { transform: translateX(0); }
+
+/* About, Features, GitHub and Developer live in the top nav,
+   not inside the hamburger drawer. */
+.nav-drawer-link[data-nav="about"],
+.nav-drawer-link[data-nav="features"],
+.nav-drawer-link[data-nav="github"],
+.nav-drawer-link[data-nav="developer"] {
+  display: none;
+}
+
+/* Download stays beside Patreon in the main navigation. */
+.nav-download {
+  position: relative;
+  overflow: hidden;
+  animation: navDownloadFloat 2.4s ease-in-out infinite;
+}
+.nav-download::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-120%);
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,.24), transparent);
+  animation: navDownloadShine 2.8s ease-in-out infinite;
+}
+.nav-download:hover {
+  border-color: rgba(85,217,255,.62);
+  box-shadow: 0 12px 34px rgba(85,217,255,.16);
+}
+@keyframes navDownloadFloat {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+@keyframes navDownloadShine {
+  0%,35% { transform: translateX(-120%); }
+  65%,100% { transform: translateX(120%); }
+}
+
+@media (max-width: 1000px) {
+  .nav-inner { gap: 12px; }
+  .navlinks { gap: 12px; font-size: 0.82rem; }
+  .nav-download, .nav-patreon { padding: 9px 12px; font-size: 0.82rem; }
+}
+
+@media (max-width: 760px) {
+  .nav-inner {
+    height: auto;
+    min-height: 74px;
+    padding: 10px 0 7px;
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+  .navlinks {
+    order: 5;
+    flex: 1 0 100%;
+    width: 100%;
+    justify-content: flex-start;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 3px 2px 6px;
+    scrollbar-width: none;
+  }
+  .navlinks::-webkit-scrollbar { display: none; }
+  .nav-inner .nav-actions { margin-left: auto; }
+  .hero { padding-top: 125px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-download,
+  .nav-download::before { animation: none; }
+}
