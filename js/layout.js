@@ -27,15 +27,17 @@
   const NAV_HTML = `
     <nav>
       <div class="container nav-inner">
-        <button class="nav-hamburger" type="button" aria-label="Open menu" aria-expanded="false" data-hamburger>
-          <span></span><span></span><span></span>
-        </button>
         <a class="brand" href="/" data-nav="home">
           <img src="/Vayu_logo.png" alt="Vayu logo" width="39" height="39">
           VAYU
         </a>
         <div class="nav-actions">
+          <a class="btn primary nav-download soon" role="button" aria-disabled="true" tabindex="0"
+             data-tip="Vayu is still in development — downloads aren’t available yet.">↓ Download</a>
           <a class="btn primary nav-patreon" href="https://www.patreon.com/cw/Ficzo" target="_blank" rel="noopener">Patreon</a>
+          <button class="nav-hamburger" type="button" aria-label="Open menu" aria-expanded="false" data-hamburger>
+            <span></span><span></span><span></span>
+          </button>
         </div>
       </div>
     </nav>
