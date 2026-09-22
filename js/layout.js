@@ -13,15 +13,15 @@
     { href: '/',              nav: 'home',          label: 'Home' },
     { href: '/about',         nav: 'about',         label: 'About' },
     { href: '/features',      nav: 'features',      label: 'Features' },
+    { href: '/github',        nav: 'github',        label: 'GitHub' },
+    { href: '/developer',     nav: 'developer',     label: 'Developer' },
     { href: '/syntax',        nav: 'syntax',        label: 'Syntax' },
     { href: '/docs',          nav: 'docs',          label: 'Documentation' },
     { href: '/speed',         nav: 'speed',         label: 'Speed' },
     { href: '/compare',       nav: 'compare',       label: 'Compare' },
     { href: '/VCB',           nav: 'vcb',           label: 'VCB' },
-    { href: '/github',        nav: 'github',        label: 'GitHub' },
     { href: '/games',         nav: 'games',         label: 'Games' },
-    { href: '/roadmap',       nav: 'roadmap',       label: 'Roadmap' },
-    { href: '/developer',     nav: 'developer',     label: 'Developer' }
+    { href: '/roadmap',       nav: 'roadmap',       label: 'Roadmap' }
   ];
 
   const NAV_HTML = `
