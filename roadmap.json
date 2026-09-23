@@ -709,61 +709,61 @@
     {
       "id": 20,
       "name": "Graphics 2D",
-      "status": "working",
+      "status": "completed",
       "description": "Native-only 2D graphics on top of the Phase 19 GUI window and back buffer.",
       "subphases": [
         {
           "id": "20.1",
           "name": "GDI+ foundation — canvases, primitives, fonts, colors, blit",
-          "status": "working"
+          "status": "completed"
         },
         {
           "id": "20.2",
           "name": "Bitmap I/O — WIC BMP/PNG/JPG load, draw, alpha, PNG save",
-          "status": "working"
+          "status": "completed"
         },
         {
           "id": "20.3",
           "name": "Transforms + clipping + fill/compositing modes",
-          "status": "soon"
+          "status": "completed"
         }
       ]
     },
     {
       "id": 21,
       "name": "Graphics 3D",
-      "status": "soon",
+      "status": "working",
       "description": "Software rasterizer on an offscreen canvas; optional Direct3D 11 backend at the end.",
       "subphases": [
         {
           "id": "21.0",
           "name": "Math library — Vec2/3/4, Mat4, Quat and helpers (Vayu stdlib)",
-          "status": "soon"
+          "status": "completed"
         },
         {
           "id": "21.1",
           "name": "Framebuffer + triangle raster",
-          "status": "soon"
+          "status": "working"
         },
         {
           "id": "21.2",
           "name": "Depth buffer + shader pipeline",
-          "status": "soon"
+          "status": "working"
         },
         {
           "id": "21.3",
           "name": "Texture mapping + mipmaps",
-          "status": "soon"
+          "status": "working"
         },
         {
           "id": "21.4",
           "name": "Camera + lighting — Lambert + Phong",
-          "status": "soon"
+          "status": "working"
         },
         {
           "id": "21.5",
           "name": "Optional GPU backend — Direct3D 11",
-          "status": "deferred"
+          "status": "working"
         }
       ]
     },
