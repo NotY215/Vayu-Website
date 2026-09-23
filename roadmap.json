@@ -743,17 +743,17 @@
         {
           "id": "21.1",
           "name": "Framebuffer + triangle raster",
-          "status": "working"
+          "status": "completed"
         },
         {
           "id": "21.2",
           "name": "Depth buffer + shader pipeline",
-          "status": "working"
+          "status": "completed"
         },
         {
           "id": "21.3",
           "name": "Texture mapping + mipmaps",
-          "status": "working"
+          "status": "completed"
         },
         {
           "id": "21.4",
