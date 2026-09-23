@@ -636,6 +636,7 @@
       if(!bareGame){
         await loadScript('/js/markdown.js');
         await loadScript('/js/outputs.js');
+        await loadScript('/js/Live_output.js');
         await loadScript('/js/run-animation.js');
         await loadScript('/js/examples.js');
         await loadScript('/js/filemanager.js');
