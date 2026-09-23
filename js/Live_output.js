@@ -6,8 +6,7 @@
 (function(){
   'use strict';
 
-  const LIVE = new Set([
-    'input.vyu','native_io.vyu',
+  const INPUT_REQUIRED = new Set([\n    'input.vyu','native_io.vyu'\n  ]);\n\n  const UI_2D_3D = new Set([
     'gui_window.vyu','gui_events.vyu','gui_canvas.vyu','gui_bitmap.vyu',
     'gui_image_io.vyu','gui_text.vyu','gui_transform.vyu','gui_widgets.vyu',
     'raster_tri.vyu','raster_cube.vyu','raster_lit_cube.vyu','raster_postfx.vyu'
@@ -16,6 +15,8 @@
   function esc(s){
     return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   }
+
+  const LIVE = new Set([...INPUT_REQUIRED, ...UI_2D_3D]);
 
   function run(name, sourceCode){
     if(!LIVE.has(name)) return false;
@@ -35,7 +36,7 @@
           '<button data-close style="margin-left:10px;border:0;background:rgba(255,255,255,.08);color:#dce9f2;border-radius:9px;padding:7px 11px;cursor:pointer">✕</button>'+
         '</div>'+
         '<div data-stage style="position:relative;flex:1;min-height:0;overflow:auto;padding:16px"></div>'+
-        '<div style="padding:8px 14px;border-top:1px solid rgba(255,255,255,.07);font:12px JetBrains Mono,monospace;color:#6f899a">LIVE · no pre-generated output</div>'+
+        '<div style="padding:8px 14px;border-top:1px solid rgba(255,255,255,.07);font:12px JetBrains Mono,monospace;color:#6f899a">LIVE · browser test · source code is executed as a visual simulation</div>'+
       '</div>';
     document.body.appendChild(overlay);
     document.body.style.overflow='hidden';
@@ -237,5 +238,5 @@
   function star(c,cx,cy,r){c.beginPath();for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5,rr=i%2?r:r*.4;c.lineTo(cx+Math.cos(a)*rr,cy+Math.sin(a)*rr);}c.closePath();c.fill();}
   function wrapText(c,text,x,y,max,lh){let words=text.split(' '),line='';for(const word of words){const test=line?line+' '+word:word;if(c.measureText(test).width>max&&line){c.fillText(line,x,y);y+=lh;line=word;}else line=test;}if(line)c.fillText(line,x,y);}
 
-  window.VayuLiveOutputs={has:name=>LIVE.has(name),run};
+  window.VayuLiveOutputs={\n    has:name=>LIVE.has(name),\n    category:name=>INPUT_REQUIRED.has(name)?'input':(UI_2D_3D.has(name)?'2d-3d':null),\n    run\n  };
 })();
