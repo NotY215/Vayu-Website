@@ -600,27 +600,27 @@
     {
       "id": 18,
       "name": "Tooling",
-      "status": "working",
+      "status": "completed",
       "subphases": [
         {
           "id": "18.1",
           "name": "LSP server — parse/tokenize/typeinfo/definition/hover/diagnostics over stdio",
-          "status": "soon"
+          "status": "completed"
         },
         {
           "id": "18.2",
           "name": "Formatter — vfmt with idempotent rules (indent, spacing, blank-line policy)",
-          "status": "soon"
+          "status": "completed"
         },
         {
           "id": "18.3",
           "name": "Linter — unused names, unreachable code, shadowing, dead stores",
-          "status": "soon"
+          "status": "completed"
         },
         {
           "id": "18.4",
           "name": "VS Code extension — bundle 18.1–18.3, syntax highlighting, run/debug",
-          "status": "soon"
+          "status": "completed"
         }
       ]
     },
@@ -715,12 +715,12 @@
         {
           "id": "20.1",
           "name": "GDI+ foundation — canvases, primitives, fonts, colors, blit",
-          "status": "soon"
+          "status": "working"
         },
         {
           "id": "20.2",
           "name": "Bitmap I/O — WIC BMP/PNG/JPG load, draw, alpha, PNG save",
-          "status": "soon"
+          "status": "working"
         },
         {
           "id": "20.3",
