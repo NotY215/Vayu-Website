@@ -732,7 +732,7 @@
     {
       "id": 21,
       "name": "Graphics 3D",
-      "status": "working",
+      "status": "completed",
       "description": "Software rasterizer on an offscreen canvas; optional Direct3D 11 backend at the end.",
       "subphases": [
         {
@@ -758,19 +758,19 @@
         {
           "id": "21.4",
           "name": "Camera + lighting — Lambert + Phong",
-          "status": "working"
+          "status": "completed"
         },
         {
           "id": "21.5",
           "name": "Optional GPU backend — Direct3D 11",
-          "status": "working"
+          "status": "completed"
         }
       ]
     },
     {
       "id": 22,
       "name": "AI / ML",
-      "status": "soon",
+      "status": "working",
       "description": "Vayu-first tensor and ML stack with native hot loops; GPU acceleration remains optional.",
       "subphases": [
         {
