@@ -11,6 +11,10 @@
   }
 
   function run(name, sourceCode){
+    if(window.VayuLiveOutputs && window.VayuLiveOutputs.has && window.VayuLiveOutputs.has(name)){
+      window.VayuLiveOutputs.run(name, sourceCode);
+      return;
+    }
     // Close any existing overlay before opening a new one
     const existing = document.querySelector('.hack-overlay');
     if(existing) existing.remove();
