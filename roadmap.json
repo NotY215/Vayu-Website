@@ -814,21 +814,26 @@
         {
           "id": "23.1",
           "name": "Local registry folder, nva publish-local / nva install",
-          "status": "working"
+          "status": "completed"
         },
         {
           "id": "23.2",
           "name": "HTTP registry, remote publish",
-          "status": "working"
+          "status": "completed"
         },
         {
           "id": "23.3",
           "name": "Git dependencies",
-          "status": "working"
+          "status": "completed"
         },
         {
           "id": "23.4",
           "name": "Transitive dependency solver",
+          "status": "completed"
+        },
+                {
+          "id": "23.5",
+          "name": "Reference server — pure Vayu HTTP daemon",
           "status": "soon"
         }
       ]
