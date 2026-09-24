@@ -17,8 +17,8 @@
   },
   "repo": "NotY215/Vayu",
   "site": "https://vayu.gt.tc",
-  "updated": "2026-09-23",
-  "currentPhase": 22,
+  "updated": "2026-09-24",
+  "currentPhase": 23,
   "phases": [
     {
       "id": 1,
@@ -803,8 +803,35 @@
     {
       "id": 23,
       "name": "Single-binary native toolchain",
-      "status": "soon",
-      "description": "Retire QBE + GCC backend chain; VCB emits native machine code directly. Windows-first, then ELF/Mach-O."
+      "status": "working",
+      "description": "Package ecosystem and dependency management — local registry first, then HTTP, Git, and transitive resolution.",
+      "subphases": [
+        {
+          "id": "23.0",
+          "name": "Semver in nva.vyu — landed last drop",
+          "status": "completed"
+        },
+        {
+          "id": "23.1",
+          "name": "Local registry folder, nva publish-local / nva install",
+          "status": "working"
+        },
+        {
+          "id": "23.2",
+          "name": "HTTP registry, remote publish",
+          "status": "soon"
+        },
+        {
+          "id": "23.3",
+          "name": "Git dependencies",
+          "status": "soon"
+        },
+        {
+          "id": "23.4",
+          "name": "Transitive dependency solver",
+          "status": "soon"
+        }
+      ]
     }
   ]
 }
