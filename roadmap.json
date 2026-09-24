@@ -770,7 +770,7 @@
     {
       "id": 22,
       "name": "AI / ML",
-      "status": "working",
+      "status": "completed",
       "description": "Vayu-first tensor and ML stack with native hot loops; GPU acceleration remains optional.",
       "subphases": [
         {
@@ -796,7 +796,7 @@
         {
           "id": "22.4",
           "name": "GPU acceleration — CUDA / DirectML",
-          "status": "soon"
+          "status": "completed"
         }
       ]
     },
@@ -819,12 +819,12 @@
         {
           "id": "23.2",
           "name": "HTTP registry, remote publish",
-          "status": "soon"
+          "status": "working"
         },
         {
           "id": "23.3",
           "name": "Git dependencies",
-          "status": "soon"
+          "status": "working"
         },
         {
           "id": "23.4",
