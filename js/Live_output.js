@@ -6,7 +6,11 @@
 (function(){
   'use strict';
 
-  const INPUT_REQUIRED = new Set([\n    'input.vyu','native_io.vyu'\n  ]);\n\n  const UI_2D_3D = new Set([
+  const INPUT_REQUIRED = new Set([
+    'input.vyu','native_io.vyu'
+  ]);
+
+  const UI_2D_3D = new Set([
     'gui_window.vyu','gui_events.vyu','gui_canvas.vyu','gui_bitmap.vyu',
     'gui_image_io.vyu','gui_text.vyu','gui_transform.vyu','gui_widgets.vyu',
     'raster_tri.vyu','raster_cube.vyu','raster_lit_cube.vyu','raster_postfx.vyu'
@@ -89,24 +93,28 @@
 
   function inputDemo(stage){
     stage.innerHTML='<div style="max-width:620px;margin:30px auto;padding:24px;border:1px solid rgba(85,217,255,.18);border-radius:16px;background:#0b1725">'+
-      '<h2 style="margin-top:0">input.vyu</h2><p style="color:#8ea6b6">Run the same two user inputs in the browser.</p>'+
-      '<label>Name<br><input data-name value="Alice" style="width:100%;box-sizing:border-box;margin:7px 0 14px;padding:11px;border-radius:8px;border:1px solid #29465b;background:#06101a;color:#fff"></label>'+
-      '<label>Age<br><input data-age type="number" value="25" style="width:100%;box-sizing:border-box;margin:7px 0 14px;padding:11px;border-radius:8px;border:1px solid #29465b;background:#06101a;color:#fff"></label>'+
+      '<h2 style="margin-top:0">input.vyu</h2><p style="color:#8ea6b6">Live input test — enter values, then run.</p>'+
+      '<label>Name<br><input data-name autocomplete="off" placeholder="Enter your name" style="width:100%;box-sizing:border-box;margin:7px 0 14px;padding:11px;border-radius:8px;border:1px solid #29465b;background:#06101a;color:#fff"></label>'+
+      '<label>Age<br><input data-age type="number" min="0" placeholder="Enter your age" style="width:100%;box-sizing:border-box;margin:7px 0 14px;padding:11px;border-radius:8px;border:1px solid #29465b;background:#06101a;color:#fff"></label>'+
       '<button data-run style="padding:10px 16px;border:0;border-radius:9px;background:#27b9df;color:#031019;font-weight:700;cursor:pointer">▶ Run</button>'+
-      '<pre data-out style="margin-top:16px;padding:14px;background:#050b13;border-radius:10px;min-height:70px;color:#bfefff"></pre></div>';
+      '<pre data-out style="margin-top:16px;padding:14px;background:#050b13;border-radius:10px;min-height:70px;color:#bfefff">Waiting for input…</pre></div>';
     const out=stage.querySelector('[data-out]');
-    const run=()=>{const n=stage.querySelector('[data-name]').value;const a=Number(stage.querySelector('[data-age]').value);out.textContent='Name: Hello, '+n+'\n'+(a+1);};
-    stage.querySelector('[data-run]').onclick=run; run();
+    const run=()=>{const n=stage.querySelector('[data-name]').value.trim();const raw=stage.querySelector('[data-age]').value.trim();if(!n||raw===''){out.textContent='Input required: please enter both Name and Age.';return;}const a=Number(raw);out.textContent='Name: Hello, '+n+'\n'+(a+1);};
+    stage.querySelector('[data-run]').onclick=run;
+    stage.querySelector('[data-name]').addEventListener('keydown',e=>{if(e.key==='Enter')stage.querySelector('[data-age]').focus();});
+    stage.querySelector('[data-age]').addEventListener('keydown',e=>{if(e.key==='Enter')run();});
   }
 
   function nativeIODemo(stage){
     stage.innerHTML='<div style="max-width:700px;margin:20px auto;padding:22px;border:1px solid rgba(85,217,255,.18);border-radius:16px;background:#0b1725">'+
       '<h2 style="margin-top:0">native_io.vyu</h2><p style="color:#8ea6b6">Interactive input plus an in-memory browser file round-trip.</p>'+
-      '<div style="display:flex;gap:10px;flex-wrap:wrap"><input data-name value="Charlie" placeholder="Name" style="padding:10px;border-radius:8px;border:1px solid #29465b;background:#06101a;color:#fff"><input data-age type="number" value="30" placeholder="Age" style="padding:10px;border-radius:8px;border:1px solid #29465b;background:#06101a;color:#fff"><button data-run style="padding:10px 16px;border:0;border-radius:9px;background:#27b9df;font-weight:700;cursor:pointer">▶ Run</button></div>'+
-      '<pre data-out style="margin-top:16px;padding:14px;background:#050b13;border-radius:10px;white-space:pre-wrap;color:#bfefff"></pre></div>';
+      '<div style="display:flex;gap:10px;flex-wrap:wrap"><input data-name autocomplete="off" placeholder="Name" style="padding:10px;border-radius:8px;border:1px solid #29465b;background:#06101a;color:#fff"><input data-age type="number" min="0" placeholder="Age" style="padding:10px;border-radius:8px;border:1px solid #29465b;background:#06101a;color:#fff"><button data-run style="padding:10px 16px;border:0;border-radius:9px;background:#27b9df;font-weight:700;cursor:pointer">▶ Run</button></div>'+
+      '<pre data-out style="margin-top:16px;padding:14px;background:#050b13;border-radius:10px;white-space:pre-wrap;color:#bfefff">Waiting for input…</pre></div>';
     const out=stage.querySelector('[data-out]');
     stage.querySelector('[data-run]').onclick=()=>{
-      const n=stage.querySelector('[data-name]').value,a=Number(stage.querySelector('[data-age]').value);
+      const n=stage.querySelector('[data-name]').value.trim(),raw=stage.querySelector('[data-age]').value.trim();
+      if(!n||raw===''){out.textContent='Input required: please enter both Name and Age.';return;}
+      const a=Number(raw);
       const content='Hello from Vayu native!\nLine two.\n';
       const lines=['What is your name? Hello, '+n+'!','How old are you? Next year you will be '+(a+1)+'.',
         'true','35','H','f','65','B','72','["alpha", "beta", "gamma"]','3','beta','a-b-c','hello Vayu','padded','true','true','true','50','0','37','26'];
@@ -238,5 +246,9 @@
   function star(c,cx,cy,r){c.beginPath();for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5,rr=i%2?r:r*.4;c.lineTo(cx+Math.cos(a)*rr,cy+Math.sin(a)*rr);}c.closePath();c.fill();}
   function wrapText(c,text,x,y,max,lh){let words=text.split(' '),line='';for(const word of words){const test=line?line+' '+word:word;if(c.measureText(test).width>max&&line){c.fillText(line,x,y);y+=lh;line=word;}else line=test;}if(line)c.fillText(line,x,y);}
 
-  window.VayuLiveOutputs={\n    has:name=>LIVE.has(name),\n    category:name=>INPUT_REQUIRED.has(name)?'input':(UI_2D_3D.has(name)?'2d-3d':null),\n    run\n  };
+  window.VayuLiveOutputs={
+    has:name=>LIVE.has(name),
+    category:name=>INPUT_REQUIRED.has(name)?'input':(UI_2D_3D.has(name)?'2d-3d':null),
+    run
+  };
 })();
