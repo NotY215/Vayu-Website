@@ -12,7 +12,12 @@
 
   function run(name, sourceCode){
     if(window.VayuLiveOutputs && window.VayuLiveOutputs.has && window.VayuLiveOutputs.has(name)){
-      window.VayuLiveOutputs.run(name, sourceCode);
+      const handled = window.VayuLiveOutputs.run(name, sourceCode);
+      if(handled !== false) return;
+    }
+    if(window.VayuLiveOutputs && window.VayuLiveOutputs.category &&
+       window.VayuLiveOutputs.category(name)){
+      showLiveUnavailable(name);
       return;
     }
     // Close any existing overlay before opening a new one
@@ -152,6 +157,25 @@
 
       if(window.VayuHaptics) window.VayuHaptics.fire('success');
     }
+  }
+
+  function showLiveUnavailable(name){
+    const existing = document.querySelector('.vayu-live-unavailable');
+    if(existing) existing.remove();
+    const overlay=document.createElement('div');
+    overlay.className='vayu-live-unavailable';
+    overlay.style.cssText='position:fixed;inset:0;z-index:99999;background:rgba(2,6,13,.9);display:grid;place-items:center;padding:20px;';
+    overlay.innerHTML='<div style="width:min(620px,94vw);padding:24px;border:1px solid rgba(255,100,100,.3);border-radius:16px;background:#07111f;color:#dce9f2;font-family:Inter,system-ui,sans-serif">'+
+      '<h2 style="margin-top:0">Live test unavailable</h2>'+
+      '<p style="color:#9fb2c0">The website could not load the live runner for <b>'+escapeHtml(name)+'</b>.</p>'+
+      '<p style="color:#7f95a5;font-size:13px">No pre-generated output is shown for interactive examples.</p>'+
+      '<button type="button" data-close style="padding:9px 14px;border:0;border-radius:9px;background:#27b9df;color:#031019;font-weight:700;cursor:pointer">Close</button>'+
+    '</div>';
+    document.body.appendChild(overlay);
+    document.body.style.overflow='hidden';
+    const close=()=>{overlay.remove();document.body.style.overflow='';};
+    overlay.querySelector('[data-close]').onclick=close;
+    overlay.addEventListener('click',e=>{if(e.target===overlay)close();});
   }
 
   function startMatrix(canvas){
