@@ -776,27 +776,27 @@
         {
           "id": "22.0",
           "name": "Tensor core — N-D arrays, broadcasting, reductions, reshape/transpose, matmul",
-          "status": "soon"
+          "status": "completed"
         },
         {
           "id": "22.1",
           "name": "Autodiff — reverse-mode tape",
-          "status": "soon"
+          "status": "completed"
         },
         {
           "id": "22.2",
           "name": "NN primitives — Parameter, Linear, activations, losses, optimizers, Sequential",
-          "status": "soon"
+          "status": "completed"
         },
         {
           "id": "22.3",
           "name": "ONNX model loader — read-only inference",
-          "status": "soon"
+          "status": "completed"
         },
         {
           "id": "22.4",
           "name": "GPU acceleration — CUDA / DirectML",
-          "status": "deferred"
+          "status": "soon"
         }
       ]
     },
