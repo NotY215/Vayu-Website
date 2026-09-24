@@ -203,8 +203,12 @@
     });
   }
 
+  function isLive(name){
+    return !!(window.VayuLiveOutputs && typeof window.VayuLiveOutputs.has === 'function' && window.VayuLiveOutputs.has(name));
+  }
+
   function hasOutput(name){
-    return !!(window.VayuOutputs &&
+    return isLive(name) || !!(window.VayuOutputs &&
               Object.prototype.hasOwnProperty.call(window.VayuOutputs, name));
   }
 
