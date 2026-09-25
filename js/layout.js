@@ -21,7 +21,8 @@
     { href: '/compare',       nav: 'compare',       label: 'Compare' },
     { href: '/VCB',           nav: 'vcb',           label: 'VCB' },
     { href: '/games',         nav: 'games',         label: 'Games' },
-    { href: '/roadmap',       nav: 'roadmap',       label: 'Roadmap' }
+    { href: '/roadmap',       nav: 'roadmap',       label: 'Roadmap' },
+    { href: '/faq',           nav: 'FAQ',           label: 'FAQ' }
   ];
 
   const NAV_HTML = `
@@ -39,6 +40,8 @@
           <a href="/features" data-nav="features">Features</a>
           <a href="/github" data-nav="github">GitHub</a>
           <a href="/developer" data-nav="developer">Developer</a>
+          <a href="/roadmap" data-nav="roadmap">Roadmap</a>
+          <a href="/Faq" data-nav="faq">FAQ</a>
         </div>
         <div class="nav-actions">
           <a class="btn primary nav-download soon" role="button" aria-disabled="true" tabindex="0"
@@ -57,7 +60,7 @@
         <button class="nav-drawer-close" type="button" aria-label="Close menu" data-drawer-close>✕</button>
       </div>
       <div class="nav-drawer-list">
-        ${NAV_LINKS.filter(l => !['about','features','github','developer'].includes(l.nav)).map(l =>
+        ${NAV_LINKS.filter(l => !['about','features','github','developer','roadmap','faq'].includes(l.nav)).map(l =>
           '<a class="nav-drawer-link" href="' + l.href + '" data-nav="' + l.nav + '">' +
             '<span>' + l.label + '</span>' +
             '<span class="nav-drawer-link-arrow">›</span>' +
