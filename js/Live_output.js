@@ -13,7 +13,8 @@
   const UI_2D_3D = new Set([
     'gui_window.vyu','gui_events.vyu','gui_canvas.vyu','gui_bitmap.vyu',
     'gui_image_io.vyu','gui_text.vyu','gui_transform.vyu','gui_widgets.vyu',
-    'raster_tri.vyu','raster_cube.vyu','raster_lit_cube.vyu','raster_postfx.vyu'
+    'raster_tri.vyu','raster_cube.vyu','raster_lit_cube.vyu','raster_postfx.vyu',
+    'cuda_matmul.vyu','dml_matmul.vyu'
   ]);
 
   function esc(s){
@@ -89,6 +90,8 @@
     if(name==='raster_cube.vyu') return rasterCube(stage,addCleanup,false);
     if(name==='raster_lit_cube.vyu') return rasterCube(stage,addCleanup,true);
     if(name==='raster_postfx.vyu') return postFx(stage,addCleanup);
+    if(name==='cuda_matmul.vyu') return gpuDemo(stage,'CUDA');
+    if(name==='dml_matmul.vyu') return gpuDemo(stage,'DirectML / D3D11');
   }
 
   function inputDemo(stage){
@@ -245,6 +248,22 @@
   function line(c,x0,y0,x1,y1,color,width){c.strokeStyle=color;c.lineWidth=width||1;c.beginPath();c.moveTo(x0,y0);c.lineTo(x1,y1);c.stroke();}
   function star(c,cx,cy,r){c.beginPath();for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5,rr=i%2?r:r*.4;c.lineTo(cx+Math.cos(a)*rr,cy+Math.sin(a)*rr);}c.closePath();c.fill();}
   function wrapText(c,text,x,y,max,lh){let words=text.split(' '),line='';for(const word of words){const test=line?line+' '+word:word;if(c.measureText(test).width>max&&line){c.fillText(line,x,y);y+=lh;line=word;}else line=test;}if(line)c.fillText(line,x,y);}
+
+
+  function gpuDemo(stage,backend){
+    stage.innerHTML='<div style="max-width:760px;margin:30px auto;padding:24px;border:1px solid rgba(85,217,255,.18);border-radius:16px;background:#0b1725">'+
+      '<h2 style="margin-top:0">'+esc(backend)+' matmul</h2>'+
+      '<p style="color:#8ea6b6">Native GPU example. The browser cannot execute Vayu CUDA/DirectML code, so this is a live UI preview of the example flow.</p>'+
+      '<pre style="padding:16px;background:#050b13;border-radius:10px;color:#bfefff;white-space:pre-wrap">CPU reference: tensor.matmul(...)
+GPU backend: '+esc(backend)+'
+Validation: compare GPU tensor with CPU reference
+Cleanup: tensor.free(...) → backend shutdown</pre>'+
+      '<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><button data-run style="padding:10px 16px;border:0;border-radius:9px;background:#27b9df;font-weight:700;cursor:pointer">▶ Simulate run</button><span data-status style="color:#7e98aa">ready</span></div></div>';
+    const status=stage.querySelector('[data-status]');
+    stage.querySelector('[data-run]').onclick=()=>{
+      status.textContent='browser preview complete — native hardware execution is required for real GPU output';
+    };
+  }
 
   window.VayuLiveOutputs={
     has:name=>LIVE.has(name),
