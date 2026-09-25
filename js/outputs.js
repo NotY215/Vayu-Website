@@ -1223,4 +1223,132 @@ Hello, Vayu!
 3.14159
 User(name="Bob", age=40)`
 
+
+/* ============================================================
+   BENCHMARK SAMPLES
+   ============================================================ */
+'lists.vyu': `49900000`,
+'loop.vyu': `24999985000000`,
+'mixed.vyu': `40000`,
+'native_loop.vyu': `1249999975000000`,
+'native_oop.vyu': `83333358333335000000`,
+'oop.vyu': `250000100000000`,
+'strings.vyu': `20000`,
+
+/* ============================================================
+   GPU / AI / TENSOR SAMPLES
+   ============================================================ */
+'cuda_matmul.vyu': `cuda.available = false
+cpu
+[[348.0000, 360.0000, 372.0000, 384.0000, ...]]
+no CUDA device; CPU result shown`,
+'dml_matmul.vyu': `dml.available  = false
+cuda.available = false
+no GPU backend available; CPU only
+cpu done
+dml demo done`,
+'nn.vyu': `nn.vyu: library module; no standalone output`,
+'nn_mlp.vyu': `loss: native tensor/autodiff training output
+...
+final predictions vs truth:
+pred
+true`,
+'nva_git_test.vyu': `== nva tree ==
+consumer v0.1.0
+└── parent v0.1.0 (git)
+    └── leaf v0.1.0 (git)
+
+== nva update ==
+
+== nva add-git ==
+
+== verify ==
+OK: parent installed
+OK: leaf (transitive) installed under parent/nova_modules
+
+nva git test done`,
+'nva_registry_test.vyu': `registry root: <absolute path>
+
+== publish-local ==
+  rc=0
+
+== search greet ==
+greet 0.1.0
+
+== install greet ==
+  rc=0
+OK: greet installed
+OK: greet/src/main.vyu present
+
+nva registry test done`,
+'onnx_mlp.vyu': `building model...
+y
+expected: y shape=[1,1] data=[4.0000]`,
+'onnx_mlp_real.vyu': `input  = x
+output = y
+y
+[[4.0000]]`,
+'tensor_autograd.vyu': `w
+b
+loss
+...
+final params:
+w
+b
+expected: w=3.0000, b=2.0000`,
+'tensor_basic.vyu': `a
+[[1.0000, 2.0000, 3.0000], [4.0000, 5.0000, 6.0000]]
+b
+[[10.0000, 20.0000, 30.0000], [40.0000, 50.0000, 60.0000]]
+c
+[[7.0000, 8.0000], [9.0000, 10.0000], [11.0000, 12.0000]]
+
+== metadata ==
+a.ndim  = 2
+a.shape = [2, 3]
+a.numel = 6
+
+== elementwise ==
+a+b
+[[11.0000, 22.0000, 33.0000], [44.0000, 55.0000, 66.0000]]
+b-a
+[[9.0000, 18.0000, 27.0000], [36.0000, 45.0000, 54.0000]]
+a*b
+[[10.0000, 40.0000, 90.0000], [160.0000, 250.0000, 360.0000]]
+b/a
+[[10.0000, 10.0000, 10.0000], [10.0000, 10.0000, 10.0000]]
+
+== scalar ==
+a*2
+[[2.0000, 4.0000, 6.0000], [8.0000, 10.0000, 12.0000]]
+a+100
+[[101.0000, 102.0000, 103.0000], [104.0000, 105.0000, 106.0000]]
+
+== matmul (2x3 @ 3x2) ==
+a@c
+[[58.0000, 64.0000], [139.0000, 154.0000]]
+
+== reductions ==
+sum(a)    = 21
+max(a)    = 6
+argmax(a) = 5
+
+== shape ops ==
+reshape(a,[3,2])
+[[1.0000, 2.0000], [3.0000, 4.0000], [5.0000, 6.0000]]
+transpose(a)
+[[1.0000, 4.0000], [2.0000, 5.0000], [3.0000, 6.0000]]
+
+== broadcast ==
+bias[3]
+[100.0000, 200.0000, 300.0000]
+a + bias
+[[101.0000, 202.0000, 303.0000], [104.0000, 205.0000, 306.0000]]
+
+== misc ==
+copy(a)
+[[1.0000, 2.0000, 3.0000], [4.0000, 5.0000, 6.0000]]
+zeros([2,2]) -> fill(5)
+[[5.0000, 5.0000], [5.0000, 5.0000]]`,
+
 };
