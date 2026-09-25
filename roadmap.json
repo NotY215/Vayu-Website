@@ -803,7 +803,7 @@
     {
       "id": 23,
       "name": "Single-binary native toolchain",
-      "status": "working",
+      "status": "completed",
       "description": "Package ecosystem and dependency management — local registry first, then HTTP, Git, and transitive resolution.",
       "subphases": [
         {
@@ -834,7 +834,7 @@
                 {
           "id": "23.5",
           "name": "Reference server — pure Vayu HTTP daemon",
-          "status": "soon"
+          "status": "completed"
         }
       ]
     }
