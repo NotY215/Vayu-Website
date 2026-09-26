@@ -357,7 +357,7 @@
       html += '</div>';
       html += '<h4>' + escapeHtml(rp.name) + '</h4>';
       if(rp.description) html += '<p>' + escapeHtml(rp.description) + '</p>';
-      if(hasSubs) html += renderSubphases(rp.subphases);
+      if(hasSubs) html += renderSubphases(rp.subphases, open);
       html += '</div>';
       return html;
     }
@@ -446,6 +446,16 @@
         const target = document.getElementById(link.dataset.roadmapTarget);
         if(!target) return;
         e.preventDefault();
+
+        const parentRoot = target.closest('.phase-root');
+        if(parentRoot && target.classList.contains('phase-subphase') && !parentRoot.classList.contains('subphases-open')){
+          const toggle = parentRoot.querySelector('[data-phase-toggle]');
+          const body = parentRoot.querySelector('[data-subphases]');
+          parentRoot.classList.add('subphases-open');
+          if(body) body.hidden = false;
+          if(toggle) toggle.setAttribute('aria-expanded', 'true');
+        }
+
         target.scrollIntoView({behavior:'smooth', block:'start'});
         history.replaceState(null, '', '#' + link.dataset.roadmapTarget);
         if(window.VayuHaptics) window.VayuHaptics.fire('tap', link);
