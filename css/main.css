@@ -2098,7 +2098,8 @@ body[data-page="flappybird"] .game-pause-fab {
     grid-template-rows 0.42s cubic-bezier(.2,.8,.2,1),
     margin-top 0.3s ease;
 }
-.phase.subphases-open .phase-subphases {
+.phase.subphases-open .phase-subphases,
+.phase-root.subphases-open .phase-subphases {
   grid-template-rows: 1fr;
   margin-top: 14px;
 }
@@ -2147,7 +2148,8 @@ body[data-page="flappybird"] .game-pause-fab {
   opacity: 0;
   transform: translateX(-10px);
 }
-.phase.subphases-open .phase-subphase {
+.phase.subphases-open .phase-subphase,
+.phase-root.subphases-open .phase-subphase {
   opacity: 1;
   transform: none;
   transition:
@@ -2156,15 +2158,15 @@ body[data-page="flappybird"] .game-pause-fab {
     background 0.18s ease,
     border-color 0.18s ease;
 }
-.phase.subphases-open .phase-subphase:nth-child(1)  { transition-delay: 0.04s; }
-.phase.subphases-open .phase-subphase:nth-child(2)  { transition-delay: 0.07s; }
-.phase.subphases-open .phase-subphase:nth-child(3)  { transition-delay: 0.10s; }
-.phase.subphases-open .phase-subphase:nth-child(4)  { transition-delay: 0.13s; }
-.phase.subphases-open .phase-subphase:nth-child(5)  { transition-delay: 0.16s; }
-.phase.subphases-open .phase-subphase:nth-child(6)  { transition-delay: 0.19s; }
-.phase.subphases-open .phase-subphase:nth-child(7)  { transition-delay: 0.22s; }
-.phase.subphases-open .phase-subphase:nth-child(8)  { transition-delay: 0.25s; }
-.phase.subphases-open .phase-subphase:nth-child(9)  { transition-delay: 0.28s; }
+.phase.subphases-open .phase-subphase:nth-child(1), .phase-root.subphases-open .phase-subphase:nth-child(1)  { transition-delay: 0.04s; }
+.phase.subphases-open .phase-subphase:nth-child(2), .phase-root.subphases-open .phase-subphase:nth-child(2)  { transition-delay: 0.07s; }
+.phase.subphases-open .phase-subphase:nth-child(3), .phase-root.subphases-open .phase-subphase:nth-child(3)  { transition-delay: 0.10s; }
+.phase.subphases-open .phase-subphase:nth-child(4), .phase-root.subphases-open .phase-subphase:nth-child(4)  { transition-delay: 0.13s; }
+.phase.subphases-open .phase-subphase:nth-child(5), .phase-root.subphases-open .phase-subphase:nth-child(5)  { transition-delay: 0.16s; }
+.phase.subphases-open .phase-subphase:nth-child(6), .phase-root.subphases-open .phase-subphase:nth-child(6)  { transition-delay: 0.19s; }
+.phase.subphases-open .phase-subphase:nth-child(7), .phase-root.subphases-open .phase-subphase:nth-child(7)  { transition-delay: 0.22s; }
+.phase.subphases-open .phase-subphase:nth-child(8), .phase-root.subphases-open .phase-subphase:nth-child(8)  { transition-delay: 0.25s; }
+.phase.subphases-open .phase-subphase:nth-child(9), .phase-root.subphases-open .phase-subphase:nth-child(9)  { transition-delay: 0.28s; }
 .phase.subphases-open .phase-subphase:nth-child(10) { transition-delay: 0.31s; }
 .phase.subphases-open .phase-subphase:nth-child(11) { transition-delay: 0.34s; }
 .phase.subphases-open .phase-subphase:nth-child(12) { transition-delay: 0.37s; }
