@@ -887,34 +887,70 @@
     },
     {
       "id": 26,
-      "name": "VCB — Part 1: backend foundation",
+      "name": "VCB",
       "status": "working",
-      "description": "The Vayu Compiler Backend becomes a separate project. This drop establishes the VCB project, shared IR, lowering pipeline, printer, and vcb-dump before machine-code generation.",
-      "subphases": [
-        {
-          "id": "26.0",
-          "name": "VCB project — separate repository, CMake build, core architecture and Vayu integration boundary",
-          "status": "completed"
-        },
+      "description": "Vayu Compiler Backend — a separate native backend project, progressing from a shared compiler IR and lowering pipeline to direct machine-code generation.",
+      "rootPhases": [
         {
           "id": "26.1",
-          "name": "VCB IR — define and parse the .vcbir representation used between Vayu and VCB",
-          "status": "working"
+          "name": "Part 1: backend foundation",
+          "status": "working",
+          "description": "Establish VCB as a separate backend with its shared IR, lowering pipeline, printer, and inspection tooling before machine-code generation.",
+          "subphases": [
+            {
+              "id": "26.1.0",
+              "name": "VCB project — separate repository, CMake build, core architecture and Vayu integration boundary",
+              "status": "completed"
+            },
+            {
+              "id": "26.1.1",
+              "name": "VCB IR — define and parse the .vcbir representation used between Vayu and VCB",
+              "status": "working"
+            },
+            {
+              "id": "26.1.2",
+              "name": "Lowerer — convert Vayu native/compiler IR into VCB IR",
+              "status": "working"
+            },
+            {
+              "id": "26.1.3",
+              "name": "IR printer — readable .vcbir text output and deterministic formatting",
+              "status": "working"
+            },
+            {
+              "id": "26.1.4",
+              "name": "vcb-dump — inspect, validate, and debug VCB IR from the command line",
+              "status": "working"
+            }
+          ]
         },
         {
           "id": "26.2",
-          "name": "Lowerer — convert Vayu native/compiler IR into VCB IR",
-          "status": "working"
-        },
-        {
-          "id": "26.3",
-          "name": "IR printer — readable .vcbir text output and deterministic formatting",
-          "status": "working"
-        },
-        {
-          "id": "26.4",
-          "name": "vcb-dump — inspect, validate, and debug VCB IR from the command line",
-          "status": "working"
+          "name": "Part 2: native code generation",
+          "status": "soon",
+          "description": "Complete the VCB native backend: x86-64 code generation, PE and ELF writers, a prebuilt runtime, and the switch from the QBE + gcc pipeline to VCB.",
+          "subphases": [
+            {
+              "id": "26.2.0",
+              "name": "x86-64 codegen — instruction selection, register allocation, calls, control flow, and ABI lowering",
+              "status": "soon"
+            },
+            {
+              "id": "26.2.1",
+              "name": "Object writers — PE/COFF and ELF output",
+              "status": "soon"
+            },
+            {
+              "id": "26.2.2",
+              "name": "Prebuilt runtime — link Vayu runtime support without compiling runtime C through gcc",
+              "status": "soon"
+            },
+            {
+              "id": "26.2.3",
+              "name": "Vayuc integration — switch native compilation from QBE + gcc to VCB",
+              "status": "soon"
+            }
+          ]
         }
       ]
     },
@@ -947,71 +983,71 @@
       ]
     },
     {
-      "id": 28,
+      "id": 27,
       "name": "Cross-platform Linux builds",
       "status": "soon",
       "description": "Extend the Vayu toolchain and VCB-era native path to Linux builds after the Windows VCB backend is established.",
       "subphases": [
         {
-          "id": "28.0",
+          "id": "27.0",
           "name": "Linux toolchain builds — vayuc, vls, vfmt, vlint, nva",
           "status": "soon"
         },
         {
-          "id": "28.1",
+          "id": "27.1",
           "name": "Linux-native VCB integration and runtime packaging",
           "status": "soon"
         }
       ]
     },
     {
-      "id": 29,
+      "id": 28,
       "name": "Benchmarking (Round 2, post-VCB)",
       "status": "soon",
       "description": "Run the full benchmark suite after VCB is producing the binaries, using the same programs and methodology as the completed Phase 25 preparation.",
       "subphases": [
         {
-          "id": "29.0",
+          "id": "28.0",
           "name": "Full benchmark suite — Vayu VCB-built binaries against C++, Java, and Python",
           "status": "soon"
         },
         {
-          "id": "29.1",
+          "id": "28.1",
           "name": "Before/after comparison — compare VCB results with the postponed QBE-era baseline when available",
           "status": "soon"
         },
         {
-          "id": "29.2",
+          "id": "28.2",
           "name": "Publish benchmark summary and regression analysis",
           "status": "soon"
         }
       ]
     },
     {
-      "id": 30,
+      "id": 29,
       "name": "Version cut",
       "status": "soon",
       "description": "Cut the VCB-era release after backend integration, Linux builds, and full benchmarking are complete.",
       "subphases": [
         {
-          "id": "30.0",
+          "id": "29.0",
           "name": "Bundle VCB-era toolchain and runtime for supported platforms",
           "status": "soon"
         },
         {
-          "id": "30.1",
+          "id": "29.1",
           "name": "Retire QBE + gcc from the native toolchain documentation and packaging",
           "status": "soon"
         },
         {
-          "id": "30.2",
+          "id": "29.2",
           "name": "Publish benchmark results and tag the release",
           "status": "soon"
         }
       ]
     },
     {
-      "id": 31,
+      "id": 30,
       "name": "Parking lot (30+)",
       "status": "soon",
       "description": "Open future work not yet assigned to a fixed phase.",
