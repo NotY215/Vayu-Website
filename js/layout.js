@@ -212,6 +212,7 @@
     if(s === 'completed') return 'COMPLETED';
     if(s === 'working')   return 'IN DEVELOPMENT';
     if(s === 'vacation')  return 'ON VACATION';
+    if(s === 'skipped')   return 'SKIPPED FOR NOW';
     return 'PLANNED';
   }
   function resolvePhaseRef(ref){
@@ -289,6 +290,7 @@
     if(s === 'completed') return '✓';
     if(s === 'working')   return '<span class="dev-dot"></span>';
     if(s === 'vacation')  return '☕';
+    if(s === 'skipped')   return '⏭';
     return '—';
   }
   function statusClass(p){
