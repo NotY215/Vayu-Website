@@ -326,12 +326,49 @@
 
     const phases = ROADMAP_DATA.phases;
 
+    function renderSubphases(subs){
+      if(!Array.isArray(subs) || !subs.length) return '';
+      let html = '<div class="phase-subphases" data-subphases hidden><div class="phase-subphases-inner">';
+      subs.forEach(sp => {
+        const spStatus = sp.status || 'completed';
+        html += '<div class="phase-subphase" data-sub-status="' + escapeHtml(spStatus) + '" id="roadmap-' + escapeHtml(sp.id) + '">' +
+                  '<span class="phase-subphase-id">' + escapeHtml(sp.id) + '</span>' +
+                  '<span class="phase-subphase-dot ' + subDotClass(spStatus) + '"></span>' +
+                  '<span class="phase-subphase-name">' + escapeHtml(sp.name) + '</span>' +
+                '</div>';
+      });
+      html += '</div></div>';
+      return html;
+    }
+
+    function renderRootPhase(rp){
+      const hasSubs = Array.isArray(rp.subphases) && rp.subphases.length > 0;
+      const open = rp.status === 'working';
+      let html = '<div class="phase-root ' + phaseClass(rp) + (open ? ' subphases-open' : '') + '" data-root-phase="' + escapeHtml(rp.id) + '" id="roadmap-' + escapeHtml(rp.id) + '">';
+      html += '<div class="phase-root-top">';
+      html += '<span class="phase-root-number">' + escapeHtml(rp.id) + '</span>';
+      html += '<span class="phase-status ' + statusClass(rp) + '">' + phaseStatusShort(rp) + '</span>';
+      if(hasSubs){
+        html += '<button class="phase-toggle root-toggle" type="button" data-phase-toggle aria-expanded="' + String(open) + '">' +
+                  '<span class="phase-toggle-chevron">▾</span>' +
+                  '<span class="phase-toggle-text">' + rp.subphases.length + ' subphase' + (rp.subphases.length === 1 ? '' : 's') + '</span>' +
+                '</button>';
+      }
+      html += '</div>';
+      html += '<h4>' + escapeHtml(rp.name) + '</h4>';
+      if(rp.description) html += '<p>' + escapeHtml(rp.description) + '</p>';
+      if(hasSubs) html += renderSubphases(rp.subphases);
+      html += '</div>';
+      return html;
+    }
+
     let html = '';
     phases.forEach(p => {
+      const hasRoots = Array.isArray(p.rootPhases) && p.rootPhases.length > 0;
       const hasSubs = Array.isArray(p.subphases) && p.subphases.length > 0;
       const subsCount = hasSubs ? p.subphases.length : 0;
 
-      html += '<div class="phase ' + phaseClass(p) + ' reveal" data-phase="' + p.id + '">';
+      html += '<div class="phase ' + phaseClass(p) + ' reveal" data-phase="' + p.id + '" id="roadmap-phase-' + p.id + '">';
       html += '<div class="phase-marker ' + markerClass(p) + '">' + markerInner(p) + '</div>';
       html += '<div class="phase-main">';
       html += '<div class="phase-top">';
@@ -345,30 +382,87 @@
       }
       html += '</div>';
       html += '<h3>' + escapeHtml(p.name) + '</h3>';
-      if(p.description){
-        html += '<p>' + escapeHtml(p.description) + '</p>';
-      }
-      if(hasSubs){
-        html += '<div class="phase-subphases" data-subphases hidden>';
-        html += '<div class="phase-subphases-inner">';
-        p.subphases.forEach(sp => {
-          const spStatus = sp.status || 'completed';
-          html += '<div class="phase-subphase" data-sub-status="' + spStatus + '">' +
-                    '<span class="phase-subphase-id">' + escapeHtml(sp.id) + '</span>' +
-                    '<span class="phase-subphase-dot ' + subDotClass(spStatus) + '"></span>' +
-                    '<span class="phase-subphase-name">' + escapeHtml(sp.name) + '</span>' +
-                  '</div>';
-        });
+      if(p.description) html += '<p>' + escapeHtml(p.description) + '</p>';
+
+      if(hasRoots){
+        html += '<div class="phase-root-phases">';
+        p.rootPhases.forEach(rp => { html += renderRootPhase(rp); });
         html += '</div>';
-        html += '</div>';
+      } else if(hasSubs) {
+        html += renderSubphases(p.subphases);
       }
-      html += '</div>';
-      html += '</div>';
+
+      html += '</div></div>';
     });
 
     timeline.innerHTML = html;
     bindAccordions(timeline);
     runRevealObserver(timeline);
+
+    const working = getWorkingPhase();
+    if(working){
+      const target = timeline.querySelector('#roadmap-phase-' + CSS.escape(String(working.id)));
+      if(target) target.classList.add('working-target');
+    }
+  }
+
+  function buildRoadmapSideNav(){
+    const nav = document.querySelector('[data-roadmap-side-nav]');
+    if(!nav || !ROADMAP_DATA || !Array.isArray(ROADMAP_DATA.phases)) return;
+
+    const working = getWorkingPhase();
+    let html = '<div class="roadmap-side-title">Jump to phase</div><div class="roadmap-side-list">';
+    ROADMAP_DATA.phases.forEach(p => {
+      const active = working && Number(p.id) === Number(working.id);
+      html += '<a class="roadmap-side-link' + (active ? ' active' : '') + '" href="#roadmap-phase-' + p.id + '" data-roadmap-target="roadmap-phase-' + p.id + '">' +
+                '<span class="roadmap-side-num">' + padPhaseId(p.id) + '</span>' +
+                '<span class="roadmap-side-name">' + escapeHtml(p.name) + '</span>' +
+              '</a>';
+
+      if(Array.isArray(p.rootPhases)){
+        html += '<div class="roadmap-side-children">';
+        p.rootPhases.forEach(rp => {
+          html += '<a class="roadmap-side-link root" href="#roadmap-' + escapeHtml(rp.id) + '" data-roadmap-target="roadmap-' + escapeHtml(rp.id) + '">' +
+                    '<span class="roadmap-side-num">' + escapeHtml(rp.id) + '</span>' +
+                    '<span class="roadmap-side-name">' + escapeHtml(rp.name.replace(/^Part\\s+\\d+:\\s*/i,'')) + '</span>' +
+                  '</a>';
+          if(Array.isArray(rp.subphases)){
+            rp.subphases.forEach(sp => {
+              html += '<a class="roadmap-side-link sub" href="#roadmap-' + escapeHtml(sp.id) + '" data-roadmap-target="roadmap-' + escapeHtml(sp.id) + '">' +
+                        '<span class="roadmap-side-num">' + escapeHtml(sp.id) + '</span>' +
+                        '<span class="roadmap-side-name">' + escapeHtml(sp.name) + '</span>' +
+                      '</a>';
+            });
+          }
+        });
+        html += '</div>';
+      }
+    });
+    html += '</div>';
+    nav.innerHTML = html;
+
+    nav.querySelectorAll('[data-roadmap-target]').forEach(link => {
+      link.addEventListener('click', e => {
+        const target = document.getElementById(link.dataset.roadmapTarget);
+        if(!target) return;
+        e.preventDefault();
+        target.scrollIntoView({behavior:'smooth', block:'start'});
+        history.replaceState(null, '', '#' + link.dataset.roadmapTarget);
+        if(window.VayuHaptics) window.VayuHaptics.fire('tap', link);
+      });
+    });
+  }
+
+  function scrollRoadmapToWorking(){
+    const page = currentPage();
+    if(page !== 'roadmap') return;
+    const working = getWorkingPhase();
+    if(!working) return;
+    const target = document.getElementById('roadmap-phase-' + working.id);
+    if(!target) return;
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const top = Math.max(0, target.getBoundingClientRect().top + window.scrollY - 94);
+    window.scrollTo({top, behavior: reduce ? 'auto' : 'smooth'});
   }
 
   function bindAccordions(timeline){
@@ -376,17 +470,19 @@
       btn.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
+        const root = btn.closest('.phase-root');
         const phaseEl = btn.closest('.phase');
-        if(!phaseEl) return;
-        const body = phaseEl.querySelector('[data-subphases]');
+        const owner = root || phaseEl;
+        if(!owner) return;
+        const body = owner.querySelector(':scope > .phase-subphases, .phase-main > .phase-subphases');
         if(!body) return;
-        const isOpen = phaseEl.classList.contains('subphases-open');
+        const isOpen = owner.classList.contains('subphases-open');
         if(isOpen){
-          phaseEl.classList.remove('subphases-open');
+          owner.classList.remove('subphases-open');
           body.hidden = true;
           btn.setAttribute('aria-expanded', 'false');
         } else {
-          phaseEl.classList.add('subphases-open');
+          owner.classList.add('subphases-open');
           body.hidden = false;
           btn.setAttribute('aria-expanded', 'true');
         }
@@ -416,9 +512,11 @@
     const timeline = document.querySelector('.timeline, [data-timeline]');
     if(!timeline) return;
     buildRoadmapTimeline();
+    buildRoadmapSideNav();
     if(window.VayuAnim && typeof window.VayuAnim.refreshScrollAnim === 'function'){
       window.VayuAnim.refreshScrollAnim();
     }
+    setTimeout(scrollRoadmapToWorking, 80);
   }
 
   /* ============================================================
