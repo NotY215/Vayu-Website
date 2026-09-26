@@ -326,9 +326,9 @@
 
     const phases = ROADMAP_DATA.phases;
 
-    function renderSubphases(subs){
+    function renderSubphases(subs, open=false){
       if(!Array.isArray(subs) || !subs.length) return '';
-      let html = '<div class="phase-subphases" data-subphases hidden><div class="phase-subphases-inner">';
+      let html = '<div class="phase-subphases" data-subphases' + (open ? '' : ' hidden') + '><div class="phase-subphases-inner">';
       subs.forEach(sp => {
         const spStatus = sp.status || 'completed';
         html += '<div class="phase-subphase" data-sub-status="' + escapeHtml(spStatus) + '" id="roadmap-' + escapeHtml(sp.id) + '">' +
@@ -538,6 +538,7 @@
     if(!timeline) return;
     buildRoadmapTimeline();
     buildRoadmapSideNav();
+    initRoadmapJumpNav();
     if(window.VayuAnim && typeof window.VayuAnim.refreshScrollAnim === 'function'){
       window.VayuAnim.refreshScrollAnim();
     }
