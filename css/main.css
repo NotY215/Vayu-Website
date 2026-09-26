@@ -2844,3 +2844,14 @@ body[data-page="flappybird"] .game-pause-fab {
   .nav-download,
   .nav-download::before { animation: none; }
 }
+
+/* Skipped roadmap phase: completed preparation, intentionally postponed. */
+.phase.skipped {
+  border-left-color: rgba(180, 150, 255, 0.55);
+  background: linear-gradient(90deg, rgba(150, 110, 255, 0.055), rgba(255,255,255,0.018));
+}
+.phase.skipped:hover { border-color: rgba(180,150,255,0.3); }
+.phase-marker.skipped { color:#b99cff; border-color:rgba(180,150,255,0.5); background:rgba(80,55,120,0.22); font-weight:900; }
+.phase-status.skipped { color:#b99cff; }
+.phase.skipped h3 { color:#eee7ff; }
+.phase.skipped .phase-number { color:#b99cff; }
