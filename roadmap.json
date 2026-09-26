@@ -956,34 +956,6 @@
     },
     {
       "id": 27,
-      "name": "VCB — Part 2: native code generation",
-      "status": "soon",
-      "description": "Complete the VCB native backend: x86-64 code generation, PE and ELF writers, a prebuilt runtime, and the switch from the QBE + gcc pipeline to VCB.",
-      "subphases": [
-        {
-          "id": "27.0",
-          "name": "x86-64 codegen — instruction selection, register allocation, calls, control flow, and ABI lowering",
-          "status": "soon"
-        },
-        {
-          "id": "27.1",
-          "name": "Object writers — PE/COFF and ELF output",
-          "status": "soon"
-        },
-        {
-          "id": "27.2",
-          "name": "Prebuilt runtime — link Vayu runtime support without compiling runtime C through gcc",
-          "status": "soon"
-        },
-        {
-          "id": "27.3",
-          "name": "Vayuc integration — switch native compilation from QBE + gcc to VCB",
-          "status": "soon"
-        }
-      ]
-    },
-    {
-      "id": 27,
       "name": "Cross-platform Linux builds",
       "status": "soon",
       "description": "Extend the Vayu toolchain and VCB-era native path to Linux builds after the Windows VCB backend is established.",
