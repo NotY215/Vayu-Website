@@ -841,46 +841,46 @@
     {
       "id": 24,
       "name": "Native floats",
-      "status": "working",
+      "status": "completed",
       "description": "Native Vayu currently has no real float type: values are i64, arithmetic is integer-only, and floating-point values are rounded or rejected. This phase adds native floating-point support before benchmarking.",
       "subphases": [
         {
           "id": "24.0",
           "name": "Float type + ABI — native float values, cross-backend representation, arithmetic (+ - * / // % **), comparisons, unary negate, int → float widening on mixed ops, print formatting",
-          "status": "working"
+          "status": "completed"
         },
         {
           "id": "24.1",
           "name": "Math library + collections — native math.* functions, list<float>, map<str, float>, float(x), int(x), str(x) round-trips",
-          "status": "soon"
+          "status": "completed"
         },
         {
           "id": "24.2",
           "name": "Tensor migration — move tensor internals from Q16.16 to f32 or f64; retain Q16.16 as a compatibility layer temporarily, then retire it",
-          "status": "soon"
+          "status": "completed"
         }
       ]
     },
     {
       "id": 25,
       "name": "Benchmarking (Round 1, pre-VCB)",
-      "status": "soon",
+      "status": "working",
       "description": "A dedicated benchmarks/ tree compares the same programs across Vayu tree-walk, VM, native, C++, Java, and Python to identify where the QBE-era pipeline costs performance.",
       "subphases": [
         {
           "id": "25.0",
           "name": "Harness + control programs — runner plus arith, fib, startup",
-          "status": "soon"
+          "status": "working"
         },
         {
           "id": "25.1",
           "name": "Compute-heavy set — matmul (512×512), nbody (5-body, 1M steps), mandelbrot (2000×2000)",
-          "status": "soon"
+          "status": "working"
         },
         {
           "id": "25.2",
           "name": "Allocation-heavy set — string_concat (100k +=), hashmap (1M str→int insert/lookup), json_parse (10 MB), sort (10M ints)",
-          "status": "soon"
+          "status": "working"
         }
       ]
     },
