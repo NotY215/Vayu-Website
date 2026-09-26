@@ -864,41 +864,41 @@
     {
       "id": 25,
       "name": "Benchmarking (Round 1, pre-VCB)",
-      "status": "working",
+      "status": "soon",
       "description": "A dedicated benchmarks/ tree compares the same programs across Vayu tree-walk, VM, native, C++, Java, and Python to identify where the QBE-era pipeline costs performance.",
       "subphases": [
         {
           "id": "25.0",
           "name": "Harness + control programs — runner plus arith, fib, startup",
-          "status": "working"
+          "status": "completed"
         },
         {
           "id": "25.1",
           "name": "Compute-heavy set — matmul (512×512), nbody (5-body, 1M steps), mandelbrot (2000×2000)",
-          "status": "working"
+          "status": "completed"
         },
         {
           "id": "25.2",
           "name": "Allocation-heavy set — string_concat (100k +=), hashmap (1M str→int insert/lookup), json_parse (10 MB), sort (10M ints)",
-          "status": "working"
+          "status": "completed"
         }
       ]
     },
     {
       "id": 26,
       "name": "Version cut 1",
-      "status": "soon",
+      "status": "working",
       "description": "First coherent Vayu release: Linux + macOS toolchain builds, SDL3 GUI/raster layer, Visual Studio Community LSP integration, published VS Code extension, Vayu-native tooling helpers, documentation, and release notes.",
       "subphases": [
         {
           "id": "26.0",
           "name": "Cross-platform toolchain builds — vayuc, vls, vfmt, vlint, nva for Linux + macOS",
-          "status": "soon"
+          "status": "working"
         },
         {
           "id": "26.1",
           "name": "SDL3 replacing Win32 in the GUI / raster layer",
-          "status": "soon"
+          "status": "working"
         },
         {
           "id": "26.2",
@@ -907,17 +907,7 @@
         },
         {
           "id": "26.3",
-          "name": "VS Code extension published to Marketplace + Open VSX",
-          "status": "soon"
-        },
-        {
-          "id": "26.4",
           "name": "Rewrite tools/*.py in Vayu, including make_tiny_onnx.vyu and remaining helpers",
-          "status": "soon"
-        },
-        {
-          "id": "26.5",
-          "name": "Release cut — documentation site, release notes, and v0.9 or v1.0 tag",
           "status": "soon"
         }
       ]
