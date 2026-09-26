@@ -409,44 +409,28 @@
   function buildRoadmapSideNav(){
     const nav = document.querySelector('[data-roadmap-side-nav]');
     if(!nav || !ROADMAP_DATA || !Array.isArray(ROADMAP_DATA.phases)) return;
-
     const working = getWorkingPhase();
     let html = '<div class="roadmap-side-title">Jump to phase</div><div class="roadmap-side-list">';
     ROADMAP_DATA.phases.forEach(p => {
       const active = working && Number(p.id) === Number(working.id);
       html += '<a class="roadmap-side-link' + (active ? ' active' : '') + '" href="#roadmap-phase-' + p.id + '" data-roadmap-target="roadmap-phase-' + p.id + '">' +
-                '<span class="roadmap-side-num">' + padPhaseId(p.id) + '</span>' +
-                '<span class="roadmap-side-name">' + escapeHtml(p.name) + '</span>' +
-              '</a>';
-
+        '<span class="roadmap-side-num">' + padPhaseId(p.id) + '</span><span class="roadmap-side-name">' + escapeHtml(p.name) + '</span></a>';
       if(Array.isArray(p.rootPhases)){
         html += '<div class="roadmap-side-children">';
         p.rootPhases.forEach(rp => {
           html += '<a class="roadmap-side-link root" href="#roadmap-' + escapeHtml(rp.id) + '" data-roadmap-target="roadmap-' + escapeHtml(rp.id) + '">' +
-                    '<span class="roadmap-side-num">' + escapeHtml(rp.id) + '</span>' +
-                    '<span class="roadmap-side-name">' + escapeHtml(rp.name.replace(/^Part\\s+\\d+:\\s*/i,'')) + '</span>' +
-                  '</a>';
-          if(Array.isArray(rp.subphases)){
-            rp.subphases.forEach(sp => {
-              html += '<a class="roadmap-side-link sub" href="#roadmap-' + escapeHtml(sp.id) + '" data-roadmap-target="roadmap-' + escapeHtml(sp.id) + '">' +
-                        '<span class="roadmap-side-num">' + escapeHtml(sp.id) + '</span>' +
-                        '<span class="roadmap-side-name">' + escapeHtml(sp.name) + '</span>' +
-                      '</a>';
-            });
-          }
+            '<span class="roadmap-side-num">' + escapeHtml(rp.id) + '</span><span class="roadmap-side-name">' + escapeHtml(rp.name.replace(/^Part\s+\d+:\s*/i,'')) + '</span></a>';
         });
         html += '</div>';
       }
     });
     html += '</div>';
     nav.innerHTML = html;
-
     nav.querySelectorAll('[data-roadmap-target]').forEach(link => {
       link.addEventListener('click', e => {
         const target = document.getElementById(link.dataset.roadmapTarget);
         if(!target) return;
         e.preventDefault();
-
         const parentRoot = target.closest('.phase-root');
         if(parentRoot && target.classList.contains('phase-subphase') && !parentRoot.classList.contains('subphases-open')){
           const toggle = parentRoot.querySelector('[data-phase-toggle]');
@@ -455,11 +439,42 @@
           if(body) body.hidden = false;
           if(toggle) toggle.setAttribute('aria-expanded', 'true');
         }
-
         target.scrollIntoView({behavior:'smooth', block:'start'});
         history.replaceState(null, '', '#' + link.dataset.roadmapTarget);
         if(window.VayuHaptics) window.VayuHaptics.fire('tap', link);
       });
+    });
+  }
+
+  function initRoadmapJumpNav(){
+    const nav = document.querySelector('[data-roadmap-side-nav]');
+    if(!nav || nav.dataset.jumpInitialized) return;
+    nav.dataset.jumpInitialized = 'true';
+    nav.classList.add('roadmap-jump');
+    const arrow = document.createElement('button');
+    arrow.type = 'button';
+    arrow.className = 'roadmap-jump-arrow';
+    arrow.setAttribute('aria-label', 'Show jump phases');
+    arrow.innerHTML = '<span>‹</span>';
+    document.body.appendChild(arrow);
+    const show = () => { nav.classList.add('jump-visible'); arrow.classList.add('jump-hidden'); };
+    const hide = () => {
+      if(!nav.matches(':hover')) { nav.classList.remove('jump-visible'); arrow.classList.remove('jump-hidden'); }
+    };
+    arrow.addEventListener('mouseenter', show);
+    arrow.addEventListener('click', show);
+    nav.addEventListener('mouseenter', show);
+    nav.addEventListener('mouseleave', hide);
+    document.addEventListener('mousemove', e => {
+      if(window.innerWidth > 1100 && e.clientY >= window.innerHeight - 55) show();
+    }, {passive:true});
+    window.addEventListener('scroll', () => {
+      if(window.innerWidth > 1100 && !nav.matches(':hover')) {
+        nav.classList.remove('jump-visible'); arrow.classList.remove('jump-hidden');
+      }
+    }, {passive:true});
+    window.addEventListener('resize', () => {
+      if(window.innerWidth <= 1100) { nav.classList.remove('jump-visible'); arrow.classList.remove('jump-hidden'); }
     });
   }
 
