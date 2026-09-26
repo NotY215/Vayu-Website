@@ -37,7 +37,7 @@
         <a class="btn ghost ripple-btn" href="/syntax">◆ Syntax reference</a>
         <a class="btn ghost ripple-btn" href="https://github.com/NotY215/Vayu" target="_blank" rel="noopener">⌘ GitHub</a>
       </div>
-      <div class="page-phase"><span class="dot"></span><span data-phase-badge>PHASE 18 · IN DEVELOPMENT</span></div>
+      <div class="page-phase"><span class="dot"></span><span data-phase-badge>PHASE 26 · PART 2 IN DEVELOPMENT</span></div>
     </div>
   </section>
 
@@ -210,7 +210,7 @@ vayuc hello.vyu --vm
 vayuc hello.vyu --native</code></pre>
 
             <h2>Inspect the pipeline</h2>
-            <p>The compiler can dump intermediate stages. This is useful for debugging the front-end or learning how Vayu translates your code:</p>
+            <p>The compiler can dump intermediate stages. This is useful for debugging the front-end or learning how Vayu translates your code. Native compilation is currently transitioning from the QBE + GCC path to the dedicated VCB backend:</p>
             <pre><code>vayuc hello.vyu --dump-tokens      # source → tokens
 vayuc hello.vyu --dump-ast         # tokens → AST
 vayuc hello.vyu --dump-bytecode    # AST → bytecode
@@ -1044,7 +1044,7 @@ vayuc --emit-runtime runtime.c</code></pre>
               </table>
             </div>
 
-            <p>Native builds go through QBE (an intermediate representation) and then GCC. The long-term direction replaces this with direct native emission via VCB.</p>
+            <p>Native compilation is transitioning from the QBE + GCC path to VCB. VCB is a separate backend project with its own `.vcbir` IR, lowering pipeline, inspection tools, and native code-generation work.</p>
           </article>
 
           <!-- ============================================================
@@ -1090,7 +1090,7 @@ vayuc --emit-runtime runtime.c</code></pre>
                ============================================================ -->
           <article class="docs-article reveal" id="vcb">
             <h1>VCB — Vayu Compiler Backend</h1>
-            <p class="docs-lead">VCB is the companion backend project — a compact C++20 backend that consumes VCB IL and emits x86-64 Intel-syntax assembly.</p>
+            <p class="docs-lead">VCB is the companion backend project — a compact C++20 native backend with `.vcbir` as its internal IR. Phase 26 Part 1 is complete; Part 2 is implementing native code generation and the remaining native toolchain pieces.</p>
 
             <p>Repository: <a href="https://github.com/NotY215/VCB" target="_blank" rel="noopener">NotY215/VCB</a></p>
 
@@ -1134,7 +1134,7 @@ Executable</code></pre>
                ============================================================ -->
           <article class="docs-article reveal" id="status">
             <h1>Current status</h1>
-            <p class="docs-lead">Vayu is an early-stage independent language project with a growing compiler, runtime, VM, native compiler, FFI layer, and CPython bridge.</p>
+            <p class="docs-lead">Vayu is an early-stage independent language project with a growing compiler, runtime, VM, native compiler, FFI layer, CPython bridge, and dedicated VCB backend.</p>
 
             <p>The source contains a substantially broader language surface than the original core compiler, including:</p>
 
@@ -1168,32 +1168,17 @@ Executable</code></pre>
             <h1>Roadmap summary</h1>
             <p class="docs-lead">The full phase and subphase roadmap lives on the <a href="/roadmap">roadmap page</a> — read directly from <code>roadmap.json</code>.</p>
 
-            <p>High-level phases:</p>
-            <ol>
-              <li>Core language</li>
-              <li>Control flow and functions</li>
-              <li>Types and collections</li>
-              <li>OOP and functional programming</li>
-              <li>Runtime and modules</li>
-              <li>Native compilation</li>
-              <li>Self-hosting preparation</li>
-              <li>Object / escape optimization</li>
-              <li>Package ecosystem</li>
-              <li>Standard-library expansion</li>
-              <li>Advanced syntax</li>
-              <li>Ownership and memory safety</li>
-              <li>Runtime utility expansion</li>
-              <li>Collections and interoperability</li>
-              <li>Native FFI</li>
-              <li>CPython integration</li>
-              <li>Vayu self-hosting</li>
-              <li>Developer tooling</li>
-              <li>GUI framework</li>
-              <li>2D and 3D development</li>
-              <li>AI / ML</li>
-              <li>Package ecosystem expansion</li>
-              <li>Single-binary native toolchain with VCB as the direct native backend</li>
-            </ol>
+            <p>Current roadmap position:</p>
+            <ul>
+              <li><strong>Phase 25:</strong> skipped for now; benchmarking is postponed until after VCB.</li>
+              <li><strong>Phase 26:</strong> VCB native backend.</li>
+              <li><strong>26.1 Part 1:</strong> completed — VCB project, IR, parser, lowering, printer and inspection tooling.</li>
+              <li><strong>26.2 Part 2:</strong> working — native code generation, object writers, prebuilt runtime and Vayuc integration.</li>
+              <li><strong>Phase 27:</strong> cross-platform Linux builds.</li>
+              <li><strong>Phase 28:</strong> post-VCB benchmarking.</li>
+              <li><strong>Phase 29:</strong> version cut.</li>
+              <li><strong>Phase 30+:</strong> future parking-lot work.</li>
+            </ul>
 
             <div class="callout-inline info">
               <a href="/roadmap">→ Open the full roadmap</a> for phase-by-phase and subphase-by-subphase detail.
