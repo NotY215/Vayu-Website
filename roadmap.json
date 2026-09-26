@@ -6,7 +6,8 @@
       "completed": "✓ Done. Green check on the timeline.",
       "working": "● Currently being built. Red pulsing dot.",
       "soon": "— Planned, not started yet. Grey dash.",
-      "vacation": "☕ Developer on vacation. Paused."
+      "vacation": "☕ Developer on vacation. Paused.",
+      "skipped": "⏭ Skipped for now. Completed subphases, but deferred until a later phase."
     },
     "subphase_status": {
       "completed": "✓ Done. Green dot.",
@@ -17,8 +18,8 @@
   },
   "repo": "NotY215/Vayu",
   "site": "https://vayu.gt.tc",
-  "updated": "2026-09-25",
-  "currentPhase": 24,
+  "updated": "2026-09-26",
+  "currentPhase": 26,
   "phases": [
     {
       "id": 1,
@@ -864,8 +865,8 @@
     {
       "id": 25,
       "name": "Benchmarking (Round 1, pre-VCB)",
-      "status": "soon",
-      "description": "A dedicated benchmarks/ tree compares the same programs across Vayu tree-walk, VM, native, C++, Java, and Python to identify where the QBE-era pipeline costs performance.",
+      "status": "skipped",
+      "description": "Benchmark suite and all planned subphases are complete, but the full Round 1 comparison is intentionally skipped for now. Benchmarking is postponed until after VCB so the published results use the final backend.",
       "subphases": [
         {
           "id": "25.0",
@@ -886,145 +887,163 @@
     },
     {
       "id": 26,
-      "name": "Version cut 1",
+      "name": "VCB — Part 1: backend foundation",
       "status": "working",
-      "description": "First coherent Vayu release: Linux + macOS toolchain builds, SDL3 GUI/raster layer, Visual Studio Community LSP integration, published VS Code extension, Vayu-native tooling helpers, documentation, and release notes.",
+      "description": "The Vayu Compiler Backend becomes a separate project. This drop establishes the VCB project, shared IR, lowering pipeline, printer, and vcb-dump before machine-code generation.",
       "subphases": [
         {
           "id": "26.0",
-          "name": "Cross-platform toolchain builds — vayuc, vls, vfmt, vlint, nva for Linux + macOS",
-          "status": "working"
+          "name": "VCB project — separate repository, CMake build, core architecture and Vayu integration boundary",
+          "status": "completed"
         },
         {
           "id": "26.1",
-          "name": "SDL3 replacing Win32 in the GUI / raster layer",
+          "name": "VCB IR — define and parse the .vcbir representation used between Vayu and VCB",
           "status": "working"
         },
         {
           "id": "26.2",
-          "name": "VS Community LSP integration — ILanguageClient wrapping vls.exe",
-          "status": "soon"
+          "name": "Lowerer — convert Vayu native/compiler IR into VCB IR",
+          "status": "working"
         },
         {
           "id": "26.3",
-          "name": "Rewrite tools/*.py in Vayu, including make_tiny_onnx.vyu and remaining helpers",
-          "status": "soon"
+          "name": "IR printer — readable .vcbir text output and deterministic formatting",
+          "status": "working"
+        },
+        {
+          "id": "26.4",
+          "name": "vcb-dump — inspect, validate, and debug VCB IR from the command line",
+          "status": "working"
         }
       ]
     },
     {
       "id": 27,
-      "name": "VCB (Vayu Compiler Backend) — separate project",
+      "name": "VCB — Part 2: native code generation",
       "status": "soon",
-      "description": "A sister project outside the Vayu tree. Vayu will call into VCB as its compiler backend, replacing the QBE + gcc native pipeline.",
+      "description": "Complete the VCB native backend: x86-64 code generation, PE and ELF writers, a prebuilt runtime, and the switch from the QBE + gcc pipeline to VCB.",
       "subphases": [
         {
           "id": "27.0",
-          "name": "Object file emitter — x86-64 PE .obj from the same SSA IL used by NativeCompiler::buildQBE",
+          "name": "x86-64 codegen — instruction selection, register allocation, calls, control flow, and ABI lowering",
           "status": "soon"
         },
         {
           "id": "27.1",
-          "name": "Direct codegen — AST to x86-64 machine code with Vayu-aware register allocation, inlining, and constant folding",
+          "name": "Object writers — PE/COFF and ELF output",
           "status": "soon"
         },
         {
           "id": "27.2",
-          "name": "Linker + runtime merge — bundle the runtime C into the emitted binary without invoking gcc; vayuc produces executables directly",
+          "name": "Prebuilt runtime — link Vayu runtime support without compiling runtime C through gcc",
           "status": "soon"
         },
         {
           "id": "27.3",
-          "name": "ELF + Mach-O object formats for Linux and macOS",
-          "status": "soon"
-        },
-        {
-          "id": "27.4",
-          "name": "ARM64 backend — Apple Silicon, ARM Linux, potentially mobile",
+          "name": "Vayuc integration — switch native compilation from QBE + gcc to VCB",
           "status": "soon"
         }
       ]
     },
     {
       "id": 28,
-      "name": "Benchmarking (Round 2, post-VCB)",
+      "name": "Cross-platform Linux builds",
       "status": "soon",
-      "description": "Re-run the same benchmark suite after VCB replaces QBE + gcc and publish a per-program delta report, including regressions.",
+      "description": "Extend the Vayu toolchain and VCB-era native path to Linux builds after the Windows VCB backend is established.",
       "subphases": [
         {
           "id": "28.0",
-          "name": "Re-run the same ten programs with the same machine, methodology, and comparison languages",
+          "name": "Linux toolchain builds — vayuc, vls, vfmt, vlint, nva",
           "status": "soon"
         },
         {
           "id": "28.1",
-          "name": "Delta report — results/SUMMARY_AFTER_VCB.md with before/after time and memory changes",
-          "status": "soon"
-        },
-        {
-          "id": "28.2",
-          "name": "Regression analysis — identify cases where VCB is slower or uses more memory than the QBE-era backend",
+          "name": "Linux-native VCB integration and runtime packaging",
           "status": "soon"
         }
       ]
     },
     {
       "id": 29,
-      "name": "Version cut 2",
+      "name": "Benchmarking (Round 2, post-VCB)",
       "status": "soon",
-      "description": "The VCB-era release: single-binary toolchain, QBE/gcc retired from packaging and documentation, and benchmark deltas published.",
+      "description": "Run the full benchmark suite after VCB is producing the binaries, using the same programs and methodology as the completed Phase 25 preparation.",
       "subphases": [
         {
           "id": "29.0",
-          "name": "Bundle VCB in Windows, Linux, and macOS installers",
+          "name": "Full benchmark suite — Vayu VCB-built binaries against C++, Java, and Python",
           "status": "soon"
         },
         {
           "id": "29.1",
-          "name": "Remove qbe.exe and the gcc dependency from docs and packaging",
+          "name": "Before/after comparison — compare VCB results with the postponed QBE-era baseline when available",
           "status": "soon"
         },
         {
           "id": "29.2",
-          "name": "Publish the single-binary toolchain and VCB benchmark delta table; tag v1.0",
+          "name": "Publish benchmark summary and regression analysis",
           "status": "soon"
         }
       ]
     },
     {
       "id": 30,
-      "name": "Parking lot (30+)",
+      "name": "Version cut",
       "status": "soon",
-      "description": "Future work not yet scheduled into a fixed phase.",
+      "description": "Cut the VCB-era release after backend integration, Linux builds, and full benchmarking are complete.",
       "subphases": [
         {
-          "id": "30+",
-          "name": "Escape analysis 8.1–8.3 — interprocedural, field-level, and loop-aware escape",
+          "id": "30.0",
+          "name": "Bundle VCB-era toolchain and runtime for supported platforms",
           "status": "soon"
         },
         {
-          "id": "30+",
-          "name": "Programmable shaders — real shader IR and a natural VCB/JIT integration point",
+          "id": "30.1",
+          "name": "Retire QBE + gcc from the native toolchain documentation and packaging",
           "status": "soon"
         },
         {
-          "id": "30+",
-          "name": "DirectML.dll API — only if demand emerges; D3D11 compute remains the current cross-vendor path",
+          "id": "30.2",
+          "name": "Publish benchmark results and tag the release",
+          "status": "soon"
+        }
+      ]
+    },
+    {
+      "id": 31,
+      "name": "Parking lot (30+)",
+      "status": "soon",
+      "description": "Open future work not yet assigned to a fixed phase.",
+      "subphases": [
+        {
+          "id": "31.0",
+          "name": "BigFloat",
           "status": "soon"
         },
         {
-          "id": "30+",
-          "name": "GPU-accelerated tensor — ROCm, Metal, WebGPU and other future backends",
+          "id": "31.1",
+          "name": "Programmable shaders and shader IR",
           "status": "soon"
         },
         {
-          "id": "30+",
-          "name": "Adam optimizer, cross-entropy loss, softmax — add when needed by the ML examples",
+          "id": "31.2",
+          "name": "Escape analysis — interprocedural, field-level, and loop-aware",
           "status": "soon"
         },
         {
-          "id": "30+",
-          "name": "Multi-input ONNX — extend beyond the current single-input executor for CNNs and transformers",
+          "id": "31.3",
+          "name": "Multi-input ONNX for CNNs and transformers",
+          "status": "soon"
+        },
+        {
+          "id": "31.4",
+          "name": "GPU tensor backends — ROCm, Metal, WebGPU and future targets",
+          "status": "soon"
+        },
+        {
+          "id": "31.5",
+          "name": "Adam optimizer and softmax / cross-entropy",
           "status": "soon"
         }
       ]
