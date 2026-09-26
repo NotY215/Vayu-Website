@@ -213,6 +213,7 @@
     if(s === 'working')   return 'IN DEVELOPMENT';
     if(s === 'vacation')  return 'ON VACATION';
     if(s === 'skipped')   return 'SKIPPED FOR NOW';
+    if(s === 'open')      return 'OPEN';
     return 'PLANNED';
   }
   function resolvePhaseRef(ref){
@@ -284,6 +285,7 @@
     if(s === 'completed') return 'done';
     if(s === 'working')   return 'active';
     if(s === 'vacation')  return 'vacation';
+    if(s === 'open')      return 'open';
     return '';
   }
   function markerInner(p){
@@ -300,6 +302,7 @@
     if(s === 'working')   return 'dev';
     if(s === 'vacation')  return 'vacation';
     if(s === 'skipped')  return 'skipped';
+    if(s === 'open')     return 'open';
     return 'planned';
   }
   function escapeHtml(s){
@@ -446,6 +449,22 @@
     });
   }
 
+  function updateRoadmapJumpActive(){
+    const nav = document.querySelector('[data-roadmap-side-nav]');
+    if(!nav) return;
+    const targets = [];
+    document.querySelectorAll('.timeline > .phase').forEach(el => {
+      const r = el.getBoundingClientRect();
+      if(r.bottom >= 110 && r.top <= window.innerHeight * 0.55) targets.push({el, top: Math.abs(r.top - 120)});
+    });
+    if(!targets.length) return;
+    targets.sort((a,b) => a.top - b.top);
+    const phase = targets[0].el;
+    nav.querySelectorAll('.roadmap-side-link.active').forEach(a => a.classList.remove('active'));
+    const link = nav.querySelector('[data-roadmap-target="' + phase.id + '"]');
+    if(link) link.classList.add('active');
+  }
+
   function initRoadmapJumpNav(){
     const nav = document.querySelector('[data-roadmap-side-nav]');
     if(!nav || nav.dataset.jumpInitialized) return;
@@ -457,7 +476,7 @@
     arrow.setAttribute('aria-label', 'Show jump phases');
     arrow.innerHTML = '<span>‹</span>';
     document.body.appendChild(arrow);
-    const show = () => { nav.classList.add('jump-visible'); arrow.classList.add('jump-hidden'); };
+    const show = () => { updateRoadmapJumpActive(); nav.classList.add('jump-visible'); arrow.classList.add('jump-hidden'); };
     const hide = () => {
       if(!nav.matches(':hover')) { nav.classList.remove('jump-visible'); arrow.classList.remove('jump-hidden'); }
     };
@@ -469,6 +488,7 @@
       if(window.innerWidth > 1100 && e.clientY >= window.innerHeight - 55) show();
     }, {passive:true});
     window.addEventListener('scroll', () => {
+      updateRoadmapJumpActive();
       if(window.innerWidth > 1100 && !nav.matches(':hover')) {
         nav.classList.remove('jump-visible'); arrow.classList.remove('jump-hidden');
       }
@@ -539,6 +559,7 @@
     buildRoadmapTimeline();
     buildRoadmapSideNav();
     initRoadmapJumpNav();
+    updateRoadmapJumpActive();
     if(window.VayuAnim && typeof window.VayuAnim.refreshScrollAnim === 'function'){
       window.VayuAnim.refreshScrollAnim();
     }
