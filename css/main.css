@@ -3024,3 +3024,29 @@ body[data-page="flappybird"] .game-pause-fab {
 .phase-status.skipped { color:#b99cff; }
 .phase.skipped h3 { color:#eee7ff; }
 .phase.skipped .phase-number { color:#b99cff; }
+
+/* Roadmap jump navigator */
+.roadmap-side-nav.roadmap-jump {
+  position: fixed; z-index: 80; right: 18px; top: 50%; width: 220px;
+  max-height: min(72vh, 680px); transform: translate(235px,-50%);
+  opacity: 0; pointer-events: none; transition: transform .28s ease, opacity .2s ease;
+  box-shadow: 0 18px 55px rgba(0,0,0,.35);
+}
+.roadmap-side-nav.roadmap-jump.jump-visible {
+  transform: translate(0,-50%); opacity: 1; pointer-events: auto;
+}
+.roadmap-jump-arrow {
+  position: fixed; z-index: 81; right: 0; top: 50%; width: 34px; height: 62px;
+  transform: translateY(-50%); border: 1px solid rgba(116,207,255,.18); border-right: 0;
+  border-radius: 14px 0 0 14px; background: rgba(7,17,29,.82); color: #55d9ff;
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); cursor: pointer;
+  font-size: 1.5rem; animation: roadmapJumpNudge 1.5s ease-in-out infinite;
+}
+.roadmap-jump-arrow.jump-hidden { opacity: 0; pointer-events: none; }
+@keyframes roadmapJumpNudge {
+  0%,100% { transform: translateY(-50%) translateX(0); }
+  50% { transform: translateY(-50%) translateX(-5px); }
+}
+@media (max-width:1100px) {
+  .roadmap-side-nav.roadmap-jump,.roadmap-jump-arrow { display:none; }
+}
