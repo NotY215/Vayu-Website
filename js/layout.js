@@ -276,6 +276,7 @@
     if(s === 'completed') return 'done';
     if(s === 'working')   return 'active';
     if(s === 'vacation')  return 'vacation';
+    if(s === 'skipped')   return 'skipped';
     return '';
   }
   function markerClass(p){
@@ -298,6 +299,7 @@
     if(s === 'completed') return 'done';
     if(s === 'working')   return 'dev';
     if(s === 'vacation')  return 'vacation';
+    if(s === 'skipped')  return 'skipped';
     return 'planned';
   }
   function escapeHtml(s){
