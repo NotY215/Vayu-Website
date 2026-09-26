@@ -1011,38 +1011,38 @@
       ]
     },
     {
-      "id": 31,
+      "id": 30,
       "name": "Parking lot (30+)",
       "status": "soon",
       "description": "Open future work not yet assigned to a fixed phase.",
       "subphases": [
         {
-          "id": "31.0",
+          "id": "30.0",
           "name": "BigFloat",
           "status": "soon"
         },
         {
-          "id": "31.1",
+          "id": "30.1",
           "name": "Programmable shaders and shader IR",
           "status": "soon"
         },
         {
-          "id": "31.2",
+          "id": "30.2",
           "name": "Escape analysis — interprocedural, field-level, and loop-aware",
           "status": "soon"
         },
         {
-          "id": "31.3",
+          "id": "30.3",
           "name": "Multi-input ONNX for CNNs and transformers",
           "status": "soon"
         },
         {
-          "id": "31.4",
+          "id": "30.4",
           "name": "GPU tensor backends — ROCm, Metal, WebGPU and future targets",
           "status": "soon"
         },
         {
-          "id": "31.5",
+          "id": "30.5",
           "name": "Adam optimizer and softmax / cross-entropy",
           "status": "soon"
         }
