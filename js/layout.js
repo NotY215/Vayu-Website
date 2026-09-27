@@ -11,18 +11,18 @@
 
   const NAV_LINKS = [
     { href: '/',              nav: 'home',          label: 'Home' },
-    { href: '/about',         nav: 'about',         label: 'About' },
-    { href: '/features',      nav: 'features',      label: 'Features' },
-    { href: '/github',        nav: 'github',        label: 'GitHub' },
-    { href: '/developer',     nav: 'developer',     label: 'Developer' },
-    { href: '/syntax',        nav: 'syntax',        label: 'Syntax' },
-    { href: '/docs',          nav: 'docs',          label: 'Documentation' },
-    { href: '/speed',         nav: 'speed',         label: 'Speed' },
-    { href: '/compare',       nav: 'compare',       label: 'Compare' },
-    { href: '/VCB',           nav: 'vcb',           label: 'VCB' },
-    { href: '/games',         nav: 'games',         label: 'Games' },
-    { href: '/roadmap',       nav: 'roadmap',       label: 'Roadmap' },
-    { href: '/faq',           nav: 'FAQ',           label: 'FAQ' }
+    { href: '/about/',         nav: 'about',         label: 'About' },
+    { href: '/features/',      nav: 'features',      label: 'Features' },
+    { href: '/github/',        nav: 'github',        label: 'GitHub' },
+    { href: '/developer/',     nav: 'developer',     label: 'Developer' },
+    { href: '/syntax/',        nav: 'syntax',        label: 'Syntax' },
+    { href: '/docs/',          nav: 'docs',          label: 'Documentation' },
+    { href: '/speed/',         nav: 'speed',         label: 'Speed' },
+    { href: '/compare/',       nav: 'compare',       label: 'Compare' },
+    { href: '/VCB/',           nav: 'vcb',           label: 'VCB' },
+    { href: '/games/',         nav: 'games',         label: 'Games' },
+    { href: '/roadmap/',       nav: 'roadmap',       label: 'Roadmap' },
+    { href: '/faq/',           nav: 'FAQ',           label: 'FAQ' }
   ];
 
   const NAV_HTML = `
@@ -36,12 +36,12 @@
           VAYU
         </a>
         <div class="navlinks">
-          <a href="/about" data-nav="about">About</a>
-          <a href="/features" data-nav="features">Features</a>
-          <a href="/github" data-nav="github">GitHub</a>
-          <a href="/developer" data-nav="developer">Developer</a>
-          <a href="/roadmap" data-nav="roadmap">Roadmap</a>
-          <a href="/faq" data-nav="faq">FAQ</a>
+          <a href="/about/" data-nav="about">About</a>
+          <a href="/features/" data-nav="features">Features</a>
+          <a href="/github/" data-nav="github">GitHub</a>
+          <a href="/developer/" data-nav="developer">Developer</a>
+          <a href="/roadmap/" data-nav="roadmap">Roadmap</a>
+          <a href="/faq/" data-nav="faq">FAQ</a>
         </div>
         <div class="nav-actions">
           <a class="btn primary nav-download soon" role="button" aria-disabled="true" tabindex="0"
