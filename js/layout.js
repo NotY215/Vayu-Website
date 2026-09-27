@@ -41,7 +41,7 @@
           <a href="/github" data-nav="github">GitHub</a>
           <a href="/developer" data-nav="developer">Developer</a>
           <a href="/roadmap" data-nav="roadmap">Roadmap</a>
-          <a href="/Faq" data-nav="faq">FAQ</a>
+          <a href="/faq" data-nav="faq">FAQ</a>
         </div>
         <div class="nav-actions">
           <a class="btn primary nav-download soon" role="button" aria-disabled="true" tabindex="0"
