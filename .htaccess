@@ -17,7 +17,7 @@ RewriteEngine On
 # Don't rewrite real files or folders
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
+
+# Clean routes work with or without a trailing slash.
 RewriteRule ^VCB/?$ /VCB.html [NC,L]
-# /about → /about.html
-RewriteRule ^([^\.]+?)/?$ $1.html [NC,L]
-RewriteRule ^docs$ /docs.html [NC,L]
+RewriteRule ^([^\.]+?)/?$ /$1.html [NC,L]
