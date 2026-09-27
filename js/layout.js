@@ -409,95 +409,6 @@
     }
   }
 
-  function buildRoadmapSideNav(){
-    const nav = document.querySelector('[data-roadmap-side-nav]');
-    if(!nav || !ROADMAP_DATA || !Array.isArray(ROADMAP_DATA.phases)) return;
-    const working = getWorkingPhase();
-    let html = '<div class="roadmap-side-title">Jump to phase</div><div class="roadmap-side-list">';
-    ROADMAP_DATA.phases.forEach(p => {
-      const active = working && Number(p.id) === Number(working.id);
-      html += '<a class="roadmap-side-link' + (active ? ' active' : '') + '" href="#roadmap-phase-' + p.id + '" data-roadmap-target="roadmap-phase-' + p.id + '">' +
-        '<span class="roadmap-side-num">' + padPhaseId(p.id) + '</span><span class="roadmap-side-name">' + escapeHtml(p.name) + '</span></a>';
-      if(Array.isArray(p.rootPhases)){
-        html += '<div class="roadmap-side-children">';
-        p.rootPhases.forEach(rp => {
-          html += '<a class="roadmap-side-link root" href="#roadmap-' + escapeHtml(rp.id) + '" data-roadmap-target="roadmap-' + escapeHtml(rp.id) + '">' +
-            '<span class="roadmap-side-num">' + escapeHtml(rp.id) + '</span><span class="roadmap-side-name">' + escapeHtml(rp.name.replace(/^Part\s+\d+:\s*/i,'')) + '</span></a>';
-        });
-        html += '</div>';
-      }
-    });
-    html += '</div>';
-    nav.innerHTML = html;
-    nav.querySelectorAll('[data-roadmap-target]').forEach(link => {
-      link.addEventListener('click', e => {
-        const target = document.getElementById(link.dataset.roadmapTarget);
-        if(!target) return;
-        e.preventDefault();
-        const parentRoot = target.closest('.phase-root');
-        if(parentRoot && target.classList.contains('phase-subphase') && !parentRoot.classList.contains('subphases-open')){
-          const toggle = parentRoot.querySelector('[data-phase-toggle]');
-          const body = parentRoot.querySelector('[data-subphases]');
-          parentRoot.classList.add('subphases-open');
-          if(body) body.hidden = false;
-          if(toggle) toggle.setAttribute('aria-expanded', 'true');
-        }
-        target.scrollIntoView({behavior:'smooth', block:'start'});
-        history.replaceState(null, '', '#' + link.dataset.roadmapTarget);
-        if(window.VayuHaptics) window.VayuHaptics.fire('tap', link);
-      });
-    });
-  }
-
-  function updateRoadmapJumpActive(){
-    const nav = document.querySelector('[data-roadmap-side-nav]');
-    if(!nav) return;
-    const targets = [];
-    document.querySelectorAll('.timeline > .phase').forEach(el => {
-      const r = el.getBoundingClientRect();
-      if(r.bottom >= 110 && r.top <= window.innerHeight * 0.55) targets.push({el, top: Math.abs(r.top - 120)});
-    });
-    if(!targets.length) return;
-    targets.sort((a,b) => a.top - b.top);
-    const phase = targets[0].el;
-    nav.querySelectorAll('.roadmap-side-link.active').forEach(a => a.classList.remove('active'));
-    const link = nav.querySelector('[data-roadmap-target="' + phase.id + '"]');
-    if(link) link.classList.add('active');
-  }
-
-  function initRoadmapJumpNav(){
-    const nav = document.querySelector('[data-roadmap-side-nav]');
-    if(!nav || nav.dataset.jumpInitialized) return;
-    nav.dataset.jumpInitialized = 'true';
-    nav.classList.add('roadmap-jump');
-    const arrow = document.createElement('button');
-    arrow.type = 'button';
-    arrow.className = 'roadmap-jump-arrow';
-    arrow.setAttribute('aria-label', 'Show jump phases');
-    arrow.innerHTML = '<span>‹</span>';
-    document.body.appendChild(arrow);
-    const show = () => { updateRoadmapJumpActive(); nav.classList.add('jump-visible'); arrow.classList.add('jump-hidden'); };
-    const hide = () => {
-      if(!nav.matches(':hover')) { nav.classList.remove('jump-visible'); arrow.classList.remove('jump-hidden'); }
-    };
-    arrow.addEventListener('mouseenter', show);
-    arrow.addEventListener('click', show);
-    nav.addEventListener('mouseenter', show);
-    nav.addEventListener('mouseleave', hide);
-    document.addEventListener('mousemove', e => {
-      if(window.innerWidth > 1100 && e.clientY >= window.innerHeight - 55) show();
-    }, {passive:true});
-    window.addEventListener('scroll', () => {
-      updateRoadmapJumpActive();
-      if(window.innerWidth > 1100 && !nav.matches(':hover')) {
-        nav.classList.remove('jump-visible'); arrow.classList.remove('jump-hidden');
-      }
-    }, {passive:true});
-    window.addEventListener('resize', () => {
-      if(window.innerWidth <= 1100) { nav.classList.remove('jump-visible'); arrow.classList.remove('jump-hidden'); }
-    });
-  }
-
   function scrollRoadmapToWorking(){
     const page = currentPage();
     if(page !== 'roadmap') return;
@@ -557,9 +468,7 @@
     const timeline = document.querySelector('.timeline, [data-timeline]');
     if(!timeline) return;
     buildRoadmapTimeline();
-    buildRoadmapSideNav();
-    initRoadmapJumpNav();
-    updateRoadmapJumpActive();
+    
     if(window.VayuAnim && typeof window.VayuAnim.refreshScrollAnim === 'function'){
       window.VayuAnim.refreshScrollAnim();
     }
