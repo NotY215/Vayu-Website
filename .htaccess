@@ -14,6 +14,9 @@
 
 RewriteEngine On
 
+# Allow the sitemap from the root and from any page path.
+RewriteRule ^(.+)/sitemap\.xml/?$ /sitemap.xml [NC,L]
+
 # Don't rewrite real files or folders
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
