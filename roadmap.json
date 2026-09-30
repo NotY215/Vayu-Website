@@ -948,27 +948,27 @@
             {
               "id": "26.2.6",
               "name": "Bool printing, string literals, .text-tail string section, vayu_print_str; awaiting Step 3 verification",
-              "status": "working"
+              "status": "completed"
             },
             {
               "id": "26.2.7",
               "name": "Floats: fadd/fsub/fmul/fdiv, comparisons, sitof/fptosi, vayu_print_float",
-              "status": "soon"
+              "status": "completed"
             },
             {
               "id": "26.2.8",
               "name": "Lists + maps",
-              "status": "soon"
+              "status": "completed"
             },
             {
               "id": "26.2.9",
               "name": "Classes + methods + inheritance",
-              "status": "soon"
+              "status": "working"
             },
             {
               "id": "26.2.10",
               "name": "Cutover: VCB default; QBE+gcc opt-in fallback",
-              "status": "soon"
+              "status": "working"
             }
           ]
         }
