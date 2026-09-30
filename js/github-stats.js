@@ -12,24 +12,24 @@
   async function fetchRepoStats(repo){
     const API = 'https://api.github.com/repos/' + repo;
 
-    const totalRes = await fetch(API + '/commits?per_page=1', {
-      headers: { 'Accept': 'application/vnd.github+json' }
-    });
-    if(!totalRes.ok) throw new Error(repo + ' API ' + totalRes.status);
-
+    // Count every commit page instead of relying on the API Link header.
+    // This keeps the total correct even when response headers are unavailable.
     let total = 0;
-    const link = totalRes.headers.get('Link');
-    if(link){
-      const m = link.match(/[?&]page=(\\d+)>;\\s*rel="last"/);
-      if(m) total = parseInt(m[1], 10);
-    }
-    if(!total){
+    let page = 1;
+    while(true){
+      const totalRes = await fetch(API + '/commits?per_page=100&page=' + page, {
+        headers: { 'Accept': 'application/vnd.github+json' }
+      });
+      if(!totalRes.ok) throw new Error(repo + ' API ' + totalRes.status);
       const data = await totalRes.json();
-      total = Array.isArray(data) ? data.length : 0;
+      if(!Array.isArray(data) || data.length === 0) break;
+      total += data.length;
+      if(data.length < 100) break;
+      page++;
     }
 
     const now = new Date();
-    const start = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+    const start = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     const end = new Date(start.getTime() + 24 * 60 * 60 * 1000);
     const todayRes = await fetch(API + '/commits?since=' + start.toISOString() +
       '&until=' + end.toISOString() + '&per_page=100', {
