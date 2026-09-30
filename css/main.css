@@ -2239,6 +2239,17 @@ body[data-page="flappybird"] .game-pause-fab {
   color: #cfe0ec;
   line-height: 1.5;
 }
+.phase-subphase-copy {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+.phase-subphase-description {
+  color: #8fa4b5;
+  font-size: 0.76rem;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
 .phase-subphase[data-sub-status="planned"] .phase-subphase-name { color: #8fa4b5; }
 .phase-subphase[data-sub-status="deferred"] .phase-subphase-name { color: #a9a08b; }
 .phase-subphase[data-sub-status="working"] .phase-subphase-name { color: #fff; font-weight: 600; }
@@ -2251,6 +2262,7 @@ body[data-page="flappybird"] .game-pause-fab {
   }
   .phase-subphase-id { font-size: 0.62rem; padding: 2px 6px; }
   .phase-subphase-name { font-size: 0.8rem; }
+  .phase-subphase-description { font-size: 0.72rem; }
   .phase-toggle { font-size: 0.6rem; padding: 3px 8px; }
   .phase-toggle-text { display: none; }
   .phase-toggle .phase-toggle-chevron { font-size: 0.9rem; }
