@@ -1,5 +1,5 @@
 /* ============================================================
-   Vayu Layout — top navigation, left hamburger drawer, footer, modals.
+   Vayu Layout - top navigation, left hamburger drawer, footer, modals.
    - Top nav: About, Features, GitHub, Developer.
    - Left hamburger drawer: remaining site sections + actions.
    - On Flappybird.html: no chrome at all.
@@ -45,7 +45,7 @@
         </div>
         <div class="nav-actions">
           <a class="btn primary nav-download soon" role="button" aria-disabled="true" tabindex="0"
-             data-tip="Vayu is still in development — downloads aren’t available yet.">↓ Download</a>
+             data-tip="Vayu is still in development - downloads aren’t available yet.">↓ Download</a>
           <a class="btn primary nav-patreon" href="https://www.patreon.com/cw/Ficzo" target="_blank" rel="noopener">Patreon</a>
         </div>
       </div>
@@ -101,7 +101,7 @@
               <span class="lfm-dot yellow"></span>
               <span class="lfm-dot green"></span>
             </div>
-            <div class="lfm-title">Examples — Vayu Files</div>
+            <div class="lfm-title">Examples - Vayu Files</div>
             <button class="lfm-close" type="button" data-close aria-label="Close">✕</button>
           </header>
           <div class="lfm-pathbar">
@@ -117,7 +117,7 @@
             </div>
           </div>
           <div class="fm-legend">
-            <span><span class="fm-legend-dot"></span>Has recorded output — click to Run</span>
+            <span><span class="fm-legend-dot"></span>Has recorded output - click to Run</span>
             <span class="fm-legend-sep">·</span>
             <span data-search-status>Ready</span>
           </div>
@@ -294,7 +294,7 @@
     if(s === 'working')   return '<span class="dev-dot"></span>';
     if(s === 'vacation')  return '☕';
     if(s === 'skipped')   return '⏭';
-    return '—';
+    return '-';
   }
   function statusClass(p){
     const s = p.status || 'soon';
@@ -698,6 +698,7 @@
 
       if(!bareGame){
         await loadScript('/js/markdown.js');
+        await loadScript('/js/mermaid.js');
         await loadScript('/js/outputs.js');
         await loadScript('/js/Live_output.js?v=20260926-livefix3');
         await loadScript('/js/run-animation.js');
@@ -708,6 +709,8 @@
       }
 
       if(page === 'home')   await loadScript('/js/github-stats.js');
+      if(page === 'vcb') await loadScript('/js/vcb-readme.js');
+
       if(page === 'github'){
         await loadScript('/js/explorer.js');
         if(window.VayuExplorer) window.VayuExplorer.init('vayu-explorer');
