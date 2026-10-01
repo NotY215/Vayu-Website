@@ -4,162 +4,713 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#07111f">
-<meta name="description" content="Current Vayu and VCB documentation, architecture, IR, runtime, native targets, tooling, packages and roadmap.">
+<meta name="description" content="Vayu and VCB technical documentation: architecture, data flow, language surface, compiler pipeline, native backend, runtime, and tooling.">
 <title>Documentation - Vayu</title>
 <link rel="canonical" href="https://vayu.gt.tc/docs/" />
 <link rel="icon" type="image/png" href="/Vayu_Fav.png">
 <link rel="apple-touch-icon" type="image/png" href="/Vayu_Fav.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://api.github.com">
-<link rel="preconnect" href="https://raw.githubusercontent.com">
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="/css/main.css">
 <style>
-.doc-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
-.doc-section{margin-top:24px}
-.doc-section h3{margin-bottom:10px}
-.doc-list{display:grid;gap:10px;margin:16px 0 0;padding:0;list-style:none}
-.doc-list li{padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.025)}
-.doc-kv{display:grid;grid-template-columns:180px 1fr;gap:1px;margin-top:18px;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.doc-layout{display:grid;grid-template-columns:240px minmax(0,1fr);gap:36px;align-items:start}
+.doc-toc{position:sticky;top:96px;max-height:calc(100vh - 120px);overflow:auto;padding:18px 16px;border:1px solid var(--line);border-radius:16px;background:rgba(8,18,30,.72);backdrop-filter:blur(12px)}
+.doc-toc h3{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#6f8a9c;margin:0 0 12px}
+.doc-toc a{display:block;padding:7px 10px;border-radius:8px;color:#9bb1c2;font-size:.86rem;transition:.2s}
+.doc-toc a:hover,.doc-toc a.active{color:#e9f7ff;background:rgba(85,217,255,.08)}
+.doc-main{min-width:0}
+.doc-section{margin-top:42px;scroll-margin-top:100px}
+.doc-section h2{font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:12px}
+.doc-section h3{font-size:1.15rem;margin:28px 0 10px;color:#dff6ff}
+.doc-section p,.doc-section li{color:var(--muted);line-height:1.7}
+.doc-section ul,.doc-section ol{margin:12px 0 0 1.2rem}
+.doc-lead{font-size:1.05rem;color:#b5c9d8;max-width:760px}
+.doc-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:18px}
+.doc-grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:18px}
+.doc-card{padding:20px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.025)}
+.doc-card h4{margin:0 0 8px;font-size:1rem;color:#edf8ff}
+.doc-card p{margin:0;font-size:.9rem}
+.doc-kv{display:grid;grid-template-columns:200px 1fr;gap:1px;margin-top:18px;border:1px solid var(--line);border-radius:14px;overflow:hidden}
 .doc-kv div{padding:12px 14px;background:rgba(255,255,255,.025);border-bottom:1px solid var(--line)}
-.doc-kv div:nth-child(odd){font-family:"IBM Plex Mono",monospace;color:var(--text)}
-.mermaid-wrap{margin-top:20px;padding:20px;border:1px solid var(--line);border-radius:18px;background:rgba(2,8,18,.7);overflow:auto}
-.mermaid{min-width:720px}
-.doc-code{margin-top:18px}
-.doc-code pre{overflow:auto}
-.live-doc-card{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
-@media(max-width:800px){.doc-grid{grid-template-columns:1fr}.doc-kv{grid-template-columns:1fr}}
+.doc-kv div:nth-child(odd){font-family:"IBM Plex Mono",monospace;color:#d7f4ff;font-size:.84rem}
+.doc-kv div:last-child,.doc-kv div:nth-last-child(2){border-bottom:0}
+.doc-table-wrap{margin-top:18px;overflow:auto;border:1px solid var(--line);border-radius:14px}
+.doc-table{width:100%;border-collapse:collapse;min-width:640px}
+.doc-table th,.doc-table td{padding:12px 14px;text-align:left;border-bottom:1px solid rgba(255,255,255,.06);vertical-align:top}
+.doc-table th{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:#8de4ff;background:rgba(85,217,255,.04)}
+.doc-table td{color:#b9c8d3;font-size:.9rem}
+.doc-table code{font-family:"IBM Plex Mono",monospace;font-size:.82rem;color:#9fd8f0}
+.doc-code{margin-top:16px;border:1px solid var(--line);border-radius:14px;background:#03070d;overflow:hidden}
+.doc-code .codebar{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.06);color:#688094;font-size:.78rem;font-family:"IBM Plex Mono",monospace}
+.doc-code pre{margin:0;padding:18px;overflow:auto;color:#d7f4ff;font:13.5px/1.75 "IBM Plex Mono",monospace}
+.mermaid-wrap{margin-top:18px;padding:18px;border:1px solid var(--line);border-radius:16px;background:rgba(2,8,18,.75);overflow:auto}
+.mermaid{min-width:680px}
+.coverage-bars{display:grid;gap:12px;margin-top:18px}
+.coverage-row{display:grid;grid-template-columns:140px 1fr 52px;gap:12px;align-items:center}
+.coverage-row span{font-size:.82rem;color:#9bb1c2}
+.coverage-row b{font-size:.82rem;color:#d7f4ff;text-align:right;font-variant-numeric:tabular-nums}
+.bar-track{height:10px;border-radius:999px;background:rgba(255,255,255,.06);overflow:hidden}
+.bar-fill{height:100%;border-radius:inherit;background:linear-gradient(90deg,#42d8ff,#526cff);width:0;transition:width 1.1s cubic-bezier(.2,.7,.2,1)}
+.reveal.show .bar-fill{width:var(--w)}
+.pill-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.pill-row .pill{padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:rgba(86,217,255,.06);font-size:.78rem;color:#afd7e8;font-family:"IBM Plex Mono",monospace}
+.note{margin-top:16px;padding:14px 16px;border-left:3px solid #55d9ff;border-radius:0 12px 12px 0;background:rgba(85,217,255,.05);color:#9bb1c2;font-size:.9rem}
+.toc-mobile{display:none}
+@media(max-width:980px){
+  .doc-layout{grid-template-columns:1fr}
+  .doc-toc{display:none}
+  .toc-mobile{display:block;margin-bottom:24px}
+  .doc-grid,.doc-grid-3{grid-template-columns:1fr}
+  .doc-kv{grid-template-columns:1fr}
+  .coverage-row{grid-template-columns:110px 1fr 44px}
+}
 </style>
 </head>
 <body data-vayu-defer data-page="docs">
-<canvas id="particles"></canvas><div class="noise"></div><div data-orbs style="position:fixed;inset:0;pointer-events:none;z-index:-1;overflow:hidden;"></div>
+<canvas id="particles"></canvas>
+<div class="noise"></div>
+<div data-orbs style="position:fixed;inset:0;pointer-events:none;z-index:-1;overflow:hidden;"></div>
 <div id="slot-nav"></div>
+
 <main id="top">
-<section class="page-hero"><div class="container">
-<span class="kicker">Documentation</span>
-<h1>The implementation, not just the pitch.</h1>
-<p class="lead">This page is the technical index for the current Vayu frontend and VCB backend. Detailed feature claims are based on the repositories currently powering the project.</p>
-<div class="page-phase"><span class="dot"></span><span data-phase-badge>PHASE 27 · IN DEVELOPMENT</span></div>
-</div></section>
+<section class="page-hero">
+  <div class="container">
+    <span class="kicker">Documentation</span>
+    <h1>Vayu language and VCB backend reference</h1>
+    <p class="lead doc-lead">Technical documentation for the current Vayu frontend and VCB native backend. Content tracks the repositories that implement the language, compiler, and executable generation paths.</p>
+    <div class="page-phase"><span class="dot"></span><span data-phase-badge>PHASE 27 · IN DEVELOPMENT</span></div>
+  </div>
+</section>
 
-<section class="pt-20"><div class="container">
-<div class="callout reveal"><div class="eyebrow"><span class="dev-dot"></span><span>Current snapshot</span></div>
-<h2>Vayu + VCB native pipeline</h2>
-<p class="muted">Vayu owns the .vyu language frontend and native compilation integration. VCB consumes .vcbir and currently targets x86-64 PE and ELF output with demand-driven runtime emission.</p>
-<div class="doc-kv">
-<div>Vayu source</div><div><code>.vyu</code></div>
-<div>Backend IR</div><div><code>.vcbir</code></div>
-<div>Backend</div><div>VCB, C++20</div>
-<div>Native targets</div><div>Windows PE and Linux x86-64 ELF</div>
-<div>Current VCB release</div><div>0.3.5, Phase 27 Part 3</div>
-<div>Benchmarking</div><div>Deferred until the VCB-built benchmark suite is ready</div>
-</div></div>
+<section class="pt-20">
+<div class="container doc-layout">
 
-<div class="doc-section reveal">
-<h2>Animated data flow</h2>
-<p class="muted">The diagram uses Mermaid flowchart edges with animation so the direction of data movement is visible rather than represented by a static ASCII pipeline.</p>
-<div class="mermaid-wrap"><pre class="mermaid">flowchart LR
-  S[".vyu source"] e1@==> F["Vayu frontend"]
-  F e2@==> A["AST + semantic analysis"]
-  A e3@==> I["Native lowering"]
-  I e4@==> R["VCBIR"]
-  R e5@==> P["VCB parser"]
-  P e6@==> C["x86-64 codegen"]
-  C e7@==> RT["Demand-driven runtime"]
-  RT e8@==> T["PE / ELF writer"]
-  T e9@==> X["Native executable"]
-  e1@{animation: fast}
-  e2@{animation: fast}
-  e3@{animation: fast}
-  e4@{animation: fast}
-  e5@{animation: fast}
-  e6@{animation: fast}
-  e7@{animation: fast}
-  e8@{animation: fast}
-  e9@{animation: fast}
-  classDef source fill:#15243b,stroke:#55d9ff,color:#e9f7ff
-  classDef ir fill:#211b3d,stroke:#9d82ff,color:#f5f0ff
-  classDef native fill:#16352b,stroke:#63e6a0,color:#eafff4
-  class S,F,A source
-  class I,R,P ir
-  class C,RT,T,X native</pre></div>
-</div>
+<aside class="doc-toc" aria-label="Documentation sections">
+  <h3>Contents</h3>
+  <a href="#overview">1. Overview</a>
+  <a href="#architecture">2. Architecture</a>
+  <a href="#data-flow">3. Data flow</a>
+  <a href="#language">4. Language surface</a>
+  <a href="#compiler">5. Compiler pipeline</a>
+  <a href="#vcb">6. VCB backend</a>
+  <a href="#runtime">7. Runtime model</a>
+  <a href="#tooling">8. Tooling</a>
+  <a href="#commands">9. Commands</a>
+  <a href="#coverage">10. Coverage</a>
+  <a href="#status">11. Development status</a>
+  <a href="#references">12. Source references</a>
+</aside>
 
-<div class="doc-grid doc-section">
-<article class="card reveal"><h3>Vayu language</h3><p class="muted">Static typing and inference, functions, closures, generators, collections, OOP, exceptions, modules, ownership, pointers, C FFI and the CPython bridge.</p><a class="btn ghost" href="/syntax/">Syntax reference</a></article>
-<article class="card reveal"><h3>Compiler and tooling</h3><p class="muted">The repository contains the C++ bootstrap/reference compiler plus vls, vfmt, vlint, native execution paths and editor integrations.</p><a class="btn ghost" href="/developer/">Developer tooling</a></article>
-<article class="card reveal"><h3>Package ecosystem</h3><p class="muted">nva supports project setup, local and remote registry workflows, install/update, Git dependencies, dependency trees and publishing workflows.</p></article>
-<article class="card reveal"><h3>AI and Python</h3><p class="muted">Vayu includes native CPython loading and Python value/call interoperability. Broader NumPy, PyTorch, TensorFlow, ONNX and GPU work remains an ecosystem direction.</p></article>
-</div>
+<div class="doc-main">
 
-<div class="doc-section reveal">
-<h2>VCB backend reference</h2>
-<div class="doc-grid">
-<article class="card"><h3>VCBIR</h3><p class="muted">Typed SSA-style values, basic blocks, phi nodes, branches, jumps, calls, returns, memory operations, arithmetic, comparisons, conversions and string constants.</p></article>
-<article class="card"><h3>Code generation</h3><p class="muted">The x86-64 backend handles integer and floating-point operations, control flow, stack slots, calls, phi lowering and runtime symbol references.</p></article>
-<article class="card"><h3>Windows PE</h3><p class="muted">VCB writes PE images itself, builds imports, emits .text/.rdata/.idata sections, calculates checksums, pads small images and exposes header diagnostics.</p></article>
-<article class="card"><h3>Linux ELF</h3><p class="muted">VCB writes ELF64 images, provides a syscall-based runtime subset, a brk-based bump allocator, list/map paths and Linux collection printing.</p></article>
-</div>
-</div>
+<nav class="toc-mobile card">
+  <strong>On this page</strong>
+  <div class="pill-row" style="margin-top:10px">
+    <a class="pill" href="#overview">Overview</a>
+    <a class="pill" href="#architecture">Architecture</a>
+    <a class="pill" href="#data-flow">Data flow</a>
+    <a class="pill" href="#language">Language</a>
+    <a class="pill" href="#vcb">VCB</a>
+    <a class="pill" href="#commands">Commands</a>
+  </div>
+</nav>
 
-<div class="doc-section reveal">
-<h2>VCB commands</h2>
-<div class="doc-code"><pre><code>vcb version
+<section id="overview" class="doc-section reveal">
+  <h2>1. Overview</h2>
+  <p>Vayu is a compiled programming language with Python-inspired syntax, static typing, and a native execution path. Source files use the <code>.vyu</code> extension. The Vayu repository owns the language frontend, semantic analysis, intermediate representations, and the lowering step into VCBIR. VCB is a separate C++20 backend that consumes VCBIR and emits x86-64 PE or ELF executables.</p>
+
+  <div class="doc-kv">
+    <div>Source language</div><div>Vayu (<code>.vyu</code>)</div>
+    <div>Backend IR</div><div>VCBIR (<code>.vcbir</code>)</div>
+    <div>Native backend</div><div>VCB 0.3.5, Phase 27 Part 3</div>
+    <div>Machine target</div><div>x86-64</div>
+    <div>Object formats</div><div>Windows PE, Linux ELF64</div>
+    <div>Frontend stack</div><div>Lexer, parser, AST, semantic checker, bytecode VM, native lowering</div>
+    <div>Backend stack</div><div>VCBIR parser, x86-64 codegen, demand-driven runtime, PE/ELF writers</div>
+  </div>
+
+  <div class="doc-grid" style="margin-top:20px">
+    <article class="doc-card">
+      <h4>Design goals</h4>
+      <p>Readable syntax, native performance, low-level control when required, static typing with inference, and interoperability with C and CPython.</p>
+    </article>
+    <article class="doc-card">
+      <h4>Repository split</h4>
+      <p>Language semantics and IR lowering live in Vayu. Machine code generation and image writing live in VCB. The contract between them is the <code>.vcbir</code> file format.</p>
+    </article>
+  </div>
+</section>
+
+<section id="architecture" class="doc-section reveal">
+  <h2>2. Architecture</h2>
+  <p>The system is organized as a frontend/backend pipeline. Multiple execution modes exist inside Vayu for development and verification. The production native path ends at VCB.</p>
+
+  <h3>System boundary</h3>
+  <div class="mermaid-wrap"><pre class="mermaid">flowchart LR
+    subgraph VAYU["NotY215/Vayu"]
+      L["Lexer"]
+      P["Parser"]
+      A["AST"]
+      S["Semantic analysis"]
+      CP["Compiler pipeline"]
+      VL["VcbLower"]
+      L --> P --> A --> S --> CP --> VL
+    end
+    subgraph VCB["NotY215/VCB"]
+      VP["VCBIR parser"]
+      IR["Module / SSA IR"]
+      CG["x86-64 codegen"]
+      RT["Runtime emitters"]
+      W["PE / ELF writers"]
+      VP --> IR
+      IR --> CG
+      IR --> RT
+      CG --> W
+      RT --> W
+    end
+    VL -->|" .vcbir "| VP
+    W --> EXE["Native executable"]
+    classDef a fill:#15243b,stroke:#55d9ff,color:#e9f7ff
+    classDef b fill:#211b3d,stroke:#9d82ff,color:#f5f0ff
+    classDef c fill:#16352b,stroke:#63e6a0,color:#eafff4
+    class L,P,A,S,CP,VL a
+    class VP,IR,CG,RT b
+    class W,EXE c</pre></div>
+
+  <h3>Execution modes</h3>
+  <div class="mermaid-wrap"><pre class="mermaid">flowchart TD
+    SRC[".vyu source"] --> CHK["Type check"]
+    CHK --> TW["Tree-walk interpreter"]
+    CHK --> BC["Bytecode compiler"]
+    BC --> VM["VM"]
+    CHK --> NAT["NativeCompiler"]
+    NAT --> VCBIR["VCBIR"]
+    VCBIR --> VCB["vcb build"]
+    VCB --> BIN["PE or ELF"]
+    classDef s fill:#15243b,stroke:#55d9ff,color:#fff
+    classDef m fill:#211b3d,stroke:#9d82ff,color:#fff
+    classDef n fill:#16352b,stroke:#63e6a0,color:#fff
+    class SRC,CHK s
+    class TW,BC,VM m
+    class NAT,VCBIR,VCB,BIN n</pre></div>
+
+  <div class="note">The tree-walk interpreter and bytecode VM are used for language development and testing. Native builds for distribution use the Vayu-to-VCB path.</div>
+</section>
+
+<section id="data-flow" class="doc-section reveal">
+  <h2>3. Data flow</h2>
+  <p>The native path transforms source text into a standalone executable. Each stage has a defined intermediate form that can be inspected during debugging.</p>
+
+  <h3>End-to-end native pipeline</h3>
+  <div class="mermaid-wrap"><pre class="mermaid">flowchart LR
+    S[".vyu"] e1@==> L["Lexer"]
+    L e2@==> T["Tokens"]
+    T e3@==> P["Parser"]
+    P e4@==> A["AST"]
+    A e5@==> SE["Semantic check"]
+    SE e6@==> VL["VcbLower"]
+    VL e7@==> I[".vcbir"]
+    I e8@==> VP["VCB parse"]
+    VP e9@==> M["Module"]
+    M e10@==> CG["x86-64"]
+    M e11@==> RT["Runtime"]
+    CG e12@==> IMG["PE / ELF"]
+    RT e12@==> IMG
+    e1@{animation: fast}
+    e2@{animation: fast}
+    e3@{animation: fast}
+    e4@{animation: fast}
+    e5@{animation: fast}
+    e6@{animation: fast}
+    e7@{animation: fast}
+    e8@{animation: fast}
+    e9@{animation: fast}
+    e10@{animation: fast}
+    e11@{animation: fast}
+    e12@{animation: fast}
+    classDef src fill:#15243b,stroke:#55d9ff,color:#e9f7ff
+    classDef mid fill:#211b3d,stroke:#9d82ff,color:#f5f0ff
+    classDef out fill:#16352b,stroke:#63e6a0,color:#eafff4
+    class S,L,T,P,A,SE src
+    class VL,I,VP,M mid
+    class CG,RT,IMG out</pre></div>
+
+  <h3>Frontend intermediate stages</h3>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Stage</th><th>Input</th><th>Output</th><th>Inspection flag</th></tr></thead>
+      <tbody>
+        <tr><td>Lexer</td><td>Source text</td><td>Token stream (including INDENT / DEDENT)</td><td><code>--dump-tokens</code></td></tr>
+        <tr><td>Parser</td><td>Tokens</td><td>AST</td><td><code>--dump-ast</code></td></tr>
+        <tr><td>Semantic analysis</td><td>AST</td><td>Typed / checked program</td><td><code>--check</code></td></tr>
+        <tr><td>Bytecode compile</td><td>Checked AST</td><td>Bytecode</td><td><code>--dump-bytecode</code></td></tr>
+        <tr><td>Native lower</td><td>Checked program</td><td>VCBIR</td><td><code>--dump-ir</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>String path</h3>
+  <div class="mermaid-wrap"><pre class="mermaid">flowchart LR
+    S["String literal"] --> VL["VcbLower"]
+    VL --> CS["const.str in VCBIR"]
+    CS --> CG["x86-64 codegen"]
+    CG --> RD["Read-only data"]
+    CG --> REF["RIP-relative reference"]
+    RD --> EXE["Executable"]
+    REF --> EXE
+    classDef a fill:#15243b,stroke:#55d9ff,color:#fff
+    classDef b fill:#16352b,stroke:#63e6a0,color:#fff
+    class S,VL,CS a
+    class CG,RD,REF,EXE b</pre></div>
+
+  <h3>Collection path</h3>
+  <div class="mermaid-wrap"><pre class="mermaid">flowchart LR
+    OP["list / map operation"] --> VL["VcbLower"]
+    VL --> CALL["VCBIR runtime call"]
+    CALL --> DEP["Dependency scan"]
+    DEP --> EM["Runtime emitter"]
+    EM --> CODE["Embedded helpers"]
+    CODE --> EXE["Native image"]
+    classDef a fill:#15243b,stroke:#55d9ff,color:#fff
+    classDef b fill:#211b3d,stroke:#9d82ff,color:#fff
+    classDef c fill:#16352b,stroke:#63e6a0,color:#fff
+    class OP,VL a
+    class CALL,DEP,EM b
+    class CODE,EXE c</pre></div>
+
+  <h3>Control-flow path</h3>
+  <div class="mermaid-wrap"><pre class="mermaid">flowchart TD
+    FN["Vayu function"] --> BB["VCBIR basic blocks"]
+    BB --> OPS["SSA operations + phi"]
+    OPS --> EM["x86-64 emitter"]
+    EM --> FIX["Block and call fixups"]
+    FIX --> MC["Machine code"]
+    classDef a fill:#15243b,stroke:#55d9ff,color:#fff
+    classDef b fill:#211b3d,stroke:#9d82ff,color:#fff
+    classDef c fill:#16352b,stroke:#63e6a0,color:#fff
+    class FN,BB a
+    class OPS,EM b
+    class FIX,MC c</pre></div>
+</section>
+
+<section id="language" class="doc-section reveal">
+  <h2>4. Language surface</h2>
+  <p>Vayu uses indentation-based blocks. The lexer emits structural <code>INDENT</code> and <code>DEDENT</code> tokens. Comments start with <code>#</code>.</p>
+
+  <div class="doc-code">
+    <div class="codebar">example.vyu</div>
+<pre><code>def greet(name: str) -> None:
+    print("Hello, " + name)
+
+greet("Vayu")</code></pre>
+  </div>
+
+  <h3>Type categories</h3>
+  <div class="pill-row">
+    <span class="pill">None</span><span class="pill">Bool</span><span class="pill">Int</span><span class="pill">Float</span>
+    <span class="pill">Str</span><span class="pill">Char</span><span class="pill">Bytes</span><span class="pill">Any</span>
+    <span class="pill">list<T></span><span class="pill">map<K,V></span><span class="pill">tuple<...></span><span class="pill">set<T></span>
+    <span class="pill">unique<T></span><span class="pill">shared<T></span><span class="pill">weak<T></span>
+    <span class="pill">ptr<T></span><span class="pill">ref<T></span>
+    <span class="pill">struct</span><span class="pill">class</span><span class="pill">enum</span><span class="pill">Function</span>
+  </div>
+
+  <h3>Core constructs</h3>
+  <div class="doc-grid">
+    <article class="doc-card">
+      <h4>Control flow</h4>
+      <p><code>if</code> / <code>elif</code> / <code>else</code>, <code>while</code>, <code>for</code>, <code>match</code> / <code>case</code>, <code>break</code>, <code>continue</code>, <code>pass</code>, <code>defer</code>, <code>with</code>.</p>
+    </article>
+    <article class="doc-card">
+      <h4>Functions</h4>
+      <p>Typed parameters and returns, recursion, lambdas, closures, higher-order functions, generics with optional constraints.</p>
+    </article>
+    <article class="doc-card">
+      <h4>Objects</h4>
+      <p>Structs, classes, inheritance, <code>super()</code>, static members, visibility modifiers, constructors.</p>
+    </article>
+    <article class="doc-card">
+      <h4>Systems features</h4>
+      <p>Ownership types, raw pointers, <code>malloc</code> / <code>free</code>, <code>unsafe</code> blocks, C <code>extern</code>, CPython bridge via <code>py</code>.</p>
+    </article>
+  </div>
+
+  <h3>Operators</h3>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Class</th><th>Operators</th></tr></thead>
+      <tbody>
+        <tr><td>Arithmetic</td><td><code>+ - * / // % **</code></td></tr>
+        <tr><td>Comparison</td><td><code>== != < <= > >=</code></td></tr>
+        <tr><td>Logical / membership</td><td><code>and or not in is</code></td></tr>
+        <tr><td>Bitwise</td><td><code>& | ^ ~ << >></code></td></tr>
+        <tr><td>Compound assign</td><td><code>+= -= *= /= %= **= //= &= |= ^= <<= >>=</code></td></tr>
+        <tr><td>Native unary</td><td><code>&value</code>, <code>*pointer</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="mt-20"><a class="btn ghost" href="/syntax/">Open full syntax reference</a></p>
+</section>
+
+<section id="compiler" class="doc-section reveal">
+  <h2>5. Compiler pipeline</h2>
+  <p>The bootstrap and reference compiler is implemented in C++ under <code>compiler/</code>. The driver entry point is <code>vayuc</code>.</p>
+
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Component</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td><code>lexer</code></td><td>Source to token conversion, including indentation tokens</td></tr>
+        <tr><td><code>parser</code></td><td>Token to AST conversion</td></tr>
+        <tr><td><code>ast</code></td><td>Language structure representation</td></tr>
+        <tr><td><code>sema</code></td><td>Semantic analysis and type checking</td></tr>
+        <tr><td><code>types</code></td><td>Type system, generics, compatibility rules</td></tr>
+        <tr><td><code>compile</code></td><td>AST to bytecode compilation</td></tr>
+        <tr><td><code>bytecode</code></td><td>Bytecode representation and optimization</td></tr>
+        <tr><td><code>vm</code></td><td>Bytecode execution</td></tr>
+        <tr><td><code>interp</code></td><td>Tree-walk runtime and shared runtime support</td></tr>
+        <tr><td><code>driver</code></td><td>Command-line interface and mode selection</td></tr>
+        <tr><td><code>native</code></td><td>NativeCompiler and VcbLower into VCBIR</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Native integration</h3>
+  <p><code>NativeCompiler</code> writes a temporary <code>.vcbir</code> file and invokes <code>vcb build</code>. The <code>VAYU_VCB</code> environment variable can override the path to the VCB executable.</p>
+
+  <div class="doc-code">
+    <div class="codebar">vayuc modes</div>
+<pre><code>vayuc <file.vyu> [mode] [flags]
+
+--run                 tree-walk execution
+--vm                  bytecode VM
+--native              native compile and run via VCB
+--native-out <path>   write native executable
+--check               type-check only
+--dump-tokens
+--dump-ast
+--dump-bytecode
+--dump-ir
+--no-check
+--no-opt
+--bench [N]
+--emit-runtime <path></code></pre>
+  </div>
+</section>
+
+<section id="vcb" class="doc-section reveal">
+  <h2>6. VCB backend</h2>
+  <p>VCB is a standalone C++20 native compiler backend. It does not parse <code>.vyu</code> source. It parses VCBIR, generates x86-64 machine code, embeds required runtime helpers, and writes PE or ELF images directly.</p>
+
+  <div class="doc-kv">
+    <div>Version</div><div>0.3.5</div>
+    <div>Phase</div><div>27 Part 3</div>
+    <div>Language</div><div>C++20, CMake 3.20+</div>
+    <div>Targets</div><div><code>--target pe</code>, <code>--target elf</code></div>
+    <div>IR</div><div>Typed SSA values, basic blocks, phi, branches, calls, memory ops</div>
+  </div>
+
+  <h3>Backend internal flow</h3>
+  <div class="mermaid-wrap"><pre class="mermaid">flowchart TD
+    FILE[".vcbir"] --> PARSER["src/ir/Parser.cpp"]
+    PARSER --> MOD["VCB Module"]
+    MOD --> CG["x86-64 Code Generation"]
+    MOD --> RT["Runtime dependency analysis"]
+    CG --> TEXT[".text machine code"]
+    RT --> RTEXT["Embedded runtime"]
+    CG --> DATA["Read-only data"]
+    TEXT --> TARGET{"Target"}
+    RTEXT --> TARGET
+    DATA --> TARGET
+    TARGET --> PE["PE Writer"]
+    TARGET --> ELF["ELF Writer"]
+    PE --> WIN["Windows PE"]
+    ELF --> LIN["Linux ELF64"]
+    classDef a fill:#15243b,stroke:#55d9ff,color:#fff
+    classDef b fill:#211b3d,stroke:#9d82ff,color:#fff
+    classDef c fill:#16352b,stroke:#63e6a0,color:#fff
+    class FILE,PARSER,MOD a
+    class CG,RT,TEXT,RTEXT,DATA b
+    class TARGET,PE,ELF,WIN,LIN c</pre></div>
+
+  <h3>Source layout</h3>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Path</th><th>Responsibility</th></tr></thead>
+      <tbody>
+        <tr><td><code>src/ir/</code></td><td>IR model, parser, printer</td></tr>
+        <tr><td><code>src/x64/</code></td><td>x86-64 codegen, PE path helpers, ELF path helpers, runtime emitters</td></tr>
+        <tr><td><code>src/pe/</code></td><td>Windows PE image writer</td></tr>
+        <tr><td><code>src/elf/</code></td><td>Linux ELF64 image writer</td></tr>
+        <tr><td><code>src/driver/</code></td><td>CLI: version, dump, build, headers</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Windows PE path</h3>
+  <div class="mermaid-wrap"><pre class="mermaid">flowchart TD
+    IR["VCBIR"] --> CG["x86-64 PE codegen"]
+    RT["Windows runtime / imports"] --> CG
+    CG --> TEXT[".text"]
+    CG --> RDATA[".rdata"]
+    RT --> IDATA[".idata"]
+    TEXT --> W["PE Writer"]
+    RDATA --> W
+    IDATA --> W
+    W --> EXE["Windows PE executable"]
+    classDef a fill:#15243b,stroke:#55d9ff,color:#fff
+    classDef b fill:#16352b,stroke:#63e6a0,color:#fff
+    class IR,CG,RT,TEXT,RDATA,IDATA a
+    class W,EXE b</pre></div>
+
+  <h3>Linux ELF path</h3>
+  <div class="mermaid-wrap"><pre class="mermaid">flowchart TD
+    IR["VCBIR"] --> CG["x86-64 ELF codegen"]
+    RT["Linux syscall runtime"] --> CG
+    CG --> TEXT[".text"]
+    CG --> DATA["Read-only data"]
+    TEXT --> W["ELF Writer"]
+    DATA --> W
+    W --> EXE["Linux x86-64 ELF"]
+    classDef a fill:#15243b,stroke:#55d9ff,color:#fff
+    classDef b fill:#16352b,stroke:#63e6a0,color:#fff
+    class IR,CG,RT,TEXT,DATA a
+    class W,EXE b</pre></div>
+
+  <div class="note">Linux entry code calls main, moves the result into the exit-code register, and invokes the Linux exit syscall. Heap support uses a brk-based bump allocator.</div>
+</section>
+
+<section id="runtime" class="doc-section reveal">
+  <h2>7. Runtime model</h2>
+  <p>Runtime helpers are embedded into the native image only when referenced. A dependency scan walks the module and closes over transitive runtime requirements.</p>
+
+  <div class="mermaid-wrap"><pre class="mermaid">flowchart TD
+    M["VCBIR module"] e1@==> D["Dependency scan"]
+    D e2@==> H["Reachable helpers"]
+    H e3@==> W["Target runtime"]
+    W e4@==> O["PE or ELF image"]
+    e1@{animation: fast}
+    e2@{animation: fast}
+    e3@{animation: fast}
+    e4@{animation: fast}
+    classDef a fill:#15243b,stroke:#55d9ff,color:#fff
+    classDef b fill:#211b3d,stroke:#9d82ff,color:#fff
+    classDef c fill:#16352b,stroke:#63e6a0,color:#fff
+    class M,D a
+    class H b
+    class W,O c</pre></div>
+
+  <h3>Current VCB runtime areas</h3>
+  <ul>
+    <li>Process exit; character, line, space, bool, integer, and float printing</li>
+    <li>Windows runtime imports and native helpers</li>
+    <li>Linux syscall output and brk-based bump allocation</li>
+    <li>Lists: create, push, get, set, length, print</li>
+    <li>Maps: create, put, get, has, length, print</li>
+    <li>Strings: length, equality, prefix and suffix checks, contains, find, upper, lower</li>
+    <li>Atomic PE and ELF writes with structural header inspection</li>
+  </ul>
+
+  <h3>Vayu runtime modules</h3>
+  <div class="pill-row">
+    <span class="pill">math</span><span class="pill">fs</span><span class="pill">time</span><span class="pill">json</span>
+    <span class="pill">regex</span><span class="pill">thread</span><span class="pill">net</span><span class="pill">crypto</span>
+    <span class="pill">random</span><span class="pill">os</span><span class="pill">py</span>
+  </div>
+  <p class="mt-20">Availability can differ between the tree-walk interpreter, the bytecode VM, and the native path.</p>
+</section>
+
+<section id="tooling" class="doc-section reveal">
+  <h2>8. Tooling</h2>
+  <div class="doc-grid-3">
+    <article class="doc-card">
+      <h4>vls</h4>
+      <p>Language server: diagnostics, hover, go to definition, completion, references, rename, signature help.</p>
+    </article>
+    <article class="doc-card">
+      <h4>vfmt</h4>
+      <p>Source formatter for <code>.vyu</code> files.</p>
+    </article>
+    <article class="doc-card">
+      <h4>vlint</h4>
+      <p>Static checks integrated with the editor workflow.</p>
+    </article>
+  </div>
+  <div class="doc-grid" style="margin-top:16px">
+    <article class="doc-card">
+      <h4>VS Code extension</h4>
+      <p>Marketplace package <code>Fliczo.vayu</code>: syntax highlighting, LSP, formatter and linter integration, configuration support.</p>
+    </article>
+    <article class="doc-card">
+      <h4>nva</h4>
+      <p>Package workflow: project setup, local registry operations, install and update, dependency trees, publishing direction.</p>
+    </article>
+  </div>
+</section>
+
+<section id="commands" class="doc-section reveal">
+  <h2>9. Commands</h2>
+
+  <h3>Vayu driver</h3>
+  <div class="doc-code">
+    <div class="codebar">vayuc</div>
+<pre><code>vayuc hello.vyu
+vayuc hello.vyu --vm
+vayuc hello.vyu --native
+vayuc hello.vyu --native-out hello.exe
+vayuc hello.vyu --check
+vayuc hello.vyu --dump-tokens
+vayuc hello.vyu --dump-ast
+vayuc hello.vyu --dump-bytecode
+vayuc hello.vyu --dump-ir
+vayuc hello.vyu --bench 10</code></pre>
+  </div>
+
+  <h3>VCB driver</h3>
+  <div class="doc-code">
+    <div class="codebar">vcb</div>
+<pre><code>vcb version
 vcb dump examples/hello.vcbir
 vcb build examples/hello.vcbir -o hello.exe --target pe
 vcb build examples/hello.vcbir -o hello --target elf
 vcb headers hello.exe
-vcb elfheaders hello</code></pre></div>
-</div>
+vcb elfheaders hello</code></pre>
+  </div>
 
-<div class="doc-section reveal">
-<h2>Runtime model</h2>
-<div class="mermaid-wrap"><pre class="mermaid">flowchart TD
-  M["VCBIR module"] e1@==> D["Dependency scan"]
-  D e2@==> H["Reachable runtime helpers"]
-  H e3@==> W["Target runtime"]
-  W e4@==> O["PE or ELF image"]
-  e1@{animation: fast}
-  e2@{animation: fast}
-  e3@{animation: fast}
-  e4@{animation: fast}
-  classDef a fill:#15243b,stroke:#55d9ff,color:#fff
-  classDef b fill:#211b3d,stroke:#9d82ff,color:#fff
-  classDef c fill:#16352b,stroke:#63e6a0,color:#fff
-  class M,D a
-  class H b
-  class W,O c</pre></div>
-<p class="muted mt-20">Runtime emission is demand-driven. Helpers are emitted when the module references them, with dependency closure used for transitive runtime requirements.</p>
-</div>
+  <h3>Build VCB</h3>
+  <div class="doc-code">
+    <div class="codebar">CMake</div>
+<pre><code>cmake -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build
+# output: build/bin/vcb.exe</code></pre>
+  </div>
+</section>
 
-<div class="doc-section reveal">
-<h2>Current VCB runtime coverage</h2>
-<ul class="doc-list">
-<li>Process exit and character, line, space, bool, integer and float printing.</li>
-<li>Windows runtime imports and native helpers.</li>
-<li>Linux syscall output and <code>brk</code>-based bump allocation.</li>
-<li>Lists: creation, push, get, set, length and printing.</li>
-<li>Maps: creation, put, get, has, length and printing.</li>
-<li>Strings: length, equality, prefix/suffix checks, contains, find, upper and lower.</li>
-<li>Atomic PE and ELF writes plus structural header inspection.</li>
-</ul>
-</div>
+<section id="coverage" class="doc-section reveal">
+  <h2>10. Implementation coverage</h2>
+  <p>Relative maturity of major subsystems in the current repositories. Values describe implementation completeness, not ecosystem size relative to established languages.</p>
 
-<div class="doc-section reveal">
-<h2>Development status</h2>
-<p class="muted">Phase 25 benchmarking remains postponed. Phase 26 established VCB and its native backend. Phase 27 is the active VCB target and correctness/runtime expansion. Phase 28 will rerun the benchmark harness on VCB-built binaries, followed by the version cut in Phase 29.</p>
-<a class="btn primary" href="/roadmap/">Open full roadmap</a>
-</div>
+  <div class="coverage-bars">
+    <div class="coverage-row"><span>Core language</span><div class="bar-track"><div class="bar-fill" style="--w:92%"></div></div><b>92%</b></div>
+    <div class="coverage-row"><span>Type system</span><div class="bar-track"><div class="bar-fill" style="--w:88%"></div></div><b>88%</b></div>
+    <div class="coverage-row"><span>Collections</span><div class="bar-track"><div class="bar-fill" style="--w:90%"></div></div><b>90%</b></div>
+    <div class="coverage-row"><span>OOP / structs</span><div class="bar-track"><div class="bar-fill" style="--w:86%"></div></div><b>86%</b></div>
+    <div class="coverage-row"><span>Bytecode VM</span><div class="bar-track"><div class="bar-fill" style="--w:84%"></div></div><b>84%</b></div>
+    <div class="coverage-row"><span>VCBIR / codegen</span><div class="bar-track"><div class="bar-fill" style="--w:78%"></div></div><b>78%</b></div>
+    <div class="coverage-row"><span>PE target</span><div class="bar-track"><div class="bar-fill" style="--w:82%"></div></div><b>82%</b></div>
+    <div class="coverage-row"><span>ELF target</span><div class="bar-track"><div class="bar-fill" style="--w:76%"></div></div><b>76%</b></div>
+    <div class="coverage-row"><span>C FFI</span><div class="bar-track"><div class="bar-fill" style="--w:80%"></div></div><b>80%</b></div>
+    <div class="coverage-row"><span>CPython bridge</span><div class="bar-track"><div class="bar-fill" style="--w:72%"></div></div><b>72%</b></div>
+    <div class="coverage-row"><span>Editor tooling</span><div class="bar-track"><div class="bar-fill" style="--w:70%"></div></div><b>70%</b></div>
+    <div class="coverage-row"><span>Package manager</span><div class="bar-track"><div class="bar-fill" style="--w:55%"></div></div><b>55%</b></div>
+  </div>
+</section>
 
-<div class="doc-section reveal live-doc-card card">
-<div><h3>Repository documentation</h3><p class="muted">The source repositories remain the authoritative implementation references.</p></div>
-<div class="flex-row"><a class="btn ghost" href="https://github.com/NotY215/Vayu" target="_blank" rel="noopener">Vayu GitHub</a><a class="btn ghost" href="https://github.com/NotY215/VCB" target="_blank" rel="noopener">VCB GitHub</a></div>
+<section id="status" class="doc-section reveal">
+  <h2>11. Development status</h2>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Phase</th><th>Scope</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>1-24</td><td>Core language, runtime, tooling, graphics foundations, package direction, native floats</td><td>Completed</td></tr>
+        <tr><td>25</td><td>Benchmark suite on VCB-built binaries</td><td>Deferred until VCB path is complete</td></tr>
+        <tr><td>26 Part 1</td><td>VCB project, IR, parser, printer, <code>vcb dump</code></td><td>Completed</td></tr>
+        <tr><td>26 Part 2</td><td>x86-64 codegen, PE and ELF writers, Vayu native path switched to VCB</td><td>Completed</td></tr>
+        <tr><td>27 Part 1</td><td>ELF writer, Linux syscall subset, <code>--target elf</code>, <code>vcb elfheaders</code></td><td>Completed</td></tr>
+        <tr><td>27 Part 2</td><td>Linux heap, list and map runtime, string methods, collection printing</td><td>Completed</td></tr>
+        <tr><td>27 Part 3</td><td>Linux float printing, PE padding, shared emitter headers</td><td>Active</td></tr>
+        <tr><td>28</td><td>Full benchmarking on VCB-built binaries</td><td>Planned</td></tr>
+        <tr><td>29</td><td>Version cut</td><td>Planned</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="mt-20"><a class="btn primary" href="/roadmap/">Open full roadmap</a></p>
+</section>
+
+<section id="references" class="doc-section reveal">
+  <h2>12. Source references</h2>
+  <p>The repositories are the authoritative implementation references. When documentation and source differ, prefer the compiler and backend source and their tests.</p>
+  <div class="doc-grid">
+    <article class="doc-card">
+      <h4>Vayu</h4>
+      <p>Language frontend, compiler, VM, tooling, examples.</p>
+      <p style="margin-top:12px"><a class="btn ghost" href="https://github.com/NotY215/Vayu" target="_blank" rel="noopener">github.com/NotY215/Vayu</a></p>
+    </article>
+    <article class="doc-card">
+      <h4>VCB</h4>
+      <p>Native backend, VCBIR, x86-64 codegen, PE and ELF writers.</p>
+      <p style="margin-top:12px"><a class="btn ghost" href="https://github.com/NotY215/VCB" target="_blank" rel="noopener">github.com/NotY215/VCB</a></p>
+    </article>
+  </div>
+  <div class="doc-grid" style="margin-top:16px">
+    <article class="doc-card">
+      <h4>In-repo docs</h4>
+      <p><code>Documentation.md</code>, <code>docs/syntax.md</code>, <code>docs/data-flow.md</code>, <code>docs/package.md</code>, <code>docs/ai.md</code>, <code>docs/vision.md</code></p>
+    </article>
+    <article class="doc-card">
+      <h4>Related site pages</h4>
+      <p><a href="/syntax/">Syntax</a> · <a href="/developer/">Developer</a> · <a href="/VCB/">VCB</a> · <a href="/roadmap/">Roadmap</a> · <a href="/faq/">FAQ</a></p>
+    </article>
+  </div>
+</section>
+
 </div>
-</div></section>
+</div>
+</section>
 </main>
-<div id="slot-footer"></div><div id="slot-modal-examples"></div><div id="slot-modal-github"></div>
-<div id="vayu-loading" aria-hidden="true"><div class="vayu-loader"><div class="vayu-loader-ring"></div><div class="vayu-loader-text">Loading documentation...</div></div></div>
+
+<div id="slot-footer"></div>
+<div id="slot-modal-examples"></div>
+<div id="slot-modal-github"></div>
+<div id="vayu-loading" aria-hidden="true">
+  <div class="vayu-loader">
+    <div class="vayu-loader-ring"></div>
+    <div class="vayu-loader-text">Loading documentation...</div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<script>
+mermaid.initialize({
+  startOnLoad: true,
+  theme: 'dark',
+  flowchart: { curve: 'basis', htmlLabels: true },
+  themeVariables: {
+    primaryColor: '#15243b',
+    primaryTextColor: '#e9f7ff',
+    primaryBorderColor: '#55d9ff',
+    lineColor: '#55d9ff',
+    secondaryColor: '#211b3d',
+    tertiaryColor: '#16352b',
+    fontFamily: 'DM Sans, system-ui, sans-serif'
+  }
+});
+</script>
 <script src="/js/layout.js"></script>
-</body></html>
+<script>
+(function(){
+  const links = document.querySelectorAll('.doc-toc a');
+  const sections = [];
+  links.forEach(a => {
+    const id = a.getAttribute('href').slice(1);
+    const el = document.getElementById(id);
+    if(el) sections.push({id, el, a});
+  });
+  function sync(){
+    let active = sections[0];
+    const y = window.scrollY + 120;
+    for(const s of sections){
+      if(s.el.offsetTop <= y) active = s;
+    }
+    links.forEach(a => a.classList.remove('active'));
+    if(active) active.a.classList.add('active');
+  }
+  window.addEventListener('scroll', sync, {passive:true});
+  sync();
+})();
+</script>
+</body>
+</html>
