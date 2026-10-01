@@ -4,1349 +4,162 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#07111f">
-<meta name="description" content="Vayu documentation - installation, language guide, standard library, interop, compiler internals and VCB.">
+<meta name="description" content="Current Vayu and VCB documentation, architecture, IR, runtime, native targets, tooling, packages and roadmap.">
 <title>Documentation - Vayu</title>
 <link rel="canonical" href="https://vayu.gt.tc/docs/" />
 <link rel="icon" type="image/png" href="/Vayu_Fav.png">
 <link rel="apple-touch-icon" type="image/png" href="/Vayu_Fav.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://api.github.com">
+<link rel="preconnect" href="https://raw.githubusercontent.com">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="/css/main.css">
+<style>
+.doc-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.doc-section{margin-top:24px}
+.doc-section h3{margin-bottom:10px}
+.doc-list{display:grid;gap:10px;margin:16px 0 0;padding:0;list-style:none}
+.doc-list li{padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.025)}
+.doc-kv{display:grid;grid-template-columns:180px 1fr;gap:1px;margin-top:18px;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.doc-kv div{padding:12px 14px;background:rgba(255,255,255,.025);border-bottom:1px solid var(--line)}
+.doc-kv div:nth-child(odd){font-family:"IBM Plex Mono",monospace;color:var(--text)}
+.mermaid-wrap{margin-top:20px;padding:20px;border:1px solid var(--line);border-radius:18px;background:rgba(2,8,18,.7);overflow:auto}
+.mermaid{min-width:720px}
+.doc-code{margin-top:18px}
+.doc-code pre{overflow:auto}
+.live-doc-card{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+@media(max-width:800px){.doc-grid{grid-template-columns:1fr}.doc-kv{grid-template-columns:1fr}}
+</style>
 </head>
 <body data-vayu-defer data-page="docs">
-<canvas id="particles"></canvas>
-<div class="noise"></div>
-<div data-orbs style="position:fixed;inset:0;pointer-events:none;z-index:-1;overflow:hidden;"></div>
-
+<canvas id="particles"></canvas><div class="noise"></div><div data-orbs style="position:fixed;inset:0;pointer-events:none;z-index:-1;overflow:hidden;"></div>
 <div id="slot-nav"></div>
-
 <main id="top">
-  <section class="page-hero">
-    <div class="container">
-      <span class="kicker">Documentation</span>
-      <h1>Vayu reference.</h1>
-      <p class="lead">The complete language and compiler documentation - installation, syntax, standard library, interoperability, architecture and roadmap. Written for both newcomers and compiler contributors.</p>
-
-      <div class="docs-searchbar">
-        <span class="docs-searchbar-icon">⌕</span>
-        <input type="text" id="docsSearch" placeholder="Search the documentation…" autocomplete="off">
-      </div>
-
-      <div class="flex-row mt-24">
-        <a class="btn primary ripple-btn" href="#getting-started">▸ Get started</a>
-        <a class="btn ghost ripple-btn" href="/syntax/">◆ Syntax reference</a>
-        <a class="btn ghost ripple-btn" href="https://github.com/NotY215/Vayu" target="_blank" rel="noopener">⌘ GitHub</a>
-      </div>
-      <div class="page-phase"><span class="dot"></span><span data-phase-badge>PHASE 26 · PART 2 IN DEVELOPMENT</span></div>
-    </div>
-  </section>
-
-  <section>
-    <div class="container">
-      <div class="docs-shell">
-
-        <!-- ============================================================
-             LEFT SIDEBAR - table of contents
-             ============================================================ -->
-        <aside class="docs-side" id="docsSide">
-          <div class="docs-side-group">
-            <div class="docs-side-title">Introduction</div>
-            <div class="docs-side-list">
-              <a class="docs-side-link" data-target="overview" href="#overview">Overview</a>
-              <a class="docs-side-link" data-target="getting-started" href="#getting-started">Getting started</a>
-              <a class="docs-side-link" data-target="pipeline" href="#pipeline">Compilation pipeline</a>
-            </div>
-          </div>
-          <div class="docs-side-group">
-            <div class="docs-side-title">Language guide</div>
-            <div class="docs-side-list">
-              <a class="docs-side-link" data-target="language-basics" href="#language-basics">Basics</a>
-              <a class="docs-side-link" data-target="types" href="#types">Types</a>
-              <a class="docs-side-link" data-target="operators" href="#operators">Operators</a>
-              <a class="docs-side-link" data-target="control-flow" href="#control-flow">Control flow</a>
-              <a class="docs-side-link" data-target="functions" href="#functions">Functions</a>
-              <a class="docs-side-link" data-target="collections" href="#collections">Collections</a>
-              <a class="docs-side-link" data-target="structs" href="#structs">Structs</a>
-              <a class="docs-side-link" data-target="classes" href="#classes">Classes</a>
-              <a class="docs-side-link" data-target="exceptions" href="#exceptions">Exceptions</a>
-              <a class="docs-side-link" data-target="generators" href="#generators">Generators</a>
-              <a class="docs-side-link" data-target="modules" href="#modules">Modules</a>
-            </div>
-          </div>
-          <div class="docs-side-group">
-            <div class="docs-side-title">Standard library</div>
-            <div class="docs-side-list">
-              <a class="docs-side-link" data-target="builtins" href="#builtins">Global built-ins</a>
-              <a class="docs-side-link" data-target="stdlib" href="#stdlib">Runtime modules</a>
-            </div>
-          </div>
-          <div class="docs-side-group">
-            <div class="docs-side-title">Interoperability</div>
-            <div class="docs-side-list">
-              <a class="docs-side-link" data-target="ownership" href="#ownership">Ownership &amp; pointers</a>
-              <a class="docs-side-link" data-target="cffi" href="#cffi">C FFI</a>
-              <a class="docs-side-link" data-target="cpython" href="#cpython">CPython bridge</a>
-            </div>
-          </div>
-          <div class="docs-side-group">
-            <div class="docs-side-title">Compiler</div>
-            <div class="docs-side-list">
-              <a class="docs-side-link" data-target="vayuc" href="#vayuc">vayuc driver</a>
-              <a class="docs-side-link" data-target="backends" href="#backends">Backends</a>
-              <a class="docs-side-link" data-target="components" href="#components">Source components</a>
-            </div>
-          </div>
-          <div class="docs-side-group">
-            <div class="docs-side-title">Project</div>
-            <div class="docs-side-list">
-              <a class="docs-side-link" data-target="vcb" href="#vcb">VCB backend</a>
-              <a class="docs-side-link" data-target="status" href="#status">Current status</a>
-              <a class="docs-side-link" data-target="roadmap" href="#roadmap">Roadmap summary</a>
-            </div>
-          </div>
-        </aside>
-
-        <!-- ============================================================
-             MAIN CONTENT
-             ============================================================ -->
-        <div class="docs-main">
-          <div class="docs-breadcrumb">
-            <a href="/">Vayu</a>
-            <span class="sep">/</span>
-            <span>Documentation</span>
-            <span class="sep">/</span>
-            <span id="docsCurrentCrumb">Overview</span>
-          </div>
-
-          <!-- ============================================================
-               OVERVIEW
-               ============================================================ -->
-          <article class="docs-article reveal" id="overview">
-            <h1>Overview</h1>
-            <p class="docs-lead">Vayu is a general-purpose programming language that combines Python-style indentation-based syntax with static typing, native compilation and low-level control.</p>
-
-            <h2>What Vayu is</h2>
-            <p>Vayu is an independent programming-language project. It is designed around a combination of:</p>
-            <ul>
-              <li>Python-inspired readable syntax</li>
-              <li>Static typing and type inference</li>
-              <li>Compiled / native execution</li>
-              <li>Low-level memory and native interoperability</li>
-              <li>Object-oriented and functional programming</li>
-              <li>C interoperability (via <code>extern "C"</code>)</li>
-              <li>Python / CPython interoperability (via the <code>py</code> module)</li>
-              <li>Self-hosting - actively being bootstrapped</li>
-              <li>A dedicated native compiler backend through <a href="https://github.com/NotY215/VCB" target="_blank" rel="noopener">VCB</a></li>
-            </ul>
-
-            <h2>Official source format</h2>
-            <p>Vayu source files use the <code>.vyu</code> extension.</p>
-            <pre><code>def greet(name: str) -&gt; None:
-    print("Hello, " + name)
-
-greet("Vayu")</code></pre>
-
-            <h2>Design philosophy</h2>
-            <p>Vayu aims to be one unified language spanning simple scripts, applications, AI/ML, games, and native systems software - so developers do not have to switch languages across those domains.</p>
-
-            <div class="docs-grid">
-              <div class="docs-tile">
-                <div class="docs-tile-title">Simplicity</div>
-                <div class="docs-tile-desc">Readable by default. Python-inspired syntax keeps programs compact.</div>
-              </div>
-              <div class="docs-tile">
-                <div class="docs-tile-title">Performance</div>
-                <div class="docs-tile-desc">Native compilation. Recursive fib within ~2× of g++ -O2.</div>
-              </div>
-              <div class="docs-tile">
-                <div class="docs-tile-title">Control</div>
-                <div class="docs-tile-desc">Static types, pointers, ownership and unsafe blocks when you need them.</div>
-              </div>
-              <div class="docs-tile">
-                <div class="docs-tile-title">Interoperability</div>
-                <div class="docs-tile-desc">C FFI and a CPython bridge bring existing ecosystems into Vayu.</div>
-              </div>
-              <div class="docs-tile">
-                <div class="docs-tile-title">Portability</div>
-                <div class="docs-tile-desc">One language across scripts, applications, AI/ML, games and systems.</div>
-              </div>
-              <div class="docs-tile">
-                <div class="docs-tile-title">One ecosystem</div>
-                <div class="docs-tile-desc">Package manager <code>nva</code>, project files <code>nova.toml</code> / <code>nova.lock</code>, standard library, and toolchain.</div>
-              </div>
-            </div>
-          </article>
-
-          <!-- ============================================================
-               GETTING STARTED
-               ============================================================ -->
-          <article class="docs-article reveal" id="getting-started">
-            <h1>Getting started</h1>
-            <p class="docs-lead">Install the compiler, write your first program, and run it on any of the three backends.</p>
-
-            <h2>Installation</h2>
-            <p>Vayu ships as a single C++ compiler driver called <code>vayuc</code>. Build instructions are maintained in the repository's <code>build.md</code>.</p>
-            <pre><code># Clone the repository
-git clone https://github.com/NotY215/Vayu.git
-cd Vayu
-
-# Build vayuc (see build.md for the exact CMake invocation)
-# The compiler is C++20 and has no third-party dependencies beyond
-# a C++ toolchain, CMake, and (for native output) QBE + GCC.</code></pre>
-
-            <h2>Hello, world</h2>
-            <p>Create a file called <code>hello.vyu</code>:</p>
-            <pre><code>print("Hello, Vayu!")</code></pre>
-
-            <h2>Running programs</h2>
-            <p>Vayu has three execution paths:</p>
-            <pre><code># Tree-walking interpreter - fastest start-up
-vayuc hello.vyu --run
-
-# Bytecode VM - balanced speed
-vayuc hello.vyu --vm
-
-# Native compiler - produces an executable
-vayuc hello.vyu --native</code></pre>
-
-            <h2>Inspect the pipeline</h2>
-            <p>The compiler can dump intermediate stages. This is useful for debugging the front-end or learning how Vayu translates your code. Native compilation is currently transitioning from the QBE + GCC path to the dedicated VCB backend:</p>
-            <pre><code>vayuc hello.vyu --dump-tokens      # source → tokens
-vayuc hello.vyu --dump-ast         # tokens → AST
-vayuc hello.vyu --dump-bytecode    # AST → bytecode
-vayuc hello.vyu --dump-ir          # AST → native IR</code></pre>
-
-            <div class="callout-inline info">
-              <strong>Reading order.</strong> If you're new to the language, this page walks through every feature in order. The <a href="/syntax/">syntax reference</a> is a more compact one-page overview.
-            </div>
-          </article>
-
-          <!-- ============================================================
-               PIPELINE
-               ============================================================ -->
-          <article class="docs-article reveal" id="pipeline">
-            <h1>Compilation pipeline</h1>
-            <p class="docs-lead">Vayu source is processed through several stages before reaching an executable.</p>
-
-            <pre><code>Vayu Source (.vyu)
-        │
-        ▼
-      Lexer
-        │
-        ▼
-      Tokens
-        │
-        ▼
-      Parser
-        │
-        ▼
-       AST
-        │
-        ▼
- Semantic / Type Checking
-        │
-        ├───────────────┐
-        ▼               ▼
-   Interpreter    Bytecode Compiler
-                        │
-                        ▼
-                       VM
-        │
-        └───────────────┐
-                        ▼
-                 Native Compiler
-                        │
-                        ▼
-                     QBE IL
-                        │
-                        ▼
-                 Native Toolchain
-                        │
-                        ▼
-                   Executable</code></pre>
-
-            <p>VCB is being developed separately as the future native backend layer, intended to replace the QBE + GCC chain with a direct native emitter.</p>
-          </article>
-
-          <!-- ============================================================
-               LANGUAGE GUIDE - BASICS
-               ============================================================ -->
-          <article class="docs-article reveal" id="language-basics">
-            <h1>Language guide - Basics</h1>
-            <p class="docs-lead">Vayu source is indentation-based, like Python. Blocks are driven by INDENT and DEDENT tokens.</p>
-
-            <h2>Indentation</h2>
-            <pre><code>if score &gt;= 100:
-    print("high")
-else:
-    print("low")</code></pre>
-
-            <h2>Comments</h2>
-            <p>Line comments use <code>#</code>. There is no block-comment syntax.</p>
-            <pre><code># full-line comment
-value = 10  # inline comment</code></pre>
-
-            <h2>Literals</h2>
-            <pre><code># Integers - multiple bases
-a = 10          # decimal
-b = 0b1010      # binary
-c = 0o755       # octal
-d = 0xFF        # hexadecimal
-
-# Floats
-f1 = 3.14
-f2 = 1.25e3
-f3 = 2.5E-2
-
-# Booleans and None
-b1 = true       # also True
-b2 = false      # also False
-n  = none       # also None
-
-# Strings and chars
-s1 = "double quoted"
-s2 = 'single quoted'
-ch = 'a'        # single-quoted char literal</code></pre>
-
-            <h2>Variables</h2>
-            <pre><code># Inferred
-count = 10
-ratio = 3.5
-name  = "Vayu"
-
-# Annotated
-count: int   = 10
-ratio: float = 3.5
-name:  str   = "Vayu"</code></pre>
-          </article>
-
-          <!-- ============================================================
-               TYPES
-               ============================================================ -->
-          <article class="docs-article reveal" id="types">
-            <h1>Types</h1>
-            <p class="docs-lead">The compiler type system currently contains these major categories.</p>
-
-            <div class="docs-table-wrap">
-              <table class="docs-table">
-                <thead>
-                  <tr><th>Category</th><th>Types</th></tr>
-                </thead>
-                <tbody>
-                  <tr><td>Primitives</td><td><code>int</code>, <code>float</code>, <code>bool</code>, <code>str</code>, <code>char</code>, <code>bytes</code>, <code>None</code></td></tr>
-                  <tr><td>Collections</td><td><code>list&lt;T&gt;</code>, <code>map&lt;K,V&gt;</code>, <code>tuple&lt;T…&gt;</code>, <code>set&lt;T&gt;</code></td></tr>
-                  <tr><td>Pointers</td><td><code>ptr&lt;T&gt;</code>, <code>ref&lt;T&gt;</code></td></tr>
-                  <tr><td>Ownership</td><td><code>unique&lt;T&gt;</code>, <code>shared&lt;T&gt;</code>, <code>weak&lt;T&gt;</code></td></tr>
-                  <tr><td>User types</td><td><code>struct</code>, <code>class</code>, <code>enum</code>, <code>interface</code></td></tr>
-                  <tr><td>Special</td><td><code>any</code>, <code>unknown</code>, <code>error</code></td></tr>
-                </tbody>
-              </table>
-            </div>
-
-            <h2>Examples</h2>
-            <pre><code>count: int = 10
-ratio: float = 3.5
-name:  str = "Vayu"
-items: list&lt;int&gt; = [1, 2, 3]
-
-owners:        unique&lt;Player&gt;
-shared_player: shared&lt;Player&gt;
-weak_player:   weak&lt;Player&gt;
-pointer:       ptr&lt;int&gt;</code></pre>
-
-            <h2>Type checking</h2>
-            <p>The compiler runs a semantic/type-checking pass over explicit annotations. Assigning a string to an <code>int</code> is rejected at compile time.</p>
-            <pre><code>x: int = "hello"    # compile error</code></pre>
-            <p>The type system also includes numeric compatibility such as <code>int → float</code> promotion.</p>
-
-            <h2>Generic types</h2>
-            <p>Type parameters are supported on functions and classes, with optional constraints.</p>
-            <pre><code>def identity&lt;T&gt;(x: T) -&gt; T:
-    return x
-
-class Box&lt;T&gt;:
-    value: T
-
-def name_of&lt;T: Named&gt;(x: T) -&gt; str:
-    return x.name</code></pre>
-          </article>
-
-          <!-- ============================================================
-               OPERATORS
-               ============================================================ -->
-          <article class="docs-article reveal" id="operators">
-            <h1>Operators</h1>
-            <p class="docs-lead">Every operator the parser accepts, grouped by category.</p>
-
-            <h2>Arithmetic</h2>
-            <pre><code>+   -   *   /   //   %   **</code></pre>
-            <p><code>**</code> is right-associative. <code>2 ** 3 ** 2 == 512</code>.</p>
-
-            <h2>Comparison</h2>
-            <pre><code>==   !=   &lt;   &gt;   &lt;=   &gt;=</code></pre>
-
-            <h2>Logical / membership</h2>
-            <pre><code>and   or   not   in   is</code></pre>
-
-            <h2>Bitwise</h2>
-            <pre><code>&amp;   |   ^   ~   &lt;&lt;   &gt;&gt;</code></pre>
-
-            <h2>Compound assignment</h2>
-            <pre><code>+=   -=   *=   /=   %=   **=   //=
-&amp;=   |=   ^=   &lt;&lt;=   &gt;&gt;=</code></pre>
-
-            <h2>Native-oriented unary operations</h2>
-            <pre><code>&amp;value      # address-of
-*pointer    # dereference</code></pre>
-
-            <h2>Precedence</h2>
-            <pre><code>or
-and
-== != &lt; &lt;= &gt; &gt;= in is
-|
-^
-&amp;
-&lt;&lt; &gt;&gt;
-+ -
-* / // %
-**
-(prefix) - + not ~ &amp; *
-. [] ()       (postfix)</code></pre>
-          </article>
-
-          <!-- ============================================================
-               CONTROL FLOW
-               ============================================================ -->
-          <article class="docs-article reveal" id="control-flow">
-            <h1>Control flow</h1>
-            <p class="docs-lead">Conditionals, loops, range, and pattern matching.</p>
-
-            <h2>if / elif / else</h2>
-            <pre><code>if x &lt; 0:
-    print("negative")
-elif x == 0:
-    print("zero")
-else:
-    print("positive")</code></pre>
-
-            <h2>while</h2>
-            <pre><code>while x &gt; 0:
-    x -= 1</code></pre>
-
-            <h2>for</h2>
-            <pre><code>for item in items:
-    print(item)</code></pre>
-
-            <h2>range()</h2>
-            <pre><code>range(5)             # 0..4
-range(2, 8)          # 2..7
-range(0, 10, 2)      # 0, 2, 4, 6, 8</code></pre>
-
-            <h2>Loop control</h2>
-            <pre><code>break
-continue
-pass</code></pre>
-
-            <h2>match / case</h2>
-            <p>The parser supports literals, binders, guards, wildcards and tuple destructuring.</p>
-            <pre><code>match n:
-    case 0:
-        return "zero"
-    case 1:
-        return "one"
-    case x if x &lt; 0:
-        return "negative"
-    case _:
-        return "many"
-
-match (10, 20):
-    case (x, y):
-        print(x + y)</code></pre>
-          </article>
-
-          <!-- ============================================================
-               FUNCTIONS
-               ============================================================ -->
-          <article class="docs-article reveal" id="functions">
-            <h1>Functions</h1>
-            <p class="docs-lead">Python-inspired definitions with optional type annotations.</p>
-
-            <h2>Definition</h2>
-            <pre><code>def add(a: int, b: int) -&gt; int:
-    return a + b</code></pre>
-
-            <h2>Recursion</h2>
-            <pre><code>def fib(n: int) -&gt; int:
-    if n &lt; 2:
-        return n
-    return fib(n - 1) + fib(n - 2)</code></pre>
-
-            <h2>Lambdas and closures</h2>
-            <pre><code>double = lambda x: x * 2
-
-make_adder = lambda n: (lambda x: x + n)
-add5 = make_adder(5)
-print(add5(10))     # 15</code></pre>
-
-            <h2>Higher-order functions</h2>
-            <p>Functions can be stored in variables, passed as arguments, and returned from other functions.</p>
-            <pre><code>result = reduce(lambda a, b: a + b,
-                map(lambda x: x * x,
-                    filter(lambda x: x % 2 == 1, range(10))))</code></pre>
-
-            <h2>Generic functions</h2>
-            <pre><code>def identity&lt;T&gt;(x: T) -&gt; T:
-    return x
-
-def first&lt;T&gt;(xs: list&lt;T&gt;) -&gt; T:
-    return xs[0]</code></pre>
-          </article>
-
-          <!-- ============================================================
-               COLLECTIONS
-               ============================================================ -->
-          <article class="docs-article reveal" id="collections">
-            <h1>Collections</h1>
-            <p class="docs-lead">Lists, maps, tuples, sets - with indexing, negative indexing, slicing and iteration.</p>
-
-            <h2>Lists</h2>
-            <pre><code>numbers = [1, 2, 3]
-numbers.append(4)
-numbers.pop()
-numbers.insert(0, 50)
-numbers.extend([7, 8])
-numbers.sort()
-
-print(numbers[0])       # 1
-print(numbers[-1])      # last element
-print(numbers[1:3])     # [2, 3]
-print(3 in numbers)     # true</code></pre>
-
-            <h2>Maps</h2>
-            <pre><code>ages = {
-    "alice": 30,
-    "bob": 25
-}
-
-ages["carol"] = 40
-ages.put("dave", 22)
-ages.remove("bob")
-
-print(ages["alice"])    # 30
-print(ages.keys())
-print("alice" in ages)  # true</code></pre>
-
-            <h2>Tuples</h2>
-            <pre><code>point = (10, 20)
-t = (1, 2, 3)
-
-a, b, c = t             # unpacking
-t2 = t + (4, 5)         # concatenation
-one = (42,)             # single-element
-empty = ()</code></pre>
-
-            <h2>Sets</h2>
-            <pre><code>values = set([1, 2, 3])
-values.add(4)
-values.remove(2)
-values.union(set([5, 6]))</code></pre>
-
-            <h2>Strings</h2>
-            <p>Strings support indexing, iteration and a broad set of methods.</p>
-            <pre><code>text = "Hello World"
-print(text[0])          # 'H'
-print(text[1:5])        # 'ello'
-
-text.strip()
-text.lower()
-text.upper()
-text.split()
-text.join(other)
-text.replace("World", "Vayu")
-text.find("World")
-text.contains("World")
-text.starts_with("Hello")
-text.ends_with("World")
-text.is_digit()
-text.is_alpha()
-text.is_space()
-text.char_at(3)</code></pre>
-          </article>
-
-          <!-- ============================================================
-               STRUCTS
-               ============================================================ -->
-          <article class="docs-article reveal" id="structs">
-            <h1>Structs</h1>
-            <p class="docs-lead">Structs provide named fields with a compact construction syntax.</p>
-
-            <pre><code>struct Player:
-    name: str
-    score: int
-
-player = Player("NotY", 100)          # positional
-player2 = Player(name="Ally", score=0) # keyword
-player.score = 200                     # mutable field</code></pre>
-
-            <p>The compiler supports field types, construction (positional and keyword), field access, nested structures, and visibility metadata.</p>
-          </article>
-
-          <!-- ============================================================
-               CLASSES
-               ============================================================ -->
-          <article class="docs-article reveal" id="classes">
-            <h1>Classes and inheritance</h1>
-            <p class="docs-lead">Classes support fields, constructors, methods, inheritance, overriding, super(), static members and visibility modifiers.</p>
-
-            <h2>Basic class</h2>
-            <pre><code>class Player:
-    name: str
-    health: int
-
-    def __init__(self, name: str) -&gt; None:
-        self.name = name
-        self.health = 100
-
-    def damage(self, amount: int) -&gt; None:
-        self.health = self.health - amount
-
-    def describe(self) -&gt; str:
-        return self.name + " has " + str(self.health) + " hp"</code></pre>
-
-            <h2>Inheritance and super()</h2>
-            <pre><code>class Warrior(Player):
-    rage: int
-
-    def __init__(self, name: str) -&gt; None:
-        super().__init__(name)
-        self.rage = 0
-
-    def damage(self, amount: int) -&gt; None:
-        super().damage(amount)
-        self.rage = self.rage + amount</code></pre>
-
-            <h2>Visibility and static members</h2>
-            <pre><code>class Wallet:
-    public    owner:   str
-    protected balance: int
-    private   pin:     int
-
-    static count: int = 0
-
-    def __init__(self, owner: str) -&gt; None:
-        self.owner = owner
-        self.balance = 0
-        self.pin = 0
-        Wallet.count = Wallet.count + 1</code></pre>
-
-            <h2>Constants and enums</h2>
-            <pre><code>const VERSION: str = "0.1"
-
-enum State:
-    Idle
-    Running
-    Done
-
-enum Status:
-    Pending
-    Active = 10
-    Closed = 20</code></pre>
-          </article>
-
-          <!-- ============================================================
-               EXCEPTIONS
-               ============================================================ -->
-          <article class="docs-article reveal" id="exceptions">
-            <h1>Exceptions</h1>
-            <p class="docs-lead">Vayu supports try / except / finally and raise, with multiple handlers and re-raising.</p>
-
-            <pre><code>try:
-    value = 10 / 0
-except ZeroDivisionError as e:
-    print(e.message)
-except (TypeError, ValueError) as e:
-    print(e.message)
-except:
-    print("bare except")
-finally:
-    print("finished")
-
-raise ValueError("bad value")</code></pre>
-
-            <h2>Built-in exception types</h2>
-            <pre><code>Exception
-RuntimeError
-TypeError
-ValueError
-ZeroDivisionError
-IndexError
-KeyError
-NameError
-AttributeError</code></pre>
-
-            <p>Nested exception handling, exception variables, re-raising, and raising a bare string are all supported.</p>
-          </article>
-
-          <!-- ============================================================
-               GENERATORS
-               ============================================================ -->
-          <article class="docs-article reveal" id="generators">
-            <h1>Generators</h1>
-            <p class="docs-lead">Generators use yield. The VM maintains generator state across calls.</p>
-
-            <pre><code>def numbers():
-    yield 1
-    yield 2
-    yield 3
-
-for x in numbers():
-    print(x)</code></pre>
-
-            <h2>Manual stepping</h2>
-            <pre><code>def countdown(n: int):
-    while n &gt; 0:
-        yield n
-        n = n - 1
-
-g = countdown(3)
-print(next(g))   # 3
-print(next(g))   # 2
-print(next(g))   # 1</code></pre>
-
-            <p>The VM contains generator state management, suspension / resume behavior, completion handling, and generator exception / cancellation handling. Cleanup in a <code>finally</code> block runs when the generator is torn down.</p>
-          </article>
-
-          <!-- ============================================================
-               MODULES
-               ============================================================ -->
-          <article class="docs-article reveal" id="modules">
-            <h1>Modules</h1>
-            <p class="docs-lead">Modules use <code>.vyu</code> source files and can expose functions, constants, structs and members.</p>
-
-            <h2>Import forms</h2>
-            <pre><code>import math_helpers
-import math_helpers as mh
-
-from math_helpers import square
-from math_helpers import cube as cb
-
-print(math_helpers.square(5))
-print(mh.square(6))
-print(square(7))
-print(cb(3))</code></pre>
-
-            <h2>Namespaces</h2>
-            <pre><code>namespace Math:
-    const PI = 3
-
-    def square(x: int) -&gt; int:
-        return x * x
-
-print(Math.PI)
-print(Math.square(7))</code></pre>
-
-            <p>Namespaces prefix their members internally (<code>Math.square</code>), which is why you can access them with dot notation.</p>
-          </article>
-
-          <!-- ============================================================
-               BUILT-INS
-               ============================================================ -->
-          <article class="docs-article reveal" id="builtins">
-            <h1>Global built-ins</h1>
-            <p class="docs-lead">Every built-in function registered by the type checker.</p>
-
-            <div class="docs-grid">
-              <div class="docs-tile">
-                <div class="docs-tile-title">Output &amp; IO</div>
-                <div class="docs-tile-desc"><code>print</code>, <code>print_raw</code>, <code>input</code>, <code>read_line</code>, <code>read_all</code>, <code>read_int</code>, <code>read_file</code>, <code>write_file</code>, <code>file_exists</code>, <code>args</code>, <code>run_command</code>, <code>exit</code></div>
-              </div>
-              <div class="docs-tile">
-                <div class="docs-tile-title">Conversion</div>
-                <div class="docs-tile-desc"><code>int</code>, <code>float</code>, <code>str</code>, <code>bool</code>, <code>list</code>, <code>tuple</code>, <code>set</code></div>
-              </div>
-              <div class="docs-tile">
-                <div class="docs-tile-title">General</div>
-                <div class="docs-tile-desc"><code>len</code>, <code>type</code>, <code>abs</code>, <code>min</code>, <code>max</code>, <code>ord</code>, <code>chr</code></div>
-              </div>
-              <div class="docs-tile">
-                <div class="docs-tile-title">Functional</div>
-                <div class="docs-tile-desc"><code>map</code>, <code>filter</code>, <code>reduce</code>, <code>sorted</code>, <code>any</code>, <code>all</code>, <code>sum</code></div>
-              </div>
-              <div class="docs-tile">
-                <div class="docs-tile-title">Generators</div>
-                <div class="docs-tile-desc"><code>next</code></div>
-              </div>
-              <div class="docs-tile">
-                <div class="docs-tile-title">Reflection</div>
-                <div class="docs-tile-desc"><code>hash</code>, <code>id</code>, <code>callable</code>, <code>repr</code>, <code>isinstance</code>, <code>issubclass</code>, <code>hasattr</code>, <code>getattr</code>, <code>setattr</code>, <code>delattr</code>, <code>dir</code></div>
-              </div>
-              <div class="docs-tile">
-                <div class="docs-tile-title">Iteration helpers</div>
-                <div class="docs-tile-desc"><code>enumerate</code>, <code>zip</code>, <code>reversed</code></div>
-              </div>
-              <div class="docs-tile">
-                <div class="docs-tile-title">Numeric helpers</div>
-                <div class="docs-tile-desc"><code>round</code>, <code>pow</code>, <code>divmod</code>, <code>sign</code>, <code>gcd</code>, <code>lcm</code>, <code>clamp</code></div>
-              </div>
-              <div class="docs-tile">
-                <div class="docs-tile-title">Combinatorics</div>
-                <div class="docs-tile-desc"><code>comb</code>, <code>perm</code>, <code>isqrt</code>, <code>factorial</code></div>
-              </div>
-              <div class="docs-tile">
-                <div class="docs-tile-title">Memory</div>
-                <div class="docs-tile-desc"><code>malloc</code>, <code>free</code></div>
-              </div>
-            </div>
-          </article>
-
-          <!-- ============================================================
-               STDLIB
-               ============================================================ -->
-          <article class="docs-article reveal" id="stdlib">
-            <h1>Runtime modules</h1>
-            <p class="docs-lead">The native runtime registers the following modules. Support may differ between interpreter, VM and native execution.</p>
-
-            <h2>math</h2>
-            <pre><code>sqrt  floor  ceil  sin  cos  exp  log  log10  log2
-pow   atan2  hypot  fmod  cbrt  expm1  log1p  copysign
-fabs  tgamma  lgamma  erf  erfc
-pi    e    tau    inf    nan</code></pre>
-
-            <h2>fs</h2>
-            <pre><code>is_dir  mkdir  exists  is_file  size  read_dir
-basename  dirname  extension  rename  remove</code></pre>
-
-            <h2>os</h2>
-            <pre><code>platform  getenv  setenv  hostname  cwd</code></pre>
-
-            <h2>json</h2>
-            <pre><code>parse  type  has  len  get  as_str  as_int  as_bool
-is_list  is_bool  index  keys</code></pre>
-
-            <h2>regex</h2>
-            <p>Supports <code>.</code>, <code>*</code>, <code>+</code>, <code>?</code>, <code>^</code> / <code>$</code>, character classes <code>[0-9]</code>, <code>[^0-9]</code>, and escapes <code>\d</code>, <code>\w</code>.</p>
-            <pre><code>match  search  find_all  replace  fields</code></pre>
-
-            <h2>net</h2>
-            <pre><code>listen  server_port  connect  accept
-send_line  recv_line  close</code></pre>
-
-            <h2>crypto</h2>
-            <pre><code>sha256  md5  base64_encode  base64_decode
-hmac_sha256  random_bytes</code></pre>
-
-            <h2>random</h2>
-            <pre><code>seed  randint  randrange</code></pre>
-
-            <h2>time</h2>
-            <pre><code>now  now_ms  sleep  format</code></pre>
-
-            <h2>thread</h2>
-            <pre><code>spawn  join  id  mutex_new  lock  unlock</code></pre>
-
-            <h2>py</h2>
-            <p>Native backend only. See <a href="#cpython">CPython bridge</a>.</p>
-            <pre><code>init  version  run  exec  eval
-import  getattr  setattr  call  call_kw
-list  dict  decref  last_error</code></pre>
-          </article>
-
-          <!-- ============================================================
-               OWNERSHIP
-               ============================================================ -->
-          <article class="docs-article reveal" id="ownership">
-            <h1>Ownership and pointers</h1>
-            <p class="docs-lead">Ownership types and raw pointers coexist with the high-level, GC-style default.</p>
-
-            <h2>Ownership types</h2>
-            <pre><code>unique&lt;T&gt;    # move-only
-shared&lt;T&gt;    # copyable reference-counted
-weak&lt;T&gt;      # non-owning; upgrade to shared
-ptr&lt;T&gt;       # raw pointer
-ref&lt;T&gt;       # resolved to T at type-check time</code></pre>
-
-            <h2>Move semantics</h2>
-            <pre><code>a: unique&lt;Resource&gt; = Resource("first")
-b: unique&lt;Resource&gt; = a          # moves a into b</code></pre>
-            <p>The type checker tracks <code>moved_</code> scope and rejects use-after-move.</p>
-
-            <h2>Address-of and dereference</h2>
-            <pre><code>x = 42
-p = &amp;x
-print(*p)      # 42
-*p = 7         # write through pointer</code></pre>
-
-            <h2>Pointer arithmetic and lvalue references</h2>
-            <pre><code>p + n          # arithmetic
-p[i]           # indexing
-p[i] = v       # indexed write
-
-&amp;arr[i]        # live lvalue reference
-&amp;obj.field
-&amp;m[k]</code></pre>
-            <p>Native pointer arithmetic is direct. On the tree-walker and VM it is emulated through a backing-array model.</p>
-
-            <h2>Raw allocation</h2>
-            <pre><code>raw: ptr&lt;int&gt; = malloc(sizeof(int))
-free(raw)
-
-unsafe:
-    raw = malloc(8)
-    *raw = 99
-    free(raw)</code></pre>
-          </article>
-
-          <!-- ============================================================
-               C FFI
-               ============================================================ -->
-          <article class="docs-article reveal" id="cffi">
-            <h1>C interoperability</h1>
-            <p class="docs-lead">Native-only. Bring C functions into Vayu with typed signatures.</p>
-
-            <h2>extern "C" blocks</h2>
-            <pre><code>extern "C":
-    def puts(s: str) -&gt; int
-    def strlen(s: str) -&gt; int
-    def llabs(x: int) -&gt; int
-
-print(strlen("hello"))</code></pre>
-
-            <h2>What native supports</h2>
-            <ul>
-              <li><code>str ↔ char*</code> bridging</li>
-              <li>Function pointers (pass <code>&amp;topFn</code>)</li>
-              <li>C callbacks</li>
-              <li>External-library linking via <code>VAYU_FFI_LIBS</code></li>
-              <li>Struct-by-value FFI for small single-field cases</li>
-            </ul>
-
-            <div class="callout-inline warn">
-              <strong>Interpreter and VM do not support FFI.</strong> Calling an <code>extern "C"</code> function from a non-native backend raises <code>"extern C functions can only be called from the native backend"</code>.
-            </div>
-          </article>
-
-          <!-- ============================================================
-               CPYTHON
-               ============================================================ -->
-          <article class="docs-article reveal" id="cpython">
-            <h1>CPython bridge</h1>
-            <p class="docs-lead">Native-only. The <code>py</code> module embeds CPython so Vayu can call into the Python ecosystem.</p>
-
-            <pre><code>import py
-
-py.init()
-print(py.version())
-
-m = py.import("math")
-print(py.getattr(m, "pi"))
-print(py.call(py.getattr(m, "sqrt"), [16]))
-
-py.setattr(obj, "name", py.str("Alice"))
-py.decref(m)</code></pre>
-
-            <h2>Value bridging</h2>
-            <pre><code>py.int(42)
-py.str("hello")
-py.bool(true)
-
-py.from_int(handle)
-py.from_str(handle)
-py.from_bool(handle)</code></pre>
-
-            <h2>Python interop operations</h2>
-            <pre><code>py.init()          # initialize embedded CPython
-py.version()       # Python version string
-py.run(expr)       # run a Python expression
-py.exec(code)      # execute Python code
-py.eval(...)       # evaluate
-py.exec_file(...)  # run a file
-
-py.import(name)    # import a Python module
-py.getattr(o, n)   # access attribute
-py.setattr(o, n, v)# set attribute
-py.call(fn, args)  # call a Python function
-py.call_kw(...)    # keyword arguments
-py.list(...)       # build a Python list
-py.dict(...)       # build a Python dict
-py.repr(o)         # repr()
-py.type_name(o)    # type name
-py.decref(o)       # decref
-py.last_error()    # last Python error</code></pre>
-
-            <div class="callout-inline warn">
-              <strong>Interpreter and VM cannot run the py module.</strong> Calling <code>py.init()</code> outside the native backend raises <code>"py.init() requires the native backend"</code>. The bridge is a native interoperability layer, not a full CPython object-model replacement.
-            </div>
-          </article>
-
-          <!-- ============================================================
-               VAYUC
-               ============================================================ -->
-          <article class="docs-article reveal" id="vayuc">
-            <h1>vayuc driver</h1>
-            <p class="docs-lead">The compiler driver is named <code>vayuc</code>. It runs the whole pipeline from source to executable.</p>
-
-            <h2>Basic usage</h2>
-            <pre><code>vayuc &lt;file.vyu&gt; [mode] [flags]</code></pre>
-
-            <h2>Execution modes</h2>
-            <pre><code>--run                tree-walking interpreter
---vm                 bytecode VM
---native             native compiler (produces an executable)
---native-out &lt;path&gt;  native compiler with custom output path</code></pre>
-
-            <h2>Analysis / debugging modes</h2>
-            <pre><code>--check              type-check only
---dump-tokens        print token stream
---dump-ast           print the AST
---dump-bytecode      print generated bytecode
---dump-ir            print native IR</code></pre>
-
-            <h2>Additional flags</h2>
-            <pre><code>--no-check           skip type checking
---no-opt             skip optimization passes
---bench [N]          benchmark N iterations
---emit-runtime &lt;path&gt; emit the embedded native runtime</code></pre>
-
-            <h2>Examples</h2>
-            <pre><code>vayuc hello.vyu
-vayuc hello.vyu --vm
-vayuc hello.vyu --native
-vayuc hello.vyu --check
-vayuc hello.vyu --dump-tokens
-vayuc hello.vyu --dump-ast
-vayuc hello.vyu --dump-bytecode
-vayuc hello.vyu --dump-ir
-vayuc hello.vyu --bench 10
-vayuc --emit-runtime runtime.c</code></pre>
-          </article>
-
-          <!-- ============================================================
-               BACKENDS
-               ============================================================ -->
-          <article class="docs-article reveal" id="backends">
-            <h1>Backends</h1>
-            <p class="docs-lead">Same source, three execution paths.</p>
-
-            <div class="docs-table-wrap">
-              <table class="docs-table">
-                <thead>
-                  <tr><th>Feature</th><th>Tree-walker</th><th>VM</th><th>Native</th></tr>
-                </thead>
-                <tbody>
-                  <tr><td>Core language</td><td>✅</td><td>✅</td><td>✅</td></tr>
-                  <tr><td>Exceptions</td><td>✅</td><td>✅</td><td>✅ (setjmp/longjmp)</td></tr>
-                  <tr><td>Generators</td><td>✅</td><td>✅</td><td>✅ (thread-backed)</td></tr>
-                  <tr><td>C FFI</td><td>❌</td><td>❌</td><td>✅</td></tr>
-                  <tr><td>CPython bridge</td><td>❌</td><td>❌</td><td>✅</td></tr>
-                  <tr><td>Pointer arithmetic</td><td>✅ (backing array)</td><td>✅ (backing array)</td><td>✅ (native)</td></tr>
-                  <tr><td>stdlib modules</td><td>stubs</td><td>partial</td><td>full</td></tr>
-                </tbody>
-              </table>
-            </div>
-
-            <p>Native compilation is transitioning from the QBE + GCC path to VCB. VCB is a separate backend project with its own `.vcbir` IR, lowering pipeline, inspection tools, and native code-generation work.</p>
-          </article>
-
-          <!-- ============================================================
-               COMPONENTS
-               ============================================================ -->
-          <article class="docs-article reveal" id="components">
-            <h1>Source components</h1>
-            <p class="docs-lead">The compiler source tree separates major responsibilities.</p>
-
-            <pre><code>compiler/
-├── ast/          language structure representation
-├── bytecode/     bytecode representation and optimization
-├── compile/      AST → bytecode compilation
-├── driver/       command-line compiler entry point
-├── interp/       tree-walking runtime and shared support
-├── lexer/        source → tokens
-├── parser/       tokens → AST
-├── sema/         semantic and type checking
-├── types/        type-system representation and compatibility
-└── vm/           bytecode execution</code></pre>
-
-            <div class="docs-table-wrap">
-              <table class="docs-table">
-                <thead><tr><th>Component</th><th>Responsibility</th></tr></thead>
-                <tbody>
-                  <tr><td><code>lexer</code></td><td>Source-to-token conversion</td></tr>
-                  <tr><td><code>parser</code></td><td>Token-to-AST conversion</td></tr>
-                  <tr><td><code>ast</code></td><td>Language structure representation</td></tr>
-                  <tr><td><code>sema</code></td><td>Semantic and type checking</td></tr>
-                  <tr><td><code>types</code></td><td>Type-system representation and compatibility</td></tr>
-                  <tr><td><code>compile</code></td><td>AST-to-bytecode compilation</td></tr>
-                  <tr><td><code>bytecode</code></td><td>Bytecode representation and optimization</td></tr>
-                  <tr><td><code>vm</code></td><td>Bytecode execution</td></tr>
-                  <tr><td><code>interp</code></td><td>Tree-walking runtime and shared runtime support</td></tr>
-                  <tr><td><code>driver</code></td><td>Command-line compiler entry point</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </article>
-
-          <!-- ============================================================
-               VCB
-               ============================================================ -->
-          <article class="docs-article reveal" id="vcb">
-            <h1>VCB - Vayu Compiler Backend</h1>
-            <p class="docs-lead">VCB is the companion backend project - a compact C++20 native backend with `.vcbir` as its internal IR. Phase 26 Part 1 is complete; Part 2 is implementing native code generation and the remaining native toolchain pieces.</p>
-
-            <p>Repository: <a href="https://github.com/NotY215/VCB" target="_blank" rel="noopener">NotY215/VCB</a></p>
-
-            <h2>Intended architecture</h2>
-            <pre><code>Vayu Source
-    ↓
-Vayu Frontend
-    ↓
-Vayu IR
-    ↓
-VCB
- ├─ Analysis
- ├─ Optimization
- ├─ Lowering
- └─ Native Code Generation
-    ↓
-Native Assembly
-    ↓
-Executable</code></pre>
-
-            <p>VCB exists to give Vayu a dedicated native backend so frontend and language development can evolve independently of machine-code generation.</p>
-
-            <h2>Planned backend responsibilities</h2>
-            <ul>
-              <li>IR analysis</li>
-              <li>Control-flow analysis</li>
-              <li>Optimization (constant folding, DCE, CSE, algebraic simplification, peephole)</li>
-              <li>SSA-oriented work (GVN, GCM)</li>
-              <li>Lowering</li>
-              <li>Instruction selection</li>
-              <li>Register allocation (linear scan)</li>
-              <li>Calling conventions</li>
-              <li>Native code generation</li>
-            </ul>
-
-            <p>These are VCB development goals and should not be confused with every capability already present in the current Vayu C++ compiler.</p>
-          </article>
-
-          <!-- ============================================================
-               STATUS
-               ============================================================ -->
-          <article class="docs-article reveal" id="status">
-            <h1>Current status</h1>
-            <p class="docs-lead">Vayu is an early-stage independent language project with a growing compiler, runtime, VM, native compiler, FFI layer, CPython bridge, and dedicated VCB backend.</p>
-
-            <p>The source contains a substantially broader language surface than the original core compiler, including:</p>
-
-            <ul>
-              <li>Static typing and inference</li>
-              <li>Functions and recursion</li>
-              <li>Lambdas and closures</li>
-              <li>Lists, maps, tuples, sets, and slicing</li>
-              <li>Structs and classes</li>
-              <li>Inheritance and overriding</li>
-              <li>Exceptions and modules</li>
-              <li>Constants and enums</li>
-              <li>Visibility and static members</li>
-              <li>Bitwise operations and compound assignment</li>
-              <li>Generators and yield</li>
-              <li>Ownership / reference types</li>
-              <li>Raw pointers and native memory operations</li>
-              <li>C FFI</li>
-              <li>Python / CPython interoperability</li>
-              <li>Multiple execution paths</li>
-              <li>Compiler inspection tools</li>
-            </ul>
-
-            <p>Features may have different maturity levels across the interpreter, VM, and native compiler. The syntax reference distinguishes language constructs from backend-specific functionality.</p>
-          </article>
-
-          <!-- ============================================================
-               ROADMAP
-               ============================================================ -->
-          <article class="docs-article reveal" id="roadmap">
-            <h1>Roadmap summary</h1>
-            <p class="docs-lead">The full phase and subphase roadmap lives on the <a href="/roadmap/">roadmap page</a> - read directly from <code>roadmap.json</code>.</p>
-
-            <p>Current roadmap position:</p>
-            <ul>
-              <li><strong>Phase 25:</strong> skipped for now; benchmarking is postponed until after VCB.</li>
-              <li><strong>Phase 26:</strong> VCB native backend.</li>
-              <li><strong>26.1 Part 1:</strong> completed - VCB project, IR, parser, lowering, printer and inspection tooling.</li>
-              <li><strong>26.2 Part 2:</strong> working - native code generation, object writers, prebuilt runtime and Vayuc integration.</li>
-              <li><strong>Phase 27:</strong> cross-platform Linux builds.</li>
-              <li><strong>Phase 28:</strong> post-VCB benchmarking.</li>
-              <li><strong>Phase 29:</strong> version cut.</li>
-              <li><strong>Phase 30+:</strong> future parking-lot work.</li>
-            </ul>
-
-            <div class="callout-inline info">
-              <a href="/roadmap/">→ Open the full roadmap</a> for phase-by-phase and subphase-by-subphase detail.
-            </div>
-          </article>
-
-        </div>
-
-        <!-- ============================================================
-             RIGHT SIDEBAR - "On this page"
-             ============================================================ -->
-        <aside class="docs-aside">
-          <div class="docs-aside-title">On this page</div>
-          <div class="docs-aside-list" id="docsAside"></div>
-        </aside>
-
-      </div>
-    </div>
-  </section>
-</main>
-
-<div id="slot-footer"></div>
-<div id="slot-modal-examples"></div>
-<div id="slot-modal-github"></div>
-
-<div id="vayu-loading" aria-hidden="true">
-  <div class="vayu-loader">
-    <div class="vayu-loader-ring"></div>
-    <div class="vayu-loader-text">Loading Documentation…</div>
-  </div>
+<section class="page-hero"><div class="container">
+<span class="kicker">Documentation</span>
+<h1>The implementation, not just the pitch.</h1>
+<p class="lead">This page is the technical index for the current Vayu frontend and VCB backend. Detailed feature claims are based on the repositories currently powering the project.</p>
+<div class="page-phase"><span class="dot"></span><span data-phase-badge>PHASE 27 · IN DEVELOPMENT</span></div>
+</div></section>
+
+<section class="pt-20"><div class="container">
+<div class="callout reveal"><div class="eyebrow"><span class="dev-dot"></span><span>Current snapshot</span></div>
+<h2>Vayu + VCB native pipeline</h2>
+<p class="muted">Vayu owns the .vyu language frontend and native compilation integration. VCB consumes .vcbir and currently targets x86-64 PE and ELF output with demand-driven runtime emission.</p>
+<div class="doc-kv">
+<div>Vayu source</div><div><code>.vyu</code></div>
+<div>Backend IR</div><div><code>.vcbir</code></div>
+<div>Backend</div><div>VCB, C++20</div>
+<div>Native targets</div><div>Windows PE and Linux x86-64 ELF</div>
+<div>Current VCB release</div><div>0.3.5, Phase 27 Part 3</div>
+<div>Benchmarking</div><div>Deferred until the VCB-built benchmark suite is ready</div>
+</div></div>
+
+<div class="doc-section reveal">
+<h2>Animated data flow</h2>
+<p class="muted">The diagram uses Mermaid flowchart edges with animation so the direction of data movement is visible rather than represented by a static ASCII pipeline.</p>
+<div class="mermaid-wrap"><pre class="mermaid">flowchart LR
+  S[".vyu source"] e1@==> F["Vayu frontend"]
+  F e2@==> A["AST + semantic analysis"]
+  A e3@==> I["Native lowering"]
+  I e4@==> R["VCBIR"]
+  R e5@==> P["VCB parser"]
+  P e6@==> C["x86-64 codegen"]
+  C e7@==> RT["Demand-driven runtime"]
+  RT e8@==> T["PE / ELF writer"]
+  T e9@==> X["Native executable"]
+  e1@{animation: fast}
+  e2@{animation: fast}
+  e3@{animation: fast}
+  e4@{animation: fast}
+  e5@{animation: fast}
+  e6@{animation: fast}
+  e7@{animation: fast}
+  e8@{animation: fast}
+  e9@{animation: fast}
+  classDef source fill:#15243b,stroke:#55d9ff,color:#e9f7ff
+  classDef ir fill:#211b3d,stroke:#9d82ff,color:#f5f0ff
+  classDef native fill:#16352b,stroke:#63e6a0,color:#eafff4
+  class S,F,A source
+  class I,R,P ir
+  class C,RT,T,X native</pre></div>
 </div>
 
+<div class="doc-grid doc-section">
+<article class="card reveal"><h3>Vayu language</h3><p class="muted">Static typing and inference, functions, closures, generators, collections, OOP, exceptions, modules, ownership, pointers, C FFI and the CPython bridge.</p><a class="btn ghost" href="/syntax/">Syntax reference</a></article>
+<article class="card reveal"><h3>Compiler and tooling</h3><p class="muted">The repository contains the C++ bootstrap/reference compiler plus vls, vfmt, vlint, native execution paths and editor integrations.</p><a class="btn ghost" href="/developer/">Developer tooling</a></article>
+<article class="card reveal"><h3>Package ecosystem</h3><p class="muted">nva supports project setup, local and remote registry workflows, install/update, Git dependencies, dependency trees and publishing workflows.</p></article>
+<article class="card reveal"><h3>AI and Python</h3><p class="muted">Vayu includes native CPython loading and Python value/call interoperability. Broader NumPy, PyTorch, TensorFlow, ONNX and GPU work remains an ecosystem direction.</p></article>
+</div>
+
+<div class="doc-section reveal">
+<h2>VCB backend reference</h2>
+<div class="doc-grid">
+<article class="card"><h3>VCBIR</h3><p class="muted">Typed SSA-style values, basic blocks, phi nodes, branches, jumps, calls, returns, memory operations, arithmetic, comparisons, conversions and string constants.</p></article>
+<article class="card"><h3>Code generation</h3><p class="muted">The x86-64 backend handles integer and floating-point operations, control flow, stack slots, calls, phi lowering and runtime symbol references.</p></article>
+<article class="card"><h3>Windows PE</h3><p class="muted">VCB writes PE images itself, builds imports, emits .text/.rdata/.idata sections, calculates checksums, pads small images and exposes header diagnostics.</p></article>
+<article class="card"><h3>Linux ELF</h3><p class="muted">VCB writes ELF64 images, provides a syscall-based runtime subset, a brk-based bump allocator, list/map paths and Linux collection printing.</p></article>
+</div>
+</div>
+
+<div class="doc-section reveal">
+<h2>VCB commands</h2>
+<div class="doc-code"><pre><code>vcb version
+vcb dump examples/hello.vcbir
+vcb build examples/hello.vcbir -o hello.exe --target pe
+vcb build examples/hello.vcbir -o hello --target elf
+vcb headers hello.exe
+vcb elfheaders hello</code></pre></div>
+</div>
+
+<div class="doc-section reveal">
+<h2>Runtime model</h2>
+<div class="mermaid-wrap"><pre class="mermaid">flowchart TD
+  M["VCBIR module"] e1@==> D["Dependency scan"]
+  D e2@==> H["Reachable runtime helpers"]
+  H e3@==> W["Target runtime"]
+  W e4@==> O["PE or ELF image"]
+  e1@{animation: fast}
+  e2@{animation: fast}
+  e3@{animation: fast}
+  e4@{animation: fast}
+  classDef a fill:#15243b,stroke:#55d9ff,color:#fff
+  classDef b fill:#211b3d,stroke:#9d82ff,color:#fff
+  classDef c fill:#16352b,stroke:#63e6a0,color:#fff
+  class M,D a
+  class H b
+  class W,O c</pre></div>
+<p class="muted mt-20">Runtime emission is demand-driven. Helpers are emitted when the module references them, with dependency closure used for transitive runtime requirements.</p>
+</div>
+
+<div class="doc-section reveal">
+<h2>Current VCB runtime coverage</h2>
+<ul class="doc-list">
+<li>Process exit and character, line, space, bool, integer and float printing.</li>
+<li>Windows runtime imports and native helpers.</li>
+<li>Linux syscall output and <code>brk</code>-based bump allocation.</li>
+<li>Lists: creation, push, get, set, length and printing.</li>
+<li>Maps: creation, put, get, has, length and printing.</li>
+<li>Strings: length, equality, prefix/suffix checks, contains, find, upper and lower.</li>
+<li>Atomic PE and ELF writes plus structural header inspection.</li>
+</ul>
+</div>
+
+<div class="doc-section reveal">
+<h2>Development status</h2>
+<p class="muted">Phase 25 benchmarking remains postponed. Phase 26 established VCB and its native backend. Phase 27 is the active VCB target and correctness/runtime expansion. Phase 28 will rerun the benchmark harness on VCB-built binaries, followed by the version cut in Phase 29.</p>
+<a class="btn primary" href="/roadmap/">Open full roadmap</a>
+</div>
+
+<div class="doc-section reveal live-doc-card card">
+<div><h3>Repository documentation</h3><p class="muted">The source repositories remain the authoritative implementation references.</p></div>
+<div class="flex-row"><a class="btn ghost" href="https://github.com/NotY215/Vayu" target="_blank" rel="noopener">Vayu GitHub</a><a class="btn ghost" href="https://github.com/NotY215/VCB" target="_blank" rel="noopener">VCB GitHub</a></div>
+</div>
+</div></section>
+</main>
+<div id="slot-footer"></div><div id="slot-modal-examples"></div><div id="slot-modal-github"></div>
+<div id="vayu-loading" aria-hidden="true"><div class="vayu-loader"><div class="vayu-loader-ring"></div><div class="vayu-loader-text">Loading documentation...</div></div></div>
 <script src="/js/layout.js"></script>
-<script>
-/* ============================================================
-   Documentation interactivity
-   ============================================================ */
-(function(){
-  'use strict';
-
-  const side = document.getElementById('docsSide');
-  const aside = document.getElementById('docsAside');
-  const crumb = document.getElementById('docsCurrentCrumb');
-  const search = document.getElementById('docsSearch');
-
-  if(!side) return;
-
-  /* ---------- Build "On this page" list from <h2> headings ---------- */
-  const articles = document.querySelectorAll('.docs-article');
-  const headings = [];
-  articles.forEach(a => {
-    a.querySelectorAll('h2').forEach(h => {
-      if(!h.id){
-        h.id = a.id + '-' + (h.textContent || '').toLowerCase()
-          .replace(/[^a-z0-9]+/g, '-')
-          .replace(/^-|-$/g, '');
-      }
-      headings.push({ id: h.id, text: h.textContent, article: a.id });
-    });
-  });
-
-  if(aside){
-    if(!headings.length){
-      aside.parentElement.style.display = 'none';
-    } else {
-      aside.innerHTML = headings.map(h =>
-        '<a class="docs-aside-link" data-target="' + h.id + '" data-article="' + h.article + '" href="#' + h.id + '">' + h.text + '</a>'
-      ).join('');
-    }
-  }
-
-  /* ---------- Click-scroll to article / heading ---------- */
-  function scrollToId(id){
-    const el = document.getElementById(id);
-    if(!el) return;
-    const y = el.getBoundingClientRect().top + window.scrollY - 90;
-    window.scrollTo({ top: y, behavior: 'smooth' });
-    history.replaceState(null, '', '#' + id);
-  }
-
-  side.querySelectorAll('.docs-side-link').forEach(a => {
-    a.addEventListener('click', (e) => {
-      e.preventDefault();
-      scrollToId(a.dataset.target);
-    });
-  });
-
-  if(aside){
-    aside.querySelectorAll('.docs-aside-link').forEach(a => {
-      a.addEventListener('click', (e) => {
-        e.preventDefault();
-        scrollToId(a.dataset.target);
-      });
-    });
-  }
-
-  /* ---------- Scroll-spy for both sidebars ---------- */
-  const allArticleIds = Array.from(articles).map(a => a.id);
-  const sideLinks = side.querySelectorAll('.docs-side-link');
-  const asideLinks = aside ? aside.querySelectorAll('.docs-aside-link') : [];
-
-  let ticking = false;
-  function updateActive(){
-    ticking = false;
-    const y = window.scrollY + 120;
-
-    // Active article (sidebar)
-    let activeArticle = allArticleIds[0];
-    for(const id of allArticleIds){
-      const el = document.getElementById(id);
-      if(el && el.offsetTop <= y) activeArticle = id;
-    }
-    sideLinks.forEach(a => {
-      a.classList.toggle('active', a.dataset.target === activeArticle);
-    });
-    if(crumb){
-      const el = document.getElementById(activeArticle);
-      const h1 = el ? el.querySelector('h1') : null;
-      crumb.textContent = h1 ? h1.textContent : 'Overview';
-    }
-
-    // Active heading (aside)
-    if(asideLinks.length){
-      let activeHead = headings[0] ? headings[0].id : null;
-      for(const h of headings){
-        const el = document.getElementById(h.id);
-        if(el && el.offsetTop <= y) activeHead = h.id;
-      }
-      asideLinks.forEach(a => {
-        a.classList.toggle('active', a.dataset.target === activeHead);
-      });
-    }
-  }
-
-  window.addEventListener('scroll', () => {
-    if(!ticking){ ticking = true; requestAnimationFrame(updateActive); }
-  }, { passive: true });
-  updateActive();
-
-  /* ---------- Search ---------- */
-  if(search){
-    search.addEventListener('input', () => {
-      const q = search.value.trim().toLowerCase();
-      if(!q){
-        sideLinks.forEach(a => a.style.display = '');
-        return;
-      }
-      sideLinks.forEach(a => {
-        const text = (a.textContent || '').toLowerCase();
-        a.style.display = text.indexOf(q) !== -1 ? '' : 'none';
-      });
-    });
-    search.addEventListener('keydown', (e) => {
-      if(e.key === 'Escape'){
-        search.value = '';
-        sideLinks.forEach(a => a.style.display = '');
-        search.blur();
-      }
-    });
-  }
-
-  /* ---------- Handle initial hash ---------- */
-  if(location.hash){
-    const id = location.hash.slice(1);
-    setTimeout(() => scrollToId(id), 300);
-  }
-})();
-</script>
-</body>
-</html>
+</body></html>
