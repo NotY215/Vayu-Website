@@ -941,7 +941,7 @@ body.nav-drawer-open { overflow: hidden; touch-action: none; }
 }
 
 /* ============================================================
-   LINUX FILE MANAGER — examples
+   LINUX FILE MANAGER - examples
    ============================================================ */
 .lfm-panel { padding: 0; }
 .lfm-root { display: flex; flex-direction: column; height: 100%; min-height: 0; }
@@ -1337,7 +1337,7 @@ body.nav-drawer-open { overflow: hidden; touch-action: none; }
 .md-rendered input[type="checkbox"] { margin-right: 6px; }
 
 /* ============================================================
-   HERO — GitHub live stats
+   HERO - GitHub live stats
    ============================================================ */
 .gh-live-stats {
   display: grid; grid-template-columns: repeat(3, 1fr);
@@ -1602,7 +1602,7 @@ body[data-page="flappybird"] .game-pause-fab {
 }
 
 /* ============================================================
-   GAME PAGE — cursor, pause FAB, overlays
+   GAME PAGE - cursor, pause FAB, overlays
    ============================================================ */
 .game-page .game-canvas { cursor: none !important; }
 .game-page .game-canvas.locked,
@@ -2002,7 +2002,7 @@ body[data-page="flappybird"] .game-pause-fab {
   filter: none;
 }
 
-/* Stagger container — children animate one after another */
+/* Stagger container - children animate one after another */
 [data-scroll-stagger] > * {
   opacity: 0;
   transform: translateY(28px);
@@ -2036,7 +2036,7 @@ body[data-page="flappybird"] .game-pause-fab {
   }
 }
 /* ============================================================
-   ROADMAP — SUBPHASE ACCORDION (independent toggles)
+   ROADMAP - SUBPHASE ACCORDION (independent toggles)
    ============================================================ */
 
 .phase-toggle {
@@ -2089,7 +2089,7 @@ body[data-page="flappybird"] .game-pause-fab {
   color: #fff;
 }
 
-/* Container — animated open/close via grid-template-rows */
+/* Container - animated open/close via grid-template-rows */
 .phase-subphases {
   display: grid;
   grid-template-rows: 0fr;
@@ -2560,7 +2560,7 @@ body[data-page="flappybird"] .game-pause-fab {
 .docs-table tr:last-child td { border-bottom: 0; }
 .docs-table tr:hover td { background: rgba(85,217,255,0.03); }
 
-/* Right side — "On this page" */
+/* Right side - "On this page" */
 .docs-aside {
   position: sticky;
   top: 96px;
@@ -2677,7 +2677,7 @@ body[data-page="flappybird"] .game-pause-fab {
 }
 
 
-/* NAVIGATION — RIGHT HAMBURGER + DOWNLOAD */
+/* NAVIGATION - RIGHT HAMBURGER + DOWNLOAD */
 .nav-inner { display:flex; align-items:center; }
 .nav-inner > .brand { margin-right:auto; }
 .nav-actions { display:flex; align-items:center; gap:10px; }
@@ -2724,7 +2724,7 @@ body[data-page="flappybird"] .game-pause-fab {
 
 
 /* ============================================================
-   VAYU NAVIGATION — LEFT HAMBURGER + TOP NAV
+   VAYU NAVIGATION - LEFT HAMBURGER + TOP NAV
    ============================================================ */
 .nav-inner {
   display: flex;
@@ -2860,7 +2860,7 @@ body[data-page="flappybird"] .game-pause-fab {
 }
 
 /* ============================================================
-   ROADMAP — desktop jump navigation + nested Phase 26 parts
+   ROADMAP - desktop jump navigation + nested Phase 26 parts
    ============================================================ */
 .roadmap-layout {
   display: grid;
@@ -3071,3 +3071,11 @@ body[data-page="flappybird"] .game-pause-fab {
 .phase.open { border-left-color:rgba(127,220,255,.45); }
 .roadmap-side-nav.roadmap-jump { top:50%; bottom:auto; }
 .roadmap-side-nav.roadmap-jump .roadmap-side-list { max-height:calc(min(72vh, 680px) - 55px); overflow-y:auto; scrollbar-width:thin; }
+
+
+/* 2026 typography refresh */
+:root{--font-body:"DM Sans",Inter,system-ui,sans-serif;--font-display:"Space Grotesk",Inter,system-ui,sans-serif;--font-code:"IBM Plex Mono","JetBrains Mono",monospace}
+body{font-family:var(--font-body)}
+h1,h2,h3,h4,h5,h6,.brand,.kicker,.eyebrow,.phase-number,.phase-root-number{font-family:var(--font-display)}
+code,pre,.mono,.phase-subphase-id,.vcb-chip{font-family:var(--font-code)}
+.mermaid-wrap svg{max-width:100%;height:auto}
