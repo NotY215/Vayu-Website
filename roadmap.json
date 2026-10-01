@@ -18,7 +18,7 @@
   },
   "repo": "NotY215/Vayu",
   "site": "https://vayu.gt.tc",
-  "updated": "2026-09-30",
+  "updated": "2026-10-01",
   "currentPhase": 27,
   "phases": [
     {
@@ -976,9 +976,9 @@
     },
     {
       "id": 27,
-      "name": "ELF writer + PE correctness",
+      "name": "VCB native backend: Linux runtime + PE correctness",
       "status": "working",
-      "description": "Phase 27 expanded from an ELF writer to include the PE correctness work required before shipping the shared x64 codegen path.",
+      "description": "Active VCB work. The current backend has ELF output, Linux syscall runtime, brk-based allocation, collection/string runtime support, demand-driven helpers, PE padding and ongoing PE correctness work.",
       "subphases": [
         {
           "id": "27.0",
@@ -1008,13 +1008,13 @@
           "id": "27.3",
           "name": "PE padding heuristic",
           "status": "completed",
-          "description": "Use SizeOfImage / 4 as the minimum file size; show the ratio in vcb headers."
+          "description": "Pad small PE outputs to reduce the SizeOfImage/fileSize ratio and expose the ratio in vcb headers."
         },
         {
           "id": "27.4",
           "name": "PE correctness",
           "status": "working",
-          "description": "Disable DYNAMIC_BASE and HIGH_ENTROPY_VA (0x8100); set IMAGE_FILE_RELOCS_STRIPPED (characteristics 0x0023); use a non-zero timestamp and dynamic section list (skip empty .rdata); reserve 32-byte shadow space in vayu_exit; make writePe take PeInputs& so RVAs are outputs; upgrade vcb headers to report ERROR/WARN validation results."
+          "description": "Continue PE image correctness and validation work after the current padding/runtime drop."
         },
         {
           "id": "27.5",
@@ -1037,8 +1037,8 @@
         {
           "id": "27.8",
           "name": "Linux vayu_print_float",
-          "status": "soon",
-          "description": "Port emitPrintFloat to syscall-only output, retaining the six-decimal trimming algorithm."
+          "status": "completed",
+          "description": "Linux runtime already contains a vayu_print_float emitter in the current backend."
         },
         {
           "id": "27.9",
