@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#07111f">
-<meta name="description" content="Vayu syntax — a full reference for the language surface: types, operators, control flow, generics, ownership, FFI and Python interop.">
-<title>Syntax — Vayu</title>
+<meta name="description" content="Vayu syntax - a full reference for the language surface: types, operators, control flow, generics, ownership, FFI and Python interop.">
+<title>Syntax - Vayu</title>
 <link rel="canonical" href="https://vayu.gt.tc/syntax/" />
 <link rel="icon" type="image/png" href="/Vayu_Fav.png">
 <link rel="apple-touch-icon" type="image/png" href="/Vayu_Fav.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="/css/main.css">
 </head>
 <body data-vayu-defer data-page="syntax">
@@ -49,14 +49,14 @@
       <div class="two">
         <div class="code reveal">
           <div class="codebar">basics.vyu<span>indentation · comments · literals</span></div>
-<pre><span class="com"># Python-style indentation — no braces</span>
+<pre><span class="com"># Python-style indentation - no braces</span>
 <span class="kw">if</span> x > <span class="num">0</span>:
     print(<span class="str">"positive"</span>)
     print(<span class="str">"still inside"</span>)
 
 print(<span class="str">"outside"</span>)
 
-<span class="com"># Numbers — multiple bases</span>
+<span class="com"># Numbers - multiple bases</span>
 a = <span class="num">10</span>          <span class="com"># decimal</span>
 b = <span class="num">0b1010</span>      <span class="com"># binary</span>
 c = <span class="num">0o755</span>       <span class="com"># octal</span>
@@ -371,7 +371,7 @@ p.x = <span class="num">100</span>                  <span class="com"># mutate f
       <div class="two">
         <div class="code reveal">
           <div class="codebar">collections.vyu<span>list · map · set · tuple</span></div>
-<pre><span class="com"># List — mutable, ordered</span>
+<pre><span class="com"># List - mutable, ordered</span>
 nums = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>]
 nums[<span class="num">0</span>] = <span class="num">100</span>
 nums.append(<span class="num">6</span>)
@@ -382,7 +382,7 @@ nums.sort()
 print(nums[-<span class="num">1</span>])       <span class="com"># negative index</span>
 print(<span class="num">3</span> <span class="kw">in</span> nums)
 
-<span class="com"># Map — key/value</span>
+<span class="com"># Map - key/value</span>
 ages = {<span class="str">"alice"</span>: <span class="num">30</span>, <span class="str">"bob"</span>: <span class="num">25</span>}
 ages[<span class="str">"carol"</span>] = <span class="num">40</span>
 ages.put(<span class="str">"dave"</span>, <span class="num">22</span>)
@@ -390,13 +390,13 @@ ages.remove(<span class="str">"bob"</span>)
 print(ages.keys())
 print(<span class="str">"alice"</span> <span class="kw">in</span> ages)
 
-<span class="com"># Set — unique values</span>
+<span class="com"># Set - unique values</span>
 s = <span class="fnname">set</span>([<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>])
 s.add(<span class="num">4</span>)
 s.remove(<span class="num">1</span>)
 s.union(<span class="fnname">set</span>([<span class="num">5</span>, <span class="num">6</span>]))
 
-<span class="com"># Tuple — immutable, concatenable</span>
+<span class="com"># Tuple - immutable, concatenable</span>
 t = (<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>)
 a, b, c = t                       <span class="com"># unpacking</span>
 t2 = t + (<span class="num">4</span>, <span class="num">5</span>)                   <span class="com"># concatenation</span>
@@ -485,11 +485,11 @@ print(a <span class="kw">is</span> b)</pre>
       <div class="two">
         <div class="code reveal">
           <div class="codebar">scope.vyu<span>with · defer · yield</span></div>
-<pre><span class="com"># with — auto cleanup via __enter__ / __exit__</span>
+<pre><span class="com"># with - auto cleanup via __enter__ / __exit__</span>
 <span class="kw">with</span> <span class="type">Resource</span>(<span class="str">"first"</span>) <span class="kw">as</span> v:
     print(<span class="str">"inside, v = "</span> + <span class="fnname">str</span>(v))
 
-<span class="com"># defer — LIFO execution at scope exit</span>
+<span class="com"># defer - LIFO execution at scope exit</span>
 <span class="kw">def</span> <span class="fnname">process</span>(a: <span class="type">int</span>, b: <span class="type">int</span>) -&gt; <span class="type">None</span>:
     <span class="kw">defer</span> print(<span class="str">"defer-second"</span>)
     <span class="kw">defer</span> print(<span class="str">"defer-first"</span>)
@@ -535,7 +535,7 @@ print(*p)          <span class="com"># 42</span>
 <span class="kw">def</span> <span class="fnname">double_ptr</span>(p: <span class="type">ptr&lt;int&gt;</span>) -&gt; <span class="type">int</span>:
     <span class="kw">return</span> *p * <span class="num">2</span>
 
-<span class="com"># Ownership — unique is move-only</span>
+<span class="com"># Ownership - unique is move-only</span>
 a: <span class="type">unique&lt;Resource&gt;</span> = <span class="type">Resource</span>(<span class="str">"first"</span>)
 b: <span class="type">unique&lt;Resource&gt;</span> = a          <span class="com"># moves a into b</span>
 
@@ -563,7 +563,7 @@ raw: <span class="type">ptr&lt;int&gt;</span> = <span class="fnname">malloc</spa
             <span class="pill">ptr&lt;T&gt;</span>
             <span class="pill">ref&lt;T&gt;</span>
           </div>
-          <p class="muted mt-20"><code>unique&lt;T&gt;</code> is move-only — the type checker tracks <code>moved_</code> scope and refuses use-after-move. <code>weak&lt;T&gt;</code> is non-owning; <code>.upgrade()</code> desugars to a shared reference. <code>ref&lt;T&gt;</code> resolves to the underlying <code>T</code> at type-check time.</p>
+          <p class="muted mt-20"><code>unique&lt;T&gt;</code> is move-only - the type checker tracks <code>moved_</code> scope and refuses use-after-move. <code>weak&lt;T&gt;</code> is non-owning; <code>.upgrade()</code> desugars to a shared reference. <code>ref&lt;T&gt;</code> resolves to the underlying <code>T</code> at type-check time.</p>
           <p class="muted mt-20">Pointer arithmetic, indexing through pointers (<code>p[i]</code>), assignment (<code>p[i] = v</code>), and <code>&amp;arr[i]</code> / <code>&amp;obj.field</code> / <code>&amp;m[k]</code> for live lvalue references are supported across the tree-walker, VM and native backends.</p>
         </div>
       </div>
@@ -806,7 +806,7 @@ unsafe    ::= "unsafe" block</pre>
       <div class="card reveal mt-32">
         <h3>Soft keywords</h3>
         <p class="muted mt-20">
-          These words are <strong>not reserved by the lexer</strong> — they remain identifiers and are
+          These words are <strong>not reserved by the lexer</strong> - they remain identifiers and are
           reinterpreted contextually by the parser. That means you can still use them as variable names.
         </p>
         <div class="pill-list mt-20">
@@ -819,7 +819,7 @@ unsafe    ::= "unsafe" block</pre>
           <span class="pill">private</span>
           <span class="pill">protected</span>
         </div>
-        <p class="muted mt-20"><code>self</code> is likewise not a keyword — it's a naming convention enforced by the class parser.</p>
+        <p class="muted mt-20"><code>self</code> is likewise not a keyword - it's a naming convention enforced by the class parser.</p>
       </div>
 
       <!-- ============================================================
