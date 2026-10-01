@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#07111f">
-<meta name="description" content="Vayu documentation — installation, language guide, standard library, interop, compiler internals and VCB.">
-<title>Documentation — Vayu</title>
+<meta name="description" content="Vayu documentation - installation, language guide, standard library, interop, compiler internals and VCB.">
+<title>Documentation - Vayu</title>
 <link rel="canonical" href="https://vayu.gt.tc/docs/" />
 <link rel="icon" type="image/png" href="/Vayu_Fav.png">
 <link rel="apple-touch-icon" type="image/png" href="/Vayu_Fav.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="/css/main.css">
 </head>
 <body data-vayu-defer data-page="docs">
@@ -26,7 +26,7 @@
     <div class="container">
       <span class="kicker">Documentation</span>
       <h1>Vayu reference.</h1>
-      <p class="lead">The complete language and compiler documentation — installation, syntax, standard library, interoperability, architecture and roadmap. Written for both newcomers and compiler contributors.</p>
+      <p class="lead">The complete language and compiler documentation - installation, syntax, standard library, interoperability, architecture and roadmap. Written for both newcomers and compiler contributors.</p>
 
       <div class="docs-searchbar">
         <span class="docs-searchbar-icon">⌕</span>
@@ -47,7 +47,7 @@
       <div class="docs-shell">
 
         <!-- ============================================================
-             LEFT SIDEBAR — table of contents
+             LEFT SIDEBAR - table of contents
              ============================================================ -->
         <aside class="docs-side" id="docsSide">
           <div class="docs-side-group">
@@ -136,7 +136,7 @@
               <li>Object-oriented and functional programming</li>
               <li>C interoperability (via <code>extern "C"</code>)</li>
               <li>Python / CPython interoperability (via the <code>py</code> module)</li>
-              <li>Self-hosting — actively being bootstrapped</li>
+              <li>Self-hosting - actively being bootstrapped</li>
               <li>A dedicated native compiler backend through <a href="https://github.com/NotY215/VCB" target="_blank" rel="noopener">VCB</a></li>
             </ul>
 
@@ -148,7 +148,7 @@
 greet("Vayu")</code></pre>
 
             <h2>Design philosophy</h2>
-            <p>Vayu aims to be one unified language spanning simple scripts, applications, AI/ML, games, and native systems software — so developers do not have to switch languages across those domains.</p>
+            <p>Vayu aims to be one unified language spanning simple scripts, applications, AI/ML, games, and native systems software - so developers do not have to switch languages across those domains.</p>
 
             <div class="docs-grid">
               <div class="docs-tile">
@@ -201,13 +201,13 @@ cd Vayu
 
             <h2>Running programs</h2>
             <p>Vayu has three execution paths:</p>
-            <pre><code># Tree-walking interpreter — fastest start-up
+            <pre><code># Tree-walking interpreter - fastest start-up
 vayuc hello.vyu --run
 
-# Bytecode VM — balanced speed
+# Bytecode VM - balanced speed
 vayuc hello.vyu --vm
 
-# Native compiler — produces an executable
+# Native compiler - produces an executable
 vayuc hello.vyu --native</code></pre>
 
             <h2>Inspect the pipeline</h2>
@@ -270,10 +270,10 @@ vayuc hello.vyu --dump-ir          # AST → native IR</code></pre>
           </article>
 
           <!-- ============================================================
-               LANGUAGE GUIDE — BASICS
+               LANGUAGE GUIDE - BASICS
                ============================================================ -->
           <article class="docs-article reveal" id="language-basics">
-            <h1>Language guide — Basics</h1>
+            <h1>Language guide - Basics</h1>
             <p class="docs-lead">Vayu source is indentation-based, like Python. Blocks are driven by INDENT and DEDENT tokens.</p>
 
             <h2>Indentation</h2>
@@ -288,7 +288,7 @@ else:
 value = 10  # inline comment</code></pre>
 
             <h2>Literals</h2>
-            <pre><code># Integers — multiple bases
+            <pre><code># Integers - multiple bases
 a = 10          # decimal
 b = 0b1010      # binary
 c = 0o755       # octal
@@ -508,7 +508,7 @@ def first&lt;T&gt;(xs: list&lt;T&gt;) -&gt; T:
                ============================================================ -->
           <article class="docs-article reveal" id="collections">
             <h1>Collections</h1>
-            <p class="docs-lead">Lists, maps, tuples, sets — with indexing, negative indexing, slicing and iteration.</p>
+            <p class="docs-lead">Lists, maps, tuples, sets - with indexing, negative indexing, slicing and iteration.</p>
 
             <h2>Lists</h2>
             <pre><code>numbers = [1, 2, 3]
@@ -1090,8 +1090,8 @@ vayuc --emit-runtime runtime.c</code></pre>
                VCB
                ============================================================ -->
           <article class="docs-article reveal" id="vcb">
-            <h1>VCB — Vayu Compiler Backend</h1>
-            <p class="docs-lead">VCB is the companion backend project — a compact C++20 native backend with `.vcbir` as its internal IR. Phase 26 Part 1 is complete; Part 2 is implementing native code generation and the remaining native toolchain pieces.</p>
+            <h1>VCB - Vayu Compiler Backend</h1>
+            <p class="docs-lead">VCB is the companion backend project - a compact C++20 native backend with `.vcbir` as its internal IR. Phase 26 Part 1 is complete; Part 2 is implementing native code generation and the remaining native toolchain pieces.</p>
 
             <p>Repository: <a href="https://github.com/NotY215/VCB" target="_blank" rel="noopener">NotY215/VCB</a></p>
 
@@ -1167,14 +1167,14 @@ Executable</code></pre>
                ============================================================ -->
           <article class="docs-article reveal" id="roadmap">
             <h1>Roadmap summary</h1>
-            <p class="docs-lead">The full phase and subphase roadmap lives on the <a href="/roadmap/">roadmap page</a> — read directly from <code>roadmap.json</code>.</p>
+            <p class="docs-lead">The full phase and subphase roadmap lives on the <a href="/roadmap/">roadmap page</a> - read directly from <code>roadmap.json</code>.</p>
 
             <p>Current roadmap position:</p>
             <ul>
               <li><strong>Phase 25:</strong> skipped for now; benchmarking is postponed until after VCB.</li>
               <li><strong>Phase 26:</strong> VCB native backend.</li>
-              <li><strong>26.1 Part 1:</strong> completed — VCB project, IR, parser, lowering, printer and inspection tooling.</li>
-              <li><strong>26.2 Part 2:</strong> working — native code generation, object writers, prebuilt runtime and Vayuc integration.</li>
+              <li><strong>26.1 Part 1:</strong> completed - VCB project, IR, parser, lowering, printer and inspection tooling.</li>
+              <li><strong>26.2 Part 2:</strong> working - native code generation, object writers, prebuilt runtime and Vayuc integration.</li>
               <li><strong>Phase 27:</strong> cross-platform Linux builds.</li>
               <li><strong>Phase 28:</strong> post-VCB benchmarking.</li>
               <li><strong>Phase 29:</strong> version cut.</li>
@@ -1189,7 +1189,7 @@ Executable</code></pre>
         </div>
 
         <!-- ============================================================
-             RIGHT SIDEBAR — "On this page"
+             RIGHT SIDEBAR - "On this page"
              ============================================================ -->
         <aside class="docs-aside">
           <div class="docs-aside-title">On this page</div>
