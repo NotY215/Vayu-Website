@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#07111f">
-<meta name="description" content="VCB — a compact, fast, Vayu-first C++20 backend for native machine code generation. Consumes VCBIR and emits native code.">
-<title>VCB — Vayu Compiler Backend</title>
+<meta name="description" content="VCB - a compact, fast, Vayu-first C++20 backend for native machine code generation. Consumes VCBIR and emits native code.">
+<title>VCB - Vayu Compiler Backend</title>
 <link rel="canonical" href="https://vayu.gt.tc/VCB/" />
 <link rel="icon" type="image/png" href="/Vayu_Fav.png">
 <link rel="apple-touch-icon" type="image/png" href="/Vayu_Fav.png">
@@ -13,12 +13,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://api.github.com">
 <link rel="preconnect" href="https://raw.githubusercontent.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="/css/main.css">
 
 <style>
 /* ============================================================
-   VCB PAGE — Vayu-first animated hero
+   VCB PAGE - Vayu-first animated hero
    ============================================================ */
 .vcb-hero-banner {
   width: min(900px, 94%);
@@ -848,7 +848,7 @@
            loading="lazy" decoding="async">
 
       <span class="kicker">Compiler Backend</span>
-      <h1>VCB — Vayu Compiler Backend.</h1>
+      <h1>VCB - Vayu Compiler Backend.</h1>
       <p class="lead">
         A compact, fast, Vayu-first <strong>C++20 backend for native machine code generation</strong>.
         Consumes <strong>.vcbir</strong> from the Vayu compiler and emits native machine code through a
@@ -982,7 +982,7 @@ VCB
 Native Machine Code</pre>
         </div>
         <div class="reveal">
-          <h3>VCBIR — the boundary</h3>
+          <h3>VCBIR - the boundary</h3>
           <p class="muted">VCBIR is VCB's typed, SSA-based internal intermediate representation. It provides the boundary between the Vayu compiler and backend.</p>
           <p class="muted mt-20">VCBIR is an <strong>internal compiler representation</strong>, not another programming language.</p>
           <div class="pill-list mt-20">
@@ -1083,7 +1083,7 @@ Native Machine Code</pre>
       </div>
 
       <!-- ============================================================
-           RUN — animated terminal
+           RUN - animated terminal
            ============================================================ -->
       <div class="section-head reveal mt-32">
         <span class="kicker">See it working</span>
@@ -1098,7 +1098,7 @@ Native Machine Code</pre>
             <span class="vcb-terminal-dot y"></span>
             <span class="vcb-terminal-dot g"></span>
           </div>
-          <div class="vcb-terminal-title">vcb — main.vcbir → out.s</div>
+          <div class="vcb-terminal-title">vcb - main.vcbir → out.s</div>
         </div>
         <div class="vcb-terminal-body" data-term-body></div>
       </div>
@@ -1138,7 +1138,7 @@ Native Machine Code</pre>
       <div class="section-head reveal mt-32">
         <span class="kicker">Source explorer</span>
         <h2>Browse the whole VCB repository.</h2>
-        <p>Every file in the VCB repo — click a folder to open, click a file to preview, download any file directly.</p>
+        <p>Every file in the VCB repo - click a folder to open, click a file to preview, download any file directly.</p>
       </div>
 
       <div class="mac-shell reveal">
@@ -1328,7 +1328,7 @@ Native Machine Code</pre>
 <script src="/js/layout.js"></script>
 
 <!-- ============================================================
-     VCB terminal animation + macOS explorer — self-contained
+     VCB terminal animation + macOS explorer - self-contained
      ============================================================ -->
 <script>
 /* ============================================================
@@ -1339,7 +1339,7 @@ Native Machine Code</pre>
 
   const SCRIPT = [
     { cls: 'cmd',  text: 'vcb main.vcbir -o out.s',                 delay: 300  },
-    { cls: 'dim',  text: 'VCB — Vayu Compiler Backend v0.1',        delay: 200  },
+    { cls: 'dim',  text: 'VCB - Vayu Compiler Backend v0.1',        delay: 200  },
     { cls: 'info', text: 'Reading .vcbir …',                        delay: 400  },
     { cls: 'info', text: '  parsed 1 function · 3 instructions',    delay: 300  },
     { cls: 'info', text: 'Analysis   → CFG built',                  delay: 320  },
@@ -1661,7 +1661,7 @@ Native Machine Code</pre>
       '<div class="mac-row-cell mac-row-type">Kind</div>' +
     '</div>';
     items.forEach(it => {
-      const size = it.size ? formatSize(it.size) : '—';
+      const size = it.size ? formatSize(it.size) : '-';
       const kind = it.type === 'dir' ? 'Folder' : typeLabel(it.name);
       html +=
         '<div class="mac-row" data-type="' + it.type +
