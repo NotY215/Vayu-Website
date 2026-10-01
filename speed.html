@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#07111f">
-<meta name="description" content="Vayu benchmarks — native speed compared to C++, Python, Rust, Go, Java and JavaScript.">
-<title>Speed — Vayu</title>
+<meta name="description" content="Vayu benchmarks - native speed compared to C++, Python, Rust, Go, Java and JavaScript.">
+<title>Speed - Vayu</title>
 <link rel="canonical" href="https://vayu.gt.tc/speed/" />
 <link rel="icon" type="image/png" href="/Vayu_Fav.png">
 <link rel="apple-touch-icon" type="image/png" href="/Vayu_Fav.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="/css/main.css">
 </head>
 <body data-vayu-defer data-page="speed">
@@ -26,8 +26,8 @@
     <div class="container">
       <span class="kicker">Native speed · right now</span>
       <h1>How fast Vayu is today.</h1>
-      <p class="lead">Same programs, three runtimes: Vayu native, C++ compiled with g++ -O2, and CPython 3. These are the current numbers from the Vayu benchmark harness — not a projection.</p>
-      <div class="page-phase"><span class="dot"></span><span data-phase-badge>PHASE 1 · IN DEVELOPMENT</span></div>
+      <p class="lead">Same programs, three runtimes: Vayu native, C++ compiled with g++ -O2, and CPython 3. These are the current numbers from the Vayu benchmark harness - not a projection.</p>
+      <div class="page-phase"><span class="dot"></span><span data-phase-badge>PHASE 27 · IN DEVELOPMENT</span></div>
     </div>
   </section>
 
@@ -37,7 +37,7 @@
       <div class="card bench-lead reveal bench-hero">
         <div>
           <h3>Native Vayu is already in C++ territory on some workloads.</h3>
-          <p class="muted">Recursive fib is within ~1.8× of g++ -O2 and 13.4× faster than Python. A tight 50 million iteration loop is 215× Python. OOP still has a gap — Phase <span data-phase-id="8" data-phase-prop="number">8</span> (<span data-phase-id="8" data-phase-prop="name">escape analysis</span>) is specifically aimed at closing it.</p>
+          <p class="muted">Recursive fib is within ~1.8× of g++ -O2 and 13.4× faster than Python. A tight 50 million iteration loop is 215× Python. OOP still has a gap - Phase <span data-phase-id="8" data-phase-prop="number">8</span> (<span data-phase-id="8" data-phase-prop="name">escape analysis</span>) is specifically aimed at closing it.</p>
           <div class="stat-row">
             <div class="stat"><b data-count="13.4">0</b><span>vs Python on fib(30)</span></div>
             <div class="stat"><b data-count="215">0</b><span>vs Python on 50M loop</span></div>
@@ -88,12 +88,12 @@
             <thead><tr><th>Language</th><th>fib(30)</th><th>50M loop</th><th>5M OOP</th></tr></thead>
             <tbody>
               <tr><td class="vayu">Vayu (native)</td><td class="vayu">19.0 ms</td><td class="vayu">54.9 ms</td><td class="vayu">668.3 ms</td></tr>
-              <tr><td>C / C++ (g++ -O2)</td><td>10.7 ms — Vayu <b>1.8× slower</b></td><td>8.7 ms — Vayu <b>6.3× slower</b></td><td>8.2 ms — Vayu <b>81× slower</b></td></tr>
-              <tr><td>Rust (release)</td><td>~9.5 ms — Vayu <b>~2.0× slower</b></td><td>~8.0 ms — Vayu <b>~6.9× slower</b></td><td>~10 ms — Vayu <b>~67× slower</b></td></tr>
-              <tr><td>Go</td><td>~16 ms — Vayu <b>~1.2× slower</b></td><td>~22 ms — Vayu <b>~2.5× slower</b></td><td>~28 ms — Vayu <b>~24× slower</b></td></tr>
-              <tr><td>Java (JIT)</td><td>~18 ms — Vayu <b>~1.1× slower</b></td><td>~30 ms — Vayu <b>~1.8× slower</b></td><td>~45 ms — Vayu <b>~15× slower</b></td></tr>
-              <tr><td>JavaScript (Node / V8)</td><td>~42 ms — Vayu <b>~2.2× faster</b></td><td>~48 ms — Vayu <b>~1.1× slower</b></td><td>~140 ms — Vayu <b>~4.8× faster</b></td></tr>
-              <tr><td>Python (CPython 3)</td><td>254.5 ms — Vayu <b>13.4× faster</b></td><td>11794.4 ms — Vayu <b>215× faster</b></td><td>4654.7 ms — Vayu <b>7.0× faster</b></td></tr>
+              <tr><td>C / C++ (g++ -O2)</td><td>10.7 ms - Vayu <b>1.8× slower</b></td><td>8.7 ms - Vayu <b>6.3× slower</b></td><td>8.2 ms - Vayu <b>81× slower</b></td></tr>
+              <tr><td>Rust (release)</td><td>~9.5 ms - Vayu <b>~2.0× slower</b></td><td>~8.0 ms - Vayu <b>~6.9× slower</b></td><td>~10 ms - Vayu <b>~67× slower</b></td></tr>
+              <tr><td>Go</td><td>~16 ms - Vayu <b>~1.2× slower</b></td><td>~22 ms - Vayu <b>~2.5× slower</b></td><td>~28 ms - Vayu <b>~24× slower</b></td></tr>
+              <tr><td>Java (JIT)</td><td>~18 ms - Vayu <b>~1.1× slower</b></td><td>~30 ms - Vayu <b>~1.8× slower</b></td><td>~45 ms - Vayu <b>~15× slower</b></td></tr>
+              <tr><td>JavaScript (Node / V8)</td><td>~42 ms - Vayu <b>~2.2× faster</b></td><td>~48 ms - Vayu <b>~1.1× slower</b></td><td>~140 ms - Vayu <b>~4.8× faster</b></td></tr>
+              <tr><td>Python (CPython 3)</td><td>254.5 ms - Vayu <b>13.4× faster</b></td><td>11794.4 ms - Vayu <b>215× faster</b></td><td>4654.7 ms - Vayu <b>7.0× faster</b></td></tr>
             </tbody>
           </table>
         </div>
