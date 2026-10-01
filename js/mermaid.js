@@ -8,7 +8,7 @@
       const mermaid=m.default;
       mermaid.initialize({
         startOnLoad:false,
-        securityLevel:'loose',
+        securityLevel:'strict',
         theme:'base',
         look:'neo',
         fontFamily:'"Space Grotesk", "DM Sans", system-ui, sans-serif',
@@ -39,6 +39,6 @@
     }catch(err){ console.warn('[Vayu Mermaid]',err); }
   }
   window.VayuMermaid={render};
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',()=>setTimeout(render,0),{once:true});
-  else setTimeout(render,0);
+  window.addEventListener('load',()=>setTimeout(render,0),{once:true});
+  if(document.readyState!=='loading') setTimeout(render,300);
 })();
