@@ -34,25 +34,11 @@
   <section class="pt-20">
     <div class="container">
       <div class="grid">
-        <article class="card reveal" data-tilt>
-          <div class="icon">◈</div>
-          <h3>Readable by default</h3>
-          <p>Indentation-based, Python-inspired syntax keeps programs compact and easy to understand - with Vayu’s own types, structs and native path.</p>
-          <div class="shine"></div>
-        </article>
-        <article class="card reveal" data-tilt>
-          <div class="icon">⚡</div>
-          <h3>Native-first architecture</h3>
-          <p>Vayu compiles to native code. Recursive fib is 13.4× Python today; a 50M loop is 215× Python, sitting next to g++ -O2.</p>
-          <div class="shine"></div>
-        </article>
-        <article class="card reveal" data-tilt>
-          <div class="icon">⌁</div>
-          <h3>Control when needed</h3>
-          <p>Static types, structs, classes, inheritance and future resource-management features provide a path toward higher-level simplicity with lower-level control.</p>
-          <div class="shine"></div>
-        </article>
+        <article class="card reveal" data-tilt><div class="icon">◈</div><h3>Language frontend</h3><p>Vayu provides the .vyu language surface, parser, semantic analysis, interpreter and VM paths, plus native compilation integration.</p><div class="shine"></div></article>
+        <article class="card reveal" data-tilt><div class="icon">⚡</div><h3>Native backend</h3><p>VCB consumes VCBIR and currently emits x86-64 PE and ELF images with demand-driven runtime support.</p><div class="shine"></div></article>
+        <article class="card reveal" data-tilt><div class="icon">⌁</div><h3>Developer tooling</h3><p>Vayu includes vls, vfmt, vlint and editor integrations, while the website keeps detailed architecture and implementation notes in Documentation.</p><div class="shine"></div></article>
       </div>
+      <div class="callout reveal mt-32"><h2>Architecture and implementation details live in Documentation</h2><p class="muted">Use the documentation for the current Vayu frontend, VCB backend, IR, runtime, native targets, package system, Python bridge and development roadmap.</p><a class="btn primary ripple-btn" href="/docs/">Open Documentation</a></div>
     </div>
   </section>
 </main>
