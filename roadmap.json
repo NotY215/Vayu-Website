@@ -357,12 +357,12 @@
         {"id":"27.7","name":"Part 7: kernel32 heap APIs","status":"completed"},
         {"id":"27.8","name":"Part 8: Linux vayu_print_float","status":"completed"},
         {"id":"27.9","name":"Part 9: Always emit .rdata, always pad, RELOCS_STRIPPED + ASLR off","status":"completed"},
-        {"id":"27.10","name":"Diagnosis: Block identified as inbox WDAC (VerifiedAndReputableDesktop)","status":"completed"},
-        {"id":"27.11","name":"Part 10: vcb sign / vcb verify / vcb build --sign","status":"completed"},
-        {"id":"27.12","name":"Part 11: WDAC supplemental policy generator (New-CIPolicy -Level Hash/Publisher), self-signed VerifiedAndReputableDesktop explanation, deployment steps","status":"completed"},
-        {"id":"27.13","name":"Part 12: Import-table construction moved from X64.cpp into writePe; runtime emitter .pdata entries; UnwindEntry extended to cover runtime functions","status":"completed"},
-        {"id":"27.14","name":"Part 13: Consolidate Asm / FunctionEmitter into X64Common.hpp","status":"working"},
-        {"id":"27.15","name":"Part 14: PE + Linux test matrix (11 programs, both targets)","status":"working"}
+        {"id":"Diagnosis","name":"Diagnosis: Block identified as inbox WDAC (VerifiedAndReputableDesktop)","status":"completed"},
+        {"id":"27.10","name":"Part 10: vcb sign / vcb verify / vcb build --sign","status":"completed"},
+        {"id":"27.11","name":"Part 11: WDAC supplemental policy generator (New-CIPolicy -Level Hash/Publisher), self-signed VerifiedAndReputableDesktop explanation, deployment steps","status":"completed"},
+        {"id":"27.12","name":"Part 12: Import-table construction moved from X64.cpp into writePe; runtime emitter .pdata entries; UnwindEntry extended to cover runtime functions","status":"completed"},
+        {"id":"27.13","name":"Part 13: Consolidate Asm / FunctionEmitter into X64Common.hpp","status":"working"},
+        {"id":"27.14","name":"Part 14: PE + Linux test matrix (11 programs, both targets)","status":"working"}
       ]
     },
     {
