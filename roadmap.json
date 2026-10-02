@@ -18,7 +18,7 @@
   },
   "repo": "NotY215/Vayu",
   "site": "https://vayu.gt.tc",
-  "updated": "2026-10-01",
+  "updated": "2026-10-02",
   "currentPhase": 27,
   "phases": [
     {
@@ -978,97 +978,72 @@
       "id": 27,
       "name": "VCB native backend: Linux runtime + PE correctness",
       "status": "working",
-      "description": "Active VCB work. The current backend has ELF output, Linux syscall runtime, brk-based allocation, collection/string runtime support, demand-driven helpers, PE padding and ongoing PE correctness work.",
+      "description": "Active VCB work. Phase 27 Parts 1 through 12 are complete. Parts 13 and 14 are currently in progress.",
       "subphases": [
         {
-          "id": "27.0",
-          "name": "Diagnosis: PE 'Access is denied'",
-          "status": "completed",
-          "description": "Runtime.cpp build fix for duplicate emitStrLen and jgShort; automatically create the output directory."
-        },
-        {
           "id": "27.1",
-          "name": "ELF writer Part 1",
-          "status": "completed",
-          "description": "Add include/vcb/Elf.hpp, src/elf/Elf.cpp, codegenX64Elf, --target elf, and Linux syscall runtime support for exit, print_char, print_ln, print_space, print_bool, print_str, and print_int."
-        },
-        {
-          "id": "27.1b",
-          "name": "vcb elfheaders",
-          "status": "completed",
-          "description": "Add a structural ELF validator for environments without a Linux host."
+          "name": "Part 1: ELF writer, Linux syscall runtime (subset)",
+          "status": "completed"
         },
         {
           "id": "27.2",
-          "name": "Linux runtime Part 2",
-          "status": "completed",
-          "description": "Add vayu_alloc (brk bump); list new/push/get/set/len; map new/put/get/has/len; string len/eq/starts_with/ends_with/contains/find/upper/lower; print_list/print_map; extend dependency closure."
+          "name": "Part 2: Linux heap (brk bump), list + map + string-method runtime",
+          "status": "completed"
         },
         {
           "id": "27.3",
-          "name": "PE padding heuristic",
-          "status": "completed",
-          "description": "Pad small PE outputs to reduce the SizeOfImage/fileSize ratio and expose the ratio in vcb headers."
+          "name": "Part 3: PE padding heuristic",
+          "status": "completed"
         },
         {
           "id": "27.4",
-          "name": "PE correctness",
-          "status": "working",
-          "description": "Continue PE image correctness and validation work after the current padding/runtime drop."
+          "name": "Part 4: DYNAMIC_BASE disabled, dynamic sections, shadow space in vayu_exit",
+          "status": "completed"
         },
         {
           "id": "27.5",
-          "name": "Real .reloc + Base Relocation Directory",
-          "status": "soon",
-          "description": "Emit IMAGE_REL_BASED_DIR64 entries for every absolute address in .text. The four hardcoded 64-bit mov rax, imm64 instructions in emitPrintBool/emitPrintFloat are the only candidates; string-literal lea rip+disp and IAT call [rip+disp] are RIP-relative. Re-enable DYNAMIC_BASE and HIGH_ENTROPY_VA after this lands."
+          "name": "Parts 5+6: Minimal .reloc + ASLR re-enabled; .pdata / .xdata",
+          "status": "completed"
         },
         {
           "id": "27.6",
-          "name": ".pdata/.xdata unwind metadata",
-          "status": "soon",
-          "description": "Emit a RUNTIME_FUNCTION table for each non-leaf function using push rbp; mov rbp, rsp; sub rsp, N, with .xdata UNWIND_INFO using UWOP_PUSH_NONVOL (rbp) and UWOP_ALLOC_SMALL. Required for correct Windows x64 exceptions; currently untested and structurally missing."
+          "name": "Parts 7+8: kernel32 heap APIs, Linux vayu_print_float",
+          "status": "completed"
         },
         {
           "id": "27.7",
-          "name": "Replace msvcrt.dll with kernel32 heap APIs",
-          "status": "soon",
-          "description": "Use kernel32!HeapAlloc, HeapReAlloc, and HeapFree; obtain the heap with GetProcessHeap during one-time initialization or pass it thread-locally. Remove msvcrt.dll from .idata."
+          "name": "Part 9: Always emit .rdata, always pad, RELOCS_STRIPPED + ASLR off",
+          "status": "completed"
         },
         {
           "id": "27.8",
-          "name": "Linux vayu_print_float",
-          "status": "completed",
-          "description": "Linux runtime already contains a vayu_print_float emitter in the current backend."
+          "name": "Diagnosis: Block identified as inbox WDAC (VerifiedAndReputableDesktop)",
+          "status": "completed"
         },
         {
           "id": "27.9",
-          "name": "Consolidate Asm/FunctionEmitter",
-          "status": "soon",
-          "description": "Extract the duplicated implementations from src/x64/X64.cpp (PE) and src/x64/X64Elf.cpp (ELF) into src/x64/X64Common.hpp with no behavior change."
+          "name": "Part 10: vcb sign / vcb verify / vcb build --sign",
+          "status": "completed"
         },
         {
           "id": "27.10",
-          "name": "PE test matrix",
-          "status": "soon",
-          "description": "Test 11 programs: empty main, arithmetic, print int/string/bool, list create/push, multiple runtime calls, string constants, larger .text, and multiple imports. Each must pass vcb headers with zero errors/warnings, launch on Windows, exit as expected, and produce expected stdout."
+          "name": "Part 11: WDAC supplemental policy generator (New-CIPolicy -Level Hash/Publisher), self-signed VerifiedAndReputableDesktop explanation, deployment steps",
+          "status": "completed"
         },
         {
           "id": "27.11",
-          "name": "Linux test matrix",
-          "status": "soon",
-          "description": "Run the same 11 programs built with --target elf under a Docker Desktop Linux container; verify expected exit codes and stdout."
+          "name": "Part 12: Import-table construction moved from X64.cpp into writePe; runtime emitter .pdata entries; UnwindEntry extended to cover runtime functions",
+          "status": "completed"
         },
         {
           "id": "27.12",
-          "name": "ASLR verification",
-          "status": "soon",
-          "description": "After 27.5, rebuild with ASLR enabled and confirm the loader accepts images relocated to different bases across multiple runs."
+          "name": "Part 13: Consolidate Asm / FunctionEmitter into X64Common.hpp",
+          "status": "working"
         },
         {
           "id": "27.13",
-          "name": "Version cut",
-          "status": "soon",
-          "description": "Bump VCB to 0.5.0, update README, and freeze Phase 27."
+          "name": "Part 14: PE + Linux test matrix (11 programs, both targets)",
+          "status": "working"
         }
       ]
     },
