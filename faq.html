@@ -36,7 +36,7 @@
 <span class="kicker">FAQ</span>
 <h1>Questions about Vayu?</h1>
 <p class="lead">A quick reference for the language, compiler, current development status, native backend, tooling and roadmap.</p>
-<div class="page-phase"><span class="dot"></span><span data-phase-badge>PHASE 24 · IN DEVELOPMENT</span></div>
+<div class="page-phase"><span class="dot"></span><span data-phase-badge>PHASE 27 · ACTIVE</span></div>
 </div>
 </section>
 <section class="pt-20">
@@ -45,10 +45,10 @@
 <details class="faq-item reveal" open><summary>What is Vayu?</summary><div class="faq-answer">Vayu is a Python-inspired programming language focused on readable syntax, static typing and native compilation. Its long-term scope includes software, games, systems and AI/ML workloads.</div></details>
 <details class="faq-item reveal"><summary>Is Vayu a Python implementation?</summary><div class="faq-answer">No. Vayu uses Python-like ideas and familiar syntax, but it is its own language with its own compiler, type system, runtime and <code>.vyu</code> source format.</div></details>
 <details class="faq-item reveal"><summary>What file extension does Vayu use?</summary><div class="faq-answer">Vayu source files use <code>.vyu</code>.</div></details>
-<details class="faq-item reveal"><summary>Is Vayu ready for production?</summary><div class="faq-answer">Vayu is still in active development. The current roadmap is at Phase 24, Native floats, so the toolchain and language are not yet presented as a finished production release.</div></details>
-<details class="faq-item reveal"><summary>What is Phase 24?</summary><div class="faq-answer">Phase 24 adds native floating-point support. It covers the float type and ABI, arithmetic and comparisons, native math functions and float collections, followed by migration of tensors away from Q16.16.</div></details>
+<details class="faq-item reveal"><summary>Is Vayu ready for production?</summary><div class="faq-answer">Vayu is still in active development. The current roadmap is at Phase 27, VCB native backend, so the language and native backend are still under active development and are not presented as a finished production release.</div></details>
+<details class="faq-item reveal"><summary>What is the current development phase?</summary><div class="faq-answer">Phase 27 is the current VCB-backed native backend phase. It focuses on floating-point support. It covers the float type and ABI, arithmetic and comparisons, native math functions and float collections, followed by migration of tensors away from Q16.16.</div></details>
 <details class="faq-item reveal"><summary>Why are floats being added before benchmarks?</summary><div class="faq-answer">The benchmark suite needs programs that resemble real workloads. Building benchmarks around integer-only arithmetic would distort comparisons with languages and workloads that naturally use floating-point computation.</div></details>
-<details class="faq-item reveal"><summary>How does Vayu compile native code today?</summary><div class="faq-answer">The current native path uses Vayu's compiler pipeline and QBE, with the generated native code linked through the existing toolchain. Phase 27 plans to replace that path with VCB.</div></details>
+<details class="faq-item reveal"><summary>How does Vayu compile native code today?</summary><div class="faq-answer">The current native path uses Vayu's compiler pipeline and QBE, with the generated native code linked through the existing toolchain. VCB is now the native backend path for Vayu.</div></details>
 <details class="faq-item reveal"><summary>What is VCB?</summary><div class="faq-answer">VCB, the Vayu Compiler Backend, is planned as a separate sister project. It will progressively move from object-file emission to direct code generation, linking/runtime integration, additional object formats and ARM64.</div></details>
 <details class="faq-item reveal"><summary>Will Vayu have a package manager?</summary><div class="faq-answer">Yes. Package-management work is already represented in the completed roadmap, including the <code>nva</code> tooling and registry-related functionality.</div></details>
 <details class="faq-item reveal"><summary>Does Vayu support AI and tensors?</summary><div class="faq-answer">Yes, the project already contains tensor, autodiff, neural-network and ONNX examples. Phase 24 is specifically planned to move tensor internals toward native floating-point representation.</div></details>
