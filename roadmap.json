@@ -18,380 +18,1111 @@
   },
   "repo": "NotY215/Vayu",
   "site": "https://vayu.gt.tc",
-  "updated": "2026-10-02",
+  "updated": "2026-10-04",
   "currentPhase": 27,
   "phases": [
-    {"id":1,"name":"Language foundation","status":"completed"},
-    {"id":2,"name":"Control flow & functions","status":"completed"},
-    {"id":3,"name":"Types & collections","status":"completed"},
-    {"id":4,"name":"Functional & object-oriented","status":"completed"},
-    {"id":5,"name":"Runtime, exceptions & modules","status":"completed"},
-    {"id":6,"name":"Compiler optimization · Peephole IL","status":"completed"},
     {
-      "id":7,
-      "name":"Self-hosting",
-      "status":"completed",
-      "subphases":[
-        {"id":"7A","name":"Runtime support for self-hosting","status":"completed"},
-        {"id":"7B","name":"Lexer in Vayu — vlex.vyu","status":"completed"},
-        {"id":"7C","name":"Lexer edge-case reconciliation","status":"completed"},
-        {"id":"7D-1","name":"Expression parser in Vayu — vparse.vyu","status":"completed"},
-        {"id":"7D-2","name":"Statements, blocks, control flow","status":"completed"},
-        {"id":"7D-3","name":"AST arena extensions","status":"completed"},
-        {"id":"7E-1","name":"QBE codegen — statements, control flow, functions","status":"completed"},
-        {"id":"7E-2","name":"Classes, structs, methods, inheritance, super()","status":"completed"},
-        {"id":"7E-3","name":"Lists, maps, indexing, builtins, string methods","status":"completed"},
-        {"id":"7E-4","name":"Typed collections, method return inference","status":"completed"},
-        {"id":"7F","name":"Bootstrap fixpoint","status":"completed"},
-        {"id":"7G","name":"Unified vayu.vyu driver","status":"completed"},
-        {"id":"7H","name":"topFnDecls_ — propagate free-function return types","status":"completed"}
-      ]
+      "id": 1,
+      "name": "Language foundation",
+      "status": "completed"
     },
     {
-      "id":8,
-      "name":"Escape analysis",
-      "status":"completed",
-      "subphases":[
-        {"id":"8","name":"Stack-allocate non-escaping instances","status":"completed"},
-        {"id":"8.1","name":"Interprocedural escape — argument flow through user functions","status":"deferred"},
-        {"id":"8.2","name":"Field-level escape — partial escape of struct fields","status":"deferred"},
-        {"id":"8.3","name":"Loop-aware escape — hoist allocations out of loops","status":"deferred"}
-      ]
+      "id": 2,
+      "name": "Control flow & functions",
+      "status": "completed"
     },
     {
-      "id":9,
-      "name":"Package manager",
-      "status":"completed",
-      "subphases":[
-        {"id":"9","name":"nva v1 — new, init, build, run, clean","status":"completed"},
-        {"id":"9.1","name":"nva add, nva remove, nva list, nova.lock","status":"completed"},
-        {"id":"9.2","name":"HTTP registry client, nva publish, semver resolution","status":"deferred"},
-        {"id":"9.3","name":"Git dependencies","status":"deferred"}
-      ]
+      "id": 3,
+      "name": "Types & collections",
+      "status": "completed"
     },
     {
-      "id":10,
-      "name":"Standard library",
-      "status":"completed",
-      "subphases":[
-        {"id":"10.1","name":"fs — file system","status":"completed"},
-        {"id":"10.2","name":"time — clocks, sleep, formatting","status":"completed"},
-        {"id":"10.3","name":"json — parse, stringify, key access","status":"completed"},
-        {"id":"10.4","name":"regex — match, search, find_all, replace, fields","status":"completed"},
-        {"id":"10.5","name":"thread — spawn/join, mutexes","status":"completed"},
-        {"id":"10.6","name":"net — TCP client + server","status":"completed"},
-        {"id":"10.7","name":"crypto — sha256, md5, hmac, base64, random_bytes","status":"completed"},
-        {"id":"10.8","name":"random","status":"completed"},
-        {"id":"10.9","name":"os — getenv, setenv, platform, hostname, chdir","status":"completed"},
-        {"id":"10.10","name":"math extras — asin, acos, atan2, sinh, degrees, hypot, …","status":"completed"}
-      ]
+      "id": 4,
+      "name": "Functional & object-oriented",
+      "status": "completed"
     },
     {
-      "id":11,
-      "name":"Language surface",
-      "status":"completed",
-      "subphases":[
-        {"id":"11.0","name":"Base: def, if/elif/else, while, for, class/struct, import, try/except/finally, raise","status":"completed"},
-        {"id":"11.1b","name":"const as hard keyword","status":"completed"},
-        {"id":"11.1c","name":"Static class members","status":"completed"},
-        {"id":"11.1d","name":"Enum item access → integer constant","status":"completed"},
-        {"id":"11.1e","name":"match / case","status":"completed"},
-        {"id":"11.1f","name":"with / as","status":"completed"},
-        {"id":"11.1g","name":"defer","status":"completed"},
-        {"id":"11.1h","name":"namespace","status":"completed"},
-        {"id":"11.1i","name":"Compound assigns + 0b/0o/0x","status":"completed"},
-        {"id":"11.1j","name":"Visibility modifiers","status":"completed"},
-        {"id":"11.1k1-4","name":"Generators — tree, VM, iteration, native (thread-backed)","status":"completed"},
-        {"id":"11.2","name":"Type parameters on def/class, constraints <T: Base>","status":"completed"},
-        {"id":"11.2b","name":"Type params on classes","status":"completed"},
-        {"id":"11.2c","name":"Substitution and unify in the type checker","status":"completed"},
-        {"id":"11.3","name":"Type parameter parsing in self-hosted compilers","status":"completed"}
-      ]
+      "id": 5,
+      "name": "Runtime, exceptions & modules",
+      "status": "completed"
     },
     {
-      "id":12,
-      "name":"Ownership",
-      "status":"completed",
-      "subphases":[
-        {"id":"12.0","name":"unique<T> — move-only, moved_ scope tracking","status":"completed"},
-        {"id":"12.1","name":"shared<T> copyable, weak<T> non-owning, .upgrade() desugar","status":"completed"}
-      ]
+      "id": 6,
+      "name": "Compiler optimization · Peephole IL",
+      "status": "completed"
     },
     {
-      "id":13,
-      "name":"Inspection, helpers, refinements",
-      "status":"completed",
-      "subphases":[
-        {"id":"13.0","name":"Inspection — hash, id, callable, isinstance, issubclass, getattr, hasattr, dir, repr","status":"completed"},
-        {"id":"13.1","name":"Pure helpers — enumerate, zip, reversed, round, pow, divmod, sign, gcd, lcm, clamp","status":"completed"},
-        {"id":"13.2","name":"Compile-time reflection","status":"completed"},
-        {"id":"13.3","name":"setattr, delattr","status":"completed"},
-        {"id":"13.4","name":"getattr, hasattr, dir (native)","status":"completed"},
-        {"id":"13.5","name":"String refinements — capitalize, title, swapcase, center, ljust, rjust, zfill, count, rfind, partition, rpartition, splitlines, rsplit, is_lower/upper/alnum/ascii","status":"completed"},
-        {"id":"13.6","name":"List refinements — extend, count, reverse, sort, copy, first, last","status":"completed"},
-        {"id":"13.6b","name":"Native list.sort → merge sort (O(n log n))","status":"completed"},
-        {"id":"13.7","name":"Map refinements — set, get_or, pop, pop_or, update, copy, has_key, items","status":"completed"}
-      ]
-    },
-    {
-      "id":14,
-      "name":"Containers",
-      "status":"completed",
-      "subphases":[
-        {"id":"14.0","name":"Real tuple type — TupleLitExpr, TupleValue","status":"completed"},
-        {"id":"14.0b","name":"Tuple unpacking — a, b, c = t, for (k, v) in pairs:","status":"completed"},
-        {"id":"14.1","name":"Real set type — SetLitExpr, SetValue","status":"completed"},
-        {"id":"14.1b","name":"Native set ops — union, intersection, difference","status":"completed"},
-        {"id":"14.2","name":"Extended math — comb, perm, isqrt, factorial, cbrt, expm1, log1p, copysign, fabs, tgamma, lgamma, erf, erfc, tau, inf, nan","status":"completed"},
-        {"id":"14.3","name":"zip + enumerate return real tuples","status":"completed"},
-        {"id":"14.4","name":"Tuple slicing + tuple concatenation","status":"completed"}
-      ]
-    },
-    {
-      "id":15,
-      "name":"C FFI",
-      "status":"completed",
-      "subphases":[
-        {"id":"15.0","name":"extern \"C\": block parsing, type checker","status":"completed"},
-        {"id":"15.1","name":"C FFI codegen — QBE call, str ↔ char* bridge, VAYU_FFI_LIBS","status":"completed"},
-        {"id":"15.2","name":"unsafe: block, ptr<T> / ref<T>","status":"completed"},
-        {"id":"15.2b","name":"&x / *p / *p = v on all three backends","status":"completed"},
-        {"id":"15.2c","name":"True aliasing for &x — heap cell shared across all backends","status":"completed"},
-        {"id":"15.2d","name":"&arr[i], &obj.field, &m[k] — live lvalue references","status":"completed"},
-        {"id":"15.2e","name":"Native pointer arithmetic — p + n, p[i], p[i] = v","status":"completed"},
-        {"id":"15.2f","name":"Tree/VM pointer arithmetic via backing-array model","status":"completed"},
-        {"id":"15.4","name":"C callbacks — &topFn as function pointer","status":"completed"},
-        {"id":"15.5","name":"FFI structs by value (≤8-byte single-field classes)","status":"completed"},
-        {"id":"15.6","name":"Built-in malloc / free","status":"completed"}
-      ]
-    },
-    {
-      "id":16,
-      "name":"CPython bridge",
-      "status":"completed",
-      "subphases":[
-        {"id":"16.0","name":"CPython dynamic-load shim, import py, py.init / py.version / py.run","status":"completed"},
-        {"id":"16.0.1","name":"DLL discovery — python313.dll direct, LoadLibraryEx altered search path","status":"completed"},
-        {"id":"16.1","name":"Value bridging — py.int/str/bool, py.from_int/str/bool","status":"completed"},
-        {"id":"16.2","name":"Calling Python — py.import, py.getattr, py.call, py.decref","status":"completed"},
-        {"id":"16.3","name":"Bidirectional — py.eval, py.exec_file, Vayu callbacks","status":"completed"},
-        {"id":"16.4","name":"Attributes — py.setattr, py.repr, py.type_name","status":"completed"},
-        {"id":"16.5","name":"Close-out — py.call_kw, py.list, py.dict, py.last_error","status":"completed"}
-      ]
-    },
-    {
-      "id":17,
-      "name":"Self-host parity",
-      "status":"completed",
-      "subphases":[
-        {"id":"17.1","name":"Compound assign on names","status":"completed"},
-        {"id":"17.2","name":"Bitwise + compound bitwise","status":"completed"},
-        {"id":"17.3","name":"try/except/finally/raise (tree+vm)","status":"completed"},
-        {"id":"17.4","name":"0b/0o/0x prefixes + ord()","status":"completed"},
-        {"id":"17.5","name":"const + enum + EnumName.ITEM","status":"completed"},
-        {"id":"17.6","name":"Tuple literals, tuple unpack, set literals","status":"completed"},
-        {"id":"17.7","name":"extern \"C\", unsafe:, &x, *p, &arr[i], &obj.field","status":"completed"},
-        {"id":"17.8","name":"py module","status":"completed"},
-        {"id":"17.9","name":"Native try/except via setjmp/longjmp","status":"completed"},
-        {"id":"17.10a","name":"lambda, visibility modifiers, static members, type params on def/class","status":"completed"},
-        {"id":"17.10b","name":"match/case, with/as, defer, namespace","status":"completed"},
-        {"id":"17.10c","name":"yield / generator codegen","status":"completed"}
-      ]
-    },
-    {
-      "id":18,
-      "name":"Tooling",
-      "status":"completed",
-      "subphases":[
-        {"id":"18.1","name":"LSP server — parse/tokenize/typeinfo/definition/hover/diagnostics over stdio","status":"completed"},
-        {"id":"18.2","name":"Formatter — vfmt with idempotent rules (indent, spacing, blank-line policy)","status":"completed"},
-        {"id":"18.3","name":"Linter — unused names, unreachable code, shadowing, dead stores","status":"completed"},
-        {"id":"18.4","name":"VS Code extension — bundle 18.1–18.3, syntax highlighting, run/debug","status":"completed"}
-      ]
-    },
-    {
-      "id":19,
-      "name":"GUI",
-      "status":"completed",
-      "subphases":[
-        {"id":"19.1","name":"Window + configuration","status":"completed"},
-        {"id":"19.2","name":"Window lifecycle","status":"completed"},
-        {"id":"19.3","name":"Events","status":"completed"},
-        {"id":"19.4","name":"Event loop","status":"completed"},
-        {"id":"19.5","name":"Widgets","status":"completed"},
-        {"id":"19.6","name":"Widget hierarchy","status":"completed"},
-        {"id":"19.7","name":"UI properties","status":"completed"},
-        {"id":"19.8","name":"Callbacks","status":"completed"},
-        {"id":"19.9","name":"Layout","status":"completed"},
-        {"id":"19.10","name":"UI state","status":"completed"},
-        {"id":"19.11","name":"Native backend integration","status":"completed"},
-        {"id":"19.12","name":"VM / tree backend guards","status":"completed"},
-        {"id":"19.13","name":"Type checking and validation","status":"completed"},
-        {"id":"19.14","name":"Tooling integration","status":"completed"},
-        {"id":"19.15","name":"Examples and tests","status":"completed"}
-      ]
-    },
-    {
-      "id":20,
-      "name":"Graphics 2D",
-      "status":"completed",
-      "description":"Native-only 2D graphics on top of the Phase 19 GUI window and back buffer.",
-      "subphases":[
-        {"id":"20.1","name":"GDI+ foundation — canvases, primitives, fonts, colors, blit","status":"completed"},
-        {"id":"20.2","name":"Bitmap I/O — WIC BMP/PNG/JPG load, draw, alpha, PNG save","status":"completed"},
-        {"id":"20.3","name":"Transforms + clipping + fill/compositing modes","status":"completed"}
-      ]
-    },
-    {
-      "id":21,
-      "name":"Graphics 3D",
-      "status":"completed",
-      "description":"Software rasterizer on an offscreen canvas; optional Direct3D 11 backend at the end.",
-      "subphases":[
-        {"id":"21.0","name":"Math library — Vec2/3/4, Mat4, Quat and helpers (Vayu stdlib)","status":"completed"},
-        {"id":"21.1","name":"Framebuffer + triangle raster","status":"completed"},
-        {"id":"21.2","name":"Depth buffer + shader pipeline","status":"completed"},
-        {"id":"21.3","name":"Texture mapping + mipmaps","status":"completed"},
-        {"id":"21.4","name":"Camera + lighting — Lambert + Phong","status":"completed"},
-        {"id":"21.5","name":"Optional GPU backend — Direct3D 11","status":"completed"}
-      ]
-    },
-    {
-      "id":22,
-      "name":"AI / ML",
-      "status":"completed",
-      "description":"Vayu-first tensor and ML stack with native hot loops; GPU acceleration remains optional.",
-      "subphases":[
-        {"id":"22.0","name":"Tensor core — N-D arrays, broadcasting, reductions, reshape/transpose, matmul","status":"completed"},
-        {"id":"22.1","name":"Autodiff — reverse-mode tape","status":"completed"},
-        {"id":"22.2","name":"NN primitives — Parameter, Linear, activations, losses, optimizers, Sequential","status":"completed"},
-        {"id":"22.3","name":"ONNX model loader — read-only inference","status":"completed"},
-        {"id":"22.4","name":"GPU acceleration — CUDA / DirectML","status":"completed"}
-      ]
-    },
-    {
-      "id":23,
-      "name":"Single-binary native toolchain",
-      "status":"completed",
-      "description":"Package ecosystem and dependency management — local registry first, then HTTP, Git, and transitive resolution.",
-      "subphases":[
-        {"id":"23.0","name":"Semver in nva.vyu — landed last drop","status":"completed"},
-        {"id":"23.1","name":"Local registry folder, nva publish-local / nva install","status":"completed"},
-        {"id":"23.2","name":"HTTP registry, remote publish","status":"completed"},
-        {"id":"23.3","name":"Git dependencies","status":"completed"},
-        {"id":"23.4","name":"Transitive dependency solver","status":"completed"},
-        {"id":"23.5","name":"Reference server — pure Vayu HTTP daemon","status":"completed"}
-      ]
-    },
-    {
-      "id":24,
-      "name":"Native floats",
-      "status":"completed",
-      "description":"Native Vayu currently has no real float type: values are i64, arithmetic is integer-only, and floating-point values are rounded or rejected. This phase adds native floating-point support before benchmarking.",
-      "subphases":[
-        {"id":"24.0","name":"Float type + ABI — native float values, cross-backend representation, arithmetic (+ - * / // % **), comparisons, unary negate, int → float widening on mixed ops, print formatting","status":"completed"},
-        {"id":"24.1","name":"Math library + collections — native math.* functions, list<float>, map<str, float>, float(x), int(x), str(x) round-trips","status":"completed"},
-        {"id":"24.2","name":"Tensor migration — move tensor internals from Q16.16 to f32 or f64; retain Q16.16 as a compatibility layer temporarily, then retire it","status":"completed"}
-      ]
-    },
-    {
-      "id":25,
-      "name":"Benchmarking (Round 1, pre-VCB)",
-      "status":"skipped",
-      "description":"Benchmark suite and all planned subphases are complete, but the full Round 1 comparison is intentionally skipped for now. Benchmarking is postponed until after VCB so the published results use the final backend.",
-      "subphases":[
-        {"id":"25.0","name":"Harness + control programs — runner plus arith, fib, startup","status":"completed"},
-        {"id":"25.1","name":"Compute-heavy set — matmul (512×512), nbody (5-body, 1M steps), mandelbrot (2000×2000)","status":"completed"},
-        {"id":"25.2","name":"Allocation-heavy set — string_concat (100k +=), hashmap (1M str→int insert/lookup), json_parse (10 MB), sort (10M ints)","status":"completed"}
-      ]
-    },
-    {
-      "id":26,
-      "name":"VCB",
-      "status":"completed",
-      "description":"Vayu Compiler Backend — a separate native backend project, progressing from a shared compiler IR and lowering pipeline to direct machine-code generation.",
-      "rootPhases":[
+      "id": 7,
+      "name": "Self-hosting",
+      "status": "completed",
+      "subphases": [
         {
-          "id":"26.1",
-          "name":"Part 1: backend foundation",
-          "status":"completed",
-          "description":"Establish VCB as a separate backend with its shared IR, lowering pipeline, printer, and inspection tooling before machine-code generation.",
-          "subphases":[
-            {"id":"26.1.1","name":"VCB project, IR, parser, printer, and vcb dump","status":"completed"},
-            {"id":"26.1.2","name":"Lowering pipeline and Vayu integration boundary","status":"completed"},
-            {"id":"26.1.3","name":"Deterministic .vcbir printing and inspection","status":"completed"}
+          "id": "7A",
+          "name": "Runtime support for self-hosting",
+          "status": "completed"
+        },
+        {
+          "id": "7B",
+          "name": "Lexer in Vayu — vlex.vyu",
+          "status": "completed"
+        },
+        {
+          "id": "7C",
+          "name": "Lexer edge-case reconciliation",
+          "status": "completed"
+        },
+        {
+          "id": "7D-1",
+          "name": "Expression parser in Vayu — vparse.vyu",
+          "status": "completed"
+        },
+        {
+          "id": "7D-2",
+          "name": "Statements, blocks, control flow",
+          "status": "completed"
+        },
+        {
+          "id": "7D-3",
+          "name": "AST arena extensions",
+          "status": "completed"
+        },
+        {
+          "id": "7E-1",
+          "name": "QBE codegen — statements, control flow, functions",
+          "status": "completed"
+        },
+        {
+          "id": "7E-2",
+          "name": "Classes, structs, methods, inheritance, super()",
+          "status": "completed"
+        },
+        {
+          "id": "7E-3",
+          "name": "Lists, maps, indexing, builtins, string methods",
+          "status": "completed"
+        },
+        {
+          "id": "7E-4",
+          "name": "Typed collections, method return inference",
+          "status": "completed"
+        },
+        {
+          "id": "7F",
+          "name": "Bootstrap fixpoint",
+          "status": "completed"
+        },
+        {
+          "id": "7G",
+          "name": "Unified vayu.vyu driver",
+          "status": "completed"
+        },
+        {
+          "id": "7H",
+          "name": "topFnDecls_ — propagate free-function return types",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Escape analysis",
+      "status": "completed",
+      "subphases": [
+        {
+          "id": "8",
+          "name": "Stack-allocate non-escaping instances",
+          "status": "completed"
+        },
+        {
+          "id": "8.1",
+          "name": "Interprocedural escape — argument flow through user functions",
+          "status": "deferred"
+        },
+        {
+          "id": "8.2",
+          "name": "Field-level escape — partial escape of struct fields",
+          "status": "deferred"
+        },
+        {
+          "id": "8.3",
+          "name": "Loop-aware escape — hoist allocations out of loops",
+          "status": "deferred"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Package manager",
+      "status": "completed",
+      "subphases": [
+        {
+          "id": "9",
+          "name": "nva v1 — new, init, build, run, clean",
+          "status": "completed"
+        },
+        {
+          "id": "9.1",
+          "name": "nva add, nva remove, nva list, nova.lock",
+          "status": "completed"
+        },
+        {
+          "id": "9.2",
+          "name": "HTTP registry client, nva publish, semver resolution",
+          "status": "deferred"
+        },
+        {
+          "id": "9.3",
+          "name": "Git dependencies",
+          "status": "deferred"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Standard library",
+      "status": "completed",
+      "subphases": [
+        {
+          "id": "10.1",
+          "name": "fs — file system",
+          "status": "completed"
+        },
+        {
+          "id": "10.2",
+          "name": "time — clocks, sleep, formatting",
+          "status": "completed"
+        },
+        {
+          "id": "10.3",
+          "name": "json — parse, stringify, key access",
+          "status": "completed"
+        },
+        {
+          "id": "10.4",
+          "name": "regex — match, search, find_all, replace, fields",
+          "status": "completed"
+        },
+        {
+          "id": "10.5",
+          "name": "thread — spawn/join, mutexes",
+          "status": "completed"
+        },
+        {
+          "id": "10.6",
+          "name": "net — TCP client + server",
+          "status": "completed"
+        },
+        {
+          "id": "10.7",
+          "name": "crypto — sha256, md5, hmac, base64, random_bytes",
+          "status": "completed"
+        },
+        {
+          "id": "10.8",
+          "name": "random",
+          "status": "completed"
+        },
+        {
+          "id": "10.9",
+          "name": "os — getenv, setenv, platform, hostname, chdir",
+          "status": "completed"
+        },
+        {
+          "id": "10.10",
+          "name": "math extras — asin, acos, atan2, sinh, degrees, hypot, …",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "name": "Language surface",
+      "status": "completed",
+      "subphases": [
+        {
+          "id": "11.0",
+          "name": "Base: def, if/elif/else, while, for, class/struct, import, try/except/finally, raise",
+          "status": "completed"
+        },
+        {
+          "id": "11.1b",
+          "name": "const as hard keyword",
+          "status": "completed"
+        },
+        {
+          "id": "11.1c",
+          "name": "Static class members",
+          "status": "completed"
+        },
+        {
+          "id": "11.1d",
+          "name": "Enum item access → integer constant",
+          "status": "completed"
+        },
+        {
+          "id": "11.1e",
+          "name": "match / case",
+          "status": "completed"
+        },
+        {
+          "id": "11.1f",
+          "name": "with / as",
+          "status": "completed"
+        },
+        {
+          "id": "11.1g",
+          "name": "defer",
+          "status": "completed"
+        },
+        {
+          "id": "11.1h",
+          "name": "namespace",
+          "status": "completed"
+        },
+        {
+          "id": "11.1i",
+          "name": "Compound assigns + 0b/0o/0x",
+          "status": "completed"
+        },
+        {
+          "id": "11.1j",
+          "name": "Visibility modifiers",
+          "status": "completed"
+        },
+        {
+          "id": "11.1k1-4",
+          "name": "Generators — tree, VM, iteration, native (thread-backed)",
+          "status": "completed"
+        },
+        {
+          "id": "11.2",
+          "name": "Type parameters on def/class, constraints <T: Base>",
+          "status": "completed"
+        },
+        {
+          "id": "11.2b",
+          "name": "Type params on classes",
+          "status": "completed"
+        },
+        {
+          "id": "11.2c",
+          "name": "Substitution and unify in the type checker",
+          "status": "completed"
+        },
+        {
+          "id": "11.3",
+          "name": "Type parameter parsing in self-hosted compilers",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "name": "Ownership",
+      "status": "completed",
+      "subphases": [
+        {
+          "id": "12.0",
+          "name": "unique<T> — move-only, moved_ scope tracking",
+          "status": "completed"
+        },
+        {
+          "id": "12.1",
+          "name": "shared<T> copyable, weak<T> non-owning, .upgrade() desugar",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "name": "Inspection, helpers, refinements",
+      "status": "completed",
+      "subphases": [
+        {
+          "id": "13.0",
+          "name": "Inspection — hash, id, callable, isinstance, issubclass, getattr, hasattr, dir, repr",
+          "status": "completed"
+        },
+        {
+          "id": "13.1",
+          "name": "Pure helpers — enumerate, zip, reversed, round, pow, divmod, sign, gcd, lcm, clamp",
+          "status": "completed"
+        },
+        {
+          "id": "13.2",
+          "name": "Compile-time reflection",
+          "status": "completed"
+        },
+        {
+          "id": "13.3",
+          "name": "setattr, delattr",
+          "status": "completed"
+        },
+        {
+          "id": "13.4",
+          "name": "getattr, hasattr, dir (native)",
+          "status": "completed"
+        },
+        {
+          "id": "13.5",
+          "name": "String refinements — capitalize, title, swapcase, center, ljust, rjust, zfill, count, rfind, partition, rpartition, splitlines, rsplit, is_lower/upper/alnum/ascii",
+          "status": "completed"
+        },
+        {
+          "id": "13.6",
+          "name": "List refinements — extend, count, reverse, sort, copy, first, last",
+          "status": "completed"
+        },
+        {
+          "id": "13.6b",
+          "name": "Native list.sort → merge sort (O(n log n))",
+          "status": "completed"
+        },
+        {
+          "id": "13.7",
+          "name": "Map refinements — set, get_or, pop, pop_or, update, copy, has_key, items",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "name": "Containers",
+      "status": "completed",
+      "subphases": [
+        {
+          "id": "14.0",
+          "name": "Real tuple type — TupleLitExpr, TupleValue",
+          "status": "completed"
+        },
+        {
+          "id": "14.0b",
+          "name": "Tuple unpacking — a, b, c = t, for (k, v) in pairs:",
+          "status": "completed"
+        },
+        {
+          "id": "14.1",
+          "name": "Real set type — SetLitExpr, SetValue",
+          "status": "completed"
+        },
+        {
+          "id": "14.1b",
+          "name": "Native set ops — union, intersection, difference",
+          "status": "completed"
+        },
+        {
+          "id": "14.2",
+          "name": "Extended math — comb, perm, isqrt, factorial, cbrt, expm1, log1p, copysign, fabs, tgamma, lgamma, erf, erfc, tau, inf, nan",
+          "status": "completed"
+        },
+        {
+          "id": "14.3",
+          "name": "zip + enumerate return real tuples",
+          "status": "completed"
+        },
+        {
+          "id": "14.4",
+          "name": "Tuple slicing + tuple concatenation",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "name": "C FFI",
+      "status": "completed",
+      "subphases": [
+        {
+          "id": "15.0",
+          "name": "extern \"C\": block parsing, type checker",
+          "status": "completed"
+        },
+        {
+          "id": "15.1",
+          "name": "C FFI codegen — QBE call, str ↔ char* bridge, VAYU_FFI_LIBS",
+          "status": "completed"
+        },
+        {
+          "id": "15.2",
+          "name": "unsafe: block, ptr<T> / ref<T>",
+          "status": "completed"
+        },
+        {
+          "id": "15.2b",
+          "name": "&x / *p / *p = v on all three backends",
+          "status": "completed"
+        },
+        {
+          "id": "15.2c",
+          "name": "True aliasing for &x — heap cell shared across all backends",
+          "status": "completed"
+        },
+        {
+          "id": "15.2d",
+          "name": "&arr[i], &obj.field, &m[k] — live lvalue references",
+          "status": "completed"
+        },
+        {
+          "id": "15.2e",
+          "name": "Native pointer arithmetic — p + n, p[i], p[i] = v",
+          "status": "completed"
+        },
+        {
+          "id": "15.2f",
+          "name": "Tree/VM pointer arithmetic via backing-array model",
+          "status": "completed"
+        },
+        {
+          "id": "15.4",
+          "name": "C callbacks — &topFn as function pointer",
+          "status": "completed"
+        },
+        {
+          "id": "15.5",
+          "name": "FFI structs by value (≤8-byte single-field classes)",
+          "status": "completed"
+        },
+        {
+          "id": "15.6",
+          "name": "Built-in malloc / free",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "name": "CPython bridge",
+      "status": "completed",
+      "subphases": [
+        {
+          "id": "16.0",
+          "name": "CPython dynamic-load shim, import py, py.init / py.version / py.run",
+          "status": "completed"
+        },
+        {
+          "id": "16.0.1",
+          "name": "DLL discovery — python313.dll direct, LoadLibraryEx altered search path",
+          "status": "completed"
+        },
+        {
+          "id": "16.1",
+          "name": "Value bridging — py.int/str/bool, py.from_int/str/bool",
+          "status": "completed"
+        },
+        {
+          "id": "16.2",
+          "name": "Calling Python — py.import, py.getattr, py.call, py.decref",
+          "status": "completed"
+        },
+        {
+          "id": "16.3",
+          "name": "Bidirectional — py.eval, py.exec_file, Vayu callbacks",
+          "status": "completed"
+        },
+        {
+          "id": "16.4",
+          "name": "Attributes — py.setattr, py.repr, py.type_name",
+          "status": "completed"
+        },
+        {
+          "id": "16.5",
+          "name": "Close-out — py.call_kw, py.list, py.dict, py.last_error",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "name": "Self-host parity",
+      "status": "completed",
+      "subphases": [
+        {
+          "id": "17.1",
+          "name": "Compound assign on names",
+          "status": "completed"
+        },
+        {
+          "id": "17.2",
+          "name": "Bitwise + compound bitwise",
+          "status": "completed"
+        },
+        {
+          "id": "17.3",
+          "name": "try/except/finally/raise (tree+vm)",
+          "status": "completed"
+        },
+        {
+          "id": "17.4",
+          "name": "0b/0o/0x prefixes + ord()",
+          "status": "completed"
+        },
+        {
+          "id": "17.5",
+          "name": "const + enum + EnumName.ITEM",
+          "status": "completed"
+        },
+        {
+          "id": "17.6",
+          "name": "Tuple literals, tuple unpack, set literals",
+          "status": "completed"
+        },
+        {
+          "id": "17.7",
+          "name": "extern \"C\", unsafe:, &x, *p, &arr[i], &obj.field",
+          "status": "completed"
+        },
+        {
+          "id": "17.8",
+          "name": "py module",
+          "status": "completed"
+        },
+        {
+          "id": "17.9",
+          "name": "Native try/except via setjmp/longjmp",
+          "status": "completed"
+        },
+        {
+          "id": "17.10a",
+          "name": "lambda, visibility modifiers, static members, type params on def/class",
+          "status": "completed"
+        },
+        {
+          "id": "17.10b",
+          "name": "match/case, with/as, defer, namespace",
+          "status": "completed"
+        },
+        {
+          "id": "17.10c",
+          "name": "yield / generator codegen",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "name": "Tooling",
+      "status": "completed",
+      "subphases": [
+        {
+          "id": "18.1",
+          "name": "LSP server — parse/tokenize/typeinfo/definition/hover/diagnostics over stdio",
+          "status": "completed"
+        },
+        {
+          "id": "18.2",
+          "name": "Formatter — vfmt with idempotent rules (indent, spacing, blank-line policy)",
+          "status": "completed"
+        },
+        {
+          "id": "18.3",
+          "name": "Linter — unused names, unreachable code, shadowing, dead stores",
+          "status": "completed"
+        },
+        {
+          "id": "18.4",
+          "name": "VS Code extension — bundle 18.1–18.3, syntax highlighting, run/debug",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "name": "GUI",
+      "status": "completed",
+      "subphases": [
+        {
+          "id": "19.1",
+          "name": "Window + configuration",
+          "status": "completed"
+        },
+        {
+          "id": "19.2",
+          "name": "Window lifecycle",
+          "status": "completed"
+        },
+        {
+          "id": "19.3",
+          "name": "Events",
+          "status": "completed"
+        },
+        {
+          "id": "19.4",
+          "name": "Event loop",
+          "status": "completed"
+        },
+        {
+          "id": "19.5",
+          "name": "Widgets",
+          "status": "completed"
+        },
+        {
+          "id": "19.6",
+          "name": "Widget hierarchy",
+          "status": "completed"
+        },
+        {
+          "id": "19.7",
+          "name": "UI properties",
+          "status": "completed"
+        },
+        {
+          "id": "19.8",
+          "name": "Callbacks",
+          "status": "completed"
+        },
+        {
+          "id": "19.9",
+          "name": "Layout",
+          "status": "completed"
+        },
+        {
+          "id": "19.10",
+          "name": "UI state",
+          "status": "completed"
+        },
+        {
+          "id": "19.11",
+          "name": "Native backend integration",
+          "status": "completed"
+        },
+        {
+          "id": "19.12",
+          "name": "VM / tree backend guards",
+          "status": "completed"
+        },
+        {
+          "id": "19.13",
+          "name": "Type checking and validation",
+          "status": "completed"
+        },
+        {
+          "id": "19.14",
+          "name": "Tooling integration",
+          "status": "completed"
+        },
+        {
+          "id": "19.15",
+          "name": "Examples and tests",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "name": "Graphics 2D",
+      "status": "completed",
+      "description": "Native-only 2D graphics on top of the Phase 19 GUI window and back buffer.",
+      "subphases": [
+        {
+          "id": "20.1",
+          "name": "GDI+ foundation — canvases, primitives, fonts, colors, blit",
+          "status": "completed"
+        },
+        {
+          "id": "20.2",
+          "name": "Bitmap I/O — WIC BMP/PNG/JPG load, draw, alpha, PNG save",
+          "status": "completed"
+        },
+        {
+          "id": "20.3",
+          "name": "Transforms + clipping + fill/compositing modes",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "name": "Graphics 3D",
+      "status": "completed",
+      "description": "Software rasterizer on an offscreen canvas; optional Direct3D 11 backend at the end.",
+      "subphases": [
+        {
+          "id": "21.0",
+          "name": "Math library — Vec2/3/4, Mat4, Quat and helpers (Vayu stdlib)",
+          "status": "completed"
+        },
+        {
+          "id": "21.1",
+          "name": "Framebuffer + triangle raster",
+          "status": "completed"
+        },
+        {
+          "id": "21.2",
+          "name": "Depth buffer + shader pipeline",
+          "status": "completed"
+        },
+        {
+          "id": "21.3",
+          "name": "Texture mapping + mipmaps",
+          "status": "completed"
+        },
+        {
+          "id": "21.4",
+          "name": "Camera + lighting — Lambert + Phong",
+          "status": "completed"
+        },
+        {
+          "id": "21.5",
+          "name": "Optional GPU backend — Direct3D 11",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "name": "AI / ML",
+      "status": "completed",
+      "description": "Vayu-first tensor and ML stack with native hot loops; GPU acceleration remains optional.",
+      "subphases": [
+        {
+          "id": "22.0",
+          "name": "Tensor core — N-D arrays, broadcasting, reductions, reshape/transpose, matmul",
+          "status": "completed"
+        },
+        {
+          "id": "22.1",
+          "name": "Autodiff — reverse-mode tape",
+          "status": "completed"
+        },
+        {
+          "id": "22.2",
+          "name": "NN primitives — Parameter, Linear, activations, losses, optimizers, Sequential",
+          "status": "completed"
+        },
+        {
+          "id": "22.3",
+          "name": "ONNX model loader — read-only inference",
+          "status": "completed"
+        },
+        {
+          "id": "22.4",
+          "name": "GPU acceleration — CUDA / DirectML",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "name": "Single-binary native toolchain",
+      "status": "completed",
+      "description": "Package ecosystem and dependency management — local registry first, then HTTP, Git, and transitive resolution.",
+      "subphases": [
+        {
+          "id": "23.0",
+          "name": "Semver in nva.vyu — landed last drop",
+          "status": "completed"
+        },
+        {
+          "id": "23.1",
+          "name": "Local registry folder, nva publish-local / nva install",
+          "status": "completed"
+        },
+        {
+          "id": "23.2",
+          "name": "HTTP registry, remote publish",
+          "status": "completed"
+        },
+        {
+          "id": "23.3",
+          "name": "Git dependencies",
+          "status": "completed"
+        },
+        {
+          "id": "23.4",
+          "name": "Transitive dependency solver",
+          "status": "completed"
+        },
+        {
+          "id": "23.5",
+          "name": "Reference server — pure Vayu HTTP daemon",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "name": "Native floats",
+      "status": "completed",
+      "description": "Native Vayu currently has no real float type: values are i64, arithmetic is integer-only, and floating-point values are rounded or rejected. This phase adds native floating-point support before benchmarking.",
+      "subphases": [
+        {
+          "id": "24.0",
+          "name": "Float type + ABI — native float values, cross-backend representation, arithmetic (+ - * / // % **), comparisons, unary negate, int → float widening on mixed ops, print formatting",
+          "status": "completed"
+        },
+        {
+          "id": "24.1",
+          "name": "Math library + collections — native math.* functions, list<float>, map<str, float>, float(x), int(x), str(x) round-trips",
+          "status": "completed"
+        },
+        {
+          "id": "24.2",
+          "name": "Tensor migration — move tensor internals from Q16.16 to f32 or f64; retain Q16.16 as a compatibility layer temporarily, then retire it",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "name": "Benchmarking (Round 1, pre-VCB)",
+      "status": "skipped",
+      "description": "Benchmark suite and all planned subphases are complete, but the full Round 1 comparison is intentionally skipped for now. Benchmarking is postponed until after VCB so the published results use the final backend.",
+      "subphases": [
+        {
+          "id": "25.0",
+          "name": "Harness + control programs — runner plus arith, fib, startup",
+          "status": "completed"
+        },
+        {
+          "id": "25.1",
+          "name": "Compute-heavy set — matmul (512×512), nbody (5-body, 1M steps), mandelbrot (2000×2000)",
+          "status": "completed"
+        },
+        {
+          "id": "25.2",
+          "name": "Allocation-heavy set — string_concat (100k +=), hashmap (1M str→int insert/lookup), json_parse (10 MB), sort (10M ints)",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "name": "VCB",
+      "status": "completed",
+      "description": "Vayu Compiler Backend — a separate native backend project, progressing from a shared compiler IR and lowering pipeline to direct machine-code generation.",
+      "rootPhases": [
+        {
+          "id": "26.1",
+          "name": "Part 1: backend foundation",
+          "status": "completed",
+          "description": "Establish VCB as a separate backend with its shared IR, lowering pipeline, printer, and inspection tooling before machine-code generation.",
+          "subphases": [
+            {
+              "id": "26.1.1",
+              "name": "VCB project, IR, parser, printer, and vcb dump",
+              "status": "completed"
+            },
+            {
+              "id": "26.1.2",
+              "name": "Lowering pipeline and Vayu integration boundary",
+              "status": "completed"
+            },
+            {
+              "id": "26.1.3",
+              "name": "Deterministic .vcbir printing and inspection",
+              "status": "completed"
+            }
           ]
         },
         {
-          "id":"26.2",
-          "name":"Part 2: native code generation",
-          "status":"completed",
-          "description":"Complete the VCB native backend and move Vayu from the QBE + gcc pipeline to direct VCB-built binaries.",
-          "subphases":[
-            {"id":"26.2.1","name":"x86-64 integer codegen, PE writer, vcb build","status":"completed"},
-            {"id":"26.2.2","name":"Control flow in x64: jmp/br/phi, block labels, alloca/load/store, setcc fix","status":"completed"},
-            {"id":"26.2.3","name":"Runtime intrinsics; multi-import .idata; gcc-free pipeline","status":"completed"},
-            {"id":"26.2.4","name":"Vayu AST → VCB IR: int arithmetic, def/return, print/exit","status":"completed"},
-            {"id":"26.2.5","name":"Vayu AST → VCB IR: if/elif/else, while, for-range, break/continue","status":"completed"},
-            {"id":"26.2.6","name":"Bool printing, string literals, .text-tail string section, vayu_print_str; awaiting Step 3 verification","status":"completed"},
-            {"id":"26.2.7","name":"Floats: fadd/fsub/fmul/fdiv, comparisons, sitof/fptosi, vayu_print_float","status":"completed"},
-            {"id":"26.2.8","name":"Lists + maps","status":"completed"},
-            {"id":"26.2.9","name":"Classes + methods + inheritance","status":"completed"},
-            {"id":"26.2.10","name":"Cutover: VCB default; QBE+gcc opt-in fallback","status":"completed"}
+          "id": "26.2",
+          "name": "Part 2: native code generation",
+          "status": "completed",
+          "description": "Complete the VCB native backend and move Vayu from the QBE + gcc pipeline to direct VCB-built binaries.",
+          "subphases": [
+            {
+              "id": "26.2.1",
+              "name": "x86-64 integer codegen, PE writer, vcb build",
+              "status": "completed"
+            },
+            {
+              "id": "26.2.2",
+              "name": "Control flow in x64: jmp/br/phi, block labels, alloca/load/store, setcc fix",
+              "status": "completed"
+            },
+            {
+              "id": "26.2.3",
+              "name": "Runtime intrinsics; multi-import .idata; gcc-free pipeline",
+              "status": "completed"
+            },
+            {
+              "id": "26.2.4",
+              "name": "Vayu AST → VCB IR: int arithmetic, def/return, print/exit",
+              "status": "completed"
+            },
+            {
+              "id": "26.2.5",
+              "name": "Vayu AST → VCB IR: if/elif/else, while, for-range, break/continue",
+              "status": "completed"
+            },
+            {
+              "id": "26.2.6",
+              "name": "Bool printing, string literals, .text-tail string section, vayu_print_str; awaiting Step 3 verification",
+              "status": "completed"
+            },
+            {
+              "id": "26.2.7",
+              "name": "Floats: fadd/fsub/fmul/fdiv, comparisons, sitof/fptosi, vayu_print_float",
+              "status": "completed"
+            },
+            {
+              "id": "26.2.8",
+              "name": "Lists + maps",
+              "status": "completed"
+            },
+            {
+              "id": "26.2.9",
+              "name": "Classes + methods + inheritance",
+              "status": "completed"
+            },
+            {
+              "id": "26.2.10",
+              "name": "Cutover: VCB default; QBE+gcc opt-in fallback",
+              "status": "completed"
+            }
           ]
         }
       ]
     },
     {
-      "id":27,
-      "name":"VCB native backend: Linux runtime + PE correctness",
-      "status":"working",
-      "description":"Active VCB work. Phase 27 Parts 1 through 12 are complete. Parts 13 and 14 are currently in progress.",
-      "subphases":[
-        {"id":"27.1","name":"Part 1: ELF writer, Linux syscall runtime (subset)","status":"completed"},
-        {"id":"27.2","name":"Part 2: Linux heap (brk bump), list + map + string-method runtime","status":"completed"},
-        {"id":"27.3","name":"Part 3: PE padding heuristic","status":"completed"},
-        {"id":"27.4","name":"Part 4: DYNAMIC_BASE disabled, dynamic sections, shadow space in vayu_exit","status":"completed"},
-        {"id":"27.5","name":"Part 5: Minimal .reloc + ASLR re-enabled","status":"completed"},
-        {"id":"27.6","name":"Part 6: .pdata / .xdata","status":"completed"},
-        {"id":"27.7","name":"Part 7: kernel32 heap APIs","status":"completed"},
-        {"id":"27.8","name":"Part 8: Linux vayu_print_float","status":"completed"},
-        {"id":"27.9","name":"Part 9: Always emit .rdata, always pad, RELOCS_STRIPPED + ASLR off","status":"completed"},
-        {"id":"Diagnosis","name":"Diagnosis: Block identified as inbox WDAC (VerifiedAndReputableDesktop)","status":"completed"},
-        {"id":"27.10","name":"Part 10: vcb sign / vcb verify / vcb build --sign","status":"completed"},
-        {"id":"27.11","name":"Part 11: WDAC supplemental policy generator (New-CIPolicy -Level Hash/Publisher), self-signed VerifiedAndReputableDesktop explanation, deployment steps","status":"completed"},
-        {"id":"27.12","name":"Part 12: Import-table construction moved from X64.cpp into writePe; runtime emitter .pdata entries; UnwindEntry extended to cover runtime functions","status":"completed"},
-        {"id":"27.13","name":"Part 13: Consolidate Asm / FunctionEmitter into X64Common.hpp","status":"working"},
-        {"id":"27.14","name":"Part 14: PE + Linux test matrix (11 programs, both targets)","status":"working"}
+      "id": 27,
+      "name": "VCB native backend: PE/ELF correctness, runtime and validation",
+      "status": "working",
+      "description": "Active VCB backend work. Parts 1–14 are complete. Parts 15 and 16 are the current drop. Part 17 is next.",
+      "subphases": [
+        {
+          "id": "27.1",
+          "name": "Part 1: ELF writer, Linux syscall runtime (subset)",
+          "status": "completed"
+        },
+        {
+          "id": "27.2",
+          "name": "Part 2: Linux heap (brk bump), list + map + string-method runtime",
+          "status": "completed"
+        },
+        {
+          "id": "27.3",
+          "name": "Part 3: PE padding heuristic",
+          "status": "completed"
+        },
+        {
+          "id": "27.4",
+          "name": "Part 4: DYNAMIC_BASE disabled, dynamic sections, shadow space",
+          "status": "completed"
+        },
+        {
+          "id": "27.5",
+          "name": "Part 5: Minimal .reloc; ASLR re-enabled",
+          "status": "completed"
+        },
+        {
+          "id": "27.6",
+          "name": "Part 6: .pdata / .xdata for user functions and entry stub",
+          "status": "completed"
+        },
+        {
+          "id": "27.7",
+          "name": "Part 7: kernel32 heap APIs",
+          "status": "completed"
+        },
+        {
+          "id": "27.8",
+          "name": "Part 8: Linux vayu_print_float",
+          "status": "completed"
+        },
+        {
+          "id": "27.9",
+          "name": "Part 9: Always emit .rdata, always pad, RELOCS_STRIPPED + ASLR off",
+          "status": "completed"
+        },
+        {
+          "id": "Diagnosis",
+          "name": "Diagnosis: Block identified as inbox WDAC (VerifiedAndReputableDesktop)",
+          "status": "completed"
+        },
+        {
+          "id": "27.10",
+          "name": "Part 10: vcb sign / vcb verify / vcb build --sign",
+          "status": "completed"
+        },
+        {
+          "id": "27.11",
+          "name": "Part 11: WDAC supplemental policy requires -UserPEs and a Microsoft-trusted signer; full fix requires a CA cert or a machine without the inbox policy",
+          "status": "working"
+        },
+        {
+          "id": "27.12",
+          "name": "Part 12: Import-table construction stays in X64.cpp for now; runtime .pdata deferred to Part 15",
+          "status": "completed"
+        },
+        {
+          "id": "27.13",
+          "name": "Part 13: X64Common.hpp extracted; X64.cpp reduced to thin wrapper",
+          "status": "completed"
+        },
+        {
+          "id": "27.14",
+          "name": "Part 14: PE test matrix (11 programs) — t10 fixed this drop",
+          "status": "completed"
+        },
+        {
+          "id": "27.15",
+          "name": "Part 15: Runtime .pdata via emitRuntime(..., &unwindEntries); .xdata built from all entries",
+          "status": "working"
+        },
+        {
+          "id": "27.16",
+          "name": "Part 16: tests/elf_matrix.ps1 for Linux ELF validation",
+          "status": "working"
+        },
+        {
+          "id": "27.17",
+          "name": "Part 17: Move import-table construction into writePe; Linux .eh_frame equivalent of .pdata for ELF",
+          "status": "soon"
+        }
       ]
     },
     {
-      "id":28,
-      "name":"Full benchmarking on VCB-built binaries",
-      "status":"soon",
-      "description":"Run the full benchmark harness after VCB-built binaries are ready.",
-      "subphases":[
-        {"id":"28.0","name":"Full benchmark suite — Vayu VCB-built binaries against C++, Java, and Python","status":"soon"},
-        {"id":"28.1","name":"Before/after comparison — compare VCB results with the postponed QBE-era baseline when available","status":"soon"},
-        {"id":"28.2","name":"Publish benchmark summary and regression analysis","status":"soon"}
+      "id": 28,
+      "name": "Full benchmarking on VCB-built binaries",
+      "status": "soon",
+      "description": "Run the full benchmark harness after VCB-built binaries are ready.",
+      "subphases": [
+        {
+          "id": "28.0",
+          "name": "Full benchmark suite — Vayu VCB-built binaries against C++, Java, and Python",
+          "status": "soon"
+        },
+        {
+          "id": "28.1",
+          "name": "Before/after comparison — compare VCB results with the postponed QBE-era baseline when available",
+          "status": "soon"
+        },
+        {
+          "id": "28.2",
+          "name": "Publish benchmark summary and regression analysis",
+          "status": "soon"
+        }
       ]
     },
     {
-      "id":29,
-      "name":"Version cut",
-      "status":"soon",
-      "description":"Cut the VCB-era release after backend integration and benchmarking.",
-      "subphases":[
-        {"id":"29.0","name":"Bundle VCB-era toolchain and runtime for supported platforms","status":"soon"},
-        {"id":"29.1","name":"Retire QBE + gcc from the native toolchain documentation and packaging","status":"soon"},
-        {"id":"29.2","name":"Publish benchmark results and tag the release","status":"soon"}
+      "id": 29,
+      "name": "Version cut",
+      "status": "soon",
+      "description": "Cut the VCB-era release after backend integration and benchmarking.",
+      "subphases": [
+        {
+          "id": "29.0",
+          "name": "Bundle VCB-era toolchain and runtime for supported platforms",
+          "status": "soon"
+        },
+        {
+          "id": "29.1",
+          "name": "Retire QBE + gcc from the native toolchain documentation and packaging",
+          "status": "soon"
+        },
+        {
+          "id": "29.2",
+          "name": "Publish benchmark results and tag the release",
+          "status": "soon"
+        }
       ]
     },
     {
-      "id":30,
-      "name":"30+ open",
-      "status":"open",
-      "description":"Open future work: BigFloat; shaders; escape analysis 8.1–8.3; multi-input ONNX; GPU tensor; Adam/softmax."
+      "id": 30,
+      "name": "30+ open",
+      "status": "open",
+      "description": "Open future work: BigFloat; shaders; escape analysis 8.1–8.3; multi-input ONNX; GPU tensor; Adam/softmax."
     }
   ]
 }
