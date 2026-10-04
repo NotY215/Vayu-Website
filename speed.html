@@ -32,7 +32,7 @@
 <span class="kicker">Speed & benchmark plan</span>
 <h1>Benchmark after the backend transition.</h1>
 <p class="lead">Phase 25 benchmarking was deliberately postponed. This page now documents the expected benchmark targets and the measurement plan for Phase 28, when the VCB-built binaries are ready.</p>
-<div class="page-phase"><span class="dot"></span><span data-phase-badge>PHASE 27 · IN DEVELOPMENT</span></div>
+<div class="page-phase"><span class="dot"></span><span data-phase-badge>PHASE 27 · ACTIVE</span></div>
 </div></section>
 
 <section class="pt-20"><div class="container">
@@ -43,9 +43,9 @@
 </div>
 
 <div class="expect-grid mt-32">
-<article class="card expect-card reveal"><h3>fib(30)</h3><p class="muted">Recursive call-heavy workload.</p><div class="expect-value">Target: near native baseline</div><div class="expect-meter"><i style="--w:82%"></i></div><p class="bench-note muted">Measure Vayu VCB vs C++ and CPython with identical inputs and compiler settings.</p></article>
-<article class="card expect-card reveal"><h3>50M integer loop</h3><p class="muted">Tight arithmetic and control-flow workload.</p><div class="expect-value">Target: native-scale execution</div><div class="expect-meter"><i style="--w:88%"></i></div><p class="bench-note muted">Measure loop lowering, register allocation and runtime overhead after VCB integration.</p></article>
-<article class="card expect-card reveal"><h3>5M OOP</h3><p class="muted">Allocation, mutation and method dispatch workload.</p><div class="expect-value">Target: reduce allocation gap</div><div class="expect-meter"><i style="--w:62%"></i></div><p class="bench-note muted">Track object allocation, method calls and future escape-analysis improvements separately.</p></article>
+<article class="card expect-card reveal"><h3>fib(30)</h3><p class="muted">Recursive call-heavy workload.</p><div class="expect-value">Target: measured native baseline</div><div class="expect-meter"><i style="--w:100%"></i></div><p class="bench-note muted">Measure Vayu VCB vs C++ and CPython with identical inputs and compiler settings.</p></article>
+<article class="card expect-card reveal"><h3>50M integer loop</h3><p class="muted">Tight arithmetic and control-flow workload.</p><div class="expect-value">Target: native-scale execution</div><div class="expect-meter"><i style="--w:100%"></i></div><p class="bench-note muted">Measure loop lowering, register allocation and runtime overhead after VCB integration.</p></article>
+<article class="card expect-card reveal"><h3>5M OOP</h3><p class="muted">Allocation, mutation and method dispatch workload.</p><div class="expect-value">Target: reduce allocation gap</div><div class="expect-meter"><i style="--w:100%"></i></div><p class="bench-note muted">Track object allocation, method calls and future escape-analysis improvements separately.</p></article>
 </div>
 
 <div class="card reveal mt-32">
@@ -101,7 +101,7 @@
 <p class="muted mt-20">The goal of this page is to make the benchmark process transparent while the final numbers are still pending.</p>
 </div>
 
-<div class="callout reveal mt-32"><h2>Current status</h2><p class="muted">Phase 27 is still focused on VCB native correctness and runtime coverage. Once that work is complete, Phase 28 will replace these expected targets with measured results.</p><a class="btn primary" href="/roadmap/">View Roadmap</a></div>
+<div class="callout reveal mt-32"><h2>Current status</h2><p class="muted">Phase 27 is now in backend validation and unwind/runtime work. Phase 28 remains the benchmark phase and will replace these targets with measured VCB results.</p><a class="btn primary" href="/roadmap/">View Roadmap</a></div>
 </div></section>
 </main>
 <div id="slot-footer"></div><div id="slot-modal-examples"></div><div id="slot-modal-github"></div>
