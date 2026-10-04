@@ -80,7 +80,7 @@
     <span class="kicker">Documentation</span>
     <h1>Vayu language and VCB backend reference</h1>
     <p class="lead doc-lead">Technical documentation for the current Vayu frontend and VCB native backend. Content tracks the repositories that implement the language, compiler, and executable generation paths.</p>
-    <div class="page-phase"><span class="dot"></span><span data-phase-badge>PHASE 27 · IN DEVELOPMENT</span></div>
+    <div class="page-phase"><span class="dot"></span><span data-phase-badge>PHASE 27 · ACTIVE</span></div>
   </div>
 </section>
 
@@ -124,7 +124,7 @@
   <div class="doc-kv">
     <div>Source language</div><div>Vayu (<code>.vyu</code>)</div>
     <div>Backend IR</div><div>VCBIR (<code>.vcbir</code>)</div>
-    <div>Native backend</div><div>VCB 0.3.5, Phase 27 Part 3</div>
+    <div>Native backend</div><div>VCB 0.5.3, Phase 27 Parts 15+16</div>
     <div>Machine target</div><div>x86-64</div>
     <div>Object formats</div><div>Windows PE, Linux ELF64</div>
     <div>Frontend stack</div><div>Lexer, parser, AST, semantic checker, bytecode VM, native lowering</div>
@@ -591,38 +591,51 @@ cmake --build build
 
 <section id="coverage" class="doc-section reveal">
   <h2>10. Implementation coverage</h2>
-  <p>Relative maturity of major subsystems in the current repositories. Values describe implementation completeness, not ecosystem size relative to established languages.</p>
-
-  <div class="coverage-bars">
-    <div class="coverage-row"><span>Core language</span><div class="bar-track"><div class="bar-fill" style="--w:92%"></div></div><b>92%</b></div>
-    <div class="coverage-row"><span>Type system</span><div class="bar-track"><div class="bar-fill" style="--w:88%"></div></div><b>88%</b></div>
-    <div class="coverage-row"><span>Collections</span><div class="bar-track"><div class="bar-fill" style="--w:90%"></div></div><b>90%</b></div>
-    <div class="coverage-row"><span>OOP / structs</span><div class="bar-track"><div class="bar-fill" style="--w:86%"></div></div><b>86%</b></div>
-    <div class="coverage-row"><span>Bytecode VM</span><div class="bar-track"><div class="bar-fill" style="--w:84%"></div></div><b>84%</b></div>
-    <div class="coverage-row"><span>VCBIR / codegen</span><div class="bar-track"><div class="bar-fill" style="--w:78%"></div></div><b>78%</b></div>
-    <div class="coverage-row"><span>PE target</span><div class="bar-track"><div class="bar-fill" style="--w:82%"></div></div><b>82%</b></div>
-    <div class="coverage-row"><span>ELF target</span><div class="bar-track"><div class="bar-fill" style="--w:76%"></div></div><b>76%</b></div>
-    <div class="coverage-row"><span>C FFI</span><div class="bar-track"><div class="bar-fill" style="--w:80%"></div></div><b>80%</b></div>
-    <div class="coverage-row"><span>CPython bridge</span><div class="bar-track"><div class="bar-fill" style="--w:72%"></div></div><b>72%</b></div>
-    <div class="coverage-row"><span>Editor tooling</span><div class="bar-track"><div class="bar-fill" style="--w:70%"></div></div><b>70%</b></div>
-    <div class="coverage-row"><span>Package manager</span><div class="bar-track"><div class="bar-fill" style="--w:55%"></div></div><b>55%</b></div>
+  <p>The current implementation is described by capability and validation status rather than arbitrary completion percentages.</p>
+  <div class="doc-grid-3">
+    <article class="doc-card"><h4>Frontend</h4><p>Vayu owns parsing, semantic analysis, language execution paths, tooling, and lowering into VCBIR.</p></article>
+    <article class="doc-card"><h4>IR</h4><p>VCBIR provides typed SSA-style values, blocks, control flow, memory operations, calls, conversions, strings, and floating-point operations.</p></article>
+    <article class="doc-card"><h4>Native targets</h4><p>VCB emits x86-64 Windows PE and Linux ELF images directly.</p></article>
+    <article class="doc-card"><h4>Windows runtime</h4><p>Demand-driven runtime emission, kernel32 heap APIs, imports, PE layout validation, signing, and x64 unwind metadata.</p></article>
+    <article class="doc-card"><h4>Linux runtime</h4><p>Syscall output, brk-based allocation, list/map/string helpers, float printing, and ELF validation.</p></article>
+    <article class="doc-card"><h4>Validation</h4><p>The PE matrix covers 11 programs. The current drop adds repeatable Linux validation through <code>tests\\elf_matrix.ps1</code>.</p></article>
   </div>
 </section>
 
 <section id="status" class="doc-section reveal">
   <h2>11. Development status</h2>
+  <div class="callout reveal">
+    <div class="eyebrow"><span class="dev-dot"></span><span>Phase 27 · active backend development</span></div>
+    <h3>Current drop: Parts 15 + 16</h3>
+    <p>Parts 1–14 are complete. Parts 15 and 16 extend runtime unwind coverage and add repeatable ELF-side validation. Part 17 is next.</p>
+  </div>
   <div class="doc-table-wrap">
     <table class="doc-table">
       <thead><tr><th>Phase</th><th>Scope</th><th>Status</th></tr></thead>
       <tbody>
-        <tr><td>1-24</td><td>Core language, runtime, tooling, graphics foundations, package direction, native floats</td><td>Completed</td></tr>
-        <tr><td>25</td><td>Benchmark suite on VCB-built binaries</td><td>Deferred until VCB path is complete</td></tr>
-        <tr><td>26 Part 1</td><td>VCB project, IR, parser, printer, <code>vcb dump</code></td><td>Completed</td></tr>
-        <tr><td>26 Part 2</td><td>x86-64 codegen, PE and ELF writers, Vayu native path switched to VCB</td><td>Completed</td></tr>
-        <tr><td>27 Part 1</td><td>ELF writer, Linux syscall subset, <code>--target elf</code>, <code>vcb elfheaders</code></td><td>Completed</td></tr>
-        <tr><td>27 Part 2</td><td>Linux heap, list and map runtime, string methods, collection printing</td><td>Completed</td></tr>
-        <tr><td>27 Part 3</td><td>Linux float printing, PE padding, shared emitter headers</td><td>Active</td></tr>
-        <tr><td>28</td><td>Full benchmarking on VCB-built binaries</td><td>Planned</td></tr>
+        <tr><td>1–24</td><td>Language, runtime, tooling, GUI/graphics, package ecosystem, AI/ML foundations, and native floats</td><td>Completed</td></tr>
+        <tr><td>25</td><td>Pre-VCB benchmark round</td><td>Skipped for now</td></tr>
+        <tr><td>26 Part 1</td><td>VCB project, VCBIR, parser, printer, lowering boundary, and <code>vcb dump</code></td><td>Completed</td></tr>
+        <tr><td>26 Part 2</td><td>x86-64 native code generation, PE/ELF writers, runtime integration, and Vayu native backend transition</td><td>Completed</td></tr>
+        <tr><td>27 Part 1</td><td>ELF writer and Linux syscall runtime subset</td><td>Done</td></tr>
+        <tr><td>27 Part 2</td><td>Linux brk allocator, list/map runtime, string methods</td><td>Done</td></tr>
+        <tr><td>27 Part 3</td><td>PE padding heuristic</td><td>Done</td></tr>
+        <tr><td>27 Part 4</td><td><code>DYNAMIC_BASE</code> disabled, dynamic sections, shadow space</td><td>Done</td></tr>
+        <tr><td>27 Part 5</td><td>Minimal <code>.reloc</code>; ASLR re-enabled</td><td>Done</td></tr>
+        <tr><td>27 Part 6</td><td><code>.pdata</code> / <code>.xdata</code> for user functions and entry stub</td><td>Done</td></tr>
+        <tr><td>27 Part 7</td><td>kernel32 heap APIs</td><td>Done</td></tr>
+        <tr><td>27 Part 8</td><td>Linux <code>vayu_print_float</code></td><td>Done</td></tr>
+        <tr><td>27 Part 9</td><td>Always emit <code>.rdata</code>, always pad, <code>RELOCS_STRIPPED</code> + ASLR off</td><td>Done</td></tr>
+        <tr><td>Diagnosis</td><td>Inbox WDAC <code>VerifiedAndReputableDesktop</code> block identified</td><td>Done</td></tr>
+        <tr><td>27 Part 10</td><td><code>vcb sign</code>, <code>vcb verify</code>, and <code>vcb build --sign</code></td><td>Done</td></tr>
+        <tr><td>27 Part 11</td><td>WDAC supplemental policy requires <code>-UserPEs</code> and a Microsoft-trusted signer; full remediation remains environment-dependent</td><td>Partial</td></tr>
+        <tr><td>27 Part 12</td><td>Import-table construction stays in <code>X64.cpp</code>; runtime <code>.pdata</code> deferred to Part 15</td><td>Done</td></tr>
+        <tr><td>27 Part 13</td><td><code>X64Common.hpp</code> extracted; <code>X64.cpp</code> reduced to a thin wrapper</td><td>Done</td></tr>
+        <tr><td>27 Part 14</td><td>PE test matrix covering 11 programs; <code>t10</code> fixed</td><td>Done</td></tr>
+        <tr><td>27 Part 15</td><td>Runtime <code>.pdata</code> via <code>emitRuntime(..., &amp;unwindEntries)</code>; <code>.xdata</code> built from all entries</td><td>Current drop</td></tr>
+        <tr><td>27 Part 16</td><td><code>tests\\elf_matrix.ps1</code> for Linux ELF validation</td><td>Current drop</td></tr>
+        <tr><td>27 Part 17</td><td>Move import-table construction into <code>writePe</code>; Linux <code>.eh_frame</code> equivalent of <code>.pdata</code> for ELF</td><td>Next</td></tr>
+        <tr><td>28</td><td>Full benchmark round on VCB-built binaries</td><td>Planned</td></tr>
         <tr><td>29</td><td>Version cut</td><td>Planned</td></tr>
       </tbody>
     </table>
