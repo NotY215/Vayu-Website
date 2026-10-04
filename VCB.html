@@ -37,11 +37,11 @@
 <span class="kicker">Vayu Compiler Backend</span>
 <h1>VCB turns VCBIR into native executables.</h1>
 <p class="lead">VCB is a standalone C++20 backend for Vayu. Vayu owns .vyu source and frontend analysis. VCB consumes .vcbir and emits x86-64 native images.</p>
-<div class="vcb-chip-row"><span class="vcb-chip">C++20</span><span class="vcb-chip">x86-64</span><span class="vcb-chip">PE</span><span class="vcb-chip">ELF64</span><span class="vcb-chip">VCBIR</span><span class="vcb-chip">0.3.5</span></div>
+<div class="vcb-chip-row"><span class="vcb-chip">C++20</span><span class="vcb-chip">x86-64</span><span class="vcb-chip">PE</span><span class="vcb-chip">ELF64</span><span class="vcb-chip">VCBIR</span><span class="vcb-chip">0.5.3</span></div>
 </div>
 <div><img class="vcb-banner" src="https://raw.githubusercontent.com/NotY215/VCB/master/Assets/VCB_banner.svg" alt="VCB banner"></div>
 </div>
-<div class="page-phase"><span class="dot"></span><span data-phase-badge>PHASE 27 · IN DEVELOPMENT</span></div>
+<div class="page-phase"><span class="dot"></span><span data-phase-badge>PHASE 27 · ACTIVE</span></div>
 </div></section>
 
 <section class="pt-20"><div class="container">
@@ -68,13 +68,13 @@
 </div>
 
 <div class="grid mt-32">
-<article class="card reveal"><div class="icon">◇</div><h3>Current backend</h3><p class="muted">VCBIR parsing and printing, typed SSA-style IR, x86-64 code generation, runtime emission and direct PE/ELF writing.</p></article>
-<article class="card reveal"><div class="icon">⚡</div><h3>Runtime</h3><p class="muted">Demand-driven helpers, Windows imports, Linux syscalls, brk-based allocation, list/map support and string/collection printing.</p></article>
+<article class="card reveal"><div class="icon">◇</div><h3>Current backend</h3><p class="muted">VCBIR parsing and printing, typed SSA-style IR, x86-64 code generation, demand-driven runtime emission, unwind metadata, and direct PE/ELF writing.</p></article>
+<article class="card reveal"><div class="icon">⚡</div><h3>Runtime</h3><p class="muted">Demand-driven runtime emission, Windows heap APIs, Linux syscalls and brk allocation, collection helpers, float printing, and x64 unwind metadata.</p></article>
 <article class="card reveal"><div class="icon">⌘</div><h3>Inspection</h3><p class="muted">Use vcb dump for IR inspection, vcb headers for PE validation and vcb elfheaders for ELF structure inspection.</p></article>
 </div>
 
 <div class="card reveal mt-32">
-<div class="flex-row-between"><div><h2>Detailed documentation</h2><p class="muted">Architecture, VCBIR, code generation, runtime coverage, native targets, commands and the current roadmap are documented here.</p></div><a class="btn primary" href="/docs/">Open Documentation</a></div>
+<div class="flex-row-between"><div><h2>Detailed documentation</h2><p class="muted">Architecture, VCBIR, code generation, runtime coverage, PE/ELF layout, signing, unwind metadata, commands, tests, and the current roadmap are documented here.</p></div><a class="btn primary" href="/docs/">Open Documentation</a></div>
 </div>
 
 <div class="card reveal vcb-readme">
