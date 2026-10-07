@@ -80,7 +80,7 @@
     <span class="kicker">Documentation</span>
     <h1>Vayu language and VCB backend reference</h1>
     <p class="lead doc-lead">Technical documentation for the current Vayu frontend and VCB native backend. Content tracks the repositories that implement the language, compiler, and executable generation paths.</p>
-    <div class="page-phase"><span class="dot"></span><span data-phase-badge>PHASE 27 · ACTIVE</span></div>
+    <div class="page-phase"><span class="dot"></span><span data-phase-badge>PHASE 28 · ACTIVE</span></div>
   </div>
 </section>
 
@@ -632,11 +632,27 @@ cmake --build build
         <tr><td>27 Part 12</td><td>Import-table construction stays in <code>X64.cpp</code>; runtime <code>.pdata</code> deferred to Part 15</td><td>Done</td></tr>
         <tr><td>27 Part 13</td><td><code>X64Common.hpp</code> extracted; <code>X64.cpp</code> reduced to a thin wrapper</td><td>Done</td></tr>
         <tr><td>27 Part 14</td><td>PE test matrix covering 11 programs; <code>t10</code> fixed</td><td>Done</td></tr>
-        <tr><td>27 Part 15</td><td>Runtime <code>.pdata</code> via <code>emitRuntime(..., &amp;unwindEntries)</code>; <code>.xdata</code> built from all entries</td><td>Current drop</td></tr>
-        <tr><td>27 Part 16</td><td><code>tests\\elf_matrix.ps1</code> for Linux ELF validation</td><td>Current drop</td></tr>
-        <tr><td>27 Part 17</td><td>Move import-table construction into <code>writePe</code>; Linux <code>.eh_frame</code> equivalent of <code>.pdata</code> for ELF</td><td>Next</td></tr>
-        <tr><td>28</td><td>Full benchmark round on VCB-built binaries</td><td>Planned</td></tr>
-        <tr><td>29</td><td>Version cut</td><td>Planned</td></tr>
+        <tr><td>27 Part 15</td><td>Runtime <code>.pdata</code> via <code>emitRuntime(..., &amp;unwindEntries)</code>; <code>.xdata</code> built from all entries</td><td>Done</td></tr>
+        <tr><td>27 Part 16</td><td><code>tests\\elf_matrix.ps1</code> for Linux ELF validation</td><td>Done</td></tr>
+        <tr><td>27 Part 17</td><td>Import-table construction moved into <code>writePe</code>; Linux <code>.eh_frame</code> equivalent of <code>.pdata</code> for ELF</td><td>Done</td></tr>
+        <tr><td>28.0</td><td>Preparation: fix <code>run_all.ps1</code> line 214 last-line stderr</td><td>Prep</td></tr>
+<tr><td>28.1</td><td>COFF <code>.obj</code> emitter + <code>vcb emit-obj</code></td><td>Queued</td></tr>
+<tr><td>28.2</td><td>ELF <code>.o</code> emitter</td><td>Queued</td></tr>
+<tr><td>28.3</td><td><code>vcb link</code> with <code>lld-link</code> / <code>ld.lld</code> dispatch</td><td>Queued</td></tr>
+<tr><td>28.4</td><td><code>vayuc --native</code> external-link default</td><td>Queued</td></tr>
+<tr><td>28.5</td><td>VcbLower builtin guard</td><td>Queued</td></tr>
+        <tr><td>29</td><td>MAC policy templates</td><td>Queued</td></tr>
+<tr><td>30</td><td>Small VcbLower additions</td><td>Queued</td></tr>
+<tr><td>31</td><td>Tuples, sets, slicing</td><td>Queued</td></tr>
+<tr><td>32</td><td>Classes, structs, inheritance</td><td>Queued</td></tr>
+<tr><td>33</td><td>Lambdas, closures</td><td>Queued</td></tr>
+<tr><td>34</td><td>Exceptions</td><td>Queued</td></tr>
+<tr><td>35</td><td>Pointers, FFI</td><td>Queued</td></tr>
+<tr><td>36</td><td>Modules and stdlib</td><td>Queued</td></tr>
+<tr><td>37</td><td><code>.text</code> size limit removal</td><td>Queued</td></tr>
+<tr><td>38</td><td>Self-hosting on VCB IR</td><td>Queued</td></tr>
+<tr><td>39</td><td>Full benchmark suite</td><td>Queued</td></tr>
+<tr><td>40</td><td>Version cut</td><td>Queued</td></tr>
       </tbody>
     </table>
   </div>
