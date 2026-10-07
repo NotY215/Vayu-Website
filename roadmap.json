@@ -18,8 +18,8 @@
   },
   "repo": "NotY215/Vayu",
   "site": "https://vayu.gt.tc",
-  "updated": "2026-10-04",
-  "currentPhase": 27,
+  "updated": "2026-10-07",
+  "currentPhase": 28,
   "phases": [
     {
       "id": 1,
@@ -1074,23 +1074,18 @@
     },
     {
       "id": 28,
-      "name": "Full benchmarking on VCB-built binaries",
-      "status": "soon",
-      "description": "Run the full benchmark harness after VCB-built binaries are ready.",
+      "name": "VCB benchmarking",
+      "status": "working",
+      "description": "Benchmark infrastructure and the postponed performance suite, now running against VCB-built binaries.",
       "subphases": [
         {
-          "id": "28.0",
-          "name": "Full benchmark suite — Vayu VCB-built binaries against C++, Java, and Python",
-          "status": "soon"
-        },
-        {
           "id": "28.1",
-          "name": "Before/after comparison — compare VCB results with the postponed QBE-era baseline when available",
-          "status": "soon"
+          "name": "Part 1: VCB benchmark infrastructure and baseline cases",
+          "status": "working"
         },
         {
           "id": "28.2",
-          "name": "Publish benchmark summary and regression analysis",
+          "name": "Part 2: Benchmark suite with checkpointed runner",
           "status": "soon"
         }
       ]
@@ -1099,16 +1094,16 @@
       "id": 29,
       "name": "Version cut",
       "status": "soon",
-      "description": "Cut the VCB-era release after backend integration and benchmarking.",
+      "description": "Cut the post-benchmark VCB-era version and finalize the supported native toolchain.",
       "subphases": [
         {
           "id": "29.0",
-          "name": "Bundle VCB-era toolchain and runtime for supported platforms",
+          "name": "Release preparation and VCB-era toolchain packaging",
           "status": "soon"
         },
         {
           "id": "29.1",
-          "name": "Retire QBE + gcc from the native toolchain documentation and packaging",
+          "name": "Retire QBE + gcc from native toolchain documentation and packaging",
           "status": "soon"
         },
         {
@@ -1120,9 +1115,45 @@
     },
     {
       "id": 30,
-      "name": "30+ open",
-      "status": "open",
-      "description": "Open future work: BigFloat; shaders; escape analysis 8.1–8.3; multi-input ONNX; GPU tensor; Adam/softmax."
+      "name": "Structs + classes + inheritance in VCB",
+      "status": "planned",
+      "description": "Complete native VCB support for Vayu object and aggregate semantics.",
+      "subphases": []
+    },
+    {
+      "id": 31,
+      "name": "Exceptions in VCB",
+      "status": "planned",
+      "description": "Add native exception lowering, runtime support, and unwinding integration in VCB.",
+      "subphases": []
+    },
+    {
+      "id": 32,
+      "name": "Generators in VCB",
+      "status": "planned",
+      "description": "Add native generator lowering and runtime state management in VCB.",
+      "subphases": []
+    },
+    {
+      "id": 33,
+      "name": "Lambdas / closures in VCB",
+      "status": "planned",
+      "description": "Add native closure representation, capture handling, and callable lowering in VCB.",
+      "subphases": []
+    },
+    {
+      "id": 34,
+      "name": "Tuples, sets, slicing, range and string dispatch in VCB",
+      "status": "planned",
+      "description": "Add native VCB support for tuples, sets, slicing, range(a,b,c), and str(x) dispatch.",
+      "subphases": []
+    },
+    {
+      "id": 35,
+      "name": "VCB self-hosting",
+      "status": "planned",
+      "description": "Self-host Vayu on VCB IR and re-enable the fixpoint path in the compiler harness.",
+      "subphases": []
     }
   ]
 }
