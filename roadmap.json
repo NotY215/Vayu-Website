@@ -1074,85 +1074,195 @@
     },
     {
       "id": 28,
-      "name": "VCB benchmarking",
+      "name": "Object emission + external linking",
       "status": "working",
-      "description": "Benchmark infrastructure and the postponed performance suite, now running against VCB-built binaries.",
+      "description": "Replace the embedded executable path with a conventional object-emission and external-link pipeline, while retaining embedded linking as a compatibility path.",
       "subphases": [
         {
           "id": "28.1",
-          "name": "Part 1: VCB benchmark infrastructure and baseline cases",
-          "status": "working"
+          "name": "COFF .obj emitter on Windows: sections, symbols, relocations, no executable headers",
+          "status": "soon"
         },
         {
           "id": "28.2",
-          "name": "Part 2: Benchmark suite with checkpointed runner",
+          "name": "ELF .o emitter on Linux: sections, .rela.text, .symtab, .strtab",
+          "status": "soon"
+        },
+        {
+          "id": "28.3",
+          "name": "vcb emit-obj <file.vcbir> -o out.obj subcommand",
+          "status": "soon"
+        },
+        {
+          "id": "28.4",
+          "name": "vcb link <file.obj> -o out.exe wrapper: discover link.exe, lld-link, gcc, or clang and invoke the matching linker",
+          "status": "soon"
+        },
+        {
+          "id": "28.5",
+          "name": "vayuc --native --link=external as the NativeCompiler default; retain --link=embedded for the current path",
+          "status": "soon"
+        },
+        {
+          "id": "28.6",
+          "name": "VcbLower builtin guard: unknown Vayu builtins fail during lowering instead of emitting unresolved calls",
           "status": "soon"
         }
       ]
     },
     {
       "id": 29,
-      "name": "Version cut",
+      "name": "MAC compliance helpers",
       "status": "soon",
-      "description": "Cut the post-benchmark VCB-era version and finalize the supported native toolchain.",
+      "description": "Provide policy templates and documentation only. VCB does not bypass operating-system security policy.",
       "subphases": [
         {
-          "id": "29.0",
-          "name": "Release preparation and VCB-era toolchain packaging",
-          "status": "soon"
-        },
-        {
           "id": "29.1",
-          "name": "Retire QBE + gcc from native toolchain documentation and packaging",
+          "name": "vcb policy wdac <out.xml>: supplemental WDAC policy template scoped to _out\\",
           "status": "soon"
         },
         {
           "id": "29.2",
-          "name": "Publish benchmark results and tag the release",
+          "name": "vcb policy selinux <out.te>: SELinux type-enforcement module skeleton",
+          "status": "soon"
+        },
+        {
+          "id": "29.3",
+          "name": "vcb policy apparmor <out.profile>: AppArmor profile skeleton",
+          "status": "soon"
+        },
+        {
+          "id": "29.4",
+          "name": "vcb policy ima: document evmctl signing flow and print the exact command",
+          "status": "soon"
+        },
+        {
+          "id": "29.5",
+          "name": "Documentation for each mechanism: enforcement model, user responsibilities, and why VCB cannot bypass policy",
           "status": "soon"
         }
       ]
     },
     {
       "id": 30,
-      "name": "Structs + classes + inheritance in VCB",
+      "name": "Small VcbLower additions",
       "status": "planned",
-      "description": "Complete native VCB support for Vayu object and aggregate semantics.",
-      "subphases": []
+      "description": "Close remaining native lowering gaps before broader language features.",
+      "subphases": [
+        {
+          "id": "30.1",
+          "name": "Unary &, *, ~",
+          "status": "soon"
+        },
+        {
+          "id": "30.2",
+          "name": "Short-circuit and / or",
+          "status": "soon"
+        },
+        {
+          "id": "30.3",
+          "name": "** on ints",
+          "status": "soon"
+        },
+        {
+          "id": "30.4",
+          "name": "Float % and //",
+          "status": "soon"
+        },
+        {
+          "id": "30.5",
+          "name": "for x in list / map / str",
+          "status": "soon"
+        },
+        {
+          "id": "30.6",
+          "name": "arr[i] = v and obj.f = v assignment targets",
+          "status": "soon"
+        },
+        {
+          "id": "30.7",
+          "name": "Missing string methods: strip, split, capitalize, title, zfill, count",
+          "status": "soon"
+        },
+        {
+          "id": "30.8",
+          "name": "list.extend, list.index, map.get_or, map.items",
+          "status": "soon"
+        },
+        {
+          "id": "30.9",
+          "name": "len() on tuple / ptr, str(x) on any tag",
+          "status": "soon"
+        },
+        {
+          "id": "30.10",
+          "name": "range(a, b, c)",
+          "status": "soon"
+        }
+      ]
     },
     {
       "id": 31,
-      "name": "Exceptions in VCB",
+      "name": "Tuples, sets, slicing",
       "status": "planned",
-      "description": "Add native exception lowering, runtime support, and unwinding integration in VCB.",
       "subphases": []
     },
     {
       "id": 32,
-      "name": "Generators in VCB",
+      "name": "Classes, structs, inheritance",
       "status": "planned",
-      "description": "Add native generator lowering and runtime state management in VCB.",
       "subphases": []
     },
     {
       "id": 33,
-      "name": "Lambdas / closures in VCB",
+      "name": "Lambdas, closures",
       "status": "planned",
-      "description": "Add native closure representation, capture handling, and callable lowering in VCB.",
       "subphases": []
     },
     {
       "id": 34,
-      "name": "Tuples, sets, slicing, range and string dispatch in VCB",
+      "name": "Exceptions",
       "status": "planned",
-      "description": "Add native VCB support for tuples, sets, slicing, range(a,b,c), and str(x) dispatch.",
       "subphases": []
     },
     {
       "id": 35,
-      "name": "VCB self-hosting",
+      "name": "Pointers, FFI, malloc / free",
+      "status": "planned",
+      "subphases": []
+    },
+    {
+      "id": 36,
+      "name": "Modules and stdlib: os, py, gui, raster",
+      "status": "planned",
+      "subphases": []
+    },
+    {
+      "id": 37,
+      "name": ".text size limit removal",
+      "status": "planned",
+      "description": "Remove the native .text size constraint before or during the exception work in Phase 34.",
+      "subphases": []
+    },
+    {
+      "id": 38,
+      "name": "Self-hosting on VCB IR",
       "status": "planned",
       "description": "Self-host Vayu on VCB IR and re-enable the fixpoint path in the compiler harness.",
+      "subphases": []
+    },
+    {
+      "id": 39,
+      "name": "Full benchmark suite",
+      "status": "planned",
+      "description": "Compare Vayu tree-walk, VM, and native execution against C++, Python, and Java.",
+      "subphases": []
+    },
+    {
+      "id": 40,
+      "name": "Version cut",
+      "status": "planned",
+      "description": "Finalize the post-VCB toolchain and cut the release version.",
       "subphases": []
     }
   ]
