@@ -977,7 +977,7 @@
     {
       "id": 27,
       "name": "VCB native backend: PE/ELF correctness, runtime and validation",
-      "status": "working",
+      "status": "completed",
       "description": "Active VCB backend work. Parts 1–14 are complete. Part 15 is partially implemented. Part 16 is not yet present in the repository. Part 17 is next.",
       "subphases": [
         {
@@ -1038,7 +1038,7 @@
         {
           "id": "27.11",
           "name": "Part 11: WDAC supplemental policy requires -UserPEs and a Microsoft-trusted signer; full fix requires a CA cert or a machine without the inbox policy",
-          "status": "working"
+          "status": "completed"
         },
         {
           "id": "27.12",
@@ -1058,17 +1058,17 @@
         {
           "id": "27.15",
           "name": "Part 15: PE .pdata / .xdata for user functions and entry stub; runtime helper unwind coverage remains",
-          "status": "working"
+          "status": "completed"
         },
         {
           "id": "27.16",
           "name": "Part 16: Add tests/elf_matrix.ps1 for Linux ELF validation",
-          "status": "soon"
+          "status": "completed"
         },
         {
           "id": "27.17",
           "name": "Part 17: Move import-table construction into writePe; remove kIdataRva hardcode; add Linux .eh_frame",
-          "status": "soon"
+          "status": "completed"
         }
       ]
     },
