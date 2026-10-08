@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+title: "Vayu Website"
+message: "If you use the Vayu Website documentation or website source, please cite this repository."
+type: software
+authors:
+  - given-names: Shreyas
+    family-names: Mishra
+    affiliation: NotY215
+repository-code: "https://github.com/NotY215/Vayu-Website"
+url: "https://vayu.gt.tc"
+license: "Apache-2.0"
+version: "current"
