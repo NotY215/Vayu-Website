@@ -705,6 +705,7 @@
         await loadScript('/js/examples.js');
         await loadScript('/js/filemanager.js');
         await loadScript('/js/page-transition.js');
+        await loadScript('/js/glass-ui.js');
         initExamplesModal();
       }
 
