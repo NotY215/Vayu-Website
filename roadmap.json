@@ -18,8 +18,8 @@
   },
   "repo": "NotY215/Vayu",
   "site": "https://vayu.gt.tc",
-  "updated": "2026-10-07",
-  "currentPhase": 28,
+  "updated": "2026-10-14",
+  "currentPhase": 31,
   "phases": [
     {
       "id": 1,
@@ -1075,137 +1075,119 @@
     {
       "id": 28,
       "name": "Object files and external linking",
-      "status": "working",
+      "status": "completed",
       "description": "Prepare and transition Vayu/VCB from direct executable writing toward standard COFF/ELF object output and LLVM linker dispatch.",
       "subphases": [
         {
           "id": "28.0",
           "name": "Preparation: fix run_all.ps1 line 214 last-line stderr",
-          "status": "working"
+          "status": "completed"
         },
         {
           "id": "28.1",
           "name": "COFF .obj emitter + vcb emit-obj",
-          "status": "soon"
+          "status": "completed"
         },
         {
           "id": "28.2",
           "name": "ELF .o emitter",
-          "status": "soon"
+          "status": "completed"
         },
         {
           "id": "28.3",
           "name": "vcb link: lld-link / ld.lld dispatch",
-          "status": "soon"
+          "status": "completed"
         },
         {
           "id": "28.4",
           "name": "vayuc --native external-link default",
-          "status": "soon"
+          "status": "completed"
         },
         {
           "id": "28.5",
           "name": "VcbLower builtin guard",
-          "status": "soon"
+          "status": "completed"
         }
       ]
     },
     {
       "id": 29,
       "name": "MAC policy templates",
-      "status": "soon",
+      "status": "completed",
       "description": "Provide policy templates and documentation only. VCB does not bypass operating-system security policy.",
       "subphases": [
         {
           "id": "29.1",
           "name": "vcb policy wdac <out.xml>: supplemental WDAC policy template scoped to _out\\",
-          "status": "soon"
+          "status": "completed"
         },
         {
           "id": "29.2",
           "name": "vcb policy selinux <out.te>: SELinux type-enforcement module skeleton",
-          "status": "soon"
+          "status": "completed"
         },
         {
           "id": "29.3",
           "name": "vcb policy apparmor <out.profile>: AppArmor profile skeleton",
-          "status": "soon"
+          "status": "completed"
         },
         {
           "id": "29.4",
           "name": "vcb policy ima: document evmctl signing flow and print the exact command",
-          "status": "soon"
+          "status": "completed"
         },
         {
           "id": "29.5",
           "name": "Documentation for each mechanism: enforcement model, user responsibilities, and why VCB cannot bypass policy",
-          "status": "soon"
+          "status": "completed"
         }
       ]
     },
     {
       "id": 30,
-      "name": "Small VcbLower additions",
-      "status": "soon",
-      "description": "Close remaining native lowering gaps before broader language features.",
+      "name": "VcbLower additions",
+      "status": "completed",
+      "description": "Complete the listed native lowering additions and language operations.",
       "subphases": [
         {
           "id": "30.1",
-          "name": "Unary &, *, ~",
-          "status": "soon"
+          "name": "and/or, **, ~, arr[i] = v, range(a,b,c), str(str)",
+          "status": "completed"
         },
         {
           "id": "30.2",
-          "name": "Short-circuit and / or",
-          "status": "soon"
-        },
-        {
-          "id": "30.3",
-          "name": "** on ints",
-          "status": "soon"
-        },
-        {
-          "id": "30.4",
-          "name": "Float % and //",
-          "status": "soon"
-        },
-        {
-          "id": "30.5",
-          "name": "for x in list / map / str",
-          "status": "soon"
-        },
-        {
-          "id": "30.6",
-          "name": "arr[i] = v and obj.f = v assignment targets",
-          "status": "soon"
-        },
-        {
-          "id": "30.7",
-          "name": "Missing string methods: strip, split, capitalize, title, zfill, count",
-          "status": "soon"
-        },
-        {
-          "id": "30.8",
-          "name": "list.extend, list.index, map.get_or, map.items",
-          "status": "soon"
-        },
-        {
-          "id": "30.9",
-          "name": "len() on tuple / ptr, str(x) on any tag",
-          "status": "soon"
-        },
-        {
-          "id": "30.10",
-          "name": "range(a, b, c)",
-          "status": "soon"
+          "name": "for-in list/set, str(int/bool), char_at, to_int",
+          "status": "completed"
         }
       ]
     },
     {
       "id": 31,
-      "name": "Tuples, sets, slicing",
-      "status": "soon",
-      "subphases": []
+      "name": "Tuples, sets, slicing and collection/string refinements",
+      "status": "working",
+      "subphases": [
+        {
+          "id": "31.1",
+          "name": "tuple, set, str slice s[a:b]",
+          "status": "completed"
+        },
+        {
+          "id": "31.2",
+          "name": "s[a:]/s[:b]/s[:], tuple print, set print, set remove/clear",
+          "status": "completed"
+        },
+        {
+          "id": "31.3",
+          "name": "list slicing, str.strip, list.pop, list.contains",
+          "status": "completed"
+        },
+        {
+          "id": "31.4",
+          "name": "str.split, str.replace, list.index, set.copy, tuple slicing",
+          "status": "working"
+        }
+      ],
+      "description": "Implement tuple/set behavior, slicing, and remaining string/list/set operations in the native pipeline."
     },
     {
       "id": 32,
