@@ -80,7 +80,7 @@
     <span class="kicker">Documentation</span>
     <h1>Vayu language and VCB backend reference</h1>
     <p class="lead doc-lead">Technical documentation for the current Vayu frontend and VCB native backend. Content tracks the repositories that implement the language, compiler, and executable generation paths.</p>
-    <div class="page-phase"><span class="dot"></span><span data-phase-badge>PHASE 28 · ACTIVE</span></div>
+    <div class="page-phase"><span class="dot"></span><span data-phase-badge>PHASE 31 · ACTIVE</span></div>
   </div>
 </section>
 
@@ -605,9 +605,9 @@ cmake --build build
 <section id="status" class="doc-section reveal">
   <h2>11. Development status</h2>
   <div class="callout reveal">
-    <div class="eyebrow"><span class="dev-dot"></span><span>Phase 27 · active backend development</span></div>
-    <h3>Current drop: Part 15</h3>
-    <p>Parts 1–14 are complete. Part 15 currently covers user-function and entry-stub unwind metadata, but runtime helpers are not yet included. Part 16 has not landed in the repository. Part 17 remains planned.</p>
+    <div class="eyebrow"><span class="dev-dot"></span><span>Phase 31 · active language implementation</span></div>
+    <h3>Current work: Phase 31.4</h3>
+    <p>Phases 26–29 and Phase 30 are complete. Phase 31.1–31.3 are complete. Phase 31.4 is in progress, covering string split/replace, list index, set copy, and tuple slicing.</p>
   </div>
   <div class="doc-table-wrap">
     <table class="doc-table">
@@ -635,24 +635,22 @@ cmake --build build
         <tr><td>27 Part 15</td><td>Runtime <code>.pdata</code> via <code>emitRuntime(..., &amp;unwindEntries)</code>; <code>.xdata</code> built from all entries</td><td>Done</td></tr>
         <tr><td>27 Part 16</td><td><code>tests\\elf_matrix.ps1</code> for Linux ELF validation</td><td>Done</td></tr>
         <tr><td>27 Part 17</td><td>Import-table construction moved into <code>writePe</code>; Linux <code>.eh_frame</code> equivalent of <code>.pdata</code> for ELF</td><td>Done</td></tr>
-        <tr><td>28.0</td><td>Preparation: fix <code>run_all.ps1</code> line 214 last-line stderr</td><td>Prep</td></tr>
-<tr><td>28.1</td><td>COFF <code>.obj</code> emitter + <code>vcb emit-obj</code></td><td>Queued</td></tr>
-<tr><td>28.2</td><td>ELF <code>.o</code> emitter</td><td>Queued</td></tr>
-<tr><td>28.3</td><td><code>vcb link</code> with <code>lld-link</code> / <code>ld.lld</code> dispatch</td><td>Queued</td></tr>
-<tr><td>28.4</td><td><code>vayuc --native</code> external-link default</td><td>Queued</td></tr>
-<tr><td>28.5</td><td>VcbLower builtin guard</td><td>Queued</td></tr>
-        <tr><td>29</td><td>MAC policy templates</td><td>Queued</td></tr>
-<tr><td>30</td><td>Small VcbLower additions</td><td>Queued</td></tr>
-<tr><td>31</td><td>Tuples, sets, slicing</td><td>Queued</td></tr>
-<tr><td>32</td><td>Classes, structs, inheritance</td><td>Queued</td></tr>
-<tr><td>33</td><td>Lambdas, closures</td><td>Queued</td></tr>
-<tr><td>34</td><td>Exceptions</td><td>Queued</td></tr>
-<tr><td>35</td><td>Pointers, FFI</td><td>Queued</td></tr>
-<tr><td>36</td><td>Modules and stdlib</td><td>Queued</td></tr>
-<tr><td>37</td><td><code>.text</code> size limit removal</td><td>Queued</td></tr>
-<tr><td>38</td><td>Self-hosting on VCB IR</td><td>Queued</td></tr>
-<tr><td>39</td><td>Full benchmark suite</td><td>Queued</td></tr>
-<tr><td>40</td><td>Version cut</td><td>Queued</td></tr>
+        <tr><td>26–29</td><td>VCB pipeline, correctness, object/link, MAC policy</td><td>Completed</td></tr>
+        <tr><td>30.1</td><td><code>and/or</code>, <code>**</code>, <code>~</code>, <code>arr[i] = v</code>, <code>range(a,b,c)</code>, <code>str(str)</code></td><td>Completed</td></tr>
+        <tr><td>30.2</td><td>for-in list/set, <code>str(int/bool)</code>, <code>char_at</code>, <code>to_int</code></td><td>Completed</td></tr>
+        <tr><td>31.1</td><td>Tuple, set, and <code>str</code> slice <code>s[a:b]</code></td><td>Completed</td></tr>
+        <tr><td>31.2</td><td><code>s[a:]</code>, <code>s[:b]</code>, <code>s[:]</code>, tuple/set printing, set <code>remove</code>/<code>clear</code></td><td>Completed</td></tr>
+        <tr><td>31.3</td><td>List slicing, <code>str.strip</code>, <code>list.pop</code>, <code>list.contains</code></td><td>Completed</td></tr>
+        <tr><td>31.4</td><td><code>str.split</code>, <code>str.replace</code>, <code>list.index</code>, <code>set.copy</code>, tuple slicing</td><td>Working</td></tr>
+        <tr><td>32</td><td>Classes, structs, inheritance</td><td>Queued</td></tr>
+        <tr><td>33</td><td>Lambdas, closures</td><td>Queued</td></tr>
+        <tr><td>34</td><td>Exceptions</td><td>Queued</td></tr>
+        <tr><td>35</td><td>Pointers, FFI</td><td>Queued</td></tr>
+        <tr><td>36</td><td>Modules and stdlib</td><td>Queued</td></tr>
+        <tr><td>37</td><td><code>.text</code> size limit removal</td><td>Queued</td></tr>
+        <tr><td>38</td><td>Self-hosting on VCB IR</td><td>Queued</td></tr>
+        <tr><td>39</td><td>Full benchmark suite</td><td>Queued</td></tr>
+        <tr><td>40</td><td>Version cut</td><td>Queued</td></tr>
       </tbody>
     </table>
   </div>
