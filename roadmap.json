@@ -18,7 +18,7 @@
   },
   "repo": "NotY215/Vayu",
   "site": "https://vayu.gt.tc",
-  "updated": "2026-10-14",
+  "updated": "2026-10-28",
   "currentPhase": 31,
   "phases": [
     {
@@ -1183,8 +1183,18 @@
         },
         {
           "id": "31.4",
-          "name": "str.split, str.replace, list.index, set.copy, tuple slicing",
-          "status": "working"
+          "name": "str.split, single-char str.replace, list.index, set.copy, tuple slicing",
+          "status": "completed"
+        },
+        {
+          "id": "31.5",
+          "name": "Multichar str.replace, str.count",
+          "status": "completed"
+        },
+        {
+          "id": "31.6",
+          "name": "str.strip(chars), str.rjust/ljust, str.is_* predicates",
+          "status": "soon"
         }
       ],
       "description": "Implement tuple/set behavior, slicing, and remaining string/list/set operations in the native pipeline."
