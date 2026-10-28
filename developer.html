@@ -4,76 +4,77 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#07111f">
-<meta name="description" content="Vayu developer - built independently by NotY215.">
+<meta name="description" content="Developer profile and live open-source activity for NotY215, creator of Vayu and VCB.">
+<meta name="robots" content="index,follow">
 <title>Developer - Vayu</title>
-<link rel="canonical" href="https://vayu.gt.tc/developer/" />
+<link rel="canonical" href="https://vayu.gt.tc/developer/">
 <link rel="icon" type="image/png" href="/Vayu_Fav.png">
 <link rel="apple-touch-icon" type="image/png" href="/Vayu_Fav.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="/css/main.css">
+<script defer src="/js/developer-stats.js"></script>
 </head>
 <body data-vayu-defer data-page="developer">
-<canvas id="particles"></canvas>
-<div class="noise"></div>
+<canvas id="particles"></canvas><div class="noise"></div>
 <div data-orbs style="position:fixed;inset:0;pointer-events:none;z-index:-1;overflow:hidden;"></div>
-
 <div id="slot-nav"></div>
-
 <main id="top">
-  <section class="page-hero">
-    <div class="container">
-      <span class="kicker">Developer</span>
-      <h1>Built independently.</h1>
-      <p class="lead">Vayu is an independent programming-language and compiler project developed under the NotY215 identity.</p>
-      <div class="page-phase"><span class="dot"></span><span data-phase-badge>PHASE 28 · ACTIVE</span></div>
-    </div>
-  </section>
-
-  <section class="pt-20">
-    <div class="container">
-
-      <div class="card dev reveal">
-        <img class="avatar" src="https://avatars.githubusercontent.com/u/180653079?v=4" alt="NotY215 profile picture" style="object-fit:cover;" width="150" height="150" loading="lazy" decoding="async">
-        <div>
-          <h3>NotY215</h3>
-          <p class="muted">Independent developer building Vayu as a long-term programming-language and compiler project.</p>
-          <div class="pill-list">
-            <span class="pill">Language Design</span><span class="pill">Compiler Development</span><span class="pill">Programming</span><span class="pill">Open Source</span>
-          </div>
-          <br>
-          <a class="btn ghost ripple-btn" href="https://github.com/NotY215" target="_blank" rel="noopener">GitHub Profile ↗</a>
-        </div>
+  <section class="page-hero"><div class="container">
+    <span class="kicker">Developer</span><h1>NotY215</h1>
+    <p class="lead">Vayu is an independent programming-language and compiler project developed under the NotY215 identity, alongside open-source tooling and game-development work.</p>
+    <div class="page-phase"><span class="dot"></span><span data-phase-badge>PHASE 31 · ACTIVE</span></div>
+  </div></section>
+  <section class="pt-20"><div class="container">
+    <div class="card dev reveal">
+      <img class="avatar" src="https://avatars.githubusercontent.com/u/180653079?v=4" alt="NotY215 GitHub avatar" width="150" height="150" loading="lazy" decoding="async">
+      <div><h3>NotY215</h3>
+        <p class="muted">Independent developer building Vayu, a programming language with its own compiler toolchain, and VCB, its compiler backend and intermediate representation.</p>
+        <div class="pill-list"><span class="pill">Language Design</span><span class="pill">Compiler Development</span><span class="pill">Systems Programming</span><span class="pill">Open Source</span></div><br>
+        <a class="btn ghost ripple-btn" href="https://github.com/NotY215" target="_blank" rel="noopener">GitHub Profile ↗</a>
       </div>
-
-      <div class="callout reveal mt-32">
-        <div class="eyebrow">
-          <span class="dev-dot"></span>
-          <span data-phase-short>PHASE 1 · -</span>
-        </div>
-        <h2>Vayu is moving toward a self-hosted and VCB-backed toolchain.</h2>
-        <p class="muted">Currently on Phase <span data-phase-number>27</span> - <span data-phase-name>-</span>.</p>
-        <br>
-        <a class="btn primary soon ripple-btn" role="button" aria-disabled="true" tabindex="0" data-tip="Vayu is still in development - downloads aren’t available yet.">Download / Releases</a>
-        <a class="btn ghost ripple-btn" href="https://github.com/NotY215/Vayu" target="_blank" rel="noopener">Source Code</a>
-      </div>
-
     </div>
+    <div class="callout reveal mt-32">
+      <div class="eyebrow"><span class="dev-dot"></span><span data-phase-short>PHASE 31 · ACTIVE</span></div>
+      <h2>Building a self-contained language and compiler toolchain.</h2>
+      <p class="muted">Vayu is progressing through its language and runtime work, with VCB providing the compiler backend and IR. Follow the roadmap for current implementation status.</p><br>
+      <a class="btn ghost ripple-btn" href="https://github.com/NotY215/Vayu" target="_blank" rel="noopener">Vayu Source ↗</a>
+      <a class="btn ghost ripple-btn" href="https://github.com/NotY215/VCB" target="_blank" rel="noopener">VCB Backend ↗</a>
+      <a class="btn ghost ripple-btn" href="/roadmap/">View Roadmap</a>
+    </div>
+  </div></section>
+  <section class="section-shell section dev-analytics" aria-labelledby="dev-stats-title">
+    <div class="dev-analytics-head"><div><span class="kicker">Open-source snapshot</span><h2 id="dev-stats-title">Development at a glance</h2>
+      <p>Live GitHub metrics across public repositories, including repository activity, primary language distribution, commit distribution and latest commits.</p></div><span class="dev-live">Live GitHub data</span></div>
+    <div class="dev-stat-grid" id="dev-stat-grid" aria-live="polite">
+      <article class="dev-stat card"><span class="dev-stat-label">Public repositories</span><strong class="dev-stat-value">…</strong><span class="dev-stat-note">Loading profile data</span></article>
+      <article class="dev-stat card"><span class="dev-stat-label">Stars earned</span><strong class="dev-stat-value">…</strong><span class="dev-stat-note">Across public repositories</span></article>
+      <article class="dev-stat card"><span class="dev-stat-label">Forks</span><strong class="dev-stat-value">…</strong><span class="dev-stat-note">Across public repositories</span></article>
+      <article class="dev-stat card"><span class="dev-stat-label">Recent commits checked</span><strong class="dev-stat-value">…</strong><span class="dev-stat-note">All non-fork public repositories, last 12 months</span></article>
+    </div>
+    <div class="dev-chart-grid">
+      <article class="dev-chart-card card"><div class="dev-chart-title"><h3>Repository activity</h3><span>Commits · 12 months</span></div>
+        <p class="dev-chart-subtitle">Counts commits across non-fork public repositories over the last 12 months. The chart ranks the 20 busiest repositories by commit count.</p>
+        <div id="dev-commit-chart" class="dev-bars"><p class="dev-loading">Fetching repository activity…</p></div><p class="dev-chart-footnote">All available commit pages are counted, with no fixed 100-commit cap.</p>
+      </article>
+      <article class="dev-chart-card card"><div class="dev-chart-title"><h3>Language distribution</h3><span>By repository</span></div>
+        <p class="dev-chart-subtitle">Primary languages reported by GitHub across public repositories.</p>
+        <div id="dev-language-chart"><p class="dev-loading">Loading language data…</p></div><p class="dev-chart-footnote">Repositories without a reported language are grouped as “Other / not specified”.</p>
+      </article>
+    </div>
+    <article class="dev-chart-card card dev-chart-spaced"><div class="dev-chart-title"><h3>Commit distribution by repository</h3><span>Pie · last 12 months</span></div>
+      <p class="dev-chart-subtitle">Shows how recent commit activity is distributed. The seven busiest repositories are shown individually; the remainder are grouped.</p><div id="dev-commit-pie"><p class="dev-loading">Waiting for commit counts…</p></div>
+    </article>
+    <article class="dev-chart-card card dev-chart-spaced"><div class="dev-chart-title"><h3>Latest repository activity</h3><span>Latest commit first</span></div>
+      <p class="dev-chart-subtitle">Repositories ordered by latest commit timestamp, with each latest commit message and its 12-month commit count.</p><div id="dev-latest-commits"><p class="dev-loading">Loading latest commits…</p></div>
+    </article>
+    <article class="dev-chart-card card dev-chart-spaced"><div class="dev-chart-title"><h3>Featured repositories</h3><span>Sorted by stars</span></div>
+      <div id="dev-featured-repos" class="dev-repo-list"><p class="dev-loading">Loading repositories…</p></div>
+    </article>
   </section>
 </main>
-
-<div id="slot-footer"></div>
-<div id="slot-modal-examples"></div>
-<div id="slot-modal-github"></div>
-
-<div id="vayu-loading" aria-hidden="true">
-  <div class="vayu-loader">
-    <div class="vayu-loader-ring"></div>
-    <div class="vayu-loader-text">Loading Vayu…</div>
-  </div>
-</div>
-
+<div id="slot-footer"></div><div id="slot-modal-examples"></div><div id="slot-modal-github"></div>
+<div id="vayu-loading" aria-hidden="true"><div class="vayu-loader"><div class="vayu-loader-ring"></div><div class="vayu-loader-text">Loading Vayu…</div></div></div>
 <script src="/js/layout.js"></script>
-</body>
-</html>
+</body></html>
