@@ -88,7 +88,7 @@
       "status": "planned",
       "subphases": [
         {
-          "id": "2",
+          "id": "2.0",
           "name": "Build the supported-subset VIR representation in memory, with lowering producing it and the verifier consuming it.",
           "description": "Output: VIB/Vir.{hpp,cpp} or equivalent; Feature::VIR = Supported for the supported subset; --dump-ir prints real VIR.",
           "status": "planned"
