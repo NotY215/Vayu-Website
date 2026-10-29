@@ -1,23 +1,16 @@
 {
   "_readme": {
     "title": "Vayu + VIB Integrator Roadmap",
-    "source": "Roadmap supplied by the project owner; synchronized to the VIB/VIR execution plan",
-    "status_policy": "Statuses reflect the supplied roadmap. Never mark a feature complete without repository and test evidence.",
+    "source": "Roadmap supplied by the user for website synchronization.",
+    "status_policy": "Statuses reflect the supplied roadmap. Do not mark implementation complete without repository and test evidence.",
     "phase_status": {
       "completed": "Implemented and accepted with evidence.",
       "working": "Currently being worked on.",
-      "next": "Immediate next work; not yet complete.",
-      "planned": "Planned work; not verified complete.",
-      "deferred": "Intentionally deferred. Do not implement until the phase is explicitly unblocked."
+      "next": "Immediate next work; not yet marked complete.",
+      "planned": "Planned; not started or not verified.",
+      "deferred": "Intentionally deferred; gated until prerequisites and direction allow it."
     },
-    "architecture_notes": [
-      "VIR is an in-memory internal representation, not a .vye package.",
-      "Early --native means Integrator-mediated execution of verified VIR, not native machine code. Do not claim machine-code generation until Phase 12 is implemented and tested.",
-      ".vye packaging and the unified existing Interpreter/VM dispatch plus artifact cache are deferred under Phase 2A/2B/2C.",
-      "The four existing native-path flags should report truthful capability-derived diagnostics through VIB Integrator.",
-      "Keep Markdown documentation files untouched when a phase specifies code comments or tests only."
-    ],
-    "notes": "Immediate work is Phases 0 and 1. Phase 2 implements VIR in memory only. Phase 2A, 2B, and 2C are deferred."
+    "notes": "This website roadmap describes the VIB Integrator plan. Phase 0 and Phase 1 are next. VIR is planned as an in-memory IR; --native at the initial subset stage means Integrator-mediated VIR execution, not native machine code. VYE packaging and backend dispatch/cache work are deferred."
   },
   "repo": "NotY215/Vayu",
   "site": "https://vayu.gt.tc",
@@ -27,19 +20,19 @@
     {
       "id": 0,
       "name": "Baseline and subsystem ownership",
-      "description": "Establish a reproducible clean-build baseline, define subsystem ownership, and encode route capabilities before implementation expands.",
+      "description": "Establish a reproducible clean-build baseline, assign subsystem ownership, and define capability reporting before expanding implementation.",
       "status": "next",
       "subphases": [
         {
           "id": "0.1",
-          "name": "Confirm the Visual Studio Community clean baseline (Rebuild → Build → run_all.ps1) reproduces; record the preconditions in script comments.",
+          "name": "Confirm the Visual Studio Community clean baseline: Rebuild → Build → run_all.ps1; record the preconditions and reproducibility in script comments.",
           "description": "Output: preconditions embedded in tests/vib_baseline.ps1.",
           "status": "next"
         },
         {
           "id": "0.2",
-          "name": "Codify subsystem ownership: identify files belonging to the frontend, typechecker, interpreter, VM, and VIB.",
-          "description": "Output: vib::Feature enum covering all four routes and every language feature.",
+          "name": "Codify subsystem ownership: identify which files belong to the frontend, typechecker, interpreter, VM, and VIB.",
+          "description": "Output: vib::Feature enum covering all four execution routes and every language feature.",
           "status": "next"
         },
         {
@@ -50,7 +43,7 @@
         },
         {
           "id": "0.4",
-          "name": "Curate fixtures with stable expected stdout for --run and --vm, and stable failure messages for the four native-path flags.",
+          "name": "Curate fixtures with stable expected stdout for --run and --vm, plus stable failure messages for the four native-path flags.",
           "description": "Output: fixture and expected-output list embedded in tests/vib_baseline.ps1.",
           "status": "next"
         }
@@ -58,25 +51,25 @@
     },
     {
       "id": 1,
-      "name": "Integrator API and CLI diagnostics",
-      "description": "Make VIB the single owner of capability queries, backend diagnostics, IR dumping, and runtime emission messages.",
+      "name": "Integrator API and CLI routing",
+      "description": "Centralize capability metadata and route all native-path diagnostics through the Integrator.",
       "status": "next",
       "subphases": [
         {
           "id": "1.1",
-          "name": "Expand VIB/Integrator.{hpp,cpp} with Feature, SupportLevel, ErrorKind, Backend, and CapabilityInfo; extend CompileResult; add static queries; add dumpIR and emitRuntime as Integrator methods.",
+          "name": "Expand VIB/Integrator.{hpp,cpp}: Feature, SupportLevel, ErrorKind, Backend, CapabilityInfo; extend CompileResult; add static queries; add dumpIR/emitRuntime as Integrator methods.",
           "description": "Output: Integrator API; compile() messages derived from the capability table.",
           "status": "next"
         },
         {
           "id": "1.2",
-          "name": "Route NativeCompiler::compileAndRun, dumpIR, and writeRuntimeC messages through Integrator and remove hardcoded strings.",
-          "description": "Output: NativeCompiler becomes a pure adapter.",
+          "name": "Route NativeCompiler::compileAndRun, dumpIR, and writeRuntimeC messages through Integrator; remove hardcoded strings.",
+          "description": "Output: NativeCompiler is a pure adapter.",
           "status": "next"
         },
         {
           "id": "1.3",
-          "name": "Add --vib-status to vayuc and route all four native-path flags through Integrator.",
+          "name": "Add --vib-status to vayuc; route the four native-path flags through Integrator.",
           "description": "Output: new CLI flag and capability-derived diagnostics.",
           "status": "next"
         },
@@ -91,38 +84,38 @@
     {
       "id": 2,
       "name": "VIB internal representation (VIR)",
-      "description": "Build an in-memory-only intermediate representation for the supported subset. No .vye package and no artifact cache in this phase.",
+      "description": "Introduce VIR as an in-memory target IR produced by lowering and consumed by the verifier. No .vye container or cache is included in this phase.",
       "status": "planned",
       "subphases": [
         {
           "id": "2",
-          "name": "Create VIB VIR as the target IR produced by lowering and consumed by the verifier.",
-          "description": "Output: VIB/Vir.{hpp,cpp} or equivalent; Feature::VIR = Supported for the implemented subset; --dump-ir prints real VIR.",
+          "name": "Build the supported-subset VIR representation in memory, with lowering producing it and the verifier consuming it.",
+          "description": "Output: VIB/Vir.{hpp,cpp} or equivalent; Feature::VIR = Supported for the supported subset; --dump-ir prints real VIR.",
           "status": "planned"
         }
       ]
     },
     {
       "id": 3,
-      "name": "Values, arithmetic, and VIR execution",
-      "description": "Specify core value semantics, lower the first supported subset into VIR, and execute it with a minimal Integrator-owned in-memory VIR executor.",
+      "name": "Basic arithmetic and values",
+      "description": "Define precise value semantics and execute the first arithmetic subset through VIR.",
       "status": "planned",
       "subphases": [
         {
           "id": "3.1",
-          "name": "Specify integer, boolean, and None semantics, including overflow, conversion, division by zero, and comparison.",
+          "name": "Specify integer, boolean, and None semantics: overflow, conversion, division by zero, and comparison.",
           "description": "Output: semantics captured in code comments and tests; Feature::BasicArithmetic = Supported.",
           "status": "planned"
         },
         {
           "id": "3.2",
-          "name": "Lower integer/boolean expressions and local variables into VIR. Execute with a new minimal in-memory interpreter-of-VIR, not the existing tree-walker or existing VM.",
-          "description": "Output: --native on a curated arithmetic fixture produces correct stdout through Integrator-mediated VIR execution. This is not native machine code; --native means Integrator-mediated execution at this stage.",
+          "name": "Lower integer/boolean expressions and local variables into VIR; execute through Integrator's in-memory interpreter-of-VIR, not the existing tree-walker or VM.",
+          "description": "Output: curated arithmetic fixture produces correct stdout under --native through VIR. This is not native machine code; --native means Integrator-mediated execution at this stage.",
           "status": "planned"
         },
         {
           "id": "3.3",
-          "name": "Add a VIR verifier pass covering types, arity, and control-flow well-formedness.",
+          "name": "Add a VIR verifier pass for types, arity, and control-flow well-formedness.",
           "description": "Output: malformed-VIR rejection tests pass.",
           "status": "planned"
         }
@@ -131,19 +124,19 @@
     {
       "id": 4,
       "name": "String semantics and operations",
-      "description": "Define stable string behavior and lower string operations into VIR.",
+      "description": "Define deterministic string behavior and lower string operations into VIR.",
       "status": "planned",
       "subphases": [
         {
           "id": "4.1",
-          "name": "Define UTF-8 policy, representation, equality, concatenation, length, and index bounds.",
-          "description": "Output: Feature::Strings = Supported after semantics and conformance tests are complete.",
+          "name": "Specify UTF-8 policy, representation, equality, concatenation, length, and index bounds.",
+          "description": "Output: Feature::Strings = Supported.",
           "status": "planned"
         },
         {
           "id": "4.2",
           "name": "Lower string constants and operations into VIR.",
-          "description": "Output: string fixtures pass under --native using Integrator-mediated VIR execution.",
+          "description": "Output: string fixtures pass under --native via Integrator-mediated execution.",
           "status": "planned"
         }
       ]
@@ -151,7 +144,7 @@
     {
       "id": 5,
       "name": "Functions and calls",
-      "description": "Implement function execution and explicit call-frame semantics in VIR.",
+      "description": "Implement calls and scopes with explicit safety rules.",
       "status": "planned",
       "subphases": [
         {
@@ -162,7 +155,7 @@
         },
         {
           "id": "5.2",
-          "name": "Implement recursion only after stack-frame safety is proven.",
+          "name": "Add recursion only after stack-frame safety is proven.",
           "description": "Output: recursion fixtures pass.",
           "status": "planned"
         }
@@ -170,19 +163,19 @@
     },
     {
       "id": 6,
-      "name": "Control flow and verification",
-      "description": "Implement structured control flow and strengthen verifier diagnostics.",
+      "name": "Control flow and branch verification",
+      "description": "Add structured control flow and reject invalid branch structures.",
       "status": "planned",
       "subphases": [
         {
           "id": "6.1",
-          "name": "Implement conditional branches, loops, and return, break, and continue semantics in VIR.",
+          "name": "Implement conditional branches, loops, return, break, and continue in VIR.",
           "description": "Output: Feature::ControlFlow = Supported.",
           "status": "planned"
         },
         {
           "id": "6.2",
-          "name": "Validate branch targets and diagnose unreachable code in the verifier.",
+          "name": "Validate branch targets and emit unreachable-code diagnostics in the verifier.",
           "description": "Output: invalid-branch rejection tests pass.",
           "status": "planned"
         }
@@ -191,19 +184,19 @@
     {
       "id": 7,
       "name": "Collections",
-      "description": "Implement collection representations and operations incrementally, gated by conformance tests.",
+      "description": "Add collections individually with explicit representation, mutation, iteration, and ownership semantics.",
       "status": "planned",
       "subphases": [
         {
           "id": "7.1",
-          "name": "Implement list in VIR, including representation, indexing, mutation, iteration, and ownership.",
-          "description": "Output: Collections reports list = Supported.",
+          "name": "Implement list representation, indexing, mutation, iteration, and ownership in VIR.",
+          "description": "Output: Collections list = Supported.",
           "status": "planned"
         },
         {
           "id": "7.2",
-          "name": "Implement map, tuple, and set, each gated by conformance tests.",
-          "description": "Output: remaining collection fixtures pass.",
+          "name": "Add map, tuple, and set, each gated by conformance tests.",
+          "description": "Output: remaining collection tests pass before each feature is marked supported.",
           "status": "planned"
         }
       ]
@@ -211,7 +204,7 @@
     {
       "id": 8,
       "name": "Modules and multi-file builds",
-      "description": "Resolve module identity and dependencies and make builds reproducible.",
+      "description": "Resolve modules and dependencies reproducibly.",
       "status": "planned",
       "subphases": [
         {
@@ -230,20 +223,20 @@
     },
     {
       "id": 9,
-      "name": "VIR malformed-input verification and runtime compatibility",
-      "description": "Harden the VIR verifier and define compatibility policy in code.",
+      "name": "VIR robustness and runtime compatibility",
+      "description": "Harden malformed-input handling and define runtime compatibility in code.",
       "status": "planned",
       "subphases": [
         {
           "id": "9.1",
-          "name": "Test malformed VIR including huge counts, invalid indices, truncated structures, bad strings, and stack exhaustion.",
+          "name": "Test malformed VIR: huge counts, invalid indices, truncated structures, malformed strings, and stack exhaustion.",
           "description": "Output: malformed-input tests pass.",
           "status": "planned"
         },
         {
           "id": "9.2",
-          "name": "Define runtime-compatibility policy in code, without a Markdown file, and expose it through --vib-status --json.",
-          "description": "Output: machine-readable runtime compatibility policy.",
+          "name": "Document runtime-compatibility policy in code (no .md); report it through --vib-status --json.",
+          "description": "Output: machine-readable compatibility policy.",
           "status": "planned"
         }
       ]
@@ -251,47 +244,47 @@
     {
       "id": 10,
       "name": "Advanced language features and system APIs",
-      "description": "Expand the supported language subset one independently tested group at a time.",
+      "description": "Expand the Integrator subset in independently tested feature groups.",
       "status": "planned",
       "subphases": [
         {
           "id": "10.1",
-          "name": "Implement exceptions, classes/objects, closures, higher-order functions, generators, and pointers as separate tested groups.",
-          "description": "Output: each feature changes status independently in --vib-status.",
+          "name": "Implement exceptions, classes/objects, closures, higher-order functions, generators, and pointers, each with its own tests.",
+          "description": "Output: each feature flips independently in --vib-status.",
           "status": "planned"
         },
         {
           "id": "10.2",
-          "name": "Implement system APIs and the standard-library surface relevant to the Integrator subset.",
-          "description": "Output: parity with the Interpreter for the supported subset.",
+          "name": "Implement system APIs and standard-library surface relevant to the Integrator subset.",
+          "description": "Output: parity with the interpreter for the supported subset.",
           "status": "planned"
         }
       ]
     },
     {
       "id": "2A",
-      "name": "Deferred .vye packaging design and writer",
-      "description": "Package work is intentionally deferred. Do not implement a writer until explicitly unblocked.",
+      "name": "VYE container design and writer",
+      "description": "Deferred package-format work. Do not implement the writer before its gate after Phase 10.",
       "status": "deferred",
       "subphases": [
         {
           "id": "2A.1",
-          "name": "Design-only .vye container specification: magic, version, section table, entry point, deterministic serialization, and compatibility policy.",
-          "description": "Output: design captured in code comments and API shape only, with no writer; Feature::VyePackaging = Scaffolded.",
+          "name": "Design-only .vye container specification: magic, version, section table, entry point, deterministic serialization, and compatibility policy. Code comments and API shape only; no writer.",
+          "description": "Output: design captured; Feature::VyePackaging = Scaffolded.",
           "status": "deferred"
         },
         {
           "id": "2A.2",
-          "name": "Implement deterministic .vye writer gated by --emit-vye <path>.",
-          "description": "Output: --emit-vye writes a package only when this deferred phase is authorized and its gate is reached.",
+          "name": "Implement a deterministic .vye writer gated by --emit-vye <path>.",
+          "description": "Output: --emit-vye writes a package; writer remains gated until after Phase 10.",
           "status": "deferred"
         }
       ]
     },
     {
       "id": "2B",
-      "name": "Deferred .vye reader and execution",
-      "description": "Strict package loading and the package execution verb remain deferred.",
+      "name": "VYE reader and execution",
+      "description": "Deferred until package format design and writer gates are authorized.",
       "status": "deferred",
       "subphases": [
         {
@@ -302,33 +295,33 @@
         },
         {
           "id": "2B.2",
-          "name": "Add vayu run <file>.vye execution.",
-          "description": "Output: round-trip and execution tests pass.",
+          "name": "Add the vayu run <file>.vye execution verb.",
+          "description": "Output: package round-trip and execution tests pass.",
           "status": "deferred"
         }
       ]
     },
     {
       "id": "2C",
-      "name": "Deferred unified backend dispatch and artifact cache",
-      "description": "Unifying existing Interpreter/VM dispatch and introducing persistent caching are deferred until explicitly authorized.",
+      "name": "Unified backend dispatch and caching",
+      "description": "Deferred until the current execution behavior is stabilized and the dispatch/cache scope is authorized.",
       "status": "deferred",
       "subphases": [
         {
           "id": "2C.1",
-          "name": "Make Integrator the dispatch owner for the Interpreter backend: --run calls Integrator::dispatch(Backend::Interpreter, ...), with behavior unchanged.",
-          "description": "Output: run_all.ps1 remains green and dispatch is unified.",
+          "name": "Make Integrator the dispatch owner for Interpreter backend: --run routes through Integrator::dispatch(Backend::Interpreter, ...). Preserve behavior.",
+          "description": "Output: run_all.ps1 remains green; dispatch is unified.",
           "status": "deferred"
         },
         {
           "id": "2C.2",
-          "name": "Make Integrator the dispatch owner for the VM backend: --vm calls Integrator::dispatch(Backend::VM, ...), with behavior unchanged.",
+          "name": "Make Integrator the dispatch owner for VM backend: --vm routes through Integrator::dispatch(Backend::VM, ...). Preserve behavior.",
           "description": "Output: run_all.ps1 remains green.",
           "status": "deferred"
         },
         {
           "id": "2C.3",
-          "name": "Adopt a content-addressed, atomic, recoverable artifact cache and incremental graph matching clean-build output.",
+          "name": "Adopt a content-addressed, atomic, recoverable artifact cache; ensure incremental graph output matches clean-build output.",
           "description": "Output: cache and incremental-equivalence tests pass.",
           "status": "deferred"
         }
@@ -337,7 +330,7 @@
     {
       "id": 11,
       "name": "Benchmarks and performance tuning",
-      "description": "Measure real behavior before optimizing and make no unsupported performance claims.",
+      "description": "Measure behavior before optimizing; avoid unsupported performance claims.",
       "status": "planned",
       "subphases": [
         {
@@ -348,8 +341,8 @@
         },
         {
           "id": "11.2",
-          "name": "Tune performance based on measurements and regression tests.",
-          "description": "Output: benchmark evidence supports any performance claims.",
+          "name": "Tune performance based on measured results only.",
+          "description": "Output: benchmark evidence supports each optimization claim.",
           "status": "planned"
         }
       ]
@@ -357,19 +350,19 @@
     {
       "id": 12,
       "name": "Native code generation",
-      "description": "Research and implement actual native code generation on top of verified VIR, with target and ABI rules owned by Vayu.",
+      "description": "Research native code generation on top of verified VIR; keep target and ABI rules in Vayu-owned code.",
       "status": "planned",
       "subphases": [
         {
           "id": "12.1",
-          "name": "Research and implement native code generation on VIR; keep target/ABI rules in Vayu-owned code and do not bundle LLD, DLLs, import libraries, or an external backend.",
+          "name": "Research native code generation on top of VIR; keep target/ABI rules in Vayu-owned code and do not bundle LLD, DLLs, import libraries, or an external backend.",
           "description": "Output: native artifacts pass conformance for each supported target.",
           "status": "planned"
         },
         {
           "id": "12.2",
-          "name": "Report NativeCodegen = Supported in --vib-status only for targets proven by tests.",
-          "description": "Output: honest capability status changes only after target conformance passes.",
+          "name": "Report NativeCodegen = Supported only for targets proven by conformance tests.",
+          "description": "Output: honest capability status in --vib-status.",
           "status": "planned"
         }
       ]
@@ -377,33 +370,33 @@
     {
       "id": 13,
       "name": "Vayu-owned ONNX support",
-      "description": "Implement an independent ONNX reader and small operator runtime without a Python generator.",
+      "description": "Implement an ONNX reader and tested operator subset without a Python generator.",
       "status": "planned",
       "subphases": [
         {
           "id": "13.1",
-          "name": "Implement a Vayu-owned ONNX parser/reader and native fixtures; do not use a Python generator.",
+          "name": "Implement a Vayu-owned ONNX parser/reader with native fixtures; do not use a Python generator.",
           "description": "Output: malformed-model and numerical-correctness tests pass.",
           "status": "planned"
         },
         {
           "id": "13.2",
           "name": "Implement a small operator subset first and expand through tests.",
-          "description": "Output: per-operator support in --vib-status.",
+          "description": "Output: per-operator support appears in --vib-status.",
           "status": "planned"
         }
       ]
     },
     {
       "id": 14,
-      "name": "Capability reporting and self-hosting",
-      "description": "Expose the supported feature/runtime matrix and begin bootstrap work only after the Integrator subset is stable.",
+      "name": "Runtime capability reporting and self-hosting",
+      "description": "Expose machine-readable support status and attempt self-hosting only after the subset stabilizes.",
       "status": "planned",
       "subphases": [
         {
           "id": "14.1",
-          "name": "Publish the supported feature/runtime-version matrix at runtime through --vib-status --json.",
-          "description": "Output: machine-readable capability matrix.",
+          "name": "Publish the supported feature/runtime-version matrix at runtime using --vib-status --json.",
+          "description": "Output: machine-readable matrix.",
           "status": "planned"
         },
         {
