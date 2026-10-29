@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#07111f">
+<meta name="description" content="VIB, Vayu Integration Backend: the in-repository Integrator architecture for Vayu's future native compiler.">
+<title>VIB - Vayu Integration Backend</title><link rel="canonical" href="https://vayu.gt.tc/VIB/"><link rel="icon" type="image/png" href="/Vayu_Fav.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"><link rel="stylesheet" href="/css/main.css">
+<style>.vib-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.vib-flow{padding:24px;border:1px solid var(--line);border-radius:18px;background:rgba(2,8,18,.7);overflow:auto}.vib-flow pre{font:13px/1.7 "IBM Plex Mono",monospace;color:#d7f4ff;min-width:640px}@media(max-width:850px){.vib-grid{grid-template-columns:1fr}}</style>
+</head>
+<body data-vayu-defer data-page="vib"><canvas id="particles"></canvas><div class="noise"></div><div data-orbs style="position:fixed;inset:0;pointer-events:none;z-index:-1;overflow:hidden;"></div><div id="slot-nav"></div>
+<main id="top">
+<section class="page-hero"><div class="container"><span class="kicker">Integrated compiler architecture</span><h1>VIB — Vayu Integration Backend</h1><p class="lead">VIB is the integrated compiler/runtime system inside the Vayu repository. It implements the Integrator architecture; it is not a separate language, required standalone product or required executable.</p><div class="page-phase"><span class="dot"></span><span data-phase-badge>PHASE 00 · ACTIVE</span></div><div class="flex-row mt-24"><a class="btn primary" href="https://github.com/NotY215/Vayu/tree/master/VIB" target="_blank" rel="noopener">Browse VIB source</a><a class="btn ghost" href="/docs/">Technical documentation</a></div></div></section>
+<section class="pt-20"><div class="container">
+<div class="callout reveal"><div class="eyebrow"><span class="dev-dot"></span><span>Implementation status</span></div><h2>Architecture scaffold, not a finished native compiler</h2><p class="muted">The current VIB directory contains the Integrator API scaffold and documentation. The implementation explicitly reports that native code generation is not implemented yet. Use <code>--run</code> or <code>--vm</code> for execution on the current transition branch.</p></div>
+<div class="vib-flow mt-32"><h2>Target architecture</h2><pre class="mermaid">flowchart TD
+S["Vayu source (.vyu)"] --> F["Existing frontend"]
+F --> T["Semantic / type analysis"]
+T --> I["Verified Vayu IR (planned)"]
+I --> V["IR verifier (planned)"]
+V --> N["Vayu-owned native code generation (planned)"]
+N --> O["Object / executable emission (planned)"]
+O --> L["Optional platform linker"]
+L --> A["Native artifact + metadata"]
+classDef existing fill:#15243b,stroke:#55d9ff,color:#fff
+classDef planned fill:#211b3d,stroke:#9d82ff,color:#fff
+class S,F,T existing
+class I,V,N,O,L,A planned</pre></div>
+<div class="vib-grid mt-32">
+<article class="card reveal"><h3>Vayu owns</h3><p class="muted">Language semantics, VIR, verification, lowering decisions, native code generation, runtime contracts, artifact identity, cache validity, incremental invalidation and dispatch policy.</p></article>
+<article class="card reveal"><h3>Platform tools may provide</h3><p class="muted">Final linking, operating-system interfaces, system libraries, SDK files and debugging tools behind narrow, documented interfaces.</p></article>
+<article class="card reveal"><h3>Next engineering gates</h3><p class="muted">Establish baseline and conformance evidence, define shared semantics, implement deterministic VIR, verify invalid input, then build a minimal native target with tests.</p></article>
+<article class="card reveal"><h3>Performance policy</h3><p class="muted">Caching, incremental builds, adaptive dispatch and native speed improvements are hypotheses until implemented and measured with reproducible workloads.</p></article>
+</div>
+<div class="card reveal mt-32"><h2>VIB documentation</h2><div class="doc-grid">
+<article class="doc-card"><h4>Implementation home</h4><p><a href="https://github.com/NotY215/Vayu/blob/master/VIB/README.md" target="_blank" rel="noopener">VIB/README.md</a> defines responsibility boundaries and current status.</p></article>
+<article class="doc-card"><h4>Architecture</h4><p><a href="https://github.com/NotY215/Vayu/blob/master/VIB/docs/ARCHITECTURE.md" target="_blank" rel="noopener">ARCHITECTURE.md</a> lists required components and evidence gates.</p></article>
+<article class="doc-card"><h4>Engineering roadmap</h4><p><a href="https://github.com/NotY215/Vayu/blob/master/Roadmap.md" target="_blank" rel="noopener">Roadmap.md</a> contains the canonical phases and acceptance criteria.</p></article>
+<article class="doc-card"><h4>Benchmark predictions</h4><p><a href="https://github.com/NotY215/Vayu/blob/master/VIB/docs/BENCHMARK_PREDICTIONS.md" target="_blank" rel="noopener">BENCHMARK_PREDICTIONS.md</a> records hypotheses, experiments and disconfirmation criteria, not measured results.</p></article>
+</div><div class="flex-row mt-24"><a class="btn primary" href="/roadmap/">Full roadmap</a><a class="btn ghost" href="/speed/">Benchmark methodology</a><a class="btn ghost" href="https://github.com/NotY215/Vayu/blob/master/docs/vib-documentation.md" target="_blank" rel="noopener">Complete technical documentation</a></div></div>
+</div></section></main>
+<div id="slot-footer"></div><div id="slot-modal-examples"></div><div id="slot-modal-github"></div><div id="vayu-loading" aria-hidden="true"><div class="vayu-loader"><div class="vayu-loader-ring"></div><div class="vayu-loader-text">Loading VIB...</div></div></div>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script><script>mermaid.initialize({startOnLoad:true,theme:'dark',flowchart:{curve:'basis',htmlLabels:true},themeVariables:{primaryColor:'#15243b',primaryTextColor:'#e9f7ff',primaryBorderColor:'#55d9ff',lineColor:'#55d9ff',secondaryColor:'#211b3d',tertiaryColor:'#16352b',fontFamily:'DM Sans, system-ui, sans-serif'}});</script><script src="/js/layout.js"></script></body></html>
