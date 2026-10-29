@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#07111f">
-<meta name="description" content="Vayu benchmark plan and expected performance targets for the post-VCB benchmark phase.">
+<meta name="description" content="Vayu benchmark methodology, planned workload coverage, and evidence status for the VIB compiler transition.">
 <title>Speed & Benchmarks - Vayu</title>
 <link rel="canonical" href="https://vayu.gt.tc/speed/" />
 <link rel="icon" type="image/png" href="/Vayu_Fav.png">
@@ -13,98 +13,48 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="/css/main.css">
-<style>
-.expect-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
-.expect-card{position:relative;overflow:hidden}
-.expect-value{font:700 1.5rem "IBM Plex Mono",monospace;color:#8fe5ff;margin:12px 0}
-.expect-meter{height:8px;border-radius:999px;background:rgba(255,255,255,.06);overflow:hidden;margin-top:12px}
-.expect-meter i{display:block;height:100%;width:var(--w);background:linear-gradient(90deg,#55d9ff,#9d82ff);border-radius:inherit;animation:expectFill 1.2s ease both}
-@keyframes expectFill{from{width:0}}
-.bench-flow{padding:22px;border:1px solid var(--line);border-radius:18px;background:rgba(2,8,18,.7);overflow:auto}
-@media(max-width:850px){.expect-grid{grid-template-columns:1fr}}
-</style>
+<style>.bench-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.bench-flow{padding:22px;border:1px solid var(--line);border-radius:18px;background:rgba(2,8,18,.7);overflow:auto}@media(max-width:850px){.bench-grid{grid-template-columns:1fr}}</style>
 </head>
 <body data-vayu-defer data-page="speed">
 <canvas id="particles"></canvas><div class="noise"></div><div data-orbs style="position:fixed;inset:0;pointer-events:none;z-index:-1;overflow:hidden;"></div>
 <div id="slot-nav"></div>
 <main id="top">
 <section class="page-hero"><div class="container">
-<span class="kicker">Speed & benchmark plan</span>
-<h1>Benchmark after the backend transition.</h1>
-<p class="lead">Phase 25 benchmarking was deliberately postponed. This page now documents the expected benchmark targets and the measurement plan for Phase 28, when the VCB-built binaries are ready.</p>
-<div class="page-phase"><span class="dot"></span><span data-phase-badge>PHASE 28 · ACTIVE</span></div>
+<span class="kicker">Performance evidence</span><h1>Measure first. Claim second.</h1>
+<p class="lead">Vayu's benchmark page records the measurement plan and the evidence that exists. The VIB native compiler is not implemented yet, so this page intentionally publishes no native-performance results or projected speedups.</p>
+<div class="page-phase"><span class="dot"></span><span data-phase-badge>PHASE 00 · ACTIVE</span></div>
 </div></section>
-
 <section class="pt-20"><div class="container">
-<div class="callout reveal">
-<div class="eyebrow"><span class="dev-dot"></span><span>Expected results, not measurements</span></div>
-<h2>No fake benchmark numbers</h2>
-<p class="muted">The old page mixed measured QBE-era results with estimates. Those values are removed from the public benchmark view. Until Phase 28 is executed against VCB-built binaries, the cards below are targets for what the harness should evaluate, not claims about current speed.</p>
+<div class="callout reveal"><div class="eyebrow"><span class="dev-dot"></span><span>Current evidence status</span></div><h2>No measured VIB native results yet</h2><p class="muted">The current native compiler entry reports that VIB code generation is not implemented. Interpreter and VM measurements can be collected independently, but they must not be presented as native-backend results. Predicted improvements are hypotheses, not benchmarks.</p></div>
+<div class="bench-grid mt-32">
+<article class="card reveal"><h3>Compilation</h3><p class="muted">Cold build, warm build, incremental rebuilds, cache hit rate, and artifact size once those paths exist.</p><strong>Pending implementation</strong></article>
+<article class="card reveal"><h3>Runtime</h3><p class="muted">Startup, time-to-first-output, steady-state runtime, throughput, and peak memory for equivalent workloads.</p><strong>Baseline first</strong></article>
+<article class="card reveal"><h3>Correctness</h3><p class="muted">Output, exit status, diagnostics, side effects, and feature parity across interpreter, VM and each supported native target.</p><strong>Required gate</strong></article>
 </div>
-
-<div class="expect-grid mt-32">
-<article class="card expect-card reveal"><h3>fib(30)</h3><p class="muted">Recursive call-heavy workload.</p><div class="expect-value">Target: measured native baseline</div><div class="expect-meter"><i style="--w:100%"></i></div><p class="bench-note muted">Measure Vayu VCB vs C++ and CPython with identical inputs and compiler settings.</p></article>
-<article class="card expect-card reveal"><h3>50M integer loop</h3><p class="muted">Tight arithmetic and control-flow workload.</p><div class="expect-value">Target: native-scale execution</div><div class="expect-meter"><i style="--w:100%"></i></div><p class="bench-note muted">Measure loop lowering, register allocation and runtime overhead after VCB integration.</p></article>
-<article class="card expect-card reveal"><h3>5M OOP</h3><p class="muted">Allocation, mutation and method dispatch workload.</p><div class="expect-value">Target: reduce allocation gap</div><div class="expect-meter"><i style="--w:100%"></i></div><p class="bench-note muted">Track object allocation, method calls and future escape-analysis improvements separately.</p></article>
-</div>
-
-<div class="card reveal mt-32">
-<h2>Phase 28 benchmark matrix</h2>
-<p class="muted mt-20">The repository already contains a broader benchmark suite. Phase 28 should rerun it using VCB-built binaries and record the exact toolchain revision and environment.</p>
-<div class="compare mt-20"><table>
-<thead><tr><th>Workload</th><th>Category</th><th>Primary metric</th><th>Reference</th></tr></thead>
-<tbody>
-<tr><td>arith</td><td>Arithmetic</td><td>Wall time</td><td>C++, Java, Python</td></tr>
-<tr><td>fib</td><td>Recursion</td><td>Wall time</td><td>C++, Java, Python</td></tr>
-<tr><td>startup</td><td>Startup</td><td>Process time</td><td>C++, Java, Python</td></tr>
-<tr><td>matmul</td><td>Compute</td><td>Wall time</td><td>C++, Java, Python</td></tr>
-<tr><td>nbody</td><td>Compute</td><td>Wall time</td><td>C++, Java, Python</td></tr>
-<tr><td>mandelbrot</td><td>Compute</td><td>Wall time</td><td>C++, Java, Python</td></tr>
-<tr><td>sort</td><td>Allocation + algorithm</td><td>Wall time</td><td>C++, Java, Python</td></tr>
-<tr><td>hashmap</td><td>Collections</td><td>Wall time</td><td>C++, Java, Python</td></tr>
-<tr><td>json_parse</td><td>Parsing</td><td>Wall time</td><td>C++, Java, Python</td></tr>
-<tr><td>string_concat</td><td>Strings</td><td>Wall time</td><td>C++, Java, Python</td></tr>
-</tbody></table></div>
-</div>
-
-<div class="card reveal mt-32">
-<h2>Measurement rules</h2>
-<ul class="doc-list">
-<li>Use the same hardware and operating-system configuration for all languages in a comparison set.</li>
-<li>Record Vayu and VCB revisions, target, optimization settings and runtime configuration.</li>
-<li>Separate cold-start and warmed-up measurements where a runtime or JIT makes that distinction meaningful.</li>
-<li>Run multiple iterations and report a representative statistic rather than a single lucky run.</li>
-<li>Publish raw results with the harness so the displayed summary can be reproduced.</li>
-<li>Do not publish projected numbers as if they were measured results.</li>
-</ul>
-</div>
-
-<div class="card reveal mt-32">
-<h2>Expected backend impact</h2>
-<div class="bench-flow"><pre class="mermaid">flowchart LR
-  A["VCB-built binary"] e1@==> B["Native codegen"]
-  B e2@==> C["Demand-driven runtime"]
-  C e3@==> D["PE / ELF executable"]
-  D e4@==> E["Phase 28 harness"]
-  E e5@==> F["Measured results"]
-  e1@{animation: fast}
-  e2@{animation: fast}
-  e3@{animation: fast}
-  e4@{animation: fast}
-  e5@{animation: fast}
-  classDef a fill:#15243b,stroke:#55d9ff,color:#fff
-  classDef b fill:#211b3d,stroke:#9d82ff,color:#fff
-  classDef c fill:#16352b,stroke:#63e6a0,color:#fff
-  class A,B a
-  class C,D b
-  class E,F c</pre></div>
-<p class="muted mt-20">The goal of this page is to make the benchmark process transparent while the final numbers are still pending.</p>
-</div>
-
-<div class="callout reveal mt-32"><h2>Current status</h2><p class="muted">Phase 28 is currently preparing the object-file and external-link path. The full benchmark suite remains scheduled for Phase 39.</p><a class="btn primary" href="/roadmap/">View Roadmap</a></div>
+<div class="card reveal mt-32"><h2>Planned workload families</h2><p class="muted mt-20">The engineering roadmap calls for a reproducible suite covering multiple workload shapes rather than one headline number.</p>
+<div class="compare mt-20"><table><thead><tr><th>Family</th><th>Examples</th><th>Metrics</th></tr></thead><tbody>
+<tr><td>Short-lived CLI</td><td>Startup and first output</td><td>Startup time, cold compilation</td></tr><tr><td>Arithmetic</td><td>Integer and floating-point operations</td><td>Runtime, throughput</td></tr><tr><td>Control flow</td><td>Branches, calls and recursion</td><td>Runtime, code size</td></tr><tr><td>Collections</td><td>Strings, lists, tuples, sets and maps</td><td>Runtime, memory</td></tr><tr><td>Project scale</td><td>Multi-module dependency graphs</td><td>Cold, warm and incremental build times</td></tr><tr><td>Long-running</td><td>Stable hot loops</td><td>Warm-up, steady-state time, total elapsed time</td></tr><tr><td>IO workloads</td><td>File processing and parsing</td><td>Elapsed time, memory, output equivalence</td></tr>
+</tbody></table></div></div>
+<div class="card reveal mt-32"><h2>Evidence protocol</h2><ul class="doc-list">
+<li>Record the source commit, compiler revision, OS, hardware, target and all flags.</li><li>Publish exact commands, inputs, number of repetitions, warm-up policy, median and spread.</li><li>Separate compilation time from runtime and startup costs.</li><li>Compare equivalent semantics and observable output, not just similarly named programs.</li><li>Preserve raw results and disclose missing, flaky or platform-specific measurements.</li><li>Keep predictions separate from measured results and document what would disprove each prediction.</li>
+</ul></div>
+<div class="bench-flow mt-32"><pre class="mermaid">flowchart LR
+A["Existing frontend"] --> B["Interpreter / VM baseline"]
+A --> C["VIB IR and verifier (planned)"]
+C --> D["Native code generation (planned)"]
+D --> E["Conformance gate"]
+E --> F["Reproducible benchmark suite"]
+classDef current fill:#15243b,stroke:#55d9ff,color:#fff
+classDef planned fill:#211b3d,stroke:#9d82ff,color:#fff
+classDef gate fill:#16352b,stroke:#63e6a0,color:#fff
+class A,B current
+class C,D planned
+class E,F gate</pre></div>
+<div class="callout reveal mt-32"><h2>Current status</h2><p class="muted">The immediate roadmap begins with baseline and conformance evidence, then the VIB foundation, shared semantics, Vayu IR and verification. Native benchmark claims come only after a working target passes its correctness gate.</p><a class="btn primary" href="/roadmap/">View Roadmap</a> <a class="btn ghost" href="/VIB/">Explore VIB</a></div>
 </div></section>
 </main>
 <div id="slot-footer"></div><div id="slot-modal-examples"></div><div id="slot-modal-github"></div>
 <div id="vayu-loading" aria-hidden="true"><div class="vayu-loader"><div class="vayu-loader-ring"></div><div class="vayu-loader-text">Loading Vayu...</div></div></div>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script><script>mermaid.initialize({startOnLoad:true,theme:'dark',flowchart:{curve:'basis',htmlLabels:true},themeVariables:{primaryColor:'#15243b',primaryTextColor:'#e9f7ff',primaryBorderColor:'#55d9ff',lineColor:'#55d9ff',secondaryColor:'#211b3d',tertiaryColor:'#16352b',fontFamily:'DM Sans, system-ui, sans-serif'}});</script>
 <script src="/js/layout.js"></script>
 </body></html>
