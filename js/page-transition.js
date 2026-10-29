@@ -18,7 +18,7 @@
     '/docs',
     '/speed',
     '/compare',
-    '/VCB',
+    '/VIB',
     '/github',
     '/games',
     '/roadmap',
