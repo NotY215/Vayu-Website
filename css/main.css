@@ -344,6 +344,14 @@ td { color: #b9c8d3; }
 .phase-status.done { color: #63e6a0; }
 .phase-status.dev { color: #ff6b76; }
 .phase-status.planned { color: #718797; }
+.phase-status.next { color: #55d9ff; }
+.phase-status.deferred { color: #d8bd79; }
+.phase.next { border-left-color: rgba(85,217,255,.55); }
+.phase.next .phase-number { color: #55d9ff; }
+.phase-marker.next { color: #55d9ff; border-color: rgba(85,217,255,.55); background: rgba(85,217,255,.08); font-weight: 900; }
+.phase.deferred { border-left-color: rgba(216,189,121,.45); }
+.phase-marker.deferred { color: #d8bd79; border-color: rgba(216,189,121,.45); background: rgba(216,189,121,.06); }
+.phase-status.deferred { color: #d8bd79; }
 .phase-status.vacation { color: #ffd24a; }
 .phase h3 { font-size: 1.18rem; margin-bottom: 5px; }
 .phase p { color: var(--muted); font-size: 0.9rem; max-width: 850px; }
@@ -2228,6 +2236,13 @@ body[data-page="flappybird"] .game-pause-fab {
   border: 1px solid #b8a77a;
   box-shadow: 0 0 6px rgba(255,210,74,.35);
 }
+.phase-subphase-dot.next {
+  background: #55d9ff;
+  border: 1px solid #55d9ff;
+  box-shadow: 0 0 7px rgba(85,217,255,.55);
+}
+.phase-subphase[data-sub-status="next"] .phase-subphase-name { color: #c7f0ff; }
+.phase-subphase[data-sub-status="deferred"] .phase-subphase-name { color: #a9a08b; }
 .phase-subphase-dot.working {
   background: #ff4657;
   box-shadow: 0 0 0 0 rgba(255,70,87,.55), 0 0 12px rgba(255,70,87,.9);
