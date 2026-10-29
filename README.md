@@ -1,6 +1,6 @@
 # Vayu Website
 
-Public source for the Vayu project website, documentation, roadmap, feature pages, benchmark presentation and VCB information.
+Public source for the Vayu project website, documentation, roadmap, feature pages, benchmark presentation and VIB architecture information.
 
 ## Website
 
@@ -12,13 +12,13 @@ https://github.com/NotY215/Vayu-Website
 
 ## Structure
 
-- HTML pages for public Vayu and VCB information
+- HTML pages for public Vayu and VIB information
 - CSS and JavaScript for the site UI and runtime behavior
 - `roadmap.json` for roadmap data
 - `sitemap.xml` and `robots.txt` for site discovery
 - `.htaccess` for clean route handling on the host
 
-The website reflects the public state of the Vayu and VCB repositories. Canonical implementation details remain in those repositories.
+The website reflects the current Vayu codebase and its in-repository VIB architecture. Native code generation is not implemented yet; check the Vayu repository for implementation status and acceptance criteria.
 
 ## Project policies
 
