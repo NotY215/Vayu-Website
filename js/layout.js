@@ -212,8 +212,10 @@
     const s = p.status || 'soon';
     if(s === 'completed') return 'COMPLETED';
     if(s === 'working')   return 'IN DEVELOPMENT';
+    if(s === 'next')      return 'NEXT';
     if(s === 'vacation')  return 'ON VACATION';
     if(s === 'skipped')   return 'SKIPPED FOR NOW';
+    if(s === 'deferred')  return 'DEFERRED';
     if(s === 'open')      return 'OPEN';
     return 'PLANNED';
   }
@@ -277,33 +279,41 @@
     const s = p.status || 'soon';
     if(s === 'completed') return 'done';
     if(s === 'working')   return 'active';
+    if(s === 'next')      return 'next';
     if(s === 'vacation')  return 'vacation';
     if(s === 'skipped')   return 'skipped';
+    if(s === 'deferred')  return 'deferred';
     return '';
   }
   function markerClass(p){
     const s = p.status || 'soon';
     if(s === 'completed') return 'done';
     if(s === 'working')   return 'active';
+    if(s === 'next')      return 'next';
     if(s === 'vacation')  return 'vacation';
     if(s === 'open')      return 'open';
+    if(s === 'deferred')  return 'deferred';
     return '';
   }
   function markerInner(p){
     const s = p.status || 'soon';
     if(s === 'completed') return '✓';
     if(s === 'working')   return '<span class="dev-dot"></span>';
+    if(s === 'next')      return '→';
     if(s === 'vacation')  return '☕';
     if(s === 'skipped')   return '⏭';
+    if(s === 'deferred')  return 'Ⅱ';
     return '-';
   }
   function statusClass(p){
     const s = p.status || 'soon';
     if(s === 'completed') return 'done';
     if(s === 'working')   return 'dev';
+    if(s === 'next')      return 'next';
     if(s === 'vacation')  return 'vacation';
-    if(s === 'skipped')  return 'skipped';
-    if(s === 'open')     return 'open';
+    if(s === 'skipped')   return 'skipped';
+    if(s === 'deferred')  return 'deferred';
+    if(s === 'open')      return 'open';
     return 'planned';
   }
   function escapeHtml(s){
@@ -320,6 +330,7 @@
   function subDotClass(status){
     if(status === 'completed') return '';
     if(status === 'working')   return 'working';
+    if(status === 'next')      return 'next';
     if(status === 'deferred')  return 'deferred';
     return 'planned';
   }
