@@ -180,7 +180,7 @@
   async function loadRoadmapData(){
     if(ROADMAP_DATA) return ROADMAP_DATA;
     try {
-      const res = await fetch('/roadmap.json?_=' + Date.now(), { cache: 'no-store' });
+      const res = await fetch('https://raw.githubusercontent.com/NotY215/Vayu-Website/main/roadmap.json?_=' + Date.now(), { cache: 'no-store' });
       if(res.ok) ROADMAP_DATA = await res.json();
     } catch(err){
       console.warn('[Vayu roadmap] fetch failed', err);
