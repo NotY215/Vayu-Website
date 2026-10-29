@@ -19,7 +19,7 @@
     { href: '/docs/',          nav: 'docs',          label: 'Documentation' },
     { href: '/speed/',         nav: 'speed',         label: 'Speed' },
     { href: '/compare/',       nav: 'compare',       label: 'Compare' },
-    { href: '/VCB/',           nav: 'vcb',           label: 'VCB' },
+    { href: '/VIB/',           nav: 'vib',           label: 'VIB' },
     { href: '/games/',         nav: 'games',         label: 'Games' },
     { href: '/roadmap/',       nav: 'roadmap',       label: 'Roadmap' },
     { href: '/faq/',           nav: 'FAQ',           label: 'FAQ' }
@@ -710,8 +710,7 @@
       }
 
       if(page === 'home')   await loadScript('/js/github-stats.js');
-      if(page === 'vcb') await loadScript('/js/vcb-readme.js');
-
+  
       if(page === 'github'){
         await loadScript('/js/explorer.js');
         if(window.VayuExplorer) window.VayuExplorer.init('vayu-explorer');
