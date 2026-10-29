@@ -26,12 +26,12 @@
     <div class="container">
       <span class="kicker">Language</span>
       <h1>Custom Vayu syntax. Not pseudocode.</h1>
-      <p class="lead">Vayu source files use <strong>.vyu</strong>. The syntax is indentation-based and custom to the language: Python-style blocks, static typing, generics, ownership, C FFI, a CPython bridge, and a full standard library. Everything below is taken from the live compiler.</p>
+      <p class="lead">Vayu source files use <strong>.vyu</strong>. The syntax is indentation-based and custom to the language, with Python-style blocks, static typing, generics, ownership, C FFI declarations and a CPython bridge API. Examples reflect the repository's language/runtime surface; native-backend support is currently unavailable while VIB is rebuilt.</p>
       <div class="flex-row mt-24">
         <button class="btn primary ripple-btn" id="openExamples" type="button">▤ Examples</button>
         <a class="btn ghost ripple-btn" href="/docs/">📖 Full documentation</a>
       </div>
-      <div class="page-phase"><span class="dot"></span><span data-phase-badge>PHASE 27 · ACTIVE</span></div>
+      <div class="page-phase"><span class="dot"></span><span data-phase-badge>PHASE 00 · ACTIVE</span></div>
     </div>
   </section>
 
@@ -564,7 +564,7 @@ raw: <span class="type">ptr&lt;int&gt;</span> = <span class="fnname">malloc</spa
             <span class="pill">ref&lt;T&gt;</span>
           </div>
           <p class="muted mt-20"><code>unique&lt;T&gt;</code> is move-only - the type checker tracks <code>moved_</code> scope and refuses use-after-move. <code>weak&lt;T&gt;</code> is non-owning; <code>.upgrade()</code> desugars to a shared reference. <code>ref&lt;T&gt;</code> resolves to the underlying <code>T</code> at type-check time.</p>
-          <p class="muted mt-20">Pointer arithmetic, indexing through pointers (<code>p[i]</code>), assignment (<code>p[i] = v</code>), and <code>&amp;arr[i]</code> / <code>&amp;obj.field</code> / <code>&amp;m[k]</code> for live lvalue references are supported across the tree-walker, VM and native backends.</p>
+          <p class="muted mt-20">Pointer syntax and related operations are represented in the language and runtime implementation. The current native compiler is a VIB scaffold, so native pointer execution is not currently available; verify each operation against the interpreter or VM tests before relying on it.</p>
         </div>
       </div>
 
@@ -634,8 +634,8 @@ py.decref(m)</pre>
       </div>
 
       <div class="card reveal mt-20">
-        <p class="muted"><strong>FFI</strong> is native-backend only. <code>extern "C"</code> blocks parse and type-check on all backends, but calling an external function from the tree-walker or VM raises <code>"extern C functions can only be called from the native backend"</code>. Native supports <code>str ↔ char*</code> bridging, function pointers, C callbacks, and struct-by-value (small single-field).</p>
-        <p class="muted mt-20"><strong>py module</strong> is native-backend only. <code>py.init()</code> on the tree-walker/VM raises <code>"py.init() requires the native backend"</code>.</p>
+        <p class="muted"><strong>FFI</strong> declarations using <code>extern "C"</code> are parsed and type-checked, but external calls require a working native backend. VIB native code generation is not implemented on the current transition branch, so FFI calls cannot currently be executed through native mode. Do not treat the documented ABI features as available until native conformance tests pass.</p>
+        <p class="muted mt-20"><strong>py module</strong> is intended for the native CPython bridge. Since the current VIB native compiler is not implemented, the bridge is not currently usable through the native execution route.</p>
       </div>
 
       <!-- ============================================================
@@ -779,9 +779,9 @@ unsafe    ::= "unsafe" block</pre>
         </article>
         <article class="card reveal">
           <div class="icon">⚡</div>
-          <h3>Native compiler</h3>
-          <p>Emits native code through QBE + GCC. Required for C FFI and the CPython bridge.</p>
-          <p class="muted mt-20"><code>vayuc --native file.vyu</code></p>
+          <h3>Native compiler transition</h3>
+          <p>The existing driver routes native requests to VIB, whose native code generator is not implemented yet. Use the interpreter or bytecode VM until the native conformance gates pass.</p>
+          <p class="muted mt-20"><code>vayuc file.vyu --run</code> or <code>vayuc file.vyu --vm</code></p>
         </article>
       </div>
 
