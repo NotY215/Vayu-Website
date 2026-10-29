@@ -23,4 +23,6 @@ RewriteCond %{REQUEST_FILENAME} !-d
 
 # Clean routes work with or without a trailing slash.
 RewriteRule ^VIB/?$ /VIB.html [NC,L]
+RewriteRule ^(docs|documentation|doc)/?$ /vayu-documentation.html [NC,L]
+RewriteRule ^(vcb|compiler)/?$ /VIB/ [R=301,L,NC]
 RewriteRule ^([^\.]+?)/?$ /$1.html [NC,L]
