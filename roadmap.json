@@ -4,9 +4,11 @@
     "source": "Roadmap supplied by the user for website synchronization.",
     "status_policy": "Statuses reflect the supplied roadmap. Do not mark implementation complete without repository and test evidence.",
     "phase_status": {
-      "complete": "Implemented and accepted with evidence.",
-      "next": "Immediate next work; not yet marked complete.",
+      "completed": "Implemented and accepted with evidence.",
+      "working": "Currently being worked on.",
       "planned": "Planned; not started or not verified.",
+      "next": "Immediate next work; not yet marked complete.",
+      "vacation": "Intentionally paused or on hold.",
       "deferred": "Intentionally deferred; gated until prerequisites and direction allow it."
     },
     "notes": "Phase 0, Phase 1, and VIR foundation Phase 2 are complete. Phase 3 is next. --native at this stage means Integrator-mediated VIR execution, not native machine code; NativeCodegen remains Scaffolded. .vye packaging and backend dispatch/cache work remain deferred."
@@ -20,31 +22,31 @@
       "id": 0,
       "name": "Baseline and subsystem ownership",
       "description": "Establish a reproducible clean-build baseline, assign subsystem ownership, and define capability reporting before expanding implementation.",
-      "status": "complete",
+      "status": "completed",
       "subphases": [
         {
           "id": "0.1",
           "name": "Record the VS Community clean-build and clean-test baseline (Rebuild → Build → run_all.ps1); make no assumptions about existing state.",
           "description": "Output: Preconditions embedded in tests/vib_baseline.ps1.",
-          "status": "complete"
+          "status": "completed"
         },
         {
           "id": "0.2",
           "name": "Codify subsystem ownership.",
           "description": "Output: vib::Feature enum covering all four routes and every language feature.",
-          "status": "complete"
+          "status": "completed"
         },
         {
           "id": "0.3",
           "name": "Make the capability matrix the single source of truth.",
           "description": "Output: Static CapabilityInfo table in VIB/Integrator.cpp.",
-          "status": "complete"
+          "status": "completed"
         },
         {
           "id": "0.4",
           "name": "Curate fixtures and stable expected outputs.",
           "description": "Output: Fixture list embedded in tests/vib_baseline.ps1.",
-          "status": "complete"
+          "status": "completed"
         }
       ]
     },
@@ -52,31 +54,31 @@
       "id": 1,
       "name": "Integrator API and CLI routing",
       "description": "Centralize capability metadata and route native-path behavior and diagnostics through the Integrator.",
-      "status": "complete",
+      "status": "completed",
       "subphases": [
         {
           "id": "1.1",
           "name": "Expand the Integrator API.",
           "description": "Output: Feature, SupportLevel, ErrorKind, Backend, CapabilityInfo, extended CompileResult, and static queries.",
-          "status": "complete"
+          "status": "completed"
         },
         {
           "id": "1.2",
           "name": "Make NativeCompiler a pure adapter.",
           "description": "Output: No hardcoded messages outside VIB/.",
-          "status": "complete"
+          "status": "completed"
         },
         {
           "id": "1.3",
           "name": "Add --vib-status and unify error routing.",
           "description": "Output: New CLI flag; four native-path flags route through Integrator.",
-          "status": "complete"
+          "status": "completed"
         },
         {
           "id": "1.4",
           "name": "Establish the Phase 0/1 test harness.",
           "description": "Output: tests/vib_baseline.ps1.",
-          "status": "complete"
+          "status": "completed"
         }
       ]
     },
@@ -84,43 +86,43 @@
       "id": 2,
       "name": "VIB internal representation (VIR)",
       "description": "Build a verified in-memory VIR pipeline. This phase does not introduce .vye packaging or artifact caching.",
-      "status": "complete",
+      "status": "completed",
       "subphases": [
         {
           "id": "2.1",
           "name": "Implement VIR data structures.",
           "description": "Output: VIB/Vir.hpp: VirType, VirValue, VirOpcode, VirInstruction, VirBlock, VirFunction, VirModule.",
-          "status": "complete"
+          "status": "completed"
         },
         {
           "id": "2.2",
           "name": "Implement the VIR printer.",
           "description": "Output: VirPrinter::print produces human-readable module text.",
-          "status": "complete"
+          "status": "completed"
         },
         {
           "id": "2.3",
           "name": "Implement structural VIR verification.",
           "description": "Output: VirVerifier::verify validates functions, blocks, indices, and terminators.",
-          "status": "complete"
+          "status": "completed"
         },
         {
           "id": "2.4",
           "name": "Implement minimal lowering for PassStmt and empty programs.",
           "description": "Output: VirLowering::lower; every non-Pass statement returns a planned Phase N diagnostic.",
-          "status": "complete"
+          "status": "completed"
         },
         {
           "id": "2.5",
           "name": "Integrate VIR with Integrator::dumpIR and the driver.",
           "description": "Output: Feature::VIR = Supported; Feature::Verifier = Supported; --dump-ir prints VIR on success.",
-          "status": "complete"
+          "status": "completed"
         },
         {
           "id": "2.6",
           "name": "Add VIR test coverage.",
           "description": "Output: tests/vib_baseline.ps1 verifies --dump-ir succeeds on pass-only programs and fails cleanly on non-trivial programs.",
-          "status": "complete"
+          "status": "completed"
         }
       ]
     },
