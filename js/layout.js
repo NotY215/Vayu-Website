@@ -16,7 +16,7 @@
     { href: '/github/',        nav: 'github',        label: 'GitHub' },
     { href: '/developer/',     nav: 'developer',     label: 'Developer' },
     { href: '/syntax/',        nav: 'syntax',        label: 'Syntax' },
-    { href: '/docs/',          nav: 'docs',          label: 'Documentation' },
+    { href: '/docs.html',      nav: 'docs',          label: 'Documentation' },
     { href: '/speed/',         nav: 'speed',         label: 'Speed' },
     { href: '/compare/',       nav: 'compare',       label: 'Compare' },
     { href: '/VIB/',           nav: 'vib',           label: 'VIB' },
@@ -40,6 +40,7 @@
           <a href="/features/" data-nav="features">Features</a>
           <a href="/github/" data-nav="github">GitHub</a>
           <a href="/developer/" data-nav="developer">Developer</a>
+          <a href="/docs.html" data-nav="docs">Documentation</a>
           <a href="/roadmap/" data-nav="roadmap">Roadmap</a>
           <a href="/faq/" data-nav="faq">FAQ</a>
         </div>
