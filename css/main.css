@@ -296,6 +296,7 @@ td { color: #b9c8d3; }
   animation: devPulse 1.35s infinite;
 }
 .legend-plan { width: 8px; height: 8px; border-radius: 50%; border: 1px solid #63798a; }
+.legend-vacation { color: #ffd24a; font-size: 0.95rem; line-height: 1; }
 .timeline { position: relative; display: grid; gap: 13px; }
 .timeline:before {
   content: ""; position: absolute; left: 31px; top: 25px; bottom: 25px; width: 1px;
