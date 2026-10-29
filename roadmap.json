@@ -145,7 +145,7 @@
         {
           "id": "3.3",
           "name": "Implement an in-memory VIR interpreter; --native becomes Integrator-mediated execution. NativeCodegen remains Scaffolded.",
-          "description": "Output: --native examples\\\\vm_arith.vyu produces correct stdout.",
+          "description": "Output: --native examples\\vm_arith.vyu produces correct stdout.",
           "status": "next"
         },
         {
