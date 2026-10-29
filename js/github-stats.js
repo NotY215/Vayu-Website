@@ -1,12 +1,12 @@
 /* ============================================================
-   Vayu GitHub Stats - combined Vayu + VCB commits
+   Vayu GitHub Stats - Vayu repository commits
    Uses the GitHub REST API. Caches for 5 minutes.
    ============================================================ */
 (function(){
   'use strict';
 
-  const REPOS = ['NotY215/Vayu', 'NotY215/VCB'];
-  const CACHE_KEY = 'vayu-gh-stats-v3';
+  const REPOS = ['NotY215/Vayu'];
+  const CACHE_KEY = 'vayu-gh-stats-v4';
   const CACHE_TTL = 5 * 60 * 1000;
   const HEADERS = { 'Accept': 'application/vnd.github+json' };
 
