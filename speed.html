@@ -1,43 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#07111f">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#07111f">
 <meta name="description" content="Vayu benchmark methodology, planned workload coverage, and evidence status for the VIB compiler transition.">
-<title>Speed & Benchmarks - Vayu</title>
-<link rel="canonical" href="https://vayu.gt.tc/speed/" />
-<link rel="icon" type="image/png" href="/Vayu_Fav.png">
-<link rel="apple-touch-icon" type="image/png" href="/Vayu_Fav.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="/css/main.css">
+<title>Speed & Benchmarks - Vayu</title><link rel="canonical" href="https://vayu.gt.tc/speed/"><link rel="icon" type="image/png" href="/Vayu_Fav.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"><link rel="stylesheet" href="/css/main.css">
 <style>.bench-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.bench-flow{padding:22px;border:1px solid var(--line);border-radius:18px;background:rgba(2,8,18,.7);overflow:auto}@media(max-width:850px){.bench-grid{grid-template-columns:1fr}}</style>
-</head>
-<body data-vayu-defer data-page="speed">
-<canvas id="particles"></canvas><div class="noise"></div><div data-orbs style="position:fixed;inset:0;pointer-events:none;z-index:-1;overflow:hidden;"></div>
-<div id="slot-nav"></div>
-<main id="top">
-<section class="page-hero"><div class="container">
-<span class="kicker">Performance evidence</span><h1>Measure first. Claim second.</h1>
-<p class="lead">Vayu's benchmark page records the measurement plan and the evidence that exists. The VIB native compiler is not implemented yet, so this page intentionally publishes no native-performance results or projected speedups.</p>
-<div class="page-phase"><span class="dot"></span><span data-phase-badge>PHASE 00 · ACTIVE</span></div>
-</div></section>
+</head><body data-vayu-defer data-page="speed">
+<canvas id="particles"></canvas><div class="noise"></div><div data-orbs style="position:fixed;inset:0;pointer-events:none;z-index:-1;overflow:hidden;"></div><div id="slot-nav"></div>
+<main id="top"><section class="page-hero"><div class="container"><span class="kicker">Performance evidence</span><h1>Measure first. Claim second.</h1>
+<p class="lead">The VIB native compiler is not implemented yet, so this page publishes the measurement plan rather than unsupported native-performance results or projected speedups.</p><div class="page-phase"><span class="dot"></span><span data-phase-badge>PHASE 00 · ACTIVE</span></div></div></section>
 <section class="pt-20"><div class="container">
-<div class="callout reveal"><div class="eyebrow"><span class="dev-dot"></span><span>Current evidence status</span></div><h2>No measured VIB native results yet</h2><p class="muted">The current native compiler entry reports that VIB code generation is not implemented. Interpreter and VM measurements can be collected independently, but they must not be presented as native-backend results. Predicted improvements are hypotheses, not benchmarks.</p></div>
-<div class="bench-grid mt-32">
-<article class="card reveal"><h3>Compilation</h3><p class="muted">Cold build, warm build, incremental rebuilds, cache hit rate, and artifact size once those paths exist.</p><strong>Pending implementation</strong></article>
-<article class="card reveal"><h3>Runtime</h3><p class="muted">Startup, time-to-first-output, steady-state runtime, throughput, and peak memory for equivalent workloads.</p><strong>Baseline first</strong></article>
-<article class="card reveal"><h3>Correctness</h3><p class="muted">Output, exit status, diagnostics, side effects, and feature parity across interpreter, VM and each supported native target.</p><strong>Required gate</strong></article>
-</div>
-<div class="card reveal mt-32"><h2>Planned workload families</h2><p class="muted mt-20">The engineering roadmap calls for a reproducible suite covering multiple workload shapes rather than one headline number.</p>
-<div class="compare mt-20"><table><thead><tr><th>Family</th><th>Examples</th><th>Metrics</th></tr></thead><tbody>
-<tr><td>Short-lived CLI</td><td>Startup and first output</td><td>Startup time, cold compilation</td></tr><tr><td>Arithmetic</td><td>Integer and floating-point operations</td><td>Runtime, throughput</td></tr><tr><td>Control flow</td><td>Branches, calls and recursion</td><td>Runtime, code size</td></tr><tr><td>Collections</td><td>Strings, lists, tuples, sets and maps</td><td>Runtime, memory</td></tr><tr><td>Project scale</td><td>Multi-module dependency graphs</td><td>Cold, warm and incremental build times</td></tr><tr><td>Long-running</td><td>Stable hot loops</td><td>Warm-up, steady-state time, total elapsed time</td></tr><tr><td>IO workloads</td><td>File processing and parsing</td><td>Elapsed time, memory, output equivalence</td></tr>
+<div class="callout reveal"><div class="eyebrow"><span class="dev-dot"></span><span>Current evidence status</span></div><h2>No measured VIB native results yet</h2><p class="muted">The current native compiler entry reports that VIB code generation is not implemented. Interpreter and VM measurements can be collected independently, but must not be presented as native-backend results. Predictions are hypotheses, not benchmarks.</p></div>
+<div class="bench-grid mt-32"><article class="card reveal"><h3>Compilation</h3><p class="muted">Cold builds, warm builds, incremental rebuilds, cache hit rate and artifact size once those paths exist.</p><strong>Pending implementation</strong></article><article class="card reveal"><h3>Runtime</h3><p class="muted">Startup, time-to-first-output, steady-state runtime, throughput and peak memory for equivalent workloads.</p><strong>Baseline first</strong></article><article class="card reveal"><h3>Correctness</h3><p class="muted">Output, exit status, diagnostics, side effects and feature parity across interpreter, VM and each supported native target.</p><strong>Required gate</strong></article></div>
+<div class="card reveal mt-32"><h2>Planned workload families</h2><div class="compare mt-20"><table><thead><tr><th>Family</th><th>Examples</th><th>Metrics</th></tr></thead><tbody>
+<tr><td>Short-lived CLI</td><td>Startup and first output</td><td>Startup time, cold compilation</td></tr><tr><td>Arithmetic</td><td>Integer and floating-point operations</td><td>Runtime, throughput</td></tr><tr><td>Control flow</td><td>Branches, calls and recursion</td><td>Runtime, code size</td></tr><tr><td>Collections</td><td>Strings, lists, tuples, sets and maps</td><td>Runtime, memory</td></tr><tr><td>Project scale</td><td>Multi-module dependency graphs</td><td>Cold, warm and incremental build times</td></tr><tr><td>Long-running</td><td>Stable hot loops</td><td>Warm-up, steady-state and total elapsed time</td></tr><tr><td>IO workloads</td><td>File processing and parsing</td><td>Elapsed time, memory, output equivalence</td></tr>
 </tbody></table></div></div>
-<div class="card reveal mt-32"><h2>Evidence protocol</h2><ul class="doc-list">
-<li>Record the source commit, compiler revision, OS, hardware, target and all flags.</li><li>Publish exact commands, inputs, number of repetitions, warm-up policy, median and spread.</li><li>Separate compilation time from runtime and startup costs.</li><li>Compare equivalent semantics and observable output, not just similarly named programs.</li><li>Preserve raw results and disclose missing, flaky or platform-specific measurements.</li><li>Keep predictions separate from measured results and document what would disprove each prediction.</li>
-</ul></div>
+<div class="card reveal mt-32"><h2>Evidence protocol</h2><ul class="doc-list"><li>Record the source commit, compiler revision, OS, hardware, target and all flags.</li><li>Publish exact commands, inputs, repetitions, warm-up policy, median and spread.</li><li>Separate compilation time from runtime and startup costs.</li><li>Compare equivalent semantics and observable output, not merely similarly named programs.</li><li>Preserve raw results and disclose missing, flaky or platform-specific measurements.</li><li>Keep predictions separate from measured results and document what would disprove each prediction.</li></ul></div>
 <div class="bench-flow mt-32"><pre class="mermaid">flowchart LR
 A["Existing frontend"] --> B["Interpreter / VM baseline"]
 A --> C["VIB IR and verifier (planned)"]
@@ -51,10 +30,6 @@ class A,B current
 class C,D planned
 class E,F gate</pre></div>
 <div class="callout reveal mt-32"><h2>Current status</h2><p class="muted">The immediate roadmap begins with baseline and conformance evidence, then the VIB foundation, shared semantics, Vayu IR and verification. Native benchmark claims come only after a working target passes its correctness gate.</p><a class="btn primary" href="/roadmap/">View Roadmap</a> <a class="btn ghost" href="/VIB/">Explore VIB</a></div>
-</div></section>
-</main>
-<div id="slot-footer"></div><div id="slot-modal-examples"></div><div id="slot-modal-github"></div>
-<div id="vayu-loading" aria-hidden="true"><div class="vayu-loader"><div class="vayu-loader-ring"></div><div class="vayu-loader-text">Loading Vayu...</div></div></div>
-<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script><script>mermaid.initialize({startOnLoad:true,theme:'dark',flowchart:{curve:'basis',htmlLabels:true},themeVariables:{primaryColor:'#15243b',primaryTextColor:'#e9f7ff',primaryBorderColor:'#55d9ff',lineColor:'#55d9ff',secondaryColor:'#211b3d',tertiaryColor:'#16352b',fontFamily:'DM Sans, system-ui, sans-serif'}});</script>
-<script src="/js/layout.js"></script>
-</body></html>
+</div></section></main>
+<div id="slot-footer"></div><div id="slot-modal-examples"></div><div id="slot-modal-github"></div><div id="vayu-loading" aria-hidden="true"><div class="vayu-loader"><div class="vayu-loader-ring"></div><div class="vayu-loader-text">Loading Vayu...</div></div></div>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script><script>mermaid.initialize({startOnLoad:true,theme:'dark',flowchart:{curve:'basis',htmlLabels:true},themeVariables:{primaryColor:'#15243b',primaryTextColor:'#e9f7ff',primaryBorderColor:'#55d9ff',lineColor:'#55d9ff',secondaryColor:'#211b3d',tertiaryColor:'#16352b',fontFamily:'DM Sans, system-ui, sans-serif'}});</script><script src="/js/layout.js"></script></body></html>
