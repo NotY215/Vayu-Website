@@ -350,6 +350,7 @@
                   '<span class="phase-subphase-id">' + escapeHtml(sp.id) + '</span>' +
                   '<span class="phase-subphase-dot ' + subDotClass(spStatus) + '"></span>' +
                   '<span class="phase-subphase-copy"><span class="phase-subphase-name">' + escapeHtml(sp.name) + '</span>' +
+                    '<span class="phase-subphase-status status-' + escapeHtml(spStatus) + '">' + escapeHtml(String(spStatus).toUpperCase()) + '</span>' +
                     (sp.description ? '<span class="phase-subphase-description">' + escapeHtml(sp.description) + '</span>' : '') +
                   '</span>' +
                 '</div>';
