@@ -130,7 +130,7 @@
       "id": 3,
       "name": "Basic arithmetic and values",
       "description": "Define deterministic value semantics, lower the first executable subset to VIR, and execute it through the Integrator rather than claiming machine-code generation.",
-      "status": "next",
+      "status": "working",
       "subphases": [
         {
           "id": "3.1",
