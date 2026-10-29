@@ -1,14 +1,16 @@
 {
   "_readme": {
-    "title": "Vayu Engineering Roadmap",
-    "source": "Canonical plan: NotY215/Vayu/Roadmap.md",
-    "status_policy": "Statuses must reflect implementation and test evidence. A phase is not complete because a document or placeholder exists.",
+    "title": "Vayu + VIB Integrator Roadmap",
+    "source": "Current VIB Integrator roadmap supplied for website synchronization",
+    "status_policy": "Statuses reflect the supplied roadmap. Do not mark implementation complete without repository and test evidence.",
     "phase_status": {
       "completed": "Implemented and accepted with evidence.",
       "working": "Currently being worked on.",
-      "soon": "Planned; not started or not verified."
+      "next": "Immediate next work, not yet marked complete.",
+      "planned": "Planned; not started or not verified.",
+      "deferred": "Intentionally deferred and gated; do not implement until its prerequisites/direction allow it."
     },
-    "notes": "This website roadmap mirrors the current VIB / Integrator engineering roadmap. Update descriptions from the canonical source and only mark work complete when the repository contains the implementation, tests, documentation, and acceptance evidence."
+    "notes": "This website view tracks the supplied VIB Integrator roadmap. Phase 0.1 and Phase 1 work are next. The .vye work in Phase 2 is deferred. Implementation status must be updated only from verified source and test evidence."
   },
   "repo": "NotY215/Vayu",
   "site": "https://vayu.gt.tc",
@@ -17,657 +19,331 @@
   "phases": [
     {
       "id": 0,
-      "name": "Establish the Integrator project baseline",
-      "description": "make the starting state measurable and reviewable.",
-      "status": "working",
+      "name": "Baseline and subsystem ownership",
+      "description": "Establish a measured clean-build baseline and make ownership and route capabilities explicit before implementation expands.",
+      "status": "next",
       "subphases": [
         {
           "id": "0.1",
-          "name": "Record clean build instructions, supported platforms, compiler configurations, and the current CLI surface.",
-          "status": "soon"
+          "name": "Record the Visual Studio Community clean-build and clean-test baseline: Rebuild, Build, then run run_all.ps1; make no assumptions about prior build state.",
+          "description": "Output: tests/vib_baseline.ps1 with preconditions documented in script comments. Do not add a Markdown file.",
+          "status": "next"
         },
         {
           "id": "0.2",
-          "name": "Inventory frontend, interpreter, VM, runtime, test, package, and tooling dependencies.",
-          "status": "soon"
+          "name": "Codify subsystem ownership: identify which files belong to the frontend, typechecker, interpreter, VM, and VIB.",
+          "description": "Output: vib::Integrator Feature enum covering the four execution routes and every language feature.",
+          "status": "next"
         },
         {
           "id": "0.3",
-          "name": "Capture representative program outputs, diagnostics, exit codes, and side effects.",
-          "status": "soon"
+          "name": "Encode the feature-by-route capability matrix in code as the single source of truth.",
+          "description": "Output: static CapabilityInfo table inside VIB/Integrator.cpp.",
+          "status": "next"
         },
         {
           "id": "0.4",
-          "name": "Establish baseline compile time, startup time, interpreter/VM runtime, memory use, and artifact size where measurements are available.",
-          "status": "soon"
-        },
-        {
-          "id": "0.5",
-          "name": "Mark flaky, unavailable, or platform-specific tests explicitly.",
-          "status": "soon"
-        },
-        {
-          "id": "0.6",
-          "name": "Create a feature matrix for interpreter, VM, and planned native execution.",
-          "status": "soon"
+          "name": "Curate reference fixtures with stable expected stdout for --run and --vm, plus stable failure messages for --native, --native-out, --dump-ir, and --emit-runtime.",
+          "description": "Output: fixture and expected-output list in tests/vib_baseline.ps1.",
+          "status": "next"
         }
       ]
     },
     {
       "id": 1,
-      "name": "VIB foundation and stable interfaces",
-      "description": "create a buildable home for the Integrator implementation.",
-      "status": "soon",
+      "name": "Integrator capability API and CLI diagnostics",
+      "description": "Expose truthful, table-driven capability reporting through VIB and the existing compiler driver.",
+      "status": "next",
       "subphases": [
         {
           "id": "1.1",
-          "name": "Organize VIB responsibilities into clear modules: frontend bridge, IR, verifier, VM integration, native backend, runtime, targets, linking, cache, incremental compilation, and dispatch.",
-          "status": "soon"
+          "name": "Expand VIB/Integrator.hpp and VIB/Integrator.cpp with Feature, SupportLevel, and CapabilityInfo; add capabilities(), capability(Feature), featureName(), and supportLevelName().",
+          "description": "Output: capability query API; compile() and dumpIR() derive messages from the table.",
+          "status": "next"
         },
         {
           "id": "1.2",
-          "name": "Define common result/error types, diagnostics, target descriptions, capability reporting, and artifact metadata.",
-          "status": "soon"
+          "name": "Route NativeCompiler through vib::Integrator so no native-path message is hardcoded outside VIB.",
+          "description": "Output: NativeCompiler::lastError() comes from Integrator; dumpIR prints the capability-derived message.",
+          "status": "next"
         },
         {
           "id": "1.3",
-          "name": "Keep the public driver integrated with Vayu.",
-          "status": "soon"
+          "name": "Add --vib-status to vayuc and route --native, --native-out, --dump-ir, and --emit-runtime errors through Integrator.",
+          "description": "Output: new CLI flag; all four flags emit capability-derived diagnostics.",
+          "status": "next"
         },
         {
           "id": "1.4",
-          "name": "Document component ownership and dependency direction.",
-          "status": "soon"
-        },
-        {
-          "id": "1.5",
-          "name": "Add small compile-time/API tests for the VIB scaffold.",
-          "status": "soon"
-        },
-        {
-          "id": "1.6",
-          "name": "Ensure unsupported operations fail explicitly rather than returning success-shaped placeholders.",
-          "status": "soon"
+          "name": "Build the Phase 0/1 harness for fixture equality, native-path rejection, --vib-status output shape, and checking that .md files are not modified.",
+          "description": "Output: tests/vib_baseline.ps1.",
+          "status": "next"
         }
       ]
     },
     {
       "id": 2,
-      "name": "Shared language-semantics contract",
-      "description": "define the observable behavior all execution modes must preserve.",
-      "status": "soon",
+      "name": "VYE container design and delivery",
+      "description": "Deferred by direction. Keep container work design-only until the language subset and Integrator are ready; do not implement a writer early.",
+      "status": "deferred",
       "subphases": [
         {
           "id": "2.1",
-          "name": "Specify evaluation order, scoping, integer and floating-point behavior, truthiness, strings and encoding, collection semantics, functions, recursion, exceptions, control flow, I/O, exit codes, and side effects.",
-          "status": "soon"
+          "name": "Design-only .vye container specification: magic, version, section table, entry point, deterministic serialization, and compatibility policy.",
+          "description": "Output: design represented in code comments/API shape only. No implementation and no writer.",
+          "status": "deferred"
         },
         {
           "id": "2.2",
-          "name": "Document ownership and lifetime rules for runtime-managed values.",
-          "status": "soon"
+          "name": "Implement a deterministic .vye writer, gated by --emit-vye <path> that only becomes active after Phase 10.",
+          "description": "Output: --emit-vye writes a package. Deferred until the gate is reached.",
+          "status": "deferred"
         },
         {
           "id": "2.3",
-          "name": "Define FFI and ABI behavior separately from language-level semantics.",
-          "status": "soon"
-        },
-        {
-          "id": "2.4",
-          "name": "Build reusable conformance fixtures that can run against the interpreter, VM, and later native execution.",
-          "status": "soon"
-        },
-        {
-          "id": "2.5",
-          "name": "Compare stdout, stderr, exit status, observable side effects, and expected failures.",
-          "status": "soon"
-        },
-        {
-          "id": "2.6",
-          "name": "Add regression fixtures for every discovered semantic mismatch.",
-          "status": "soon"
+          "name": "Implement a strict .vye reader, verifier, and vayu run <file>.vye execution verb.",
+          "description": "Output: round-trip and malformed-input tests pass. Deferred until the package format is authorized for implementation.",
+          "status": "deferred"
         }
       ]
     },
     {
       "id": 3,
-      "name": "Vayu Intermediate Representation (VIR)",
-      "description": "introduce a deterministic, typed internal compiler representation owned by Vayu.",
-      "status": "soon",
+      "name": "Basic arithmetic and values",
+      "description": "Define and implement the first small, precisely specified Integrator language subset.",
+      "status": "planned",
       "subphases": [
         {
           "id": "3.1",
-          "name": "Define value and type representations, functions, basic blocks, instructions, terminators, calls, branches, returns, and source locations.",
-          "status": "soon"
+          "name": "Specify integer, boolean, and None semantics for the Integrator, including overflow, conversion, and division by zero.",
+          "description": "Output: semantics contract in code comments and Feature::BasicArithmetic.",
+          "status": "planned"
         },
         {
           "id": "3.2",
-          "name": "Represent runtime operations explicitly instead of embedding implicit frontend assumptions.",
-          "status": "soon"
-        },
-        {
-          "id": "3.3",
-          "name": "Add an IR builder and AST-to-IR lowering for a deliberately small language subset.",
-          "status": "soon"
-        },
-        {
-          "id": "3.4",
-          "name": "Define schema/versioning rules for internal serialized IR.",
-          "status": "soon"
-        },
-        {
-          "id": "3.5",
-          "name": "Add deterministic textual dumps for debugging and test fixtures.",
-          "status": "soon"
-        },
-        {
-          "id": "3.6",
-          "name": "Keep serialized IR an internal development interface until stability and compatibility requirements are explicitly established.",
-          "status": "soon"
-        },
-        {
-          "id": "3.7",
-          "name": "Emit source-located errors for unsupported language constructs.",
-          "status": "soon"
+          "name": "Lower integer and boolean expressions plus local variables into the first internal form.",
+          "description": "Output: BasicArithmetic reports SupportLevel::Supported in --vib-status.",
+          "status": "planned"
         }
       ]
     },
     {
       "id": 4,
-      "name": "IR verifier and invariants",
-      "description": "reject invalid IR before interpretation or native code generation.",
-      "status": "soon",
+      "name": "String semantics and operations",
+      "description": "Establish deterministic string behavior before exposing string support.",
+      "status": "planned",
       "subphases": [
         {
           "id": "4.1",
-          "name": "Verify type consistency, definition/use rules, control-flow edges, terminators, function signatures, call arguments, return values, and target constraints.",
-          "status": "soon"
+          "name": "Define UTF-8 policy, representation, equality, concatenation, length, and index-bound behavior.",
+          "description": "Output: Feature::Strings semantics specified in code.",
+          "status": "planned"
         },
         {
           "id": "4.2",
-          "name": "Validate constants, memory operations, runtime calls, and source metadata.",
-          "status": "soon"
-        },
-        {
-          "id": "4.3",
-          "name": "Define verifier error codes and stable diagnostic formatting.",
-          "status": "soon"
-        },
-        {
-          "id": "4.4",
-          "name": "Add malformed-IR tests, property-based tests, and fuzzing where practical.",
-          "status": "soon"
-        },
-        {
-          "id": "4.5",
-          "name": "Require verification at internal trust boundaries, including deserialization if that becomes supported.",
-          "status": "soon"
+          "name": "Lower string constants and string operations.",
+          "description": "Output: Strings changes to Supported only after conformance tests pass.",
+          "status": "planned"
         }
       ]
     },
     {
       "id": 5,
-      "name": "Runtime contract and VIR execution bridge",
-      "description": "align the new IR with existing execution semantics before optimizing native code.",
-      "status": "soon",
+      "name": "Functions and calls",
+      "description": "Implement function execution with explicit call and scope semantics.",
+      "status": "planned",
       "subphases": [
         {
           "id": "5.1",
-          "name": "Define shared runtime operations for strings, collections, allocation, errors, I/O, and other runtime-managed behavior.",
-          "status": "soon"
+          "name": "Implement functions, parameters, return values, local scopes, direct calls, and arity/type checks.",
+          "description": "Output: Feature::Functions reports Supported.",
+          "status": "planned"
         },
         {
           "id": "5.2",
-          "name": "Decide which operations can be implemented directly in the VM and which require runtime helpers.",
-          "status": "soon"
-        },
-        {
-          "id": "5.3",
-          "name": "Add an IR evaluator or bridge only where it helps validate the IR contract; avoid maintaining duplicate semantic implementations without a clear reason.",
-          "status": "soon"
-        },
-        {
-          "id": "5.4",
-          "name": "Compare the IR execution route with existing interpreter and VM behavior.",
-          "status": "soon"
-        },
-        {
-          "id": "5.5",
-          "name": "Document memory ownership, error propagation, and cleanup rules.",
-          "status": "soon"
+          "name": "Add recursion only after stack-frame safety is demonstrated.",
+          "description": "Output: recursion tests pass.",
+          "status": "planned"
         }
       ]
     },
     {
       "id": 6,
-      "name": "Native backend: initial machine-code subset",
-      "description": "generate correct native code for a small, testable subset.",
-      "status": "soon",
+      "name": "Control flow and branch verification",
+      "description": "Add predictable control flow and reject malformed control-flow structures.",
+      "status": "planned",
       "subphases": [
         {
           "id": "6.1",
-          "name": "Choose an initial target and ABI based on a working, reproducible toolchain.",
-          "status": "soon"
+          "name": "Implement conditional branches, loops, and return, break, and continue semantics.",
+          "description": "Output: Feature::ControlFlow reports Supported.",
+          "status": "planned"
         },
         {
           "id": "6.2",
-          "name": "Define target data layout, calling convention, symbol naming, stack layout, relocations, and runtime-call conventions.",
-          "status": "soon"
-        },
-        {
-          "id": "6.3",
-          "name": "Implement constants, local values, integer arithmetic, comparisons, branches, functions, calls, and returns.",
-          "status": "soon"
-        },
-        {
-          "id": "6.4",
-          "name": "Add register/stack management appropriate to the first target.",
-          "status": "soon"
-        },
-        {
-          "id": "6.5",
-          "name": "Reject unsupported operations before artifact emission.",
-          "status": "soon"
-        },
-        {
-          "id": "6.6",
-          "name": "Keep target-specific details behind VIB interfaces.",
-          "status": "soon"
-        },
-        {
-          "id": "6.7",
-          "name": "Preserve source locations in diagnostics and, where practical, generated debug metadata.",
-          "status": "soon"
+          "name": "Validate branch targets and diagnose unreachable code.",
+          "description": "Output: invalid-branch tests are rejected.",
+          "status": "planned"
         }
       ]
     },
     {
       "id": 7,
-      "name": "Object and executable emission",
-      "description": "turn native code into validated runnable artifacts.",
-      "status": "soon",
+      "name": "Collections",
+      "description": "Add collection types individually with explicit ownership and conformance requirements.",
+      "status": "planned",
       "subphases": [
         {
           "id": "7.1",
-          "name": "Implement or integrate target-specific object emission behind VIB-owned interfaces.",
-          "status": "soon"
+          "name": "Implement the first collection type, list, with explicit ownership, indexing, mutation, and iteration.",
+          "description": "Output: Feature::Collections reports partial support for list.",
+          "status": "planned"
         },
         {
           "id": "7.2",
-          "name": "Support symbols, sections, relocations, alignment, constants, and runtime references required by the implemented subset.",
-          "status": "soon"
-        },
-        {
-          "id": "7.3",
-          "name": "Define when a platform linker is invoked and how it is located, configured, and diagnosed.",
-          "status": "soon"
-        },
-        {
-          "id": "7.4",
-          "name": "Keep Windows PE/COFF and Linux ELF handling isolated behind target abstractions.",
-          "status": "soon"
-        },
-        {
-          "id": "7.5",
-          "name": "Write output files atomically and clean temporary files after failure.",
-          "status": "soon"
-        },
-        {
-          "id": "7.6",
-          "name": "Validate produced artifacts using platform tools in tests where available.",
-          "status": "soon"
-        },
-        {
-          "id": "7.7",
-          "name": "Record target, compiler version, ABI, and relevant runtime metadata with artifacts.",
-          "status": "soon"
+          "name": "Implement map, tuple, and set as subsequent collection types, each gated by conformance tests.",
+          "description": "Output: remaining collections report Supported only after their tests pass.",
+          "status": "planned"
         }
       ]
     },
     {
       "id": 8,
-      "name": "Native runtime and language-feature expansion",
-      "description": "grow support feature-by-feature without losing semantic parity.",
-      "status": "soon",
+      "name": "Modules and multi-file builds",
+      "description": "Resolve module identity and dependencies reproducibly.",
+      "status": "planned",
       "subphases": [
         {
           "id": "8.1",
-          "name": "define its capability boundary;",
-          "status": "soon"
+          "name": "Implement module identity, import resolution, and dependency validation.",
+          "description": "Output: Feature::Modules reports Supported.",
+          "status": "planned"
         },
         {
           "id": "8.2",
-          "name": "add positive, negative, and edge-case tests;",
-          "status": "soon"
-        },
-        {
-          "id": "8.3",
-          "name": "test resource lifetime and failure behavior;",
-          "status": "soon"
-        },
-        {
-          "id": "8.4",
-          "name": "compare results with interpreter and VM;",
-          "status": "soon"
-        },
-        {
-          "id": "8.5",
-          "name": "document platform-specific restrictions.",
-          "status": "soon"
+          "name": "Build multi-file programs reproducibly from declared inputs.",
+          "description": "Output: multi-file fixture passes.",
+          "status": "planned"
         }
       ]
     },
     {
       "id": 9,
-      "name": "Compiler driver integration",
-      "description": "expose VIB through the existing Vayu compiler experience.",
-      "status": "soon",
+      "name": "Artifact reader verification and runtime compatibility",
+      "description": "Package-reader hardening is gated on the existence of the .vye format; runtime compatibility policy remains code-defined.",
+      "status": "planned",
       "subphases": [
         {
           "id": "9.1",
-          "name": "Route native compilation and native-output requests through the VIB API.",
-          "status": "soon"
+          "name": "Fuzz and property-test the reader and verifier only after .vye exists (Phase 2 is deferred).",
+          "description": "Output: malformed-input test suite. Do not start before the .vye gate is satisfied.",
+          "status": "planned"
         },
         {
           "id": "9.2",
-          "name": "Keep interpreter, VM, type-check-only, token/AST/bytecode dumps, and package workflows stable.",
-          "status": "soon"
-        },
-        {
-          "id": "9.3",
-          "name": "Give each mode explicit capability reporting and deterministic diagnostics.",
-          "status": "soon"
-        },
-        {
-          "id": "9.4",
-          "name": "Distinguish source errors, unsupported features, verifier errors, code-generation errors, linker errors, and internal failures.",
-          "status": "soon"
-        },
-        {
-          "id": "9.5",
-          "name": "Define output-path behavior, exit codes, temporary files, and cancellation/error cleanup.",
-          "status": "soon"
-        },
-        {
-          "id": "9.6",
-          "name": "Remove obsolete flags only with clear diagnostics and documentation.",
-          "status": "soon"
+          "name": "Define runtime compatibility policy and version semantics in code, without adding a .md file.",
+          "description": "Output: --vib-status gains a runtime-version row.",
+          "status": "planned"
         }
       ]
     },
     {
       "id": 10,
-      "name": "Persistent artifact cache",
-      "description": "reuse valid compilation work safely.",
-      "status": "soon",
+      "name": "Advanced language features and system APIs",
+      "description": "Expand the supported subset in small, independently testable groups.",
+      "status": "planned",
       "subphases": [
         {
           "id": "10.1",
-          "name": "Cache verified IR, object files, and final artifacts when appropriate.",
-          "status": "soon"
+          "name": "Implement exceptions, classes/objects, closures, higher-order functions, generators, and pointers one group at a time, with separate tests for each.",
+          "description": "Output: each feature changes status independently in --vib-status.",
+          "status": "planned"
         },
         {
           "id": "10.2",
-          "name": "Compute content keys from source, transitive dependencies, compiler build/version, IR schema, target, optimization settings, runtime ABI, and all toolchain inputs that can affect output.",
-          "status": "soon"
-        },
-        {
-          "id": "10.3",
-          "name": "Store metadata with every artifact and validate it before reuse.",
-          "status": "soon"
-        },
-        {
-          "id": "10.4",
-          "name": "Use atomic writes and concurrency-safe publication.",
-          "status": "soon"
-        },
-        {
-          "id": "10.5",
-          "name": "Provide cache disable, clear, inspect, and diagnostic controls.",
-          "status": "soon"
-        },
-        {
-          "id": "10.6",
-          "name": "Handle interrupted writes, corrupt entries, incompatible schemas, and stale artifacts.",
-          "status": "soon"
-        },
-        {
-          "id": "10.7",
-          "name": "Never let cache state change observable program semantics.",
-          "status": "soon"
+          "name": "Implement the system APIs and standard-library surface relevant to the Integrator subset.",
+          "description": "Output: feature parity with the interpreter for the supported subset.",
+          "status": "planned"
         }
       ]
     },
     {
       "id": 11,
-      "name": "Dependency-aware incremental compilation",
-      "description": "rebuild only what safely needs rebuilding.",
-      "status": "soon",
+      "name": "Benchmarks and reusable compilation",
+      "description": "Measure real behavior before optimizing, then add a safe persistent artifact cache and incremental graph.",
+      "status": "planned",
       "subphases": [
         {
           "id": "11.1",
-          "name": "Track modules, imports, generated interfaces, and dependency edges.",
-          "status": "soon"
+          "name": "Measure compile time, startup, steady-state execution, memory, and package size as separate metrics.",
+          "description": "Output: results column in VIB/docs/BENCHMARK_PREDICTIONS.md, maintained by GPT.",
+          "status": "planned"
         },
         {
           "id": "11.2",
-          "name": "Separate public-interface fingerprints from implementation fingerprints where language semantics permit.",
-          "status": "soon"
-        },
-        {
-          "id": "11.3",
-          "name": "Invalidate dependants when signatures, generic constraints, ABI, target, compiler options, runtime contracts, or relevant dependencies change.",
-          "status": "soon"
-        },
-        {
-          "id": "11.4",
-          "name": "Support reliable recovery from deleted or renamed modules.",
-          "status": "soon"
-        },
-        {
-          "id": "11.5",
-          "name": "Record why each unit was rebuilt or reused.",
-          "status": "soon"
-        },
-        {
-          "id": "11.6",
-          "name": "Compare incremental builds against clean builds in CI.",
-          "status": "soon"
+          "name": "Implement a content-addressed, atomic, recoverable artifact cache and ensure incremental builds match clean-build output.",
+          "description": "Output: cache and incremental-equivalence tests.",
+          "status": "planned"
         }
       ]
     },
     {
       "id": 12,
-      "name": "Explicit execution modes and dispatcher",
-      "description": "make execution choice understandable and deterministic.",
-      "status": "soon",
+      "name": "Native code generation",
+      "description": "Research and implement native code generation only on top of the verified representation, with target rules owned by Vayu.",
+      "status": "planned",
       "subphases": [
         {
           "id": "12.1",
-          "name": "Support explicit interpreter, VM, and native modes independently.",
-          "status": "soon"
+          "name": "Research and implement native code generation on top of the verified representation; keep target and ABI rules in Vayu-owned code.",
+          "description": "Output: native artifacts pass conformance tests for each supported target.",
+          "status": "planned"
         },
         {
           "id": "12.2",
-          "name": "Attach capability metadata to each route and target.",
-          "status": "soon"
-        },
-        {
-          "id": "12.3",
-          "name": "Add automatic route selection only after conformance and cost models exist.",
-          "status": "soon"
-        },
-        {
-          "id": "12.4",
-          "name": "Consider startup cost, expected workload, compile cost, cache state, target availability, and required features.",
-          "status": "soon"
-        },
-        {
-          "id": "12.5",
-          "name": "Provide a deterministic mode override for debugging and benchmarking.",
-          "status": "soon"
-        },
-        {
-          "id": "12.6",
-          "name": "Permit fallback only when explicitly enabled and semantics are preserved.",
-          "status": "soon"
-        },
-        {
-          "id": "12.7",
-          "name": "Log or expose why a route was selected.",
-          "status": "soon"
+          "name": "Do not bundle LLD, DLLs, import libraries, or an external backend.",
+          "description": "Output: --vib-status reports NativeCodegen = Supported only for targets proven by tests.",
+          "status": "planned"
         }
       ]
     },
     {
       "id": 13,
-      "name": "Optimization and code-quality improvements",
-      "description": "improve performance based on measurements.",
-      "status": "soon",
+      "name": "Vayu-owned ONNX support",
+      "description": "Build an independent ONNX reader and runtime subset without a Python-based generator.",
+      "status": "planned",
       "subphases": [
         {
           "id": "13.1",
-          "name": "Introduce optimization passes incrementally: constant folding, dead-code elimination, control-flow simplification, inlining where safe, and target-specific improvements.",
-          "status": "soon"
+          "name": "Implement a Vayu-owned ONNX parser/reader and native test fixtures; do not use a Python generator.",
+          "description": "Output: malformed-model and numerical-correctness tests.",
+          "status": "planned"
         },
         {
           "id": "13.2",
-          "name": "Validate each pass with IR invariants and differential tests.",
-          "status": "soon"
-        },
-        {
-          "id": "13.3",
-          "name": "Track compile-time cost as well as runtime benefit.",
-          "status": "soon"
-        },
-        {
-          "id": "13.4",
-          "name": "Keep optimization levels explicit and reproducible.",
-          "status": "soon"
-        },
-        {
-          "id": "13.5",
-          "name": "Use representative programs rather than optimizing only synthetic arithmetic loops.",
-          "status": "soon"
-        },
-        {
-          "id": "13.6",
-          "name": "Remove or disable passes that add complexity without measurable benefit.",
-          "status": "soon"
+          "name": "Implement a small operator subset first and expand only through tests.",
+          "description": "Output: --vib-status reports support per operator.",
+          "status": "planned"
         }
       ]
     },
     {
       "id": 14,
-      "name": "Profiling and adaptive compilation research",
-      "description": "evaluate hybrid execution without assuming it will outperform alternatives.",
-      "status": "soon",
+      "name": "Runtime capability reporting and self-hosting",
+      "description": "Expose machine-readable runtime capabilities and investigate bootstrap only after the Integrator subset stabilizes.",
+      "status": "planned",
       "subphases": [
         {
           "id": "14.1",
-          "name": "Add opt-in profiling for execution counts and hot functions/loops.",
-          "status": "soon"
+          "name": "Publish the supported feature/runtime-version matrix at runtime using --vib-status --json.",
+          "description": "Output: machine-readable capability matrix.",
+          "status": "planned"
         },
         {
           "id": "14.2",
-          "name": "Explore selective native compilation for frequently executed regions while retaining interpreted or VM execution for cold code.",
-          "status": "soon"
-        },
-        {
-          "id": "14.3",
-          "name": "Define code-version, runtime-state, and fallback semantics before enabling adaptive behavior.",
-          "status": "soon"
-        },
-        {
-          "id": "14.4",
-          "name": "Include profiler overhead, compilation cost, warm-up, cache hits, and deoptimization costs in evaluation.",
-          "status": "soon"
-        },
-        {
-          "id": "14.5",
-          "name": "Compare against the same program, inputs, and correctness requirements in each baseline.",
-          "status": "soon"
-        },
-        {
-          "id": "14.6",
-          "name": "Keep adaptive mode experimental until it demonstrates repeatable end-to-end benefit.",
-          "status": "soon"
-        }
-      ]
-    },
-    {
-      "id": 15,
-      "name": "Reliability, security boundaries, and release hardening",
-      "description": "make the integrated toolchain reliable for real projects.",
-      "status": "soon",
-      "subphases": [
-        {
-          "id": "15.1",
-          "name": "Test malformed source, malformed IR, invalid artifacts, and hostile cache contents.",
-          "status": "soon"
-        },
-        {
-          "id": "15.2",
-          "name": "Test parallel builds, interrupted compilation, file permissions, path quoting, unusual filenames, and linker errors.",
-          "status": "soon"
-        },
-        {
-          "id": "15.3",
-          "name": "Fuzz parser and verifier boundaries where practical.",
-          "status": "soon"
-        },
-        {
-          "id": "15.4",
-          "name": "Verify temporary-file cleanup and atomic output replacement.",
-          "status": "soon"
-        },
-        {
-          "id": "15.5",
-          "name": "Test clean builds on every claimed platform and compiler configuration.",
-          "status": "soon"
-        },
-        {
-          "id": "15.6",
-          "name": "Review runtime memory safety and FFI boundaries.",
-          "status": "soon"
-        },
-        {
-          "id": "15.7",
-          "name": "Document supported targets, ABI constraints, limitations, and reproducible build steps.",
-          "status": "soon"
-        }
-      ]
-    },
-    {
-      "id": 16,
-      "name": "Self-hosting investigation",
-      "description": "determine whether Vayu can eventually build parts or all of its own compiler.",
-      "status": "soon",
-      "subphases": [
-        {
-          "id": "16.1",
-          "name": "Identify components suitable for implementation in Vayu after the native subset is stable.",
-          "status": "soon"
-        },
-        {
-          "id": "16.2",
-          "name": "Keep a bootstrap compiler and documented bootstrap process.",
-          "status": "soon"
-        },
-        {
-          "id": "16.3",
-          "name": "Compare generated artifacts and run the same conformance suite.",
-          "status": "soon"
-        },
-        {
-          "id": "16.4",
-          "name": "Test repeatable rebuilds and bootstrap recovery.",
-          "status": "soon"
-        },
-        {
-          "id": "16.5",
-          "name": "Treat self-hosting as a separate milestone, not a prerequisite for the initial native compiler.",
-          "status": "soon"
+          "name": "Start the self-hosting bootstrap loop only after the Integrator subset is stable.",
+          "description": "Output: documented fixpoint reproduced by run_all.ps1 -FixpointOnly.",
+          "status": "planned"
         }
       ]
     }
