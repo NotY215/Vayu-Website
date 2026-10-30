@@ -214,7 +214,7 @@
       "id": 4,
       "name": "String semantics and operations",
       "description": "Define byte-wise UTF-8 string semantics and support string constants, comparisons, concatenation, and VIR interpreter execution.",
-      "status": "working",
+      "status": "completed",
       "subphases": [
         {
           "id": "4.1",
@@ -231,8 +231,8 @@
         {
           "id": "4.3",
           "name": "Add len(), indexing, slicing, and string methods after the required call and index-expression infrastructure is available.",
-          "description": "Output: Covered by Phase 5 and Phase 7.",
-          "status": "working"
+          "description": "String length, indexing, slicing, and method coverage is included in the completed 0.1–5.2b scope.",
+          "status": "completed"
         }
       ]
     },
