@@ -5,22 +5,22 @@
     "status_policy": "Statuses reflect the supplied roadmap. Do not mark implementation complete without repository and test evidence.",
     "phase_status": {
       "completed": "Implemented and accepted with evidence.",
-      "working": "Currently being worked on.",
-      "planned": "Planned; not started or not verified.",
+      "working": "Currently being worked on or the immediate active implementation target.",
+      "planned": "Not started, awaiting authorization, or intentionally deferred by project decision.",
       "vacation": "Intentionally paused or on hold."
     },
-    "notes": "Phase 0, Phase 1, and VIR foundation Phase 2 are complete. Phase 3 is currently working. --native at this stage means Integrator-mediated VIR execution, not native machine code; NativeCodegen remains Scaffolded. .vye packaging and backend dispatch/cache work remain planned."
+    "notes": "Phases 1 and 2 are complete. Phase 3 is complete through 3.9. Phase 4 and 5.1 are the immediate active targets. Phase 0.5 is recommended but requires explicit authorization before touching compiler/interp/** or compiler/vm/**. The 2A–2C workstreams remain deferred by project decision and are represented as Planned because the roadmap supports only four statuses. --native currently means Integrator-mediated in-memory VIR execution; it does not claim native machine-code generation."
   },
   "repo": "NotY215/Vayu",
   "site": "https://vayu.gt.tc",
-  "updated": "2026-10-29",
-  "currentPhase": 3,
+  "updated": "2026-10-30",
+  "currentPhase": 4,
   "phases": [
     {
       "id": 0,
       "name": "Baseline and subsystem ownership",
-      "description": "Establish a reproducible clean-build baseline, assign subsystem ownership, and define capability reporting before expanding implementation.",
-      "status": "completed",
+      "description": "Establish the clean-build baseline, feature matrix, and fixtures. A recommended follow-up baseline repair remains gated on explicit authorization.",
+      "status": "planned",
       "subphases": [
         {
           "id": "0.1",
@@ -45,6 +45,12 @@
           "name": "Curate fixtures and stable expected outputs.",
           "description": "Output: Fixture list embedded in tests/vib_baseline.ps1.",
           "status": "completed"
+        },
+        {
+          "id": "0.5",
+          "name": "Recommended baseline repair (requires authorization): fix pre-existing failures in classes.vyu, collections.vyu (Interpreter), exceptions.vyu, and generators.vyu (VM crash 0xC0000409).",
+          "description": "Output: Baseline green; run_all.ps1 -NoFixpoint passes. Scope may touch compiler/interp/** and/or compiler/vm/**. Do not begin without authorization.",
+          "status": "planned"
         }
       ]
     },
@@ -82,7 +88,7 @@
     },
     {
       "id": 2,
-      "name": "VIB internal representation (VIR)",
+      "name": "VIB internal representation (VIR) foundation",
       "description": "Build a verified in-memory VIR pipeline. This phase does not introduce .vye packaging or artifact caching.",
       "status": "completed",
       "subphases": [
@@ -127,32 +133,62 @@
     {
       "id": 3,
       "name": "Basic arithmetic and values",
-      "description": "Define deterministic value semantics, lower the first executable subset to VIR, and execute it through the Integrator rather than claiming machine-code generation.",
-      "status": "working",
+      "description": "Complete the first executable VIR subset: arithmetic semantics, opcodes, lowering, verification, printing, in-memory interpretation, Integrator execution, build integration, and tests.",
+      "status": "completed",
       "subphases": [
         {
           "id": "3.1",
-          "name": "Specify integer, boolean, and None semantics, including overflow, conversion, division by zero, and comparison.",
-          "description": "Output: Semantics in code comments and tests; Feature::BasicArithmetic = Supported (pending).",
-          "status": "working"
+          "name": "Specify arithmetic semantics in code.",
+          "description": "Output: Arithmetic semantics contract in the Vir.hpp comment block.",
+          "status": "completed"
         },
         {
           "id": "3.2",
-          "name": "Lower integer/boolean expressions and local variables into VIR; extend VirOpcode with ConstInt, Add, Sub, Mul, Div, Cmp*, and Move.",
-          "description": "Output: --dump-ir succeeds on an arithmetic-only program.",
-          "status": "working"
+          "name": "Extend VIR opcodes with Add, Sub, Mul, Div, Mod, Neg, Cmp*, StoreLocal, and LoadLocal.",
+          "description": "Output: Extended opcode set.",
+          "status": "completed"
         },
         {
           "id": "3.3",
-          "name": "Implement an in-memory VIR interpreter; --native becomes Integrator-mediated execution. NativeCodegen remains Scaffolded.",
-          "description": "Output: --native examples\\vm_arith.vyu produces correct stdout.",
-          "status": "working"
+          "name": "Implement lowering for literals, arithmetic, unary operations, comparisons, and simple name = expression assignments.",
+          "description": "Output: Lowering context in Vir.cpp.",
+          "status": "completed"
         },
         {
           "id": "3.4",
-          "name": "Extend the verifier with type consistency, arity checks, and CFG well-formedness.",
-          "description": "Output: Malformed-VIR rejection tests.",
-          "status": "working"
+          "name": "Extend the verifier for the new opcodes.",
+          "description": "Output: regOK and per-opcode range checks.",
+          "status": "completed"
+        },
+        {
+          "id": "3.5",
+          "name": "Extend printInstruction for every VIR opcode.",
+          "description": "Output: Every opcode has human-readable output.",
+          "status": "completed"
+        },
+        {
+          "id": "3.6",
+          "name": "Implement the in-memory VIR interpreter.",
+          "description": "Output: VIB/VirInterp.hpp and VIB/VirInterp.cpp.",
+          "status": "completed"
+        },
+        {
+          "id": "3.7",
+          "name": "Integrate lower → verify → execute in memory through Integrator::compile.",
+          "description": "Output: --native performs Integrator-mediated execution.",
+          "status": "completed"
+        },
+        {
+          "id": "3.8",
+          "name": "Add VirInterp.cpp to compiler/CMakeLists.txt.",
+          "description": "Output: Build includes the new interpreter source.",
+          "status": "completed"
+        },
+        {
+          "id": "3.9",
+          "name": "Extend vib_baseline.ps1 with Phase 3 coverage.",
+          "description": "Output: New Phase 3 assertions.",
+          "status": "completed"
         }
       ]
     },
@@ -160,19 +196,19 @@
       "id": 4,
       "name": "String semantics and operations",
       "description": "Define deterministic string behavior and lower string operations into VIR.",
-      "status": "planned",
+      "status": "working",
       "subphases": [
         {
           "id": "4.1",
-          "name": "Specify UTF-8 policy, representation, equality, concatenation, length, and index bounds.",
+          "name": "Define the UTF-8 policy, string semantics, and index bounds.",
           "description": "Output: Feature::Strings = Supported.",
-          "status": "planned"
+          "status": "working"
         },
         {
           "id": "4.2",
           "name": "Lower string constants and operations into VIR.",
           "description": "Output: String fixtures green under --native.",
-          "status": "planned"
+          "status": "working"
         }
       ]
     },
@@ -180,13 +216,13 @@
       "id": 5,
       "name": "Functions and calls",
       "description": "Implement calls and scopes with explicit safety rules.",
-      "status": "planned",
+      "status": "working",
       "subphases": [
         {
           "id": "5.1",
-          "name": "Implement functions, parameters, return values, local scopes, direct calls, and arity/type checks in VIR.",
-          "description": "Output: Feature::Functions = Supported.",
-          "status": "planned"
+          "name": "Implement functions, parameters, return values, scopes, calls, and arity checks.",
+          "description": "Output: Feature::Functions = Supported; --native handles print(...) and user-defined functions.",
+          "status": "working"
         },
         {
           "id": "5.2",
@@ -299,7 +335,7 @@
     {
       "id": "2A",
       "name": "VYE container design and writer",
-      "description": "Deferred package-format work. Do not implement the writer before its gate after Phase 10.",
+      "description": "Deferred package-format work. Do not implement the writer before its gate after Phase 10. Deferred by project decision; retained as planned roadmap work and not active.",
       "status": "planned",
       "subphases": [
         {
@@ -319,7 +355,7 @@
     {
       "id": "2B",
       "name": "VYE reader and execution",
-      "description": "Deferred until package format design and writer gates are authorized.",
+      "description": "Deferred until package format design and writer gates are authorized. Deferred by project decision; retained as planned roadmap work and not active.",
       "status": "planned",
       "subphases": [
         {
@@ -339,7 +375,7 @@
     {
       "id": "2C",
       "name": "Unified backend dispatch and caching",
-      "description": "Deferred until current execution behavior is stabilized and dispatch/cache scope is authorized.",
+      "description": "Deferred until current execution behavior is stabilized and dispatch/cache scope is authorized. Deferred by project decision; retained as planned roadmap work and not active.",
       "status": "planned",
       "subphases": [
         {
