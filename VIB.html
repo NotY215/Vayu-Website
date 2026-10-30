@@ -2,41 +2,47 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#07111f">
-<meta name="description" content="VIB, Vayu Integration Backend: the in-repository Integrator architecture for Vayu's future native compiler.">
+<meta name="description" content="VIB, the Vayu Integration Backend: current VIR lowering, verification, execution, .vye packaging, caching, and native code-generation roadmap.">
 <title>VIB - Vayu Integration Backend</title><link rel="canonical" href="https://vayu.gt.tc/VIB/"><link rel="icon" type="image/png" href="/Vayu_Fav.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"><link rel="stylesheet" href="/css/main.css">
-<style>.vib-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.vib-flow{padding:24px;border:1px solid var(--line);border-radius:18px;background:rgba(2,8,18,.7);overflow:auto}.vib-flow pre{font:13px/1.7 "IBM Plex Mono",monospace;color:#d7f4ff;min-width:640px}@media(max-width:850px){.vib-grid{grid-template-columns:1fr}}</style>
+<style>.vib-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.vib-flow{padding:24px;border:1px solid var(--line);border-radius:18px;background:rgba(2,8,18,.7);overflow:auto}.vib-flow pre{font:13px/1.7 "IBM Plex Mono",monospace;color:#d7f4ff;min-width:640px}.vib-pill{display:inline-flex;padding:5px 9px;border-radius:999px;border:1px solid var(--line);font-size:.75rem;margin:3px}.vib-pill.done{color:#78efb0;border-color:#287b5a}.vib-pill.work{color:#80dfff;border-color:#286b8b}.vib-pill.plan{color:#c7b7ff;border-color:#6750a5}@media(max-width:850px){.vib-grid{grid-template-columns:1fr}}</style>
 </head>
 <body data-vayu-defer data-page="vib"><canvas id="particles"></canvas><div class="noise"></div><div data-orbs style="position:fixed;inset:0;pointer-events:none;z-index:-1;overflow:hidden;"></div><div id="slot-nav"></div>
 <main id="top">
-<section class="page-hero"><div class="container"><span class="kicker">Integrated compiler architecture</span><h1>VIB — Vayu Integration Backend</h1><p class="lead">VIB is the integrated compiler/runtime system inside the Vayu repository. It implements the Integrator architecture; it is not a separate language, required standalone product or required executable.</p><div class="page-phase"><span class="dot"></span><span data-phase-badge>PHASE 00 · ACTIVE</span></div><div class="flex-row mt-24"><a class="btn primary" href="https://github.com/NotY215/Vayu/tree/master/VIB" target="_blank" rel="noopener">Browse VIB source</a><a class="btn ghost" href="/docs/">Technical documentation</a></div></div></section>
+<section class="page-hero"><div class="container"><span class="kicker">Integrated compiler and runtime</span><h1>VIB — Vayu Integration Backend</h1><p class="lead">VIB is the integrated compiler/runtime system inside the Vayu repository. It implements the Integrator architecture and uses the existing Vayu frontend. It is not a separate language or a required standalone executable.</p><div class="page-phase"><span class="dot"></span><span data-phase-badge>PHASE 10 · WORKING</span></div><div class="flex-row mt-24"><a class="btn primary" href="https://github.com/NotY215/Vayu/tree/master/VIB" target="_blank" rel="noopener">Browse VIB source</a><a class="btn ghost" href="/docs/">Technical documentation</a><a class="btn ghost" href="/roadmap/">Current roadmap</a></div></div></section>
 <section class="pt-20"><div class="container">
-<div class="callout reveal"><div class="eyebrow"><span class="dev-dot"></span><span>Implementation status</span></div><h2>Architecture scaffold, not a finished native compiler</h2><p class="muted">The current VIB directory contains the Integrator API scaffold and documentation. The implementation explicitly reports that native code generation is not implemented yet. Use <code>--run</code> or <code>--vm</code> for execution on the current transition branch.</p></div>
-<div class="vib-flow mt-32"><h2>Target architecture</h2><pre class="mermaid">flowchart TD
-S["Vayu source (.vyu)"] --> F["Existing frontend"]
-F --> T["Semantic / type analysis"]
-T --> I["Verified Vayu IR (planned)"]
-I --> V["IR verifier (planned)"]
-V --> N["Vayu-owned native code generation (planned)"]
-N --> O["Object / executable emission (planned)"]
-O --> L["Optional platform linker"]
-L --> A["Native artifact + metadata"]
-classDef existing fill:#15243b,stroke:#55d9ff,color:#fff
-classDef planned fill:#211b3d,stroke:#9d82ff,color:#fff
-class S,F,T existing
-class I,V,N,O,L,A planned</pre></div>
+<div class="callout reveal"><div class="eyebrow"><span class="dev-dot"></span><span>Current implementation</span></div><h2>VIR execution is implemented for a growing subset</h2><p class="muted">The active VIB path lowers supported Vayu constructs to VIR, verifies the representation, and executes it with the VIR interpreter. The supported scope includes arithmetic, strings and methods, functions and recursion, control flow, collections, module imports, and selected built-ins. Native machine-code generation is still planned, so VIB must not be described as a finished native compiler.</p><div><span class="vib-pill done">Phases 0–9 · Completed</span><span class="vib-pill work">Phase 10 · Working</span><span class="vib-pill plan">Native code generation · Planned</span></div></div>
+<div class="vib-flow mt-32"><h2>Current execution path</h2><pre class="mermaid">flowchart TD
+S["Vayu source (.vyu)"] --> F["Existing lexer, parser and semantic analysis"]
+F --> L["VIB Integrator lowering"]
+L --> IR["Vayu Intermediate Representation (VIR)"]
+IR --> V["VIR verifier"]
+V --> X["VIR interpreter"]
+X --> O["Program output and exit status"]
+IR -. future backend .-> N["Native machine-code generation"]
+N -. future output .-> E["Native executable"]
+classDef current fill:#15243b,stroke:#55d9ff,color:#fff
+classDef future fill:#211b3d,stroke:#9d82ff,color:#fff
+class S,F,L,IR,V,X,O current
+class N,E future</pre></div>
 <div class="vib-grid mt-32">
-<article class="card reveal"><h3>Vayu owns</h3><p class="muted">Language semantics, VIR, verification, lowering decisions, native code generation, runtime contracts, artifact identity, cache validity, incremental invalidation and dispatch policy.</p></article>
-<article class="card reveal"><h3>Platform tools may provide</h3><p class="muted">Final linking, operating-system interfaces, system libraries, SDK files and debugging tools behind narrow, documented interfaces.</p></article>
-<article class="card reveal"><h3>Next engineering gates</h3><p class="muted">Establish baseline and conformance evidence, define shared semantics, implement deterministic VIR, verify invalid input, then build a minimal native target with tests.</p></article>
-<article class="card reveal"><h3>Performance policy</h3><p class="muted">Caching, incremental builds, adaptive dispatch and native speed improvements are hypotheses until implemented and measured with reproducible workloads.</p></article>
+<article class="card reveal"><h3>Implemented VIR subset</h3><p class="muted">Arithmetic and comparisons, string constants/operations/methods, locals, functions, calls, recursion, return plumbing, control flow, collections and module imports have completed roadmap milestones. Exact support remains feature-gated.</p></article>
+<article class="card reveal"><h3>Verifier and diagnostics</h3><p class="muted">The verifier checks VIR structure, opcode operands, function/call constraints, empty modules and branch targets. Unsupported constructs must produce explicit diagnostics rather than false success.</p></article>
+<article class="card reveal"><h3>VYE packages and cache</h3><p class="muted">The opt-in <code>--emit-vye</code> writer, <code>--run-vye</code> reader/execution path, <code>--dispatch=integrator</code>, and <code>--enable-cache</code>/<code>--cache-dir</code> infrastructure are implemented. A .vye package requires a compatible Vayu runtime and is not a native OS executable.</p></article>
+<article class="card reveal"><h3>Current work: Phase 10</h3><p class="muted">Built-ins such as <code>input</code> and <code>read_int</code> and additional language coverage are in progress. Classes, exceptions, generators and closures should only be advertised as VIB-supported after their individual implementation and tests pass.</p></article>
 </div>
-<div class="card reveal mt-32"><h2>VIB documentation</h2><div class="vib-grid">
-<article class="doc-card"><h4>Implementation home</h4><p><a href="https://github.com/NotY215/Vayu/blob/master/VIB/README.md" target="_blank" rel="noopener">VIB/README.md</a> defines responsibility boundaries and current status.</p></article>
-<article class="doc-card"><h4>Architecture</h4><p><a href="https://github.com/NotY215/Vayu/blob/master/VIB/docs/ARCHITECTURE.md" target="_blank" rel="noopener">ARCHITECTURE.md</a> lists required components and evidence gates.</p></article>
-<article class="doc-card"><h4>Engineering roadmap</h4><p><a href="https://github.com/NotY215/Vayu/blob/master/Roadmap.md" target="_blank" rel="noopener">Roadmap.md</a> contains the canonical phases and acceptance criteria.</p></article>
-<article class="doc-card"><h4>Benchmark predictions</h4><p><a href="https://github.com/NotY215/Vayu/blob/master/VIB/docs/BENCHMARK_PREDICTIONS.md" target="_blank" rel="noopener">BENCHMARK_PREDICTIONS.md</a> records hypotheses, experiments and disconfirmation criteria, not measured results.</p></article>
-</div><div class="flex-row mt-24"><a class="btn primary" href="/roadmap/">Full roadmap</a><a class="btn ghost" href="/speed/">Benchmark methodology</a><a class="btn ghost" href="https://github.com/NotY215/Vayu/blob/master/docs/vib-documentation.md" target="_blank" rel="noopener">Complete technical documentation</a></div></div>
+<div class="card reveal mt-32"><h2>Capability and command reference</h2><div class="doc-grid">
+<article class="doc-card"><h4>Capability status</h4><p><code>--vib-status</code> reports the Integrator's feature/capability information. Use the reported support level rather than assuming interpreter support transfers to VIB.</p></article>
+<article class="doc-card"><h4>IR inspection</h4><p><code>--dump-ir</code> exposes VIR output for supported programs and helps diagnose lowering or verification issues.</p></article>
+<article class="doc-card"><h4>Package output</h4><p><code>--emit-vye &lt;path&gt;</code> writes a package, while <code>--run-vye &lt;path&gt;</code> loads and executes a validated package.</p></article>
+<article class="doc-card"><h4>Opt-in dispatch and cache</h4><p><code>--dispatch=integrator</code> selects Integrator routing. <code>--enable-cache</code> and <code>--cache-dir</code> enable artifact caching where supported.</p></article>
+</div></div>
+<div class="card reveal mt-32"><h2>Architecture and source documents</h2><div class="vib-grid">
+<article class="doc-card"><h4>VIB implementation home</h4><p><a href="https://github.com/NotY215/Vayu/blob/master/VIB/README.md" target="_blank" rel="noopener">VIB/README.md</a> describes boundaries and implementation intent.</p></article>
+<article class="doc-card"><h4>VIR and Integrator implementation</h4><p><a href="https://github.com/NotY215/Vayu/blob/master/VIB/Integrator.cpp" target="_blank" rel="noopener">Integrator.cpp</a>, <a href="https://github.com/NotY215/Vayu/blob/master/VIB/Vir.hpp" target="_blank" rel="noopener">Vir.hpp</a> and <a href="https://github.com/NotY215/Vayu/blob/master/VIB/VirInterp.cpp" target="_blank" rel="noopener">VirInterp.cpp</a>.</p></article>
+<article class="doc-card"><h4>Canonical roadmap</h4><p><a href="https://github.com/NotY215/Vayu/blob/master/Roadmap.md" target="_blank" rel="noopener">Roadmap.md</a> records the latest phase status and acceptance criteria.</p></article>
+<article class="doc-card"><h4>Benchmark hypotheses</h4><p><a href="https://github.com/NotY215/Vayu/blob/master/VIB/docs/BENCHMARK_PREDICTIONS.md" target="_blank" rel="noopener">BENCHMARK_PREDICTIONS.md</a> separates unverified predictions from measured results.</p></article>
+</div><div class="flex-row mt-24"><a class="btn primary" href="/roadmap/">Full roadmap</a><a class="btn ghost" href="/speed/">Benchmark methodology</a><a class="btn ghost" href="https://github.com/NotY215/Vayu/blob/master/docs/vib-documentation.md" target="_blank" rel="noopener">Technical reference</a></div></div>
 </div></section></main>
 <div id="slot-footer"></div><div id="slot-modal-examples"></div><div id="slot-modal-github"></div><div id="vayu-loading" aria-hidden="true"><div class="vayu-loader"><div class="vayu-loader-ring"></div><div class="vayu-loader-text">Loading VIB...</div></div></div>
 <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script><script>mermaid.initialize({startOnLoad:true,theme:'dark',flowchart:{curve:'basis',htmlLabels:true},themeVariables:{primaryColor:'#15243b',primaryTextColor:'#e9f7ff',primaryBorderColor:'#55d9ff',lineColor:'#55d9ff',secondaryColor:'#211b3d',tertiaryColor:'#16352b',fontFamily:'DM Sans, system-ui, sans-serif'}});</script><script src="/js/layout.js"></script></body></html>
