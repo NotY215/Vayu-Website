@@ -7,11 +7,9 @@
       "completed": "Implemented and accepted with evidence.",
       "working": "Currently being worked on.",
       "planned": "Planned; not started or not verified.",
-      "next": "Immediate next work; not yet marked complete.",
-      "vacation": "Intentionally paused or on hold.",
-      "deferred": "Intentionally deferred; gated until prerequisites and direction allow it."
+      "vacation": "Intentionally paused or on hold."
     },
-    "notes": "Phase 0, Phase 1, and VIR foundation Phase 2 are complete. Phase 3 is next. --native at this stage means Integrator-mediated VIR execution, not native machine code; NativeCodegen remains Scaffolded. .vye packaging and backend dispatch/cache work remain deferred."
+    "notes": "Phase 0, Phase 1, and VIR foundation Phase 2 are complete. Phase 3 is currently working. --native at this stage means Integrator-mediated VIR execution, not native machine code; NativeCodegen remains Scaffolded. .vye packaging and backend dispatch/cache work remain planned."
   },
   "repo": "NotY215/Vayu",
   "site": "https://vayu.gt.tc",
@@ -136,25 +134,25 @@
           "id": "3.1",
           "name": "Specify integer, boolean, and None semantics, including overflow, conversion, division by zero, and comparison.",
           "description": "Output: Semantics in code comments and tests; Feature::BasicArithmetic = Supported (pending).",
-          "status": "next"
+          "status": "working"
         },
         {
           "id": "3.2",
           "name": "Lower integer/boolean expressions and local variables into VIR; extend VirOpcode with ConstInt, Add, Sub, Mul, Div, Cmp*, and Move.",
           "description": "Output: --dump-ir succeeds on an arithmetic-only program.",
-          "status": "next"
+          "status": "working"
         },
         {
           "id": "3.3",
           "name": "Implement an in-memory VIR interpreter; --native becomes Integrator-mediated execution. NativeCodegen remains Scaffolded.",
           "description": "Output: --native examples\\vm_arith.vyu produces correct stdout.",
-          "status": "next"
+          "status": "working"
         },
         {
           "id": "3.4",
           "name": "Extend the verifier with type consistency, arity checks, and CFG well-formedness.",
           "description": "Output: Malformed-VIR rejection tests.",
-          "status": "next"
+          "status": "working"
         }
       ]
     },
@@ -302,19 +300,19 @@
       "id": "2A",
       "name": "VYE container design and writer",
       "description": "Deferred package-format work. Do not implement the writer before its gate after Phase 10.",
-      "status": "deferred",
+      "status": "planned",
       "subphases": [
         {
           "id": "2A.1",
           "name": "Design-only .vye container specification. Code comments and API shape only; no writer.",
           "description": "Output: Feature::VyePackaging = Scaffolded.",
-          "status": "deferred"
+          "status": "planned"
         },
         {
           "id": "2A.2",
           "name": "Implement a deterministic .vye writer gated by --emit-vye <path>.",
           "description": "Output: --emit-vye writes a package.",
-          "status": "deferred"
+          "status": "planned"
         }
       ]
     },
@@ -322,19 +320,19 @@
       "id": "2B",
       "name": "VYE reader and execution",
       "description": "Deferred until package format design and writer gates are authorized.",
-      "status": "deferred",
+      "status": "planned",
       "subphases": [
         {
           "id": "2B.1",
           "name": "Implement a strict .vye reader and verifier.",
           "description": "Output: Reader passes malformed-package tests.",
-          "status": "deferred"
+          "status": "planned"
         },
         {
           "id": "2B.2",
           "name": "Add the vayu run <file>.vye execution verb.",
           "description": "Output: Round-trip and execution tests green.",
-          "status": "deferred"
+          "status": "planned"
         }
       ]
     },
@@ -342,25 +340,25 @@
       "id": "2C",
       "name": "Unified backend dispatch and caching",
       "description": "Deferred until current execution behavior is stabilized and dispatch/cache scope is authorized.",
-      "status": "deferred",
+      "status": "planned",
       "subphases": [
         {
           "id": "2C.1",
           "name": "Make Integrator the dispatch owner for the Interpreter backend without changing behavior.",
           "description": "Output: run_all.ps1 green.",
-          "status": "deferred"
+          "status": "planned"
         },
         {
           "id": "2C.2",
           "name": "Make Integrator the dispatch owner for the VM backend without changing behavior.",
           "description": "Output: run_all.ps1 green.",
-          "status": "deferred"
+          "status": "planned"
         },
         {
           "id": "2C.3",
           "name": "Add a content-addressed, atomic artifact cache and incremental graph.",
           "description": "Output: Cache and incremental-equivalence tests.",
-          "status": "deferred"
+          "status": "planned"
         }
       ]
     },
