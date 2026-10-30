@@ -34,14 +34,14 @@
   <section class="pt-20">
     <div class="container">
       <div class="grid features">
-        <article class="card reveal"><div class="icon">λ</div><h3>Functions & lambdas</h3><p>Functions, recursion, lambdas, closures, generators, type parameters and higher-order values.</p></article>
-        <article class="card reveal"><div class="icon">◇</div><h3>Collections</h3><p>Lists, maps, tuples and sets with slicing, iteration, sorting and collection helpers.</p></article>
-        <article class="card reveal"><div class="icon">◎</div><h3>Types & ownership</h3><p>Inference, annotations, generics, constraints, unique/shared/weak references, raw pointers and references.</p></article>
+        <article class="card reveal"><div class="icon">λ</div><h3>Functions & lambdas</h3><p>Functions, direct calls, parameters, recursion, return values and conversions are supported in VIB; lambdas, closures and generators remain pending there.</p></article>
+        <article class="card reveal"><div class="icon">◇</div><h3>Collections</h3><p>VIB supports list, map, tuple and set literals, indexing and len() in its documented subset; advanced collection behavior varies by execution route.</p></article>
+        <article class="card reveal"><div class="icon">◎</div><h3>Types & ownership</h3><p>Static analysis and type checks are part of the frontend. Advanced ownership, pointer and generic constructs should be checked against the selected execution route.</p></article>
         <article class="card reveal"><div class="icon">▣</div><h3>OOP</h3><p>Structs, classes, constructors, methods, inheritance, overriding, static members and visibility.</p></article>
         <article class="card reveal"><div class="icon">!</div><h3>Runtime & standard library</h3><p>Exceptions, modules, filesystem, time, JSON, regex, threading, networking, crypto, random, OS and math.</p></article>
         <article class="card reveal"><div class="icon">↗</div><h3>Native interoperability</h3><p>C FFI, function pointers, external libraries, malloc/free and supported struct-by-value FFI.</p></article>
         <article class="card reveal"><div class="icon">⌘</div><h3>Python bridge</h3><p>Native CPython loading with import, attribute, call, eval, exec, list, dict and reference-management APIs.</p></article>
-        <article class="card reveal"><div class="icon">⚙</div><h3>VIB compiler architecture</h3><p>VIB is the in-repository Integrator system intended to own Vayu IR, verification, native code generation, runtime integration and artifact handling. Native code generation is not implemented yet.</p></article>
+        <article class="card reveal"><div class="icon">⚙</div><h3>VIB compiler architecture</h3><p>VIB is the in-repository Integrator system. VIR lowering, verification and execution, .vye packaging, opt-in dispatch and artifact caching are implemented for a growing subset. Native machine-code generation remains planned.</p></article>
       </div>
       <div class="callout reveal mt-32"><h2>Full implementation reference</h2><p class="muted">The Documentation page tracks the current codebase in more detail than this overview.</p><a class="btn primary ripple-btn" href="/docs/">Read the Documentation</a></div>
     </div>
