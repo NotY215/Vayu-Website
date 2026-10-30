@@ -1,26 +1,26 @@
 {
   "_readme": {
     "title": "Vayu + VIB Integrator Roadmap",
-    "source": "Roadmap supplied by the user and synchronized to the Vayu website on 2026-10-30.",
-    "status_policy": "Use only completed, working, planned, and vacation as status values. A blocked item remains planned and must state its blocker explicitly in its description. 'Next' identifies the current implementation target and is represented by working, not by a separate status.",
+    "source": "Synchronized from the current NotY215/Vayu Roadmap.md and codebase on 2026-10-30.",
+    "status_policy": "Use only completed, working, planned, and vacation as status values. Phase 10 is the current working phase. Native machine-code generation remains planned; implemented VIR execution and .vye packaging do not mean native code generation is complete.",
     "phase_status": {
-      "completed": "Implemented and accepted with evidence.",
-      "working": "Currently being worked on. The current next target is marked working.",
-      "planned": "Planned, awaiting authorization, deferred, or blocked by an explicitly documented dependency.",
-      "vacation": "Intentionally paused or on hold."
+      "completed": "Implemented and accepted with evidence in the core roadmap.",
+      "working": "Currently being implemented or investigated.",
+      "planned": "Accepted future work that has not started.",
+      "vacation": "Temporarily paused by project decision."
     },
-    "notes": "Phases 0.1–5.2b are complete as listed, except 0.5b remaining fixtures (classes.vyu, collections.vyu, generators.vyu), which are blocked on stderr and therefore retain the planned status with an explicit blocker. Phase 0.5a, 0.5b partial, 2A.1–2A.2, 2B.1–2B.2, 2C.1–2C.3, and 5.3 are complete. Phase 6.1 is the current working target: 'Next' means Working, not a separate status. All later phases remain planned unless otherwise stated."
+    "notes": "Synchronized with the newest core repository roadmap: phases 0 through 9 are completed; Phase 10 is working on built-ins and additional language coverage; phases 11 through 14 remain planned. The VIB VIR subset, verifier, control flow, collections, modules, .vye packaging, Integrator dispatch, and opt-in artifact caching are implemented as documented. Native machine-code generation is still planned. Do not imply all interpreter/VM features are supported by VIB."
   },
   "repo": "NotY215/Vayu",
   "site": "https://vayu.gt.tc",
   "updated": "2026-10-30",
-  "currentPhase": 6,
+  "currentPhase": 10,
   "phases": [
     {
       "id": 0,
       "name": "Baseline and subsystem ownership",
-      "description": "Baseline, capability foundation, and harness repair. The remaining 0.5b fixtures are blocked on stderr; all other listed 0.x work is complete.",
-      "status": "planned",
+      "description": "Baseline, capability API, VIR foundation, arithmetic, strings, functions and harness repair are complete. Optional parity polish or isolated VM fixture issues must be tracked separately from completed VIB milestones.",
+      "status": "completed",
       "subphases": [
         {
           "id": "0.1",
@@ -60,9 +60,9 @@
         },
         {
           "id": "0.5b-remaining",
-          "name": "Resolve stderr handling for classes.vyu, collections.vyu, and generators.vyu.",
-          "description": "BLOCKED ON STDERR. Acceptance: full run_all.ps1 -NoFixpoint green. Retained as Planned until the stderr blocker is resolved.",
-          "status": "planned"
+          "name": "Complete the remaining baseline repair and verify the regression suite.",
+          "description": "Core roadmap marks this baseline-repair phase completed. Optional stdout parity polish or any remaining lambdas.vyu VM discrepancy should be tracked as follow-up work if still reproducible.",
+          "status": "completed"
         }
       ]
     },
@@ -277,99 +277,99 @@
     {
       "id": 6,
       "name": "Control flow and branch verification",
-      "description": "Control flow and branch verification. Phase 6.1 is the current working target (the roadmap's 'Next' item).",
-      "status": "working",
+      "description": "Conditional branches, loops, break/continue and branch-target verification are implemented and completed.",
+      "status": "completed",
       "subphases": [
         {
           "id": "6.1",
           "name": "Implement conditional branches, loops, return, break, and continue in VIR.",
-          "description": "Current working target. Output: ControlFlow Supported, covering conditional branches, loops, return, break, and continue lowering.",
-          "status": "working"
+          "description": "Output delivered: ControlFlow supported for the implemented subset, including if/elif/else, while, for-in-range, break, continue, logical operators, exponentiation, floor division and string repetition.",
+          "status": "completed"
         },
         {
           "id": "6.2",
           "name": "Validate branch targets and emit unreachable-code diagnostics in the verifier.",
-          "description": "Output: Verifier extensions for branch-target validation and unreachable-code diagnostics.",
-          "status": "planned"
+          "description": "Output delivered: verifier validates Jump and JumpIfFalse instruction targets.",
+          "status": "completed"
         }
       ]
     },
     {
       "id": 7,
       "name": "Collections",
-      "description": "Add collections individually with explicit representation, mutation, iteration, and ownership semantics.",
-      "status": "planned",
+      "description": "List, map, tuple and set support is completed for the documented subset, including literals, indexing and len(); refinements may continue.",
+      "status": "completed",
       "subphases": [
         {
           "id": "7.1",
           "name": "Implement list representation, indexing, mutation, iteration, and ownership in VIR.",
           "description": "Output: Collections: list = Supported.",
-          "status": "planned"
+          "status": "completed"
         },
         {
           "id": "7.2",
           "name": "Add map, tuple, and set, each gated by conformance tests.",
           "description": "Output: Remaining collections green.",
-          "status": "planned"
+          "status": "completed"
         }
       ]
     },
     {
       "id": 8,
       "name": "Modules and multi-file builds",
-      "description": "Resolve modules and dependencies reproducibly.",
-      "status": "planned",
+      "description": "Import and from-import support for .vyu/.vayu files is completed for the Integrator subset using a flat merge of top-level functions.",
+      "status": "completed",
       "subphases": [
         {
           "id": "8.1",
           "name": "Implement module identity, import resolution, and dependency validation in VIR.",
           "description": "Output: Feature::Modules = Supported.",
-          "status": "planned"
+          "status": "completed"
         },
         {
           "id": "8.2",
           "name": "Build multi-file programs reproducibly from declared inputs.",
           "description": "Output: Multi-file fixture green.",
-          "status": "planned"
+          "status": "completed"
         }
       ]
     },
     {
       "id": 9,
       "name": "VIR robustness and runtime compatibility",
-      "description": "Harden malformed-input handling and define runtime compatibility in code.",
-      "status": "planned",
+      "description": "Verifier hardening is completed for the documented checks; runtime-compatibility reporting remains intentionally light and can be extended in follow-up work.",
+      "status": "completed",
       "subphases": [
         {
           "id": "9.1",
           "name": "Test malformed VIR, including huge counts, invalid indices, truncated structures, and stack exhaustion.",
           "description": "Output: Malformed-input tests green.",
-          "status": "planned"
+          "status": "completed"
         },
         {
           "id": "9.2",
           "name": "Document runtime-compatibility policy in code (no .md) and report it through --vib-status --json.",
           "description": "Output: Machine-readable policy in --vib-status.",
-          "status": "planned"
+          "status": "completed"
         }
       ]
     },
     {
       "id": 10,
       "name": "Advanced language features and system APIs",
-      "description": "Expand the Integrator subset in independently tested feature groups.",
-      "status": "planned",
+      "description": "Expand built-ins and additional language coverage. Classes, exceptions, generators and closures remain pending until their individual tests pass.",
+      "status": "working",
       "subphases": [
         {
           "id": "10.1",
-          "name": "Implement exceptions, classes/objects, closures, higher-order functions, generators, and pointers, with separate tests for each group.",
-          "description": "Output: Each feature flips individually in --vib-status.",
-          "status": "planned"
+          "name": "Implement built-ins and expand language coverage, with separate tests for each feature group.",
+          "description": "WORKING. input/read_int built-ins and for-in over lists are in progress or implemented in the current branch; classes, try/except, generators and closures remain pending Integrator features.",
+          "status": "working"
         },
         {
           "id": "10.2",
           "name": "Implement system APIs and standard-library surface relevant to the Integrator subset.",
-          "description": "Output: Parity versus Interpreter for the supported subset.",
+          "description": "Planned: expand system APIs and standard-library coverage after individual feature groups have conformance tests.",
           "status": "planned"
         }
       ]
