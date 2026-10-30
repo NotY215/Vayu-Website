@@ -6,7 +6,14 @@
     AddType application/javascript .js
 </IfModule>
 
-<IfModule mod_headers.c>\n    # Keep shared navigation and release data fresh after deployment.\n    <Files "layout.js">\n        Header set Cache-Control "no-cache, no-store, must-revalidate"\n    </Files>\n    <Files "release.html">\n        Header set Cache-Control "no-cache, no-store, must-revalidate"\n    </Files>
+<IfModule mod_headers.c>
+    # Keep shared navigation and release data fresh after deployment.
+    <Files "layout.js">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+    </Files>
+    <Files "release.html">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+    </Files>
     <FilesMatch "\.(png|jpg|jpeg|gif|webp|svg)$">
         Header unset Content-Disposition
     </FilesMatch>
