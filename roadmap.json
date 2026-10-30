@@ -20,7 +20,7 @@
       "id": 0,
       "name": "Baseline and subsystem ownership",
       "description": "Establish the clean-build baseline, feature matrix, and fixtures. A recommended follow-up baseline repair remains gated on explicit authorization.",
-      "status": "planned",
+      "status": "working",
       "subphases": [
         {
           "id": "0.1",
@@ -208,7 +208,7 @@
       "id": 4,
       "name": "String semantics and operations",
       "description": "Define byte-wise UTF-8 string semantics and support string constants, comparisons, concatenation, and VIR interpreter execution.",
-      "status": "completed",
+      "status": "working",
       "subphases": [
         {
           "id": "4.1",
@@ -226,7 +226,7 @@
           "id": "4.3",
           "name": "Add len(), indexing, slicing, and string methods after the required call and index-expression infrastructure is available.",
           "description": "Output: Covered by Phase 5 and Phase 7.",
-          "status": "planned"
+          "status": "working"
         }
       ]
     },
@@ -234,13 +234,13 @@
       "id": 5,
       "name": "Functions and calls",
       "description": "Implement calls and scopes with explicit safety rules.",
-      "status": "planned",
+      "status": "working",
       "subphases": [
         {
           "id": "5.1",
           "name": "Implement functions, parameters, returns, scopes, direct calls, and arity/type checks in VIR.",
           "description": "Next implementation target. Output: Feature::Functions = Supported; --native handles print(...) and user-defined functions.",
-          "status": "planned"
+          "status": "working"
         },
         {
           "id": "5.2",
