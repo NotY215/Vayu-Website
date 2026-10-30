@@ -22,6 +22,7 @@
     { href: '/VIB/',           nav: 'vib',           label: 'VIB' },
     { href: '/games/',         nav: 'games',         label: 'Games' },
     { href: '/roadmap/',       nav: 'roadmap',       label: 'Roadmap' },
+    { href: '/release/',        nav: 'release',        label: 'Release' },
     { href: '/faq/',           nav: 'FAQ',           label: 'FAQ' }
   ];
 
@@ -42,11 +43,11 @@
           <a href="/developer/" data-nav="developer">Developer</a>
           <a href="/docs/" data-nav="docs">Documentation</a>
           <a href="/roadmap/" data-nav="roadmap">Roadmap</a>
+          <a href="/release/" data-nav="release">Release</a>
           <a href="/faq/" data-nav="faq">FAQ</a>
         </div>
         <div class="nav-actions">
-          <a class="btn primary nav-download soon" role="button" aria-disabled="true" tabindex="0"
-             data-tip="Vayu is still in development - downloads aren’t available yet.">↓ Download</a>
+          <a class="btn primary nav-download" href="/release/">↓ Download</a>
           <a class="btn primary nav-patreon" href="https://www.patreon.com/cw/Ficzo" target="_blank" rel="noopener">Patreon</a>
         </div>
       </div>
@@ -675,6 +676,7 @@
     setActiveNav();
     initDrawer();
     initHardRefresh();
+    document.querySelectorAll('[data-vayu-download]').forEach(btn => btn.addEventListener('click', e => { e.preventDefault(); if(window.confirm('A new Vayu Alpha release is available. Do you want to download it now?')) window.location.href = 'https://github.com/NotY215/Vayu/releases/download/V0.1-Alpha/Vayu-Alpha-Release-V01.zip'; }));
 
     const loadingEl = document.getElementById('vayu-loading');
 
