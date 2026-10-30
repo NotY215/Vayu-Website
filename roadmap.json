@@ -5,11 +5,11 @@
     "status_policy": "Statuses reflect the supplied roadmap. Do not mark implementation complete without repository and test evidence.",
     "phase_status": {
       "completed": "Implemented and accepted with evidence.",
-      "working": "Currently being worked on or the immediate active implementation target.",
-      "planned": "Not started, awaiting authorization, or intentionally deferred by project decision.",
+      "working": "Currently being worked on.",
+      "planned": "Planned, awaiting authorization, or deferred by project decision.",
       "vacation": "Intentionally paused or on hold."
     },
-    "notes": "Phases 1 and 2 are complete. Phase 3 is complete through 3.9. Phase 4 and 5.1 are the immediate active targets. Phase 0.5 is recommended but requires explicit authorization before touching compiler/interp/** or compiler/vm/**. The 2A–2C workstreams remain deferred by project decision and are represented as Planned because the roadmap supports only four statuses. --native currently means Integrator-mediated in-memory VIR execution; it does not claim native machine-code generation."
+    "notes": "Phases 0.1–0.4, 1.1–1.4, 2.1–2.6, 3.1–3.10, 0.5a, 4.1, and 4.2 are complete. Phase 0.5b is awaiting explicit authorization before changes to compiler/interp/** or compiler/vm/**. Phase 4.3 is deferred until the calls/index-expression infrastructure in Phases 5 and 7. Phase 5.1 is the next implementation target and is represented as Planned, not a separate Next status. The 2A–2C workstreams remain deferred by project decision and are represented as Planned. Only Completed, Working, Planned, and Vacation are valid statuses. --native currently means Integrator-mediated in-memory VIR execution; it does not claim native machine-code generation."
   },
   "repo": "NotY215/Vayu",
   "site": "https://vayu.gt.tc",
@@ -47,9 +47,15 @@
           "status": "completed"
         },
         {
-          "id": "0.5",
-          "name": "Recommended baseline repair (requires authorization): fix pre-existing failures in classes.vyu, collections.vyu (Interpreter), exceptions.vyu, and generators.vyu (VM crash 0xC0000409).",
-          "description": "Output: Baseline green; run_all.ps1 -NoFixpoint passes. Scope may touch compiler/interp/** and/or compiler/vm/**. Do not begin without authorization.",
+          "id": "0.5a",
+          "name": "Fix the run_all.ps1 regression: make the Invoke-Backend job resolve $vayuc to an absolute path and set -WorkingDirectory to the repository root.",
+          "description": "Output: run_all.ps1 no longer reports the spurious -998 failure. This pass is complete.",
+          "status": "completed"
+        },
+        {
+          "id": "0.5b",
+          "name": "Repair the four real baseline failures: classes.vyu and collections.vyu in the Interpreter; exceptions.vyu and generators.vyu in the VM.",
+          "description": "Output: Baseline green; run_all.ps1 -NoFixpoint passes fully. Requires explicit authorization before touching compiler/interp/** and/or compiler/vm/**.",
           "status": "planned"
         }
       ]
@@ -132,8 +138,8 @@
     },
     {
       "id": 3,
-      "name": "Basic arithmetic and values",
-      "description": "Complete the first executable VIR subset: arithmetic semantics, opcodes, lowering, verification, printing, in-memory interpretation, Integrator execution, build integration, and tests.",
+      "name": "Arithmetic VIR subset and in-memory execution",
+      "description": "Complete the arithmetic VIR subset, lowering, in-memory interpreter, --native integration, harness coverage, and include-order fix.",
       "status": "completed",
       "subphases": [
         {
@@ -189,26 +195,38 @@
           "name": "Extend vib_baseline.ps1 with Phase 3 coverage.",
           "description": "Output: New Phase 3 assertions.",
           "status": "completed"
+        },
+        {
+          "id": "3.10",
+          "name": "Fix the include-order regression discovered during the arithmetic integration pass.",
+          "description": "Output: Include-order issue resolved and covered by the completed Phase 3 integration.",
+          "status": "completed"
         }
       ]
     },
     {
       "id": 4,
       "name": "String semantics and operations",
-      "description": "Define deterministic string behavior and lower string operations into VIR.",
-      "status": "working",
+      "description": "Define byte-wise UTF-8 string semantics and support string constants, comparisons, concatenation, and VIR interpreter execution.",
+      "status": "completed",
       "subphases": [
         {
           "id": "4.1",
-          "name": "Define the UTF-8 policy, string semantics, and index bounds.",
-          "description": "Output: Feature::Strings = Supported.",
-          "status": "working"
+          "name": "Define the string semantics contract in code (Vir.hpp), including the byte-wise UTF-8 policy.",
+          "description": "Output: String behavior contract documented in code.",
+          "status": "completed"
         },
         {
           "id": "4.2",
-          "name": "Lower string constants and operations into VIR.",
-          "description": "Output: String fixtures green under --native.",
-          "status": "working"
+          "name": "Add string constants and StrConcat, StrEq, StrNe, StrCmpLt opcodes; implement lowering, verifier support, and interpreter cases.",
+          "description": "Output: Strings Supported.",
+          "status": "completed"
+        },
+        {
+          "id": "4.3",
+          "name": "Add len(), indexing, slicing, and string methods after the required call and index-expression infrastructure is available.",
+          "description": "Output: Covered by Phase 5 and Phase 7.",
+          "status": "planned"
         }
       ]
     },
@@ -216,13 +234,13 @@
       "id": 5,
       "name": "Functions and calls",
       "description": "Implement calls and scopes with explicit safety rules.",
-      "status": "working",
+      "status": "planned",
       "subphases": [
         {
           "id": "5.1",
-          "name": "Implement functions, parameters, return values, scopes, calls, and arity checks.",
-          "description": "Output: Feature::Functions = Supported; --native handles print(...) and user-defined functions.",
-          "status": "working"
+          "name": "Implement functions, parameters, returns, scopes, direct calls, and arity/type checks in VIR.",
+          "description": "Next implementation target. Output: Feature::Functions = Supported; --native handles print(...) and user-defined functions.",
+          "status": "planned"
         },
         {
           "id": "5.2",
@@ -335,7 +353,7 @@
     {
       "id": "2A",
       "name": "VYE container design and writer",
-      "description": "Deferred package-format work. Do not implement the writer before its gate after Phase 10. Deferred by project decision; retained as planned roadmap work and not active.",
+      "description": "Deferred package-format work. Do not implement the writer before its gate after Phase 10. Deferred by project decision; retained as planned roadmap work and not active. Deferred per project decision; retained as Planned to respect the four-status system.",
       "status": "planned",
       "subphases": [
         {
@@ -355,7 +373,7 @@
     {
       "id": "2B",
       "name": "VYE reader and execution",
-      "description": "Deferred until package format design and writer gates are authorized. Deferred by project decision; retained as planned roadmap work and not active.",
+      "description": "Deferred until package format design and writer gates are authorized. Deferred by project decision; retained as planned roadmap work and not active. Deferred per project decision; retained as Planned to respect the four-status system.",
       "status": "planned",
       "subphases": [
         {
@@ -375,7 +393,7 @@
     {
       "id": "2C",
       "name": "Unified backend dispatch and caching",
-      "description": "Deferred until current execution behavior is stabilized and dispatch/cache scope is authorized. Deferred by project decision; retained as planned roadmap work and not active.",
+      "description": "Deferred until current execution behavior is stabilized and dispatch/cache scope is authorized. Deferred by project decision; retained as planned roadmap work and not active. Deferred per project decision; retained as Planned to respect the four-status system.",
       "status": "planned",
       "subphases": [
         {
