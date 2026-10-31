@@ -22,6 +22,7 @@
     '/github',
     '/games',
     '/roadmap',
+    '/release',
     '/developer'
   ];
 
