@@ -52,7 +52,8 @@
       .brand{display:inline-flex;align-items:center;gap:8px;flex-shrink:0}
       .navlinks{display:flex!important;align-items:center;justify-content:center;gap:clamp(7px,1vw,15px);min-width:0;flex:1}
       .navlinks a{position:relative;display:grid;place-items:center;width:32px;height:34px;border-radius:9px;color:#b9cbe0;text-decoration:none;font-size:1.05rem;transition:background .18s ease,color .18s ease,transform .18s ease}
-      .navlinks a.active{color:#fff;background:rgba(85,217,255,.16);box-shadow:inset 0 -2px 0 #55d9ff}\n      .navlinks a:hover,.navlinks a:focus-visible{color:#fff;background:rgba(85,217,255,.12);transform:translateY(-1px);outline:none}
+      .navlinks a.active{color:#fff;background:rgba(85,217,255,.16);box-shadow:inset 0 -2px 0 #55d9ff}
+      .navlinks a:hover,.navlinks a:focus-visible{color:#fff;background:rgba(85,217,255,.12);transform:translateY(-1px);outline:none}
       .navlinks a::after{content:attr(data-tooltip);position:absolute;top:calc(100% + 9px);left:50%;transform:translate(-50%,-4px);padding:6px 9px;border:1px solid rgba(160,220,255,.22);border-radius:8px;background:rgba(7,16,31,.97);box-shadow:0 8px 25px rgba(0,0,0,.35);color:#eaf7ff;font:500 12px/1.2 system-ui,sans-serif;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s ease,transform .15s ease}
       .navlinks a:hover::after,.navlinks a:focus-visible::after{opacity:1;transform:translate(-50%,0)}
       .navlinks a[hidden]{display:grid!important}
@@ -60,7 +61,8 @@
       .nav-hamburger{display:none!important;flex:0 0 34px;width:34px;height:34px;border:1px solid rgba(140,205,245,.25);border-radius:9px;background:rgba(255,255,255,.045);align-items:center;justify-content:center;flex-direction:column;gap:4px;color:#dcefff;cursor:pointer}
       .nav-hamburger span{display:block;width:15px;height:1.5px;border-radius:3px;background:currentColor}
       .nav-symbol-icon,.nav-brand-icon{display:block;object-fit:contain;width:16px;height:16px}.nav-github-icon{width:13px;height:13px}
-      .drawer-link-content{display:flex;align-items:center;gap:12px}\n      .nav-drawer-link .nav-icon img{width:18px;height:18px;object-fit:contain;vertical-align:middle}
+      .drawer-link-content{display:flex;align-items:center;gap:12px}
+      .nav-drawer-link .nav-icon img{width:18px;height:18px;object-fit:contain;vertical-align:middle}
       @media(min-width:901px){.navlinks{display:flex!important}.nav-hamburger{display:none!important}.nav-inner{justify-content:space-between}}
       @media(max-width:900px){.nav-hamburger{display:flex!important}.navlinks{display:none!important}.nav-inner{gap:10px}.nav-actions{display:flex;gap:6px;margin-left:auto}.nav-actions .nav-patreon{display:none}.nav-download{padding:8px 10px;font-size:.78rem}}
       @media(max-width:520px){.brand span{display:none}.brand img{width:32px;height:32px}.nav-download{padding:8px 9px;font-size:.72rem}}
