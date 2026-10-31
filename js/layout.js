@@ -10,19 +10,19 @@
   'use strict';
 
   const ICONS = {
-    about:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-8h.01"/></svg>',
-    features:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.4 5.1L20 9l-4 4 .9 5.7-4.9-2.7-4.9 2.7L8 13l-4-4 5.6-.9L12 3Z"/></svg>',
-    syntax:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5-6 7 6 7M16 5l6 7-6 7M14 3l-4 18"/></svg>',
-    docs:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4.5A3.5 3.5 0 0 1 7.5 4H20v16H7.5A3.5 3.5 0 0 0 4 23V4.5Z"/><path d="M4 5v18M8 8h8M8 12h8"/></svg>',
-    speed:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 15a9 9 0 1 1 18 0"/><path d="m12 14 5-5M5 19h14"/></svg>',
-    compare:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h15m-4-4 4 4-4 4M20 17H5m4-4-4 4 4 4"/></svg>',
+    about:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/info.svg?color=%23c5d9eb" alt="" width="16" height="16" loading="lazy">',
+    features:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/sparkles.svg?color=%23c5d9eb" alt="" width="16" height="16" loading="lazy">',
+    syntax:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/code-2.svg?color=%23c5d9eb" alt="" width="16" height="16" loading="lazy">',
+    docs:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/book-open.svg?color=%23c5d9eb" alt="" width="16" height="16" loading="lazy">',
+    speed:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/gauge.svg?color=%23c5d9eb" alt="" width="16" height="16" loading="lazy">',
+    compare:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/arrow-left-right.svg?color=%23c5d9eb" alt="" width="16" height="16" loading="lazy">',
     vib:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1m0-12.8-2.1 2.1m-8.6 8.6-2.1 2.1"/><circle cx="12" cy="12" r="5"/></svg>',
     github:'<img class="nav-brand-icon nav-github-icon" src="https://cdn.simpleicons.org/github/FFFFFF" alt="" width="16" height="16" loading="lazy">',
-    games:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12a4 4 0 0 1 3.8 5.2l-1.2 4a2 2 0 0 1-3.2 1l-3-2.2H9.6l-3 2.2a2 2 0 0 1-3.2-1l-1.2-4A4 4 0 0 1 6 8Z"/><path d="M7 11v5m-2.5-2.5h5M16.5 12.5h.01M18.5 15h.01"/></svg>',
-    developer:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M4 21a8 8 0 0 1 16 0M8 7h.01M16 7h.01"/></svg>',
-    faq:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.6 2.6 0 1 1 4.5 1.8c-1.2 1.1-2 1.5-2 3m0 3h.01"/></svg>',
-    roadmap:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3V6Z"/><path d="M9 3v15m6-12v15"/></svg>',
-    release:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M4 20h16"/></svg>'
+    games:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/gamepad-2.svg?color=%23c5d9eb" alt="" width="16" height="16" loading="lazy">',
+    developer:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/user-round.svg?color=%23c5d9eb" alt="" width="16" height="16" loading="lazy">',
+    faq:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/circle-help.svg?color=%23c5d9eb" alt="" width="16" height="16" loading="lazy">',
+    roadmap:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/map.svg?color=%23c5d9eb" alt="" width="16" height="16" loading="lazy">',
+    release:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/package.svg?color=%23c5d9eb" alt="" width="16" height="16" loading="lazy">'
   };
   const NAV_LINKS = [
     { href: '/about/', nav: 'about', label: 'About', icon: ICONS.about },
