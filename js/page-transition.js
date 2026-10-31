@@ -13,15 +13,11 @@
   const PAGE_ORDER = [
     '/',
     '/about',
-    '/features',
     '/syntax',
     '/docs',
     '/speed',
-    '/compare',
     '/VIB',
     '/github',
-    '/games',
-    '/developer',
     '/faq',
     '/roadmap',
     '/release'
