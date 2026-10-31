@@ -65,9 +65,13 @@
       .navlinks a:hover::after,.navlinks a:focus-visible::after{opacity:1;transform:translate(-50%,0)}
       .navlinks a[hidden]{display:none!important}
       .nav-download,.nav-patreon{white-space:nowrap;padding:10px 12px}
-      .nav-hamburger{display:none!important;flex:0 0 34px;width:34px;height:34px;border:1px solid rgba(140,205,245,.25);border-radius:9px;background:rgba(255,255,255,.045);align-items:center;justify-content:center;flex-direction:column;gap:4px;color:#dcefff;cursor:pointer}\n      .nav-hamburger span{display:block;width:15px;height:1.5px;border-radius:3px;background:currentColor}\n      .nav-symbol-icon,.nav-brand-icon{display:block;object-fit:contain;width:16px;height:16px}\n      .nav-drawer-link .nav-icon img{width:18px;height:18px;object-fit:contain;vertical-align:middle}
+      .nav-hamburger{display:none!important;flex:0 0 34px;width:34px;height:34px;border:1px solid rgba(140,205,245,.25);border-radius:9px;background:rgba(255,255,255,.045);align-items:center;justify-content:center;flex-direction:column;gap:4px;color:#dcefff;cursor:pointer}
+      .nav-hamburger span{display:block;width:15px;height:1.5px;border-radius:3px;background:currentColor}
+      .nav-symbol-icon,.nav-brand-icon{display:block;object-fit:contain;width:16px;height:16px}
+      .nav-drawer-link .nav-icon img{width:18px;height:18px;object-fit:contain;vertical-align:middle}
       @media(min-width:1101px){.navlinks{display:flex!important}.nav-hamburger{display:none!important}.nav-inner{justify-content:space-between}}
-      @media(max-width:1100px){.nav-hamburger{display:flex!important}.navlinks{display:none!important}.nav-inner{gap:10px}.nav-actions{display:flex;gap:6px;margin-left:auto}.nav-actions .nav-patreon{display:none}.nav-download{padding:8px 10px;font-size:.78rem}}\n      @media(max-width:520px){.brand span{display:none}.brand img{width:32px;height:32px}.nav-download{padding:8px 9px;font-size:.72rem}}
+      @media(max-width:1100px){.nav-hamburger{display:flex!important}.navlinks{display:none!important}.nav-inner{gap:10px}.nav-actions{display:flex;gap:6px;margin-left:auto}.nav-actions .nav-patreon{display:none}.nav-download{padding:8px 10px;font-size:.78rem}}
+      @media(max-width:520px){.brand span{display:none}.brand img{width:32px;height:32px}.nav-download{padding:8px 9px;font-size:.72rem}}
       
     </style>
   `;
