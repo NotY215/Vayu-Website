@@ -10,31 +10,23 @@
   'use strict';
 
   const ICONS = {
-    about:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/info.svg?color=%23c5d9eb" alt="" width="16" height="16" loading="lazy">',
-    features:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/sparkles.svg?color=%23c5d9eb" alt="" width="16" height="16" loading="lazy">',
-    syntax:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/code-2.svg?color=%23c5d9eb" alt="" width="16" height="16" loading="lazy">',
-    docs:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/book-open.svg?color=%23c5d9eb" alt="" width="16" height="16" loading="lazy">',
-    speed:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/gauge.svg?color=%23c5d9eb" alt="" width="16" height="16" loading="lazy">',
-    compare:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/arrow-left-right.svg?color=%23c5d9eb" alt="" width="16" height="16" loading="lazy">',
-    vib:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1m0-12.8-2.1 2.1m-8.6 8.6-2.1 2.1"/><circle cx="12" cy="12" r="5"/></svg>',
-    github:'<img class="nav-brand-icon nav-github-icon" src="https://cdn.simpleicons.org/github/FFFFFF" alt="" width="16" height="16" loading="lazy">',
-    games:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/gamepad-2.svg?color=%23c5d9eb" alt="" width="16" height="16" loading="lazy">',
-    developer:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/user-round.svg?color=%23c5d9eb" alt="" width="16" height="16" loading="lazy">',
-    faq:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/circle-help.svg?color=%23c5d9eb" alt="" width="16" height="16" loading="lazy">',
-    roadmap:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/map.svg?color=%23c5d9eb" alt="" width="16" height="16" loading="lazy">',
-    release:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/package.svg?color=%23c5d9eb" alt="" width="16" height="16" loading="lazy">'
+    about:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/info.svg?color=%23c5d9eb" alt="" width="16" height="16">',
+    syntax:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/code-xml.svg?color=%23c5d9eb" alt="" width="16" height="16">',
+    docs:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/book-open.svg?color=%23c5d9eb" alt="" width="16" height="16">',
+    speed:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/gauge.svg?color=%23c5d9eb" alt="" width="16" height="16">',
+    vib:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1m0-12.8-2.1 2.1m-8.6 8.6-2.1 2.1" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.8" fill="none"/></svg>',
+    github:'<img class="nav-brand-icon nav-github-icon" src="https://cdn.simpleicons.org/github/FFFFFF" alt="" width="16" height="16">',
+    faq:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/circle-help.svg?color=%23c5d9eb" alt="" width="16" height="16">',
+    roadmap:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/map.svg?color=%23c5d9eb" alt="" width="16" height="16">',
+    release:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/package.svg?color=%23c5d9eb" alt="" width="16" height="16">'
   };
   const NAV_LINKS = [
     { href: '/about/', nav: 'about', label: 'About', icon: ICONS.about },
-    { href: '/features/', nav: 'features', label: 'Features', icon: ICONS.features },
     { href: '/syntax/', nav: 'syntax', label: 'Syntax', icon: ICONS.syntax },
     { href: '/docs/', nav: 'docs', label: 'Wiki', icon: ICONS.docs },
     { href: '/speed/', nav: 'speed', label: 'Speed', icon: ICONS.speed },
-    { href: '/compare/', nav: 'compare', label: 'Compare', icon: ICONS.compare },
     { href: '/VIB/', nav: 'vib', label: 'VIB', icon: ICONS.vib },
     { href: '/github/', nav: 'github', label: 'GitHub', icon: ICONS.github },
-    { href: '/games/', nav: 'games', label: 'Games', icon: ICONS.games },
-    { href: '/developer/', nav: 'developer', label: 'Developer', icon: ICONS.developer },
     { href: '/faq/', nav: 'faq', label: 'FAQ', icon: ICONS.faq },
     { href: '/roadmap/', nav: 'roadmap', label: 'Roadmap', icon: ICONS.roadmap },
     { href: '/release', nav: 'release', label: 'Release', icon: ICONS.release }
@@ -60,17 +52,17 @@
       .brand{display:inline-flex;align-items:center;gap:8px;flex-shrink:0}
       .navlinks{display:flex!important;align-items:center;justify-content:center;gap:clamp(7px,1vw,15px);min-width:0;flex:1}
       .navlinks a{position:relative;display:grid;place-items:center;width:32px;height:34px;border-radius:9px;color:#b9cbe0;text-decoration:none;font-size:1.05rem;transition:background .18s ease,color .18s ease,transform .18s ease}
-      .navlinks a:hover,.navlinks a:focus-visible{color:#fff;background:rgba(85,217,255,.12);transform:translateY(-1px);outline:none}
+      .navlinks a.active{color:#fff;background:rgba(85,217,255,.16);box-shadow:inset 0 -2px 0 #55d9ff}\n      .navlinks a:hover,.navlinks a:focus-visible{color:#fff;background:rgba(85,217,255,.12);transform:translateY(-1px);outline:none}
       .navlinks a::after{content:attr(data-tooltip);position:absolute;top:calc(100% + 9px);left:50%;transform:translate(-50%,-4px);padding:6px 9px;border:1px solid rgba(160,220,255,.22);border-radius:8px;background:rgba(7,16,31,.97);box-shadow:0 8px 25px rgba(0,0,0,.35);color:#eaf7ff;font:500 12px/1.2 system-ui,sans-serif;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s ease,transform .15s ease}
       .navlinks a:hover::after,.navlinks a:focus-visible::after{opacity:1;transform:translate(-50%,0)}
-      .navlinks a[hidden]{display:none!important}
+      .navlinks a[hidden]{display:grid!important}
       .nav-download,.nav-patreon{white-space:nowrap;padding:10px 12px}
       .nav-hamburger{display:none!important;flex:0 0 34px;width:34px;height:34px;border:1px solid rgba(140,205,245,.25);border-radius:9px;background:rgba(255,255,255,.045);align-items:center;justify-content:center;flex-direction:column;gap:4px;color:#dcefff;cursor:pointer}
       .nav-hamburger span{display:block;width:15px;height:1.5px;border-radius:3px;background:currentColor}
       .nav-symbol-icon,.nav-brand-icon{display:block;object-fit:contain;width:16px;height:16px}
-      .nav-drawer-link .nav-icon img{width:18px;height:18px;object-fit:contain;vertical-align:middle}
-      @media(min-width:1101px){.navlinks{display:flex!important}.nav-hamburger{display:none!important}.nav-inner{justify-content:space-between}}
-      @media(max-width:1100px){.nav-hamburger{display:flex!important}.navlinks{display:none!important}.nav-inner{gap:10px}.nav-actions{display:flex;gap:6px;margin-left:auto}.nav-actions .nav-patreon{display:none}.nav-download{padding:8px 10px;font-size:.78rem}}
+      .drawer-link-content{display:flex;align-items:center;gap:12px}\n      .nav-drawer-link .nav-icon img{width:18px;height:18px;object-fit:contain;vertical-align:middle}
+      @media(min-width:901px){.navlinks{display:flex!important}.nav-hamburger{display:none!important}.nav-inner{justify-content:space-between}}
+      @media(max-width:900px){.nav-hamburger{display:flex!important}.navlinks{display:none!important}.nav-inner{gap:10px}.nav-actions{display:flex;gap:6px;margin-left:auto}.nav-actions .nav-patreon{display:none}.nav-download{padding:8px 10px;font-size:.78rem}}
       @media(max-width:520px){.brand span{display:none}.brand img{width:32px;height:32px}.nav-download{padding:8px 9px;font-size:.72rem}}
       
     </style>
@@ -85,7 +77,7 @@
       </div>
       <div class="nav-drawer-list">
         ${NAV_LINKS.map(l => '<a class="nav-drawer-link" href="' + l.href + '" data-nav="' + l.nav + '">' +
-          '<span><span class="nav-icon" aria-hidden="true">' + l.icon + '</span> ' + l.label + '</span>' +
+          '<span class="drawer-link-content"><span class="nav-icon" aria-hidden="true">' + l.icon + '</span><span>' + l.label + '</span></span>' +
           '<span class="nav-drawer-link-arrow">›</span></a>').join('')}
       </div>
       <div class="nav-drawer-actions">
@@ -573,7 +565,7 @@
     if(page === 'flappybird') page = 'games';
     document.querySelectorAll('.navlinks a[data-nav]').forEach(a => {
       const active = a.dataset.nav === page;
-      a.hidden = active;
+      a.hidden = false;
       a.classList.toggle('active', active);
       if(active) a.setAttribute('aria-current', 'page');
       else a.removeAttribute('aria-current');
