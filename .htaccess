@@ -28,6 +28,9 @@ RewriteRule ^(.+)/sitemap\.xml/?$ /sitemap.xml [NC,L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
+# Canonical clean release route. /release serves release.html without exposing the .html suffix.
+RewriteRule ^release/?$ /release.html [NC,L]
+
 # Clean routes work with or without a trailing slash.
 RewriteRule ^VIB/?$ /VIB.html [NC,L]
 RewriteRule ^docs\.html$ /docs/ [R=301,L,NC]
