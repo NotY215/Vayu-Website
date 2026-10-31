@@ -17,7 +17,7 @@
     speed:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 15a9 9 0 1 1 18 0"/><path d="m12 14 5-5M5 19h14"/></svg>',
     compare:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h15m-4-4 4 4-4 4M20 17H5m4-4-4 4 4 4"/></svg>',
     vib:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1m0-12.8-2.1 2.1m-8.6 8.6-2.1 2.1"/><circle cx="12" cy="12" r="5"/></svg>',
-    github:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-4.2 1.3-4.2-2.1-5.9-2.5M15 21v-3.4a3 3 0 0 0-.8-2.3c2.7-.3 5.5-1.3 5.5-6A4.7 4.7 0 0 0 18.4 6 4.3 4.3 0 0 0 18.3 2S16.9 1.6 15 3.3a12 12 0 0 0-6 0C7.1 1.6 5.7 2 5.7 2A4.3 4.3 0 0 0 5.6 6 4.7 4.7 0 0 0 4.3 9.3c0 4.7 2.8 5.7 5.5 6A3 3 0 0 0 9 17.6V21"/></svg>',
+    github:'<img class="nav-brand-icon nav-github-icon" src="https://cdn.simpleicons.org/github/FFFFFF" alt="" width="16" height="16" loading="lazy">',
     games:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12a4 4 0 0 1 3.8 5.2l-1.2 4a2 2 0 0 1-3.2 1l-3-2.2H9.6l-3 2.2a2 2 0 0 1-3.2-1l-1.2-4A4 4 0 0 1 6 8Z"/><path d="M7 11v5m-2.5-2.5h5M16.5 12.5h.01M18.5 15h.01"/></svg>',
     developer:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M4 21a8 8 0 0 1 16 0M8 7h.01M16 7h.01"/></svg>',
     faq:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.6 2.6 0 1 1 4.5 1.8c-1.2 1.1-2 1.5-2 3m0 3h.01"/></svg>',
@@ -37,12 +37,13 @@
     { href: '/developer/', nav: 'developer', label: 'Developer', icon: ICONS.developer },
     { href: '/faq/', nav: 'faq', label: 'FAQ', icon: ICONS.faq },
     { href: '/roadmap/', nav: 'roadmap', label: 'Roadmap', icon: ICONS.roadmap },
-    { href: '/release.html', nav: 'release', label: 'Release', icon: ICONS.release }
+    { href: '/release', nav: 'release', label: 'Release', icon: ICONS.release }
   ];
 
   const NAV_HTML = `
     <nav class="vayu-topbar">
       <div class="container nav-inner">
+        <button class="nav-hamburger" type="button" data-hamburger aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button>
         <a class="brand" href="/" data-nav="home" aria-label="Vayu home" title="Vayu Home"><img src="/Vayu_logo.png" alt="Vayu logo" width="39" height="39"><span>VAYU</span></a>
         <div class="navlinks" aria-label="Main navigation">
           ${NAV_LINKS.filter(l => l.nav !== 'home').map(l => '<a href="' + l.href + '" data-nav="' + l.nav + '" aria-label="' + l.label + '" data-tooltip="' + l.label + '" title="' + l.label + '">' + l.icon + '</a>').join('')}
@@ -64,10 +65,10 @@
       .navlinks a:hover::after,.navlinks a:focus-visible::after{opacity:1;transform:translate(-50%,0)}
       .navlinks a[hidden]{display:none!important}
       .nav-download,.nav-patreon{white-space:nowrap;padding:10px 12px}
-      .nav-hamburger{display:none!important}
-      @media(min-width:761px){.navlinks{display:flex!important}.nav-inner{justify-content:space-between}}
-      @media(max-width:760px){.navlinks{display:flex!important;gap:4px;overflow-x:auto;scrollbar-width:none}.navlinks::-webkit-scrollbar{display:none}.navlinks a{width:29px;min-width:29px;height:32px;font-size:.95rem}.nav-inner{gap:7px}.brand span{display:none}.brand img{width:32px;height:32px}.nav-actions{display:flex;gap:5px}.nav-actions .nav-patreon{display:none}.nav-download{padding:8px 9px;font-size:.76rem}}
-      @media(max-width:390px){.navlinks{gap:1px}.navlinks a{width:25px;min-width:25px}.nav-download{font-size:.7rem;padding:7px}}
+      .nav-hamburger{display:none!important;flex:0 0 34px;width:34px;height:34px;border:1px solid rgba(140,205,245,.25);border-radius:9px;background:rgba(255,255,255,.045);align-items:center;justify-content:center;flex-direction:column;gap:4px;color:#dcefff;cursor:pointer}\n      .nav-hamburger span{display:block;width:15px;height:1.5px;border-radius:3px;background:currentColor}\n      .nav-symbol-icon,.nav-brand-icon{display:block;object-fit:contain;width:16px;height:16px}\n      .nav-drawer-link .nav-icon img{width:18px;height:18px;object-fit:contain;vertical-align:middle}
+      @media(min-width:1101px){.navlinks{display:flex!important}.nav-hamburger{display:none!important}.nav-inner{justify-content:space-between}}
+      @media(max-width:1100px){.nav-hamburger{display:flex!important}.navlinks{display:none!important}.nav-inner{gap:10px}.nav-actions{display:flex;gap:6px;margin-left:auto}.nav-actions .nav-patreon{display:none}.nav-download{padding:8px 10px;font-size:.78rem}}\n      @media(max-width:520px){.brand span{display:none}.brand img{width:32px;height:32px}.nav-download{padding:8px 9px;font-size:.72rem}}
+      
     </style>
   `;
 
