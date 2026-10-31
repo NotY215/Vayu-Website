@@ -21,11 +21,11 @@
     '/VIB',
     '/github',
     '/games',
+    '/developer',
+    '/faq',
     '/roadmap',
-    '/release',
-    '/developer'
+    '/release'
   ];
-
   const WHEEL_THRESHOLD = 160;
   const TOUCH_THRESHOLD = 70;
   const ANIM_MS = 600;
