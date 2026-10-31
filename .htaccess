@@ -5,40 +5,30 @@
     AddType text/css .css
     AddType application/javascript .js
 </IfModule>
-
 <IfModule mod_headers.c>
-    # Keep shared navigation and release data fresh after deployment.
     <Files "layout.js">
         Header set Cache-Control "no-cache, no-store, must-revalidate"
     </Files>
     <Files "release.html">
         Header set Cache-Control "no-cache, no-store, must-revalidate"
     </Files>
-    <FilesMatch "\.(png|jpg|jpeg|gif|webp|svg)$">
+    <FilesMatch "\\.(png|jpg|jpeg|gif|webp|svg)$">
         Header unset Content-Disposition
     </FilesMatch>
 </IfModule>
-
 RewriteEngine On
-
-# Allow the sitemap from the root and from any page path.
-RewriteRule ^(.+)/sitemap\.xml/?$ /sitemap.xml [NC,L]
-
-# Redirect only direct legacy requests, not the internal rewrite used by /release.
-RewriteCond %{THE_REQUEST} \s/+release\.html(?:[\s?]|$) [NC]
-RewriteRule ^release\.html$ /release [R=301,L,NC]
-
-
-# Don't rewrite real files or folders
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-
-# Canonical clean release route. /release serves release.html without exposing the .html suffix.
-RewriteRule ^release/?$ /release.html [NC,L]
-
-# Clean routes work with or without a trailing slash.
+RewriteRule ^(.+)/sitemap\\.xml/?$ /sitemap.xml [NC,L]
+RewriteCond %{THE_REQUEST} \\s/+release\\.html(?:[\\s?]|$) [NC]
+RewriteRule ^release\\.html$ /release [R=301,L,NC]
+RewriteRule ^(features|feature)/?$ /syntax/ [R=301,L,NC]
+RewriteRule ^(compare|comparison)/?$ /speed/ [R=301,L,NC]
+RewriteRule ^developer/?$ /github/ [R=301,L,NC]
+RewriteRule ^games/?$ / [R=301,L,NC]
 RewriteRule ^VIB/?$ /VIB.html [NC,L]
-RewriteRule ^docs\.html$ /docs/ [R=301,L,NC]
+RewriteRule ^docs\\.html$ /docs/ [R=301,L,NC]
 RewriteRule ^(docs|documentation|doc)/?$ /vayu-documentation.html [NC,L]
 RewriteRule ^(vcb|compiler)/?$ /VIB/ [R=301,L,NC]
-RewriteRule ^([^\.]+?)/?$ /$1.html [NC,L]
+RewriteRule ^release/?$ /release.html [NC,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^\\.]+?)/?$ /$1.html [NC,L]
