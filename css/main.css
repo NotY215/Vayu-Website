@@ -3280,3 +3280,11 @@ input:focus, textarea:focus, select:focus, .search-input:focus {
 .dev-repo-meta{color:var(--muted);font-size:.78rem;white-space:nowrap}
 @media(max-width:850px){.dev-stat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.dev-chart-grid{grid-template-columns:1fr}}
 @media(max-width:520px){.dev-analytics-head{align-items:start;flex-direction:column}.dev-chart-card{padding:17px}.dev-donut-wrap{gap:14px}.dev-bar-row{grid-template-columns:84px minmax(0,1fr) 34px;gap:8px}.dev-stat{padding:16px}.dev-repo-link{flex-direction:column}.dev-repo-meta{white-space:normal}}
+
+
+/* Responsive navigation: complete desktop bar, full mobile/tablet drawer. */
+@media (min-width:1101px){.nav-hamburger{display:none!important}.navlinks{display:flex!important}}
+@media (max-width:1100px){.navlinks{display:none!important}.nav-hamburger{display:flex!important}}
+.nav-drawer{max-height:100dvh;overflow-y:auto}
+.nav-drawer-list .nav-drawer-link{min-height:48px}
+.nav-drawer-actions{position:sticky;bottom:0;background:rgba(5,9,18,.96);backdrop-filter:blur(16px)}
