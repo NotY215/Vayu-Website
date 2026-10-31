@@ -9,32 +9,43 @@
 (function(){
   'use strict';
 
+  const ICONS = {
+    about:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-8h.01"/></svg>',
+    features:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.4 5.1L20 9l-4 4 .9 5.7-4.9-2.7-4.9 2.7L8 13l-4-4 5.6-.9L12 3Z"/></svg>',
+    syntax:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5-6 7 6 7M16 5l6 7-6 7M14 3l-4 18"/></svg>',
+    docs:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4.5A3.5 3.5 0 0 1 7.5 4H20v16H7.5A3.5 3.5 0 0 0 4 23V4.5Z"/><path d="M4 5v18M8 8h8M8 12h8"/></svg>',
+    speed:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 15a9 9 0 1 1 18 0"/><path d="m12 14 5-5M5 19h14"/></svg>',
+    compare:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h15m-4-4 4 4-4 4M20 17H5m4-4-4 4 4 4"/></svg>',
+    vib:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1m0-12.8-2.1 2.1m-8.6 8.6-2.1 2.1"/><circle cx="12" cy="12" r="5"/></svg>',
+    github:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-4.2 1.3-4.2-2.1-5.9-2.5M15 21v-3.4a3 3 0 0 0-.8-2.3c2.7-.3 5.5-1.3 5.5-6A4.7 4.7 0 0 0 18.4 6 4.3 4.3 0 0 0 18.3 2S16.9 1.6 15 3.3a12 12 0 0 0-6 0C7.1 1.6 5.7 2 5.7 2A4.3 4.3 0 0 0 5.6 6 4.7 4.7 0 0 0 4.3 9.3c0 4.7 2.8 5.7 5.5 6A3 3 0 0 0 9 17.6V21"/></svg>',
+    games:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12a4 4 0 0 1 3.8 5.2l-1.2 4a2 2 0 0 1-3.2 1l-3-2.2H9.6l-3 2.2a2 2 0 0 1-3.2-1l-1.2-4A4 4 0 0 1 6 8Z"/><path d="M7 11v5m-2.5-2.5h5M16.5 12.5h.01M18.5 15h.01"/></svg>',
+    developer:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M4 21a8 8 0 0 1 16 0M8 7h.01M16 7h.01"/></svg>',
+    faq:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.6 2.6 0 1 1 4.5 1.8c-1.2 1.1-2 1.5-2 3m0 3h.01"/></svg>',
+    roadmap:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3V6Z"/><path d="M9 3v15m6-12v15"/></svg>',
+    release:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M4 20h16"/></svg>'
+  };
   const NAV_LINKS = [
-    { href: '/', nav: 'home', label: 'Home', icon: '⌂' },
-    { href: '/about/', nav: 'about', label: 'About', icon: '◉' },
-    { href: '/features/', nav: 'features', label: 'Features', icon: '✦' },
-    { href: '/syntax/', nav: 'syntax', label: 'Syntax', icon: '⌘' },
-    { href: '/docs/', nav: 'docs', label: 'Wiki', icon: '▤' },
-    { href: '/speed/', nav: 'speed', label: 'Speed', icon: '↗' },
-    { href: '/compare/', nav: 'compare', label: 'Compare', icon: '⇄' },
-    { href: '/VIB/', nav: 'vib', label: 'VIB', icon: '⚙' },
-    { href: '/github/', nav: 'github', label: 'GitHub', icon: '◈' },
-    { href: '/games/', nav: 'games', label: 'Games', icon: '🎮' },
-    { href: '/developer/', nav: 'developer', label: 'Developer', icon: '♟' },
-    { href: '/faq/', nav: 'faq', label: 'FAQ', icon: '?' },
-    { href: '/roadmap/', nav: 'roadmap', label: 'Roadmap', icon: '⌁' },
-    { href: '/release.html', nav: 'release', label: 'Release', icon: '⇩' }
+    { href: '/about/', nav: 'about', label: 'About', icon: ICONS.about },
+    { href: '/features/', nav: 'features', label: 'Features', icon: ICONS.features },
+    { href: '/syntax/', nav: 'syntax', label: 'Syntax', icon: ICONS.syntax },
+    { href: '/docs/', nav: 'docs', label: 'Wiki', icon: ICONS.docs },
+    { href: '/speed/', nav: 'speed', label: 'Speed', icon: ICONS.speed },
+    { href: '/compare/', nav: 'compare', label: 'Compare', icon: ICONS.compare },
+    { href: '/VIB/', nav: 'vib', label: 'VIB', icon: ICONS.vib },
+    { href: '/github/', nav: 'github', label: 'GitHub', icon: ICONS.github },
+    { href: '/games/', nav: 'games', label: 'Games', icon: ICONS.games },
+    { href: '/developer/', nav: 'developer', label: 'Developer', icon: ICONS.developer },
+    { href: '/faq/', nav: 'faq', label: 'FAQ', icon: ICONS.faq },
+    { href: '/roadmap/', nav: 'roadmap', label: 'Roadmap', icon: ICONS.roadmap },
+    { href: '/release.html', nav: 'release', label: 'Release', icon: ICONS.release }
   ];
 
   const NAV_HTML = `
-    <nav>
+    <nav class="vayu-topbar">
       <div class="container nav-inner">
-        <button class="nav-hamburger" type="button" aria-label="Open menu" aria-expanded="false" data-hamburger>
-          <span></span><span></span><span></span>
-        </button>
-        <a class="brand" href="/" data-nav="home"><img src="/Vayu_logo.png" alt="Vayu logo" width="39" height="39">VAYU</a>
+        <a class="brand" href="/" data-nav="home" aria-label="Vayu home" title="Vayu Home"><img src="/Vayu_logo.png" alt="Vayu logo" width="39" height="39"><span>VAYU</span></a>
         <div class="navlinks" aria-label="Main navigation">
-          ${NAV_LINKS.filter(l => l.nav !== 'home').map(l => '<a href="' + l.href + '" data-nav="' + l.nav + '" title="' + l.label + '"><span class="nav-icon" aria-hidden="true">' + l.icon + '</span><span>' + l.label + '</span></a>').join('')}
+          ${NAV_LINKS.filter(l => l.nav !== 'home').map(l => '<a href="' + l.href + '" data-nav="' + l.nav + '" aria-label="' + l.label + '" data-tooltip="' + l.label + '" title="' + l.label + '">' + l.icon + '</a>').join('')}
         </div>
         <div class="nav-actions">
           <a class="btn primary nav-download" href="https://github.com/NotY215/Vayu/releases/download/V0.1-Alpha/Vayu-Alpha-Release-V01.zip" data-vayu-download>↓ Download</a>
@@ -43,15 +54,20 @@
       </div>
     </nav>
     <style>
-      .nav-icon{display:inline-grid;place-items:center;min-width:1em;margin-right:4px;font-size:.95em}
-      .navlinks{gap:clamp(5px,.65vw,11px);font-size:clamp(.68rem,.78vw,.82rem);align-items:center;white-space:nowrap}
-      .navlinks a{display:inline-flex;align-items:center;gap:2px}
-      .nav-inner{gap:12px}
-      .nav-download{white-space:nowrap;padding:10px 12px}
-      .nav-patreon{white-space:nowrap;padding:10px 12px}
-      @media(min-width:1101px){.nav-hamburger{display:none!important}.navlinks{display:flex!important}}
-      @media(max-width:1100px){.navlinks{display:none!important}.nav-hamburger{display:flex!important}.nav-inner{justify-content:flex-start}.nav-actions{margin-left:auto}}
-      @media(max-width:540px){.nav-inner{height:66px}.brand{font-size:.9rem}.brand img{width:33px;height:33px}.nav-actions .nav-patreon{display:none}.nav-download{padding:9px 10px;font-size:.78rem}}
+      .vayu-topbar{position:sticky;top:0;z-index:1000}
+      .nav-inner{gap:clamp(10px,1.1vw,18px)}
+      .brand{display:inline-flex;align-items:center;gap:8px;flex-shrink:0}
+      .navlinks{display:flex!important;align-items:center;justify-content:center;gap:clamp(7px,1vw,15px);min-width:0;flex:1}
+      .navlinks a{position:relative;display:grid;place-items:center;width:32px;height:34px;border-radius:9px;color:#b9cbe0;text-decoration:none;font-size:1.05rem;transition:background .18s ease,color .18s ease,transform .18s ease}
+      .navlinks a:hover,.navlinks a:focus-visible{color:#fff;background:rgba(85,217,255,.12);transform:translateY(-1px);outline:none}
+      .navlinks a::after{content:attr(data-tooltip);position:absolute;top:calc(100% + 9px);left:50%;transform:translate(-50%,-4px);padding:6px 9px;border:1px solid rgba(160,220,255,.22);border-radius:8px;background:rgba(7,16,31,.97);box-shadow:0 8px 25px rgba(0,0,0,.35);color:#eaf7ff;font:500 12px/1.2 system-ui,sans-serif;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s ease,transform .15s ease}
+      .navlinks a:hover::after,.navlinks a:focus-visible::after{opacity:1;transform:translate(-50%,0)}
+      .navlinks a[hidden]{display:none!important}
+      .nav-download,.nav-patreon{white-space:nowrap;padding:10px 12px}
+      .nav-hamburger{display:none!important}
+      @media(min-width:761px){.navlinks{display:flex!important}.nav-inner{justify-content:space-between}}
+      @media(max-width:760px){.navlinks{display:flex!important;gap:4px;overflow-x:auto;scrollbar-width:none}.navlinks::-webkit-scrollbar{display:none}.navlinks a{width:29px;min-width:29px;height:32px;font-size:.95rem}.nav-inner{gap:7px}.brand span{display:none}.brand img{width:32px;height:32px}.nav-actions{display:flex;gap:5px}.nav-actions .nav-patreon{display:none}.nav-download{padding:8px 9px;font-size:.76rem}}
+      @media(max-width:390px){.navlinks{gap:1px}.navlinks a{width:25px;min-width:25px}.nav-download{font-size:.7rem;padding:7px}}
     </style>
   `;
 
@@ -265,6 +281,30 @@
       get: getPhaseById, working: getWorkingPhase,
       label: phaseStatusShort, apply: applyPhaseBindings
     };
+  }
+
+  function initDownloadModal(){
+    if(document.getElementById('vayu-download-modal')) return;
+    const root=document.createElement('div');
+    root.id='vayu-download-modal';
+    root.className='vayu-download-overlay';
+    root.hidden=true;
+    root.innerHTML='<div class="vayu-download-backdrop" data-download-close></div><section class="vayu-download-dialog" role="dialog" aria-modal="true" aria-labelledby="vayu-download-title"><button type="button" class="vayu-download-x" aria-label="Close" data-download-close>×</button><div class="vayu-download-mark">↓</div><p class="vayu-download-eyebrow">VAYU ALPHA RELEASE</p><h2 id="vayu-download-title">Download Vayu?</h2><p class="vayu-download-copy">You are about to download the Vayu Alpha release ZIP from GitHub.</p><div class="vayu-download-file">Vayu-Alpha-Release-V01.zip</div><div class="vayu-download-actions"><button type="button" class="btn ghost" data-download-close>Cancel</button><a class="btn primary" data-download-confirm href="https://github.com/NotY215/Vayu/releases/download/V0.1-Alpha/Vayu-Alpha-Release-V01.zip">Download ZIP</a></div></section>';
+    document.body.appendChild(root);
+    const style=document.createElement('style');
+    style.textContent='.vayu-download-overlay[hidden]{display:none!important}.vayu-download-overlay{position:fixed;inset:0;z-index:20000;display:grid;place-items:center;padding:22px}.vayu-download-backdrop{position:absolute;inset:0;background:rgba(2,7,16,.76);backdrop-filter:blur(10px)}.vayu-download-dialog{position:relative;width:min(440px,100%);padding:30px;border:1px solid rgba(145,220,255,.25);border-radius:22px;background:linear-gradient(145deg,rgba(20,38,67,.98),rgba(6,14,28,.98));box-shadow:0 35px 100px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.1);color:#f3f8ff;text-align:center}.vayu-download-x{position:absolute;right:13px;top:10px;border:0;background:transparent;color:#a9bfd5;font-size:26px;cursor:pointer}.vayu-download-mark{display:grid;place-items:center;width:54px;height:54px;margin:0 auto 16px;border:1px solid rgba(85,217,255,.35);border-radius:16px;background:rgba(85,217,255,.1);font-size:28px;color:#7de2ff}.vayu-download-eyebrow{font-size:.7rem;letter-spacing:.16em;color:#80dfff;font-weight:800}.vayu-download-dialog h2{margin:8px 0;font-size:1.65rem}.vayu-download-copy{color:#a9bfd5;line-height:1.6;font-size:.9rem}.vayu-download-file{margin:18px 0;padding:12px;border-radius:10px;border:1px solid rgba(180,220,255,.13);background:rgba(255,255,255,.04);font: .8rem monospace;overflow-wrap:anywhere}.vayu-download-actions{display:flex;justify-content:center;gap:10px;margin-top:20px}.vayu-download-actions .btn{text-decoration:none;cursor:pointer}';
+    document.head.appendChild(style);
+
+    root.addEventListener('click',e=>{if(e.target.closest('[data-download-close]')) root.hidden=true;});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape') root.hidden=true;});
+    document.addEventListener('click',e=>{
+      const btn=e.target.closest('[data-vayu-download]');
+      if(!btn) return;
+      e.preventDefault();
+      root.hidden=false;
+      const confirmLink=root.querySelector('[data-download-confirm]');
+      confirmLink.focus();
+    },true);
   }
 
   /* ---------- helpers ---------- */
@@ -664,16 +704,7 @@
     });
   }
 
-  // Bind download confirmation immediately, before asynchronous page initialization.
-  document.addEventListener('click', function(e){
-    const btn = e.target.closest('[data-vayu-download]');
-    if(!btn) return;
-    if(btn.dataset.downloadConfirmed === 'yes'){ btn.dataset.downloadConfirmed=''; return; }
-    e.preventDefault();
-    if(!window.confirm('A new Vayu Alpha release is available. Do you want to download it now?')) return;
-    const url='https://github.com/NotY215/Vayu/releases/download/V0.1-Alpha/Vayu-Alpha-Release-V01.zip';
-    window.location.assign(url);
-  }, true);
+
 
   async function boot(){
     const page = currentPage();
@@ -683,16 +714,7 @@
     setActiveNav();
     initDrawer();
     initHardRefresh();
-    document.addEventListener('click', e => {
-      const btn = e.target.closest('[data-vayu-download]');
-      if(!btn) return;
-      if(!window.confirm('A new Vayu Alpha release is available. Do you want to download it now?')){
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        return;
-      }
-      btn.href = 'https://github.com/NotY215/Vayu/releases/download/V0.1-Alpha/Vayu-Alpha-Release-V01.zip';
-    }, true);
+    initDownloadModal();
 
     const loadingEl = document.getElementById('vayu-loading');
 
