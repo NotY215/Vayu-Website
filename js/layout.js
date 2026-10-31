@@ -10,20 +10,20 @@
   'use strict';
 
   const NAV_LINKS = [
-    { href: '/',              nav: 'home',          label: 'Home' },
-    { href: '/about/',         nav: 'about',         label: 'About' },
-    { href: '/features/',      nav: 'features',      label: 'Features' },
-    { href: '/github/',        nav: 'github',        label: 'GitHub' },
-    { href: '/developer/',     nav: 'developer',     label: 'Developer' },
-    { href: '/syntax/',        nav: 'syntax',        label: 'Syntax' },
-    { href: '/docs/',      nav: 'docs',          label: 'Documentation' },
-    { href: '/speed/',         nav: 'speed',         label: 'Speed' },
-    { href: '/compare/',       nav: 'compare',       label: 'Compare' },
-    { href: '/VIB/',           nav: 'vib',           label: 'VIB' },
-    { href: '/games/',         nav: 'games',         label: 'Games' },
-    { href: '/roadmap/',       nav: 'roadmap',       label: 'Roadmap' },
-    { href: '/release.html',        nav: 'release',        label: 'Release' },
-    { href: '/faq/',           nav: 'FAQ',           label: 'FAQ' }
+    { href: '/', nav: 'home', label: 'Home', icon: '⌂' },
+    { href: '/about/', nav: 'about', label: 'About', icon: '◉' },
+    { href: '/features/', nav: 'features', label: 'Features', icon: '✦' },
+    { href: '/syntax/', nav: 'syntax', label: 'Syntax', icon: '⌘' },
+    { href: '/docs/', nav: 'docs', label: 'Wiki', icon: '▤' },
+    { href: '/speed/', nav: 'speed', label: 'Speed', icon: '↗' },
+    { href: '/compare/', nav: 'compare', label: 'Compare', icon: '⇄' },
+    { href: '/VIB/', nav: 'vib', label: 'VIB', icon: '⚙' },
+    { href: '/github/', nav: 'github', label: 'GitHub', icon: '◈' },
+    { href: '/games/', nav: 'games', label: 'Games', icon: '🎮' },
+    { href: '/developer/', nav: 'developer', label: 'Developer', icon: '♟' },
+    { href: '/faq/', nav: 'faq', label: 'FAQ', icon: '?' },
+    { href: '/roadmap/', nav: 'roadmap', label: 'Roadmap', icon: '⌁' },
+    { href: '/release.html', nav: 'release', label: 'Release', icon: '⇩' }
   ];
 
   const NAV_HTML = `
@@ -32,49 +32,45 @@
         <button class="nav-hamburger" type="button" aria-label="Open menu" aria-expanded="false" data-hamburger>
           <span></span><span></span><span></span>
         </button>
-        <a class="brand" href="/" data-nav="home">
-          <img src="/Vayu_logo.png" alt="Vayu logo" width="39" height="39">
-          VAYU
-        </a>
-        <div class="navlinks">
-          <a href="/about/" data-nav="about">About</a>
-          <a href="/features/" data-nav="features">Features</a>
-          <a href="/github/" data-nav="github">GitHub</a>
-          <a href="/developer/" data-nav="developer">Developer</a>
-          <a href="/docs/" data-nav="docs">Documentation</a>
-          <a href="/roadmap/" data-nav="roadmap">Roadmap</a>
-          <a href="/release.html" data-nav="release">Release</a>
-          <a href="/faq/" data-nav="faq">FAQ</a>
+        <a class="brand" href="/" data-nav="home"><img src="/Vayu_logo.png" alt="Vayu logo" width="39" height="39">VAYU</a>
+        <div class="navlinks" aria-label="Main navigation">
+          ${NAV_LINKS.filter(l => l.nav !== 'home').map(l => '<a href="' + l.href + '" data-nav="' + l.nav + '" title="' + l.label + '"><span class="nav-icon" aria-hidden="true">' + l.icon + '</span><span>' + l.label + '</span></a>').join('')}
         </div>
         <div class="nav-actions">
-          <a class="btn primary nav-download" href="/release.html">↓ Download</a>
+          <a class="btn primary nav-download" href="https://github.com/NotY215/Vayu/releases/download/V0.1-Alpha/Vayu-Alpha-Release-V01.zip" data-vayu-download>↓ Download</a>
           <a class="btn primary nav-patreon" href="https://www.patreon.com/cw/Ficzo" target="_blank" rel="noopener">Patreon</a>
         </div>
       </div>
     </nav>
+    <style>
+      .nav-icon{display:inline-grid;place-items:center;min-width:1em;margin-right:4px;font-size:.95em}
+      .navlinks{gap:clamp(5px,.65vw,11px);font-size:clamp(.68rem,.78vw,.82rem);align-items:center;white-space:nowrap}
+      .navlinks a{display:inline-flex;align-items:center;gap:2px}
+      .nav-inner{gap:12px}
+      .nav-download{white-space:nowrap;padding:10px 12px}
+      .nav-patreon{white-space:nowrap;padding:10px 12px}
+      @media(min-width:1101px){.nav-hamburger{display:none!important}.navlinks{display:flex!important}}
+      @media(max-width:1100px){.navlinks{display:none!important}.nav-hamburger{display:flex!important}.nav-inner{justify-content:flex-start}.nav-actions{margin-left:auto}}
+      @media(max-width:540px){.nav-inner{height:66px}.brand{font-size:.9rem}.brand img{width:33px;height:33px}.nav-actions .nav-patreon{display:none}.nav-download{padding:9px 10px;font-size:.78rem}}
+    </style>
   `;
 
   const DRAWER_HTML = `
     <div class="nav-drawer-backdrop" data-drawer-backdrop></div>
-    <aside class="nav-drawer" role="dialog" aria-modal="true" aria-label="Menu" data-drawer>
+    <aside class="nav-drawer" role="dialog" aria-modal="true" aria-label="Site navigation" data-drawer>
       <div class="nav-drawer-head">
-        <span class="nav-drawer-title">Menu</span>
+        <span class="nav-drawer-title">Explore Vayu</span>
         <button class="nav-drawer-close" type="button" aria-label="Close menu" data-drawer-close>✕</button>
       </div>
       <div class="nav-drawer-list">
-        ${NAV_LINKS.filter(l => !['about','features','github','developer','roadmap','faq'].includes(l.nav)).map(l =>
-          '<a class="nav-drawer-link" href="' + l.href + '" data-nav="' + l.nav + '">' +
-            '<span>' + l.label + '</span>' +
-            '<span class="nav-drawer-link-arrow">›</span>' +
-          '</a>'
-        ).join('')}
+        ${NAV_LINKS.map(l => '<a class="nav-drawer-link" href="' + l.href + '" data-nav="' + l.nav + '">' +
+          '<span><span class="nav-icon" aria-hidden="true">' + l.icon + '</span> ' + l.label + '</span>' +
+          '<span class="nav-drawer-link-arrow">›</span></a>').join('')}
       </div>
       <div class="nav-drawer-actions">
+        <a class="btn primary" href="https://github.com/NotY215/Vayu/releases/download/V0.1-Alpha/Vayu-Alpha-Release-V01.zip" data-vayu-download>↓ Download latest Alpha</a>
         <a class="btn ghost" href="https://github.com/NotY215/Vayu" target="_blank" rel="noopener">⌘ Source</a>
-        <button class="btn ghost hard-refresh-btn" type="button" data-hard-refresh>
-          <span class="hard-refresh-icon">⟳</span>
-          <span class="hard-refresh-text">Hard refresh</span>
-        </button>
+        <button class="btn ghost hard-refresh-btn" type="button" data-hard-refresh><span class="hard-refresh-icon">⟳</span><span class="hard-refresh-text">Hard refresh</span></button>
       </div>
     </aside>
   `;
@@ -667,6 +663,17 @@
       document.body.appendChild(s);
     });
   }
+
+  // Bind download confirmation immediately, before asynchronous page initialization.
+  document.addEventListener('click', function(e){
+    const btn = e.target.closest('[data-vayu-download]');
+    if(!btn) return;
+    if(btn.dataset.downloadConfirmed === 'yes'){ btn.dataset.downloadConfirmed=''; return; }
+    e.preventDefault();
+    if(!window.confirm('A new Vayu Alpha release is available. Do you want to download it now?')) return;
+    const url='https://github.com/NotY215/Vayu/releases/download/V0.1-Alpha/Vayu-Alpha-Release-V01.zip';
+    window.location.assign(url);
+  }, true);
 
   async function boot(){
     const page = currentPage();
