@@ -21,12 +21,13 @@
 
 RewriteEngine On
 
+# Allow the sitemap from the root and from any page path.
+RewriteRule ^(.+)/sitemap\.xml/?$ /sitemap.xml [NC,L]
+
 # Redirect only direct legacy requests, not the internal rewrite used by /release.
 RewriteCond %{THE_REQUEST} \s/+release\.html(?:[\s?]|$) [NC]
 RewriteRule ^release\.html$ /release [R=301,L,NC]
 
-# Allow the sitemap from the root and from any page path.
-RewriteRule ^(.+)/sitemap\.xml/?$ /sitemap.xml [NC,L]
 
 # Don't rewrite real files or folders
 RewriteCond %{REQUEST_FILENAME} !-f
