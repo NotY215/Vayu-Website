@@ -19,7 +19,7 @@
 <div class="card reveal mt-32"><h2>Evidence protocol</h2><ul class="doc-list"><li>Record the source commit, compiler revision, OS, hardware, target and all flags.</li><li>Publish exact commands, inputs, repetitions, warm-up policy, median and spread.</li><li>Separate compilation time from runtime and startup costs.</li><li>Compare equivalent semantics and observable output, not merely similarly named programs.</li><li>Preserve raw results and disclose missing, flaky or platform-specific measurements.</li><li>Keep predictions separate from measured results and document what would disprove each prediction.</li></ul></div>
 <div class="bench-flow mt-32"><pre class="mermaid">flowchart LR
 A["Existing frontend"] --> B["Interpreter / VM baseline"]
-A --> C["VIB IR and verifier (planned)"]
+A --> C["VIB VIR lowering and verifier (implemented)"]
 C --> D["Native code generation (planned)"]
 D --> E["Conformance gate"]
 E --> F["Reproducible benchmark suite"]
