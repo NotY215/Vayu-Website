@@ -3288,3 +3288,11 @@ input:focus, textarea:focus, select:focus, .search-input:focus {
 .nav-drawer{max-height:100dvh;overflow-y:auto}
 .nav-drawer-list .nav-drawer-link{min-height:48px}
 .nav-drawer-actions{position:sticky;bottom:0;background:rgba(5,9,18,.96);backdrop-filter:blur(16px)}
+
+
+/* Icon-only navigation refinement */
+.navlinks a svg,.nav-drawer-link .nav-icon svg{width:17px;height:17px;display:block;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.navlinks a[data-nav="github"] svg{fill:currentColor;stroke:currentColor}
+.navlinks a[hidden],.navlinks a[aria-current="page"]{display:none!important}
+@media(min-width:761px){.nav-hamburger{display:none!important}.navlinks{display:flex!important}}
+@media(max-width:760px){.nav-hamburger{display:none!important}.navlinks{display:flex!important;flex:1;min-width:0}.nav-actions{margin-left:auto}}
