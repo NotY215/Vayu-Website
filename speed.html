@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#07111f">
 <meta name="description" content="Vayu benchmark methodology and evidence status. VIB currently executes its verified VIR subset through the VIR interpreter; native machine-code generation is planned and no unverified speed claims are made.">
-<title>Speed & Benchmarks - Vayu</title><link rel="canonical" href="https://vayu.gt.tc/speed/"><link rel="icon" type="image/png" href="/Vayu_Fav.png">
+<title>Speed & Language Comparison - Vayu</title><link rel="canonical" href="https://vayu.gt.tc/speed/"><link rel="icon" type="image/png" href="/Vayu_Fav.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"><link rel="stylesheet" href="/css/main.css">
 <style>.bench-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.bench-flow{padding:22px;border:1px solid var(--line);border-radius:18px;background:rgba(2,8,18,.7);overflow:auto}@media(max-width:850px){.bench-grid{grid-template-columns:1fr}}</style>
 </head><body data-vayu-defer data-page="speed">
@@ -30,6 +30,35 @@ class A,B current
 class C,D planned
 class E,F gate</pre></div>
 <div class="callout reveal mt-32"><h2>Current status</h2><p class="muted">Phases 0 through 9 are marked complete in the current core roadmap. Phase 10 is working on built-ins and additional language coverage. Native benchmark claims come only after a working native target passes its correctness gate.</p><a class="btn primary" href="/roadmap/">View Roadmap</a> <a class="btn ghost" href="/VIB/">Explore VIB</a></div>
-</div></section></main>
+</div></section>
+  <section class="page-hero">
+    <div class="container">
+      <span class="kicker">Design position</span>
+      <h1>How Vayu compares.</h1>
+      <p class="lead">Vayu combines Python-inspired readability and static typing with an existing interpreter and bytecode VM, plus an actively expanding VIB/VIR execution path. Native machine-code generation remains future work.</p>
+      <div class="page-phase"><span class="dot"></span><span data-phase-badge>PHASE 00 · ACTIVE</span></div>
+    </div>
+  </section>
+
+  <section class="pt-20">
+    <div class="container">
+      <div class="compare reveal">
+        <table>
+          <thead><tr><th>Area</th><th>Python</th><th>C++</th><th>Java / C#</th><th>Vayu</th></tr></thead>
+          <tbody>
+            <tr><td>Readable syntax</td><td>Excellent</td><td>Complex</td><td>Moderate</td><td class="vayu">Python-inspired</td></tr>
+            <tr><td>Current execution routes</td><td>Interpreter / runtime</td><td>Native toolchain</td><td>JIT / VM</td><td class="vayu">Tree interpreter and bytecode VM</td></tr>
+            <tr><td>Type system</td><td>Dynamic + hints</td><td>Static</td><td>Static</td><td class="vayu">Static + inference</td></tr>
+            <tr><td>Object-oriented</td><td>Yes</td><td>Yes</td><td>Yes</td><td class="vayu">Interpreter/VM surface; VIB support pending</td></tr>
+            <tr><td>Functional features</td><td>Yes</td><td>Yes</td><td>Yes</td><td class="vayu">Interpreter/VM surface; VIB support pending</td></tr>
+            <tr><td>Low-level direction</td><td>Limited</td><td>Excellent</td><td>Moderate</td><td class="vayu">Core goal</td></tr>
+            <tr><td>Native compiler status</td><td>Different implementation</td><td>Established toolchains</td><td>Established runtimes</td><td class="vayu">VIR lowering, verification and interpreter execution; native code generation planned</td></tr>
+            <tr><td>Current Vayu native targets</td><td>-</td><td>-</td><td>-</td><td class="vayu">Not currently available</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
 <div id="slot-footer"></div><div id="slot-modal-examples"></div><div id="slot-modal-github"></div><div id="vayu-loading" aria-hidden="true"><div class="vayu-loader"><div class="vayu-loader-ring"></div><div class="vayu-loader-text">Loading Vayu...</div></div></div>
 <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script><script>mermaid.initialize({startOnLoad:true,theme:'dark',flowchart:{curve:'basis',htmlLabels:true},themeVariables:{primaryColor:'#15243b',primaryTextColor:'#e9f7ff',primaryBorderColor:'#55d9ff',lineColor:'#55d9ff',secondaryColor:'#211b3d',tertiaryColor:'#16352b',fontFamily:'DM Sans, system-ui, sans-serif'}});</script><script src="/js/layout.js"></script></body></html>
