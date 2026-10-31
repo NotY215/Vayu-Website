@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#07111f">
 <meta name="description" content="Vayu syntax reference covering implemented language constructs, operators, control flow, functions, collections and the interpreter/VM language surface and the separately feature-gated VIB/VIR subset.">
-<title>Syntax - Vayu</title>
+<title>Syntax & Language Features - Vayu</title>
 <link rel="canonical" href="https://vayu.gt.tc/syntax/" />
 <link rel="icon" type="image/png" href="/Vayu_Fav.png">
 <link rel="apple-touch-icon" type="image/png" href="/Vayu_Fav.png">
@@ -834,6 +834,24 @@ unsafe    ::= "unsafe" block</pre>
         <button class="btn ghost ripple-btn" id="openExamples2" type="button">▤ Examples</button>
       </div>
 
+    </div>
+  </section>
+
+  
+
+  <section class="pt-20">
+    <div class="container">
+      <div class="grid features">
+        <article class="card reveal"><div class="icon">λ</div><h3>Functions & lambdas</h3><p>Functions, direct calls, parameters, recursion, return values and conversions are supported in VIB; lambdas, closures and generators remain pending there.</p></article>
+        <article class="card reveal"><div class="icon">◇</div><h3>Collections</h3><p>VIB supports list, map, tuple and set literals, indexing and len() in its documented subset; advanced collection behavior varies by execution route.</p></article>
+        <article class="card reveal"><div class="icon">◎</div><h3>Types & ownership</h3><p>Static analysis and type checks are part of the frontend. Advanced ownership, pointer and generic constructs should be checked against the selected execution route.</p></article>
+        <article class="card reveal"><div class="icon">▣</div><h3>OOP</h3><p>Structs, classes, constructors, methods, inheritance, overriding, static members and visibility.</p></article>
+        <article class="card reveal"><div class="icon">!</div><h3>Runtime & standard library</h3><p>Exceptions, modules, filesystem, time, JSON, regex, threading, networking, crypto, random, OS and math.</p></article>
+        <article class="card reveal"><div class="icon">↗</div><h3>Native interoperability</h3><p>C FFI, function pointers, external libraries, malloc/free and supported struct-by-value FFI.</p></article>
+        <article class="card reveal"><div class="icon">⌘</div><h3>Python bridge</h3><p>Native CPython loading with import, attribute, call, eval, exec, list, dict and reference-management APIs.</p></article>
+        <article class="card reveal"><div class="icon">⚙</div><h3>VIB compiler architecture</h3><p>VIB is the in-repository Integrator system. VIR lowering, verification and execution, .vye packaging, opt-in dispatch and artifact caching are implemented for a growing subset. Native machine-code generation remains planned.</p></article>
+      </div>
+      <div class="callout reveal mt-32"><h2>Full implementation reference</h2><p class="muted">The Wiki page tracks the current codebase in more detail than this overview.</p><a class="btn primary ripple-btn" href="/docs/">Read the Wiki</a></div>
     </div>
   </section>
 </main>
