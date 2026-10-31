@@ -566,11 +566,18 @@
     if(isBareGamePage(currentPage())) return;
     let page = currentPage();
     if(page === 'flappybird') page = 'games';
-    document.querySelectorAll('.nav-drawer-link[data-nav], .navlinks a[data-nav]').forEach(a => {
-      if(a.dataset.nav === page){
-        a.classList.add('active');
-        a.setAttribute('aria-current', 'page');
-      }
+    document.querySelectorAll('.navlinks a[data-nav]').forEach(a => {
+      const active = a.dataset.nav === page;
+      a.hidden = active;
+      a.classList.toggle('active', active);
+      if(active) a.setAttribute('aria-current', 'page');
+      else a.removeAttribute('aria-current');
+    });
+    document.querySelectorAll('.nav-drawer-link[data-nav]').forEach(a => {
+      const active = a.dataset.nav === page;
+      a.classList.toggle('active', active);
+      if(active) a.setAttribute('aria-current', 'page');
+      else a.removeAttribute('aria-current');
     });
   }
 
