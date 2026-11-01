@@ -8,8 +8,7 @@
 (function(){
   'use strict';
 
-  /* Full page order — add new pages here and they instantly
-     get scroll-to-navigate behaviour. Match the exact URL casing. */
+  /* Canonical page order. Removed pages are merged into their destination pages. */
   const PAGE_ORDER = [
     '/',
     '/about',
@@ -39,8 +38,11 @@
 
   function currentIndex(){
     const cur = normalizePath(location.pathname);
+    const aliases = {'/features':'/syntax','/feature':'/syntax','/compare':'/speed','/comparison':'/speed','/developer':'/github','/games':'/'};
+    const canonical = aliases[cur.toLowerCase()] || cur;
+    
     for(let i = 0; i < PAGE_ORDER.length; i++){
-      if(PAGE_ORDER[i] === cur) return i;
+      if(PAGE_ORDER[i].toLowerCase() === canonical.toLowerCase()) return i;
     }
     // Fallback: compare last path segment, case-insensitive
     const base = (cur.split('/').pop() || '').toLowerCase();
@@ -51,11 +53,10 @@
     return -1;
   }
 
+  const PAGE_LABELS = ['Home','About','Syntax & Features','Wiki','Speed & Comparison','VIB','GitHub & Developer','FAQ','Roadmap','Release'];
+
   function pageLabel(idx){
-    if(idx < 0 || idx >= PAGE_ORDER.length) return '';
-    const p = PAGE_ORDER[idx];
-    if(p === '/') return 'Home';
-    return p.slice(1);
+    return PAGE_LABELS[idx] || '';
   }
 
   function isBareGamePage(){
