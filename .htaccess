@@ -6,9 +6,12 @@
     AddType application/javascript .js
 </IfModule>
 <IfModule mod_headers.c>
-    <Files "layout.js">
+    <FilesMatch "(^layout\.js$|^page-transition\.js$)">
         Header set Cache-Control "no-cache, no-store, must-revalidate"
-    </Files>
+    </FilesMatch>
+    <FilesMatch "\.(js|css)$">
+        Header set Cache-Control "no-cache, must-revalidate"
+    </FilesMatch>
     <Files "release.html">
         Header set Cache-Control "no-cache, no-store, must-revalidate"
     </Files>
@@ -18,8 +21,7 @@
 </IfModule>
 RewriteEngine On
 RewriteRule ^(.+)/sitemap\.xml/?$ /sitemap.xml [NC,L]
-RewriteCond %{THE_REQUEST} \s/+release\.html(?:[\s?]|$) [NC]
-RewriteRule ^release\.html$ /release [R=301,L,NC]
+RewriteRule ^release\.html/?$ /release [R=301,L,NC]
 RewriteRule ^(features|feature)/?$ /syntax/ [R=301,L,NC]
 RewriteRule ^(compare|comparison)/?$ /speed/ [R=301,L,NC]
 RewriteRule ^developer/?$ /github/ [R=301,L,NC]
