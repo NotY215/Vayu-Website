@@ -18,7 +18,9 @@
     github:'<img class="nav-brand-icon nav-github-icon" src="https://cdn.simpleicons.org/github/FFFFFF" alt="" width="16" height="16">',
     faq:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/circle-help.svg?color=%23c5d9eb" alt="" width="16" height="16">',
     roadmap:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/map.svg?color=%23c5d9eb" alt="" width="16" height="16">',
-    release:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/package.svg?color=%23c5d9eb" alt="" width="16" height="16">'
+    release:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/package.svg?color=%23c5d9eb" alt="" width="16" height="16">',
+    features:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/code-xml.svg?color=%23c5d9eb" alt="" width="16" height="16">',
+    github:'<img class="nav-brand-icon nav-github-icon" src="https://cdn.simpleicons.org/github/FFFFFF" alt="" width="14" height="14">'
   };
   const NAV_LINKS = [
     { href: '/about/', nav: 'about', label: 'About', icon: ICONS.about },
@@ -63,9 +65,9 @@
       .nav-symbol-icon,.nav-brand-icon{display:block;object-fit:contain;width:16px;height:16px}.nav-github-icon{width:13px;height:13px}
       .drawer-link-content{display:flex;align-items:center;gap:12px}
       .nav-drawer-link .nav-icon img{width:18px;height:18px;object-fit:contain;vertical-align:middle}
-      @media(min-width:901px){.navlinks{display:flex!important}.nav-hamburger{display:none!important}.nav-inner{justify-content:space-between}}
-      @media(max-width:900px){.nav-hamburger{display:flex!important}.navlinks{display:none!important}.nav-inner{gap:10px}.nav-actions{display:flex;gap:6px;margin-left:auto}.nav-actions .nav-patreon{display:none}.nav-download{padding:8px 10px;font-size:.78rem}}
-      @media(max-width:520px){.brand span{display:none}.brand img{width:32px;height:32px}.nav-download{padding:8px 9px;font-size:.72rem}}
+      @media(min-width:701px){.navlinks{display:flex!important}.nav-hamburger{display:none!important}.nav-inner{justify-content:space-between}}
+      @media(max-width:700px){.nav-hamburger{display:flex!important}.navlinks{display:none!important}.nav-inner{gap:10px}.nav-actions{display:flex;gap:6px;margin-left:auto}.nav-actions .nav-patreon{display:none}.nav-download{padding:8px 10px;font-size:.78rem}}
+      @media(max-width:520px){.brand span{display:inline}.brand img{width:32px;height:32px}.nav-download{padding:8px 9px;font-size:.72rem}}
       
     </style>
   `;
@@ -567,7 +569,7 @@
     if(page === 'flappybird') page = 'games';
     document.querySelectorAll('.navlinks a[data-nav]').forEach(a => {
       const active = a.dataset.nav === page;
-      a.hidden = false;
+      a.hidden = active;
       a.classList.toggle('active', active);
       if(active) a.setAttribute('aria-current', 'page');
       else a.removeAttribute('aria-current');
