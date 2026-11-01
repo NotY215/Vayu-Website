@@ -1,7 +1,7 @@
 /* ============================================================
-   Vayu Layout - top navigation, left hamburger drawer, footer, modals.
-   - Top nav: About, Features, GitHub, Developer.
-   - Left hamburger drawer: remaining site sections + actions.
+   Vayu Layout - shared responsive navigation, footer and modals.
+   - Desktop: compact icon navigation.
+   - Mobile: labelled hamburger drawer.
    - On Flappybird.html: no chrome at all.
    - Roadmap statuses: completed | working | soon | vacation
    - Page transitions run on every section.
@@ -18,9 +18,7 @@
     github:'<img class="nav-brand-icon nav-github-icon" src="https://cdn.simpleicons.org/github/FFFFFF" alt="" width="16" height="16">',
     faq:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/circle-help.svg?color=%23c5d9eb" alt="" width="16" height="16">',
     roadmap:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/map.svg?color=%23c5d9eb" alt="" width="16" height="16">',
-    release:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/package.svg?color=%23c5d9eb" alt="" width="16" height="16">',
-    features:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/code-xml.svg?color=%23c5d9eb" alt="" width="16" height="16">',
-    github:'<img class="nav-brand-icon nav-github-icon" src="https://cdn.simpleicons.org/github/FFFFFF" alt="" width="14" height="14">'
+    release:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/package.svg?color=%23c5d9eb" alt="" width="16" height="16">'
   };
   const NAV_LINKS = [
     { href: '/about/', nav: 'about', label: 'About', icon: ICONS.about },
@@ -566,7 +564,10 @@
   function setActiveNav(){
     if(isBareGamePage(currentPage())) return;
     let page = currentPage();
-    if(page === 'flappybird') page = 'games';
+    if(page === 'features' || page === 'feature') page = 'syntax';
+    if(page === 'compare' || page === 'comparison') page = 'speed';
+    if(page === 'developer') page = 'github';
+    if(page === 'games') page = 'home';
     document.querySelectorAll('.navlinks a[data-nav]').forEach(a => {
       const active = a.dataset.nav === page;
       a.hidden = active;
@@ -761,11 +762,10 @@
 
       if(page === 'roadmap') syncRoadmapTimeline();
 
-      if(page === 'games' || page === 'flappybird'){
+      if(page === 'flappybird'){
         await loadScript('/js/game-token.js');
+        await loadScript('/js/flappybird.js');
       }
-      if(page === 'games')      await loadScript('/js/games.js');
-      if(page === 'flappybird') await loadScript('/js/flappybird.js');
 
       applyPhaseBindings();
 
