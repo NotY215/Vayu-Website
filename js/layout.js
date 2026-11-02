@@ -65,8 +65,20 @@
       .nav-symbol-icon,.nav-brand-icon{display:block;object-fit:contain;width:16px;height:16px}.nav-github-icon{width:13px;height:13px}
       .drawer-link-content{display:flex;align-items:center;gap:12px}
       .nav-drawer-link .nav-icon img{width:18px;height:18px;object-fit:contain;vertical-align:middle}
-      @media(min-width:701px){.navlinks{display:flex!important}.nav-hamburger{display:none!important}.nav-inner{justify-content:space-between}}
-      @media(max-width:700px){.nav-hamburger{display:flex!important}.navlinks{display:none!important}.nav-inner{gap:10px}.nav-actions{display:flex;gap:6px;margin-left:auto}.nav-actions .nav-patreon{display:none}.nav-download{padding:8px 10px;font-size:.78rem}}
+      /* Desktop/PC: icon-only full navigation. Touch/mobile: labelled hamburger drawer. */
+      @media (hover:hover) and (pointer:fine) and (min-width:701px){
+        .navlinks{display:flex!important}
+        .nav-hamburger{display:none!important}
+        .nav-inner{justify-content:space-between}
+      }
+      @media (hover:none), (pointer:coarse), (max-width:700px){
+        .nav-hamburger{display:flex!important}
+        .navlinks{display:none!important}
+        .nav-inner{gap:10px}
+        .nav-actions{display:flex;gap:6px;margin-left:auto}
+        .nav-actions .nav-patreon{display:none}
+        .nav-download{padding:8px 10px;font-size:.78rem}
+      }
       @media(max-width:520px){.brand span{display:inline}.brand img{width:32px;height:32px}.nav-download{padding:8px 9px;font-size:.72rem}}
       
     </style>
@@ -80,7 +92,7 @@
         <button class="nav-drawer-close" type="button" aria-label="Close menu" data-drawer-close>✕</button>
       </div>
       <div class="nav-drawer-list">
-        ${NAV_LINKS.map(l => '<a class="nav-drawer-link" href="' + l.href + '" data-nav="' + l.nav + '">' +
+        ${[{ href: '/', nav: 'home', label: 'Home', icon: '<img src="/Vayu_logo.png" alt="" width="18" height="18">' }, ...NAV_LINKS].map(l => '<a class="nav-drawer-link" href="' + l.href + '" data-nav="' + l.nav + '">' +
           '<span class="drawer-link-content"><span class="nav-icon" aria-hidden="true">' + l.icon + '</span><span>' + l.label + '</span></span>' +
           '<span class="nav-drawer-link-arrow">›</span></a>').join('')}
       </div>
