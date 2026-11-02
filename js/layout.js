@@ -18,7 +18,8 @@
     github:'<img class="nav-brand-icon nav-github-icon" src="https://cdn.simpleicons.org/github/FFFFFF" alt="" width="16" height="16">',
     faq:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/circle-help.svg?color=%23c5d9eb" alt="" width="16" height="16">',
     roadmap:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/map.svg?color=%23c5d9eb" alt="" width="16" height="16">',
-    release:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/package.svg?color=%23c5d9eb" alt="" width="16" height="16">'
+    release:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/package.svg?color=%23c5d9eb" alt="" width="16" height="16">',
+    donate:'<img class="nav-symbol-icon" src="https://api.iconify.design/lucide/heart-handshake.svg?color=%23c5d9eb" alt="" width="16" height="16">'
   };
   const NAV_LINKS = [
     { href: '/about/', nav: 'about', label: 'About', icon: ICONS.about },
@@ -29,7 +30,8 @@
     { href: '/github/', nav: 'github', label: 'GitHub', icon: ICONS.github },
     { href: '/faq/', nav: 'faq', label: 'FAQ', icon: ICONS.faq },
     { href: '/roadmap/', nav: 'roadmap', label: 'Roadmap', icon: ICONS.roadmap },
-    { href: '/release', nav: 'release', label: 'Release', icon: ICONS.release }
+    { href: '/release', nav: 'release', label: 'Release', icon: ICONS.release },
+    { href: '/Donate/', nav: 'donate', label: 'Donate', icon: ICONS.donate }
   ];
 
   const NAV_HTML = `
